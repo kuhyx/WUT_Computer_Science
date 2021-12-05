@@ -1,6 +1,9 @@
 #ifndef GOOD_CPP
 #define GOOD_CPP
+#include "employee.hpp"
+#include "equipment.hpp"
 #include "good.hpp"
+#include "warehouse.hpp"
 
 #ifndef DIMENSION
 #define DIMENSION 3

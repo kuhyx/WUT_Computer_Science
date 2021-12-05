@@ -1,8 +1,12 @@
 #include <iostream>
-#include "employee.cpp"
+#include "employee.hpp"
 #include "equipment.hpp"
 #include "good.hpp"
 #include "warehouse.hpp"
+#include "employee.cpp"
+#include "equipment.cpp"
+#include "good.cpp"
+#include "warehouse.cpp"
 #include <vector>
 #include <iostream>
 

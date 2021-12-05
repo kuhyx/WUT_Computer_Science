@@ -1,1 +1,2 @@
-Once I figure out how I made it work I will make it work
+To compile it just write:
+g++ main.cpp

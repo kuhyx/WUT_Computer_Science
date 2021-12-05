@@ -19,6 +19,8 @@
 
 #include "employee.hpp"
 #include "equipment.hpp"
+#include "good.hpp"
+#include "warehouse.hpp"
 #include <iostream>
 
 Employee::Employee(): equipmentTraining(CERTIFICATES), hazardTraining(HAZARDS),

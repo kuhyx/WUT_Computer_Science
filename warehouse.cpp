@@ -17,6 +17,9 @@
 #define CERTIFICATES 10
 #endif // CERTIFICATES
 
+#include "employee.hpp"
+#include "equipment.hpp"
+#include "good.hpp"
 #include "warehouse.hpp"
 #include <vector>
 #include <iostream>
