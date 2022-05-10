@@ -69,7 +69,8 @@ Soldiers take physical space - a tile \\
 \subsubsection{Soldiers Communication}
 Soldiers receive global orders from the player but they use their local vision to fulfill those orders. (For example by looking at where their neighbours stand and adjust to that. Used to simulate communication between operating system and processes. \\ 
 In order to communicate something to the whole squad (like killing enemy soldier), the soldier sends communicate to neighbours soldiers which further distribute this info to the whole squad. This is used to simulate processes communicating with each other. \\ 
-Every action of soldier is done every tick, which simulates processor time. \\ 
+Every tick a single (topmost) action from the Soldier's action stack is executed
+\\
 Every soldier has its own "stack" of actions, each tick he does one action from the top of the stack \\
 There are process interrupts send by the player which force the soldier to do something regardless of what he has on stack. 
 
