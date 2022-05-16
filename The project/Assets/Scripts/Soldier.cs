@@ -13,13 +13,28 @@ public class Soldier : MonoBehaviour
     [SerializeField]  private float speedAttack = 1;
     // Start is called before the first frame update
     void Start(){
+        setEnemyTag();
+    }
+
+    public void setOwnTag(string tag)
+    {
+        gameObject.tag = tag;
+    }
+
+    public void setEnemyTag()
+    {
         if(gameObject.tag == "Ally") enemyTag = "Enemy";
         else enemyTag = "Ally";
-        InvokeRepeating("UpdateTarget", 0f, 0.5f); 
-        // Call UpdateTarget method at the begining of the Start() 
-        // and repeat every 0.5 second
-        
     }
+
+    void Awake()
+    {
+        TickSystem.OnTick += HandleTick;
+    }
+    private void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
+	{
+        UpdateTarget();
+	}
 
     void UpdateTarget ()
     {
