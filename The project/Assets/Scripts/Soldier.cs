@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour
 {
+    private enum SoldierType
+    {
+        Ally,
+        Enemy
+    } 
     [SerializeField] private Transform target; 
-    [SerializeField]  private string enemyTag;
+    [SerializeField]  private SoldierType enemyType;
+    [SerializeField]  private SoldierType ourType;
     [SerializeField]  private float healthPoints = 1;
     [SerializeField]  private float rangeAttack = 1;
     [SerializeField]  private float rangeView = 1;
@@ -18,13 +24,13 @@ public class Soldier : MonoBehaviour
 
     public void setOwnTag(string tag)
     {
-        gameObject.tag = tag;
+        ourType = tag;
     }
 
     public void setEnemyTag()
     {
-        if(gameObject.tag == "Ally") enemyTag = "Enemy";
-        else enemyTag = "Ally";
+        if(ourType == "Ally") enemyType = "Enemy";
+        else enemyType = "Ally";
     }
 
     void Awake()
