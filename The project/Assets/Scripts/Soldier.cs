@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour
 {
-    private const string enemyTag = "Enemy";
-    private const float healthPoints = 1;
-    private const float rangeAttack = 1;
-    private const float rangeView = 1;
-    private const float damageAttack = 1;
-    private const float speedAttack = 1;
+    [SerializeField] private Transform target; 
+    [SerializeField]  private string enemyTag;
+    [SerializeField]  private float healthPoints = 1;
+    [SerializeField]  private float rangeAttack = 1;
+    [SerializeField]  private float rangeView = 1;
+    [SerializeField]  private float damageAttack = 1;
+    [SerializeField]  private float speedAttack = 1;
     // Start is called before the first frame update
     void Start(){
+        if(gameObject.tag == "Ally") enemyTag = "Enemy";
+        else enemyTag = "Ally";
         InvokeRepeating("UpdateTarget", 0f, 0.5f); 
         // Call UpdateTarget method at the begining of the Start() 
         // and repeat every 0.5 second
@@ -22,6 +25,7 @@ public class Soldier : MonoBehaviour
     {
         // Enemies are the game objects tagged with the "Enemy"
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        Debug.Log(enemies.Length);
         // We have not found enemy yet so the distance to enemy is "infinite"
         float shortestDistance = Mathf.Infinity; 
         GameObject nearestEnemy = null;
@@ -39,7 +43,7 @@ public class Soldier : MonoBehaviour
 
         if (nearestEnemy != null && shortestDistance <= rangeAttack)
         {
-            target = nearestEnemey.transform;
+            target = nearestEnemy.transform;
         }
     }
 
