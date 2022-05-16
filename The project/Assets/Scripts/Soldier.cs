@@ -13,7 +13,7 @@ public class Soldier : MonoBehaviour
     [SerializeField]  private SoldierType enemyType;
     [SerializeField]  private SoldierType ourType;
     [SerializeField]  private float healthPoints = 1;
-    [SerializeField]  private float rangeAttack = 1;
+    [SerializeField]  private float rangeAttack = 100;
     [SerializeField]  private float rangeView = 1;
     [SerializeField]  private float damageAttack = 1;
     [SerializeField]  private float speedAttack = 1;
@@ -45,7 +45,19 @@ public class Soldier : MonoBehaviour
     void UpdateTarget ()
     {
         // Enemies are the game objects tagged with the "Enemy"
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyType);
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyType);
+        Soldier[] soldiers = GameObject.FindObjectsOfType<Soldier>();
+
+        List<GameObject> enemiesList = new List<GameObject>();
+
+        foreach (Soldier obj in soldiers)
+        {
+            if (obj.ourType == enemyType)
+                enemiesList.Add(obj.gameObject);
+        }
+
+        GameObject[] enemies = enemiesList.ToArray();
+
         Debug.Log(enemies.Length);
         // We have not found enemy yet so the distance to enemy is "infinite"
         float shortestDistance = Mathf.Infinity; 
