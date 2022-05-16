@@ -14,7 +14,7 @@ public class TilemapManager : MonoBehaviour
 
     public struct Tile
     {
-        public DummySoldier standingSoldier;
+        public Soldier standingSoldier;
     }
 
     [Header("Common Values")]
@@ -49,8 +49,8 @@ public class TilemapManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnSoldier(soldierStartingPosition.x, soldierStartingPosition.y);
-        SpawnSoldier(enemyStartingPosition.x, enemyStartingPosition.y);
+        SpawnSoldier(soldierStartingPosition.x, soldierStartingPosition.y, true);
+        SpawnSoldier(enemyStartingPosition.x, enemyStartingPosition.y, false);
     }
 
     private void OnValidate()
@@ -76,12 +76,12 @@ public class TilemapManager : MonoBehaviour
 
     // ---------- public functions
 
-    public bool SpawnSoldier(int x, int y)
+    public bool SpawnSoldier(int x, int y, bool isAlly)
     {
         if (GetTileState(x, y) != TileState.free)
             return false;
 
-        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)), Quaternion.identity).GetComponent<DummySoldier>();
+        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)), Quaternion.identity).GetComponent<Soldier>();
 
         if (tiles[x, y].standingSoldier != null)
             return true;
@@ -101,7 +101,7 @@ public class TilemapManager : MonoBehaviour
         return true;
     }
 
-    public DummySoldier GetSoldier(int x, int y)
+    public Soldier GetSoldier(int x, int y)
     {
         if (GetTileState(x, y) != TileState.taken)
             return null;
