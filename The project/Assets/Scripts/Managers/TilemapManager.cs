@@ -83,6 +83,11 @@ public class TilemapManager : MonoBehaviour
 
         tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)), Quaternion.identity).GetComponent<Soldier>();
 
+        if (isAlly)
+            tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
+        else
+            tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Enemy);
+
         if (tiles[x, y].standingSoldier != null)
             return true;
 
@@ -107,6 +112,19 @@ public class TilemapManager : MonoBehaviour
             return null;
 
         return tiles[x,y].standingSoldier;
+    }
+
+    public Soldier[] GetAllSoldiers()
+    {
+        List<Soldier> list = new List<Soldier>();
+
+        foreach (Tile obj in tiles)
+        {
+            if (obj.standingSoldier != null)
+                list.Add(obj.standingSoldier);
+        }
+
+        return list.ToArray();
     }
 
     public bool MoveSoldier(int x1, int y1, int x2, int y2)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour
 {
-    private enum SoldierType
+    public enum SoldierType
     {
         Ally,
         Enemy
@@ -22,15 +22,15 @@ public class Soldier : MonoBehaviour
         setEnemyTag();
     }
 
-    public void setOwnTag(string tag)
+    public void setOwnTag(SoldierType type)
     {
-        ourType = tag;
+        ourType = type;
     }
 
     public void setEnemyTag()
     {
-        if(ourType == "Ally") enemyType = "Enemy";
-        else enemyType = "Ally";
+        if(ourType == SoldierType.Ally) enemyType = SoldierType.Enemy;
+        else enemyType = SoldierType.Ally;
     }
 
     void Awake()
@@ -45,7 +45,7 @@ public class Soldier : MonoBehaviour
     void UpdateTarget ()
     {
         // Enemies are the game objects tagged with the "Enemy"
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyType);
         Debug.Log(enemies.Length);
         // We have not found enemy yet so the distance to enemy is "infinite"
         float shortestDistance = Mathf.Infinity; 
