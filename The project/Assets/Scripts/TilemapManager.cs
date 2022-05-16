@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TilemapManager : MonoBehaviour
 {
-    private enum TileState
+    public enum TileState
     {
         free,
         taken,
@@ -136,4 +136,22 @@ public class TilemapManager : MonoBehaviour
 
         return TileState.taken;
     }
+
+    public TileState GetTileFromWorldCoords(Vector3 worldCoords, out Tile selectedTile, out int x, out int y)
+	{
+        Vector3Int tilemapCoords = tilemap.WorldToCell(worldCoords);
+        TileState tileState = GetTileState(tilemapCoords.x, tilemapCoords.y);
+        x = tilemapCoords.x;
+        y = tilemapCoords.y;
+
+        if (tileState == TileState.outOfBounds)
+        {
+            selectedTile = new Tile();
+            return TileState.outOfBounds;
+        }
+        // valid tile selected
+        selectedTile = tiles[tilemapCoords.x, tilemapCoords.y];
+        return tileState;
+        
+	}
 }
