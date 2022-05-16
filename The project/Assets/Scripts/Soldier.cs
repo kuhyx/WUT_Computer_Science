@@ -12,7 +12,7 @@ public class Soldier : MonoBehaviour
     private const float speedAttack = 1;
     // Start is called before the first frame update
     void Start(){
-        InvokeRepeating("UpdateTarget", 0f, 0.5f); 
+        //InvokeRepeating("UpdateTarget", 0f, 0.5f); 
         // Call UpdateTarget method at the begining of the Start() 
         // and repeat every 0.5 second
         
@@ -39,14 +39,14 @@ public class Soldier : MonoBehaviour
 
         if (nearestEnemy != null && shortestDistance <= rangeAttack)
         {
-            target = nearestEnemey.transform;
+            //COMMENTED OUT-PICK REJECT THIS CONFLICT IF IT EVER HAPPENStarget = nearestEnemey.transform;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (target == null) return; 
+     //COMMENTED OUT-PICK REJECT THIS CONFLICT IF IT EVER HAPPENS  if (target == null) return; 
     }
 
     /* https://www.youtube.com/watch?v=QKhn2kl9_8I 08:54 Soldier attack
