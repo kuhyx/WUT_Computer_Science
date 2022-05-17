@@ -14,7 +14,7 @@ public class TilemapManager : MonoBehaviour
 
     public struct Tile
     {
-        public DummySoldier standingSoldier;
+        public Soldier standingSoldier;
     }
 
     [Header("Common Values")]
@@ -50,8 +50,8 @@ public class TilemapManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnSoldier(soldierStartingPosition.x, soldierStartingPosition.y);
-        SpawnSoldier(enemyStartingPosition.x, enemyStartingPosition.y);
+        SpawnSoldier(soldierStartingPosition.x, soldierStartingPosition.y, true);
+        SpawnSoldier(enemyStartingPosition.x, enemyStartingPosition.y, false);
     }
 
     private void OnValidate()
@@ -77,12 +77,17 @@ public class TilemapManager : MonoBehaviour
 
     // ---------- public functions
 
-    public bool SpawnSoldier(int x, int y)
+    public bool SpawnSoldier(int x, int y, bool isAlly)
     {
         if (GetTileState(x, y) != TileState.free)
             return false;
 
         tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<DummySoldier>();
+
+        if (isAlly)
+            tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
+        else
+            tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Enemy);
 
         if (tiles[x, y].standingSoldier != null)
             return true;
@@ -102,12 +107,25 @@ public class TilemapManager : MonoBehaviour
         return true;
     }
 
-    public DummySoldier GetSoldier(int x, int y)
+    public Soldier GetSoldier(int x, int y)
     {
         if (GetTileState(x, y) != TileState.taken)
             return null;
 
         return tiles[x,y].standingSoldier;
+    }
+
+    public Soldier[] GetAllSoldiers()
+    {
+        List<Soldier> list = new List<Soldier>();
+
+        foreach (Tile obj in tiles)
+        {
+            if (obj.standingSoldier != null)
+                list.Add(obj.standingSoldier);
+        }
+
+        return list.ToArray();
     }
 
     public bool MoveSoldier(int x1, int y1, int x2, int y2)

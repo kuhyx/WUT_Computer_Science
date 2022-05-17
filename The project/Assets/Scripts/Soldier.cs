@@ -4,27 +4,60 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour
 {
+    public enum SoldierType
+    {
+        Ally,
+        Enemy
+    } 
     [SerializeField] private Transform target; 
-    [SerializeField]  private string enemyTag;
+    [SerializeField]  private SoldierType enemyType;
+    [SerializeField]  private SoldierType ourType;
     [SerializeField]  private float healthPoints = 1;
-    [SerializeField]  private float rangeAttack = 1;
+    [SerializeField]  private float rangeAttack = 100;
     [SerializeField]  private float rangeView = 1;
     [SerializeField]  private float damageAttack = 1;
     [SerializeField]  private float speedAttack = 1;
     // Start is called before the first frame update
     void Start(){
-        if(gameObject.tag == "Ally") enemyTag = "Enemy";
-        else enemyTag = "Ally";
-        InvokeRepeating("UpdateTarget", 0f, 0.5f); 
-        // Call UpdateTarget method at the begining of the Start() 
-        // and repeat every 0.5 second
-        
+        setEnemyTag();
     }
+
+    public void setOwnTag(SoldierType type)
+    {
+        ourType = type;
+    }
+
+    public void setEnemyTag()
+    {
+        if(ourType == SoldierType.Ally) enemyType = SoldierType.Enemy;
+        else enemyType = SoldierType.Ally;
+    }
+
+    void Awake()
+    {
+        TickSystem.OnTick += HandleTick;
+    }
+    private void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
+	{
+        UpdateTarget();
+	}
 
     void UpdateTarget ()
     {
         // Enemies are the game objects tagged with the "Enemy"
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyType);
+        Soldier[] soldiers = GameObject.FindObjectsOfType<Soldier>();
+
+        List<GameObject> enemiesList = new List<GameObject>();
+
+        foreach (Soldier obj in soldiers)
+        {
+            if (obj.ourType == enemyType)
+                enemiesList.Add(obj.gameObject);
+        }
+
+        GameObject[] enemies = enemiesList.ToArray();
+
         Debug.Log(enemies.Length);
         // We have not found enemy yet so the distance to enemy is "infinite"
         float shortestDistance = Mathf.Infinity; 
