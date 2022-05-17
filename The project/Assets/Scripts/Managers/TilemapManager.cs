@@ -82,7 +82,7 @@ public class TilemapManager : MonoBehaviour
         if (GetTileState(x, y) != TileState.free)
             return false;
 
-        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<DummySoldier>();
+        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
         if (isAlly)
             tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
