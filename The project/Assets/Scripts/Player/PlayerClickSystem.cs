@@ -24,11 +24,12 @@ public class PlayerClickSystem : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                Transform objectHit = hit.transform;
+                Vector3 hitWorldPosition = hit.point;
 
+                Debug.Log($"Hit at {hitWorldPosition}");
                 TilemapManager.Tile selectedTile;
                 int x, y;
-                TilemapManager.TileState tileState = tilemapManager.GetTileFromWorldCoords(objectHit.position, out selectedTile, out x, out y);
+                TilemapManager.TileState tileState = tilemapManager.GetTileFromWorldCoords(hitWorldPosition, out selectedTile, out x, out y);
                 
                 if(tileState == TilemapManager.TileState.outOfBounds)
 				{

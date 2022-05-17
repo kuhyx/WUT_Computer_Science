@@ -20,6 +20,7 @@ public class TilemapManager : MonoBehaviour
     [Header("Common Values")]
 
     [SerializeField] private Vector2Int mapSize = new Vector2Int(5,5);
+    [SerializeField] private Vector3 WORLD_SPACE_OFFSET = new Vector3(0.5f, 1f, 0.5f);
 
     [Header("Soldiers values")]
 
@@ -81,7 +82,7 @@ public class TilemapManager : MonoBehaviour
         if (GetTileState(x, y) != TileState.free)
             return false;
 
-        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)), Quaternion.identity).GetComponent<DummySoldier>();
+        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<DummySoldier>();
 
         if (tiles[x, y].standingSoldier != null)
             return true;
