@@ -24,11 +24,11 @@ public class TilemapManager : MonoBehaviour
 
     [Header("Soldiers values")]
 
-    [SerializeField] private Vector2Int soldierStartingPosition = Vector2Int.zero;
+    [SerializeField] private Vector2Int[] soldierStartingPositions = null;
 
     [Header("Enemies values")]
 
-    [SerializeField] private Vector2Int enemyStartingPosition = Vector2Int.zero;
+    [SerializeField] private Vector2Int[] enemyStartingPositions = null;
 
     [Header("References")]
 
@@ -50,29 +50,37 @@ public class TilemapManager : MonoBehaviour
 
     private void Start()
     {
-        SpawnSoldier(soldierStartingPosition.x, soldierStartingPosition.y, true);
-        SpawnSoldier(enemyStartingPosition.x, enemyStartingPosition.y, false);
+        foreach (Vector2Int vec in soldierStartingPositions)
+            SpawnSoldier(vec.x, vec.y, true);
+        foreach (Vector2Int vec in enemyStartingPositions)
+            SpawnSoldier(vec.x, vec.y, false);
     }
 
     private void OnValidate()
     {
-        if (soldierStartingPosition.x < 0)
-            soldierStartingPosition.x = 0;
-        if (soldierStartingPosition.y < 0)
-            soldierStartingPosition.y = 0;
-        if (soldierStartingPosition.x >= mapSize.x)
-            soldierStartingPosition.x = mapSize.x - 1;
-        if (soldierStartingPosition.y >= mapSize.y)
-            soldierStartingPosition.y = mapSize.y - 1;
+        for (int i=0; i< soldierStartingPositions.Length; i++)
+        {
+            if (soldierStartingPositions[i].x < 0)
+                soldierStartingPositions[i].x = 0;
+            if (soldierStartingPositions[i].y < 0)
+                soldierStartingPositions[i].y = 0;
+            if (soldierStartingPositions[i].x >= mapSize.x)
+                soldierStartingPositions[i].x = mapSize.x - 1;
+            if (soldierStartingPositions[i].y >= mapSize.y)
+                soldierStartingPositions[i].y = mapSize.y - 1;
+        }
 
-        if (enemyStartingPosition.x < 0)
-            enemyStartingPosition.x = 0;
-        if (enemyStartingPosition.y < 0)
-            enemyStartingPosition.y = 0;
-        if (enemyStartingPosition.x >= mapSize.x)
-            enemyStartingPosition.x = mapSize.x - 1;
-        if (enemyStartingPosition.y >= mapSize.y)
-            enemyStartingPosition.y = mapSize.y - 1;
+        for (int i = 0; i < enemyStartingPositions.Length; i++)
+        {
+            if (enemyStartingPositions[i].x < 0)
+                enemyStartingPositions[i].x = 0;
+            if (enemyStartingPositions[i].y < 0)
+                enemyStartingPositions[i].y = 0;
+            if (enemyStartingPositions[i].x >= mapSize.x)
+                enemyStartingPositions[i].x = mapSize.x - 1;
+            if (enemyStartingPositions[i].y >= mapSize.y)
+                enemyStartingPositions[i].y = mapSize.y - 1;
+        }
     }
 
     // ---------- public functions
