@@ -13,6 +13,7 @@ public class Soldier : MonoBehaviour
     [SerializeField] private Soldier target; 
     [SerializeField] private SoldierType enemyType;
     [SerializeField] private SoldierType ourType;
+    [SerializeField] private float maxHealthPoints = 10;
     [SerializeField] private float healthPoints = 1;
     [SerializeField] private float rangeAttack = 100;
     [SerializeField] private float rangeView = 1;
@@ -20,8 +21,11 @@ public class Soldier : MonoBehaviour
     [SerializeField] private float speedAttack = 1;
 
     [SerializeField] private TMP_Text nameText = null;
+    [SerializeField] private TMP_Text healthPointsText = null;
     // Start is called before the first frame update
     void Start(){
+        healthPoints = maxHealthPoints; // initialize health
+        UpdateHPDisplay();
         setEnemyTag();
 
         Debug.Log("Soldier: " + ourType.ToString() + " has appeared", gameObject);
@@ -134,6 +138,12 @@ public class Soldier : MonoBehaviour
         if (healthPoints <= 0)
             Destroy(gameObject);
 
+        UpdateHPDisplay();
         Debug.Log("I took damage, oh  my HP is now: " + healthPoints + " noooo!!!!", gameObject);
+    }
+
+    private void UpdateHPDisplay()
+	{
+        healthPointsText.text = healthPoints.ToString() + "/" + maxHealthPoints.ToString();
     }
 }
