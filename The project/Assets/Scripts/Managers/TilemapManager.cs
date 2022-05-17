@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TilemapManager : MonoBehaviour
 {
-    private enum TileState
+    public enum TileState
     {
         free,
         taken,
@@ -20,6 +20,7 @@ public class TilemapManager : MonoBehaviour
     [Header("Common Values")]
 
     [SerializeField] private Vector2Int mapSize = new Vector2Int(5,5);
+    [SerializeField] private Vector3 WORLD_SPACE_OFFSET = new Vector3(0.5f, 1f, 0.5f);
 
     [Header("Soldiers values")]
 
@@ -81,7 +82,7 @@ public class TilemapManager : MonoBehaviour
         if (GetTileState(x, y) != TileState.free)
             return false;
 
-        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)), Quaternion.identity).GetComponent<Soldier>();
+        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
         if (isAlly)
             tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
@@ -154,4 +155,22 @@ public class TilemapManager : MonoBehaviour
 
         return TileState.taken;
     }
+
+    public TileState GetTileFromWorldCoords(Vector3 worldCoords, out Tile selectedTile, out int x, out int y)
+	{
+        Vector3Int tilemapCoords = tilemap.WorldToCell(worldCoords);
+        TileState tileState = GetTileState(tilemapCoords.x, tilemapCoords.y);
+        x = tilemapCoords.x;
+        y = tilemapCoords.y;
+
+        if (tileState == TileState.outOfBounds)
+        {
+            selectedTile = new Tile();
+            return TileState.outOfBounds;
+        }
+        // valid tile selected
+        selectedTile = tiles[tilemapCoords.x, tilemapCoords.y];
+        return tileState;
+        
+	}
 }
