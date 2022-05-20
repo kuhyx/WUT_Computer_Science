@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerClickSystem : MonoBehaviour
 {
-    TilemapManager tilemapManager;
+    [SerializeField] TilemapManager tilemapManager;
 	private void Awake()
 	{
         tilemapManager = FindObjectOfType<TilemapManager>();
@@ -18,6 +18,7 @@ public class PlayerClickSystem : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
 		{
+            Debug.Log("CLICK");
             Camera camera = Camera.main;
             RaycastHit hit;
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
