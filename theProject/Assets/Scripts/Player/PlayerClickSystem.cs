@@ -16,9 +16,9 @@ public class PlayerClickSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0)) // Change to new input system
 		{
-            Debug.Log("CLICK");
+            //Debug.Log("CLICK");
             Camera camera = Camera.main;
             RaycastHit hit;
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
