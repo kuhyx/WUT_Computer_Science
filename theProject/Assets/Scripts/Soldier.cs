@@ -5,6 +5,33 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour
 {
+    private Queue<Action> actions = new Queue<Action>();
+    private Queue<Action> interrupts = new Queue<Action>();
+    #region Action Queue Items
+    abstract class Action // action "template"
+	{
+        public virtual void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs) { } // called by Soldier when action is supposed to be done
+	}
+
+    private class Movement : Action 
+    {
+		public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
+		{//TO DO: CALL PROPER FUNCTION TO MOVE
+            Debug.LogWarning($"(tick: {tickEventArgs.tickNumber}) Trying to teleport to {soldier.movementDestination}");
+            throw new System.NotImplementedException();
+			//tileMap.Teleport(movementDestination)
+		}
+	}
+    private class TryAttack : Action
+    {
+        public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
+        {
+            //Debug.LogWarning($"(tick: {tickEventArgs.tickNumber}) Looking for enemy in range");
+            if(soldier.TryAttackEnemy())
+                soldier.lastAttackTick = tickEventArgs.tickNumber;
+        }
+    }
+    #endregion
     public enum SoldierType
     {
         Ally,
@@ -18,10 +45,13 @@ public class Soldier : MonoBehaviour
     [SerializeField] private float rangeAttack = 100;
     [SerializeField] private float rangeView = 1;
     [SerializeField] private float damageAttack = 1;
-    [SerializeField] private float speedAttack = 1;
+    [SerializeField] private int speedAttack = 1; // ticks between attacks
+    [SerializeField] private int lastAttackTick = -1;
 
     [SerializeField] private TMP_Text nameText = null;
     [SerializeField] private TMP_Text healthPointsText = null;
+
+    private Vector3Int movementDestination = Vector3Int.zero;
 
     public SoldierType TempGetOwnType()
 	{
@@ -78,11 +108,23 @@ public class Soldier : MonoBehaviour
 
     private void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
 	{
-        UpdateTarget();
-        // ADD TICK SYSTEM PREFAB ON SCENE
+        ref Queue<Action> queueToHandle = ref interrupts;
+        if (interrupts.Count < 1) // if no interrupt actions to do, handle regular queue
+            queueToHandle = actions;
+
+        if(queueToHandle.Count > 0)
+            queueToHandle.Dequeue().Execute(this, tickEventArgs);
+        else
+		{
+            if(lastAttackTick + speedAttack <= tickEventArgs.tickNumber)
+			{
+                queueToHandle.Enqueue(new TryAttack());
+                queueToHandle.Dequeue().Execute(this, tickEventArgs);
+            }
+		}
 	}
 
-    void UpdateTarget ()
+    bool TryAttackEnemy () //returns true if an enemy was attacked
     {
         // Enemies are the game objects tagged with the "Enemy"
         //GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyType);
@@ -122,6 +164,8 @@ public class Soldier : MonoBehaviour
 
         if (target != null)
             target.ReduceHP(damageAttack);
+        
+        return target != null;
     }
 
     // Update is called once per frame

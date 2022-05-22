@@ -86,7 +86,7 @@ MonoBehaviour:
   rangeAttack: 3
   rangeView: 1
   damageAttack: 1
-  speedAttack: 1
+  speedAttack: 5
   nameText: {fileID: 6838251604148675782}
   healthPointsText: {fileID: 8012357605284019061}
 --- !u!1 &2026481257847620386
