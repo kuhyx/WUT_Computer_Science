@@ -17,9 +17,8 @@ public class Soldier : MonoBehaviour
     {
 		public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
 		{//TO DO: CALL PROPER FUNCTION TO MOVE
-            Debug.LogWarning($"(tick: {tickEventArgs.tickNumber}) Trying to teleport to {soldier.movementDestination}");
-            throw new System.NotImplementedException();
-			//tileMap.Teleport(movementDestination)
+            throw new System.NotImplementedException($"(tick: {tickEventArgs.tickNumber}) Trying to teleport to {soldier.movementDestination}");
+			//??tileMap.Teleport(movementDestination)
 		}
 	}
     private class TryAttack : Action
@@ -31,8 +30,16 @@ public class Soldier : MonoBehaviour
                 soldier.lastAttackTick = tickEventArgs.tickNumber;
         }
     }
-    #endregion
-    public enum SoldierType
+	#endregion
+
+	#region Handling Incoming Orders (Interrupts) 
+    public void HandleMovementOrder(Vector2Int destination)
+	{
+        movementDestination = destination;
+        interrupts.Enqueue(new Movement()); // force soldier to find path to the new destination
+	}
+	#endregion
+	public enum SoldierType
     {
         Ally,
         Enemy
@@ -51,7 +58,7 @@ public class Soldier : MonoBehaviour
     [SerializeField] private TMP_Text nameText = null;
     [SerializeField] private TMP_Text healthPointsText = null;
 
-    private Vector3Int movementDestination = Vector3Int.zero;
+    [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
 
     public SoldierType TempGetOwnType()
 	{
