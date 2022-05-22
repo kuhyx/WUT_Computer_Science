@@ -15,10 +15,16 @@ public class Squad : MonoBehaviour
 
 	public class MovementOrder : Order // example how to add new types of orders
 	{
-		public int x;
-		public int y;
+		public MovementOrder(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+		public readonly int x;
+		public readonly int y;
 		public override void PassToSoldier(Soldier targetSoldier)
 		{// here we would set soldier's target position for example
+			targetSoldier.HandleMovementOrder(new Vector2Int(x, y));
 			Debug.Log($"Soldier {targetSoldier.name} received movement order towards coordinates {x},{y}");
 		}
 	}
@@ -54,6 +60,6 @@ public class Squad : MonoBehaviour
 	{
 		int targetX = 4;
 		int targetY = 2;
-		orders.Enqueue(new MovementOrder() { x = targetX, y = targetY });
+		orders.Enqueue(new MovementOrder(targetX, targetY));
 	}
 }
