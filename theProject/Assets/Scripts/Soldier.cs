@@ -22,6 +22,12 @@ public class Soldier : MonoBehaviour
 
     [SerializeField] private TMP_Text nameText = null;
     [SerializeField] private TMP_Text healthPointsText = null;
+
+    public SoldierType TempGetOwnType()
+	{
+        return ourType;
+	}
+
     // Start is called before the first frame update
     void Start(){
         healthPoints = maxHealthPoints; // initialize health

@@ -26,6 +26,11 @@ public class Squad : MonoBehaviour
 	[SerializeField] private List<Soldier> soldiers = new List<Soldier>(); // soldiers belonging to the squad
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
 
+	public void TempAddSoldierToSquad(Soldier soldier)
+	{
+		soldiers.Add(soldier);
+	}
+
 	private void Awake()
 	{
 		TickSystem.OnTick += HandleTick;
