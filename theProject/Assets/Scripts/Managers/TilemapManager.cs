@@ -105,17 +105,17 @@ public class TilemapManager : MonoBehaviour
         else
             tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
+        if (tiles[x, y].standingSoldier == null)
+            return false;
+
         if (isAlly)
             tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
         else
             tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Enemy);
 
-        if (tiles[x, y].standingSoldier != null)
-            return true;
-
         tiles[x, y].standingSoldier.SetTileCoords(new Vector2Int(x, y));
 
-        return false;
+        return true;
     }
 
     public bool DespawnSoldier(int x, int y)
