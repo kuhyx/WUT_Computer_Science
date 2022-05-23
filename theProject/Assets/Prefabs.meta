@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 08cb4bdcfd1a3d9198e1d7ccfee220d2
+=======
+guid: 5939f2b8303b5cd46afe044fb9d1709e
+>>>>>>> 98112df (added TickSystem and an example tick receiver)
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
