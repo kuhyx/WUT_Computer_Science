@@ -64,7 +64,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1033819704020761458
 MonoBehaviour:
@@ -78,9 +78,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34caf35d0ce610f8bc87cf815ba1915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  enemyType: 0
-  ourType: 0
   maxHealthPoints: 100
   healthPoints: 100
   rangeAttack: 3
@@ -90,7 +87,13 @@ MonoBehaviour:
   lastAttackTick: -1
   nameText: {fileID: 6838251604148675782}
   healthPointsText: {fileID: 8012357605284019061}
+  target: {fileID: 0}
+  enemyType: 0
+  ourType: 0
   movementDestination: {x: 0, y: 0}
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1997457243244158843
 GameObject:
   m_ObjectHideFlags: 0

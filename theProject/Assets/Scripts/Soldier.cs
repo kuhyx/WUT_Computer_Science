@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Soldier : MonoBehaviour
+public class Soldier : Base
 {
     private Queue<Action> actions = new Queue<Action>();
     private Queue<Action> interrupts = new Queue<Action>();
@@ -40,26 +40,17 @@ public class Soldier : MonoBehaviour
         interrupts.Enqueue(new Movement()); // force soldier to find path to the new destination
 	}
 	#endregion
-	public enum SoldierType
-    {
-        Ally,
-        Enemy
-    }
+
     [Header("Values")]
-    [SerializeField] private float maxHealthPoints = 10;
-    [SerializeField] private float healthPoints = 1;
     [SerializeField] private float rangeAttack = 100;
     [SerializeField] private float rangeView = 1;
     [SerializeField] private float damageAttack = 1;
     [SerializeField] private int speedAttack = 1; // ticks between attacks
     [SerializeField] private int lastAttackTick = -1;
     [Header("References")]
-    [SerializeField] private TMP_Text nameText = null;
-    [SerializeField] private TMP_Text healthPointsText = null;
     [Header("Do-not-change-in-game values")]
     [SerializeField] private Soldier target;
     [SerializeField] private SoldierType enemyType;
-    [SerializeField] private SoldierType ourType;
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
 
@@ -67,39 +58,11 @@ public class Soldier : MonoBehaviour
 
     [HideInInspector] public UnityEvent onDeath = new UnityEvent();
 
-    public SoldierType TempGetOwnType()
-	{
-        return ourType;
-	}
 
     // Start is called before the first frame update
     void Start(){
-        healthPoints = maxHealthPoints; // initialize health
-        UpdateHPDisplay();
+        base.Start();
         setEnemyTag();
-
-        Debug.Log("Soldier: " + ourType.ToString() + " has appeared", gameObject);
-
-        switch (ourType)
-        {
-            case SoldierType.Ally:
-                nameText.text = "Ally";
-                nameText.color = Color.blue;
-                break;
-            case SoldierType.Enemy:
-                nameText.text = "Enemy";
-                nameText.color = Color.red;
-                break;
-            default:
-                nameText.text = "how did we get here (forever)";
-                nameText.color = new Color(255, 192, 203);
-                break;
-        }
-    }
-
-    public void setOwnTag(SoldierType type)
-    {
-        ourType = type;
     }
 
     public void setEnemyTag()
@@ -115,10 +78,9 @@ public class Soldier : MonoBehaviour
 
     private void OnDestroy()
     {
+        base.OnDestroy();
         TickSystem.OnTick -= HandleTick;
         onDeath.Invoke();
-
-        Debug.Log("Soldier: " + ourType.ToString() + " has died", gameObject);
     }
 
     private void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
@@ -195,20 +157,4 @@ public class Soldier : MonoBehaviour
 
     }
     */
-
-    private void ReduceHP(float damage)
-    {
-        healthPoints -= damage;
-
-        if (healthPoints <= 0)
-            Destroy(gameObject);
-
-        UpdateHPDisplay();
-        Debug.Log("I took damage, oh  my HP is now: " + healthPoints + " noooo!!!!", gameObject);
-    }
-
-    private void UpdateHPDisplay()
-	{
-        healthPointsText.text = healthPoints.ToString() + "/" + maxHealthPoints.ToString();
-    }
 }

@@ -10,7 +10,7 @@ public class Base : MonoBehaviour
         Ally,
         Enemy
     } 
-    [SerializeField] private SoldierType ourType;
+    [SerializeField] protected SoldierType ourType;
     [SerializeField] private float maxHealthPoints = 100;
     [SerializeField] private float healthPoints = 100;
 
@@ -23,7 +23,7 @@ public class Base : MonoBehaviour
 	}
 
     // Start is called before the first frame update
-    void Start(){
+    protected void Start(){
         healthPoints = maxHealthPoints; // initialize health
         UpdateHPDisplay();
 
@@ -51,11 +51,11 @@ public class Base : MonoBehaviour
         ourType = type;
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         Debug.Log("Soldier: " + ourType.ToString() + " has died", gameObject);
     }
-    private void ReduceHP(float damage)
+    protected void ReduceHP(float damage)
     {
         healthPoints -= damage;
 
@@ -66,7 +66,7 @@ public class Base : MonoBehaviour
         Debug.Log("I took damage, my HP is now: " + healthPoints + " noooo!!!!", gameObject);
     }
 
-    private void UpdateHPDisplay()
+    protected void UpdateHPDisplay()
 	{
         healthPointsText.text = healthPoints.ToString() + "/" + maxHealthPoints.ToString();
     }
