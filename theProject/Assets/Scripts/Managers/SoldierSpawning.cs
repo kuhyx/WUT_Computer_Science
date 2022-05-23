@@ -6,7 +6,7 @@ using UnityEngine;
 //[RequireComponent]
 public class SoldierSpawning : MonoBehaviour
 {
-	[SerializeField] int spawnInterval = 1000; // ticks between spawning soldiers
+	[SerializeField] int spawnInterval = 20; // ticks between spawning soldiers
 	[SerializeField] int lastSpawnTick = 0;
 	[SerializeField] Squad squad;
 	[SerializeField] TilemapManager tilemapManager;
