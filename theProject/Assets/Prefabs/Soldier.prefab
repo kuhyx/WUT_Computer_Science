@@ -78,22 +78,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34caf35d0ce610f8bc87cf815ba1915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTeam: 0
   maxHealthPoints: 100
   healthPoints: 100
-  rangeAttack: 3
-  rangeView: 1
-  damageAttack: 1
-  speedAttack: 2
-  lastAttackTick: -1
   nameText: {fileID: 6838251604148675782}
   healthPointsText: {fileID: 8012357605284019061}
-  target: {fileID: 0}
-  enemyType: 0
-  ourType: 0
-  movementDestination: {x: 0, y: 0}
-  onDeath:
+  OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  rangeAttack: 3
+  rangeView: 1
+  damageAttack: 25
+  speedAttack: 2
+  lastAttackTick: -1
+  target: {fileID: 0}
+  enemyType: 0
+  movementDestination: {x: 0, y: 0}
 --- !u!1 &1997457243244158843
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,12 +358,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1498494949006888735}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1498494949006888735}
+  m_maskType: 0
 --- !u!1 &2062275012809416088
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,9 +530,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 4083783489867894370}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 4083783489867894370}
+  m_maskType: 0

@@ -14,7 +14,7 @@ public class TilemapManager : MonoBehaviour
 
     public struct Tile
     {
-        public Soldier standingSoldier;
+        public Entity standingEntity;
     }
 
     [Header("Common Values")]
@@ -99,16 +99,16 @@ public class TilemapManager : MonoBehaviour
             return false;
 
         if (isBase)
-            tiles[x, y].standingSoldier = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
-        if (isBase)
-            tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
+            tiles[x, y].standingEntity = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Base>();
+        else
+            tiles[x, y].standingEntity = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
         if (isAlly)
-            tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
+            tiles[x, y].standingEntity.SetOwnTeam(Base.Team.Ally);
         else
-            tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Enemy);
+            tiles[x, y].standingEntity.SetOwnTeam(Base.Team.Enemy);
 
-        if (tiles[x, y].standingSoldier != null)
+        if (tiles[x, y].standingEntity != null)
             return true;
 
         return false;
@@ -119,42 +119,29 @@ public class TilemapManager : MonoBehaviour
         if (GetTileState(x, y) != TileState.taken)
             return false;
 
-        Destroy(tiles[x, y].standingSoldier.gameObject);
-        tiles[x, y].standingSoldier = null;
+        Destroy(tiles[x, y].standingEntity.gameObject);
+        tiles[x, y].standingEntity = null;
         Debug.Log("Despaned a soldier");
 
         return true;
     }
 
-    public Soldier GetSoldier(int x, int y)
+    public Entity GetSoldier(int x, int y)
     {
         if (GetTileState(x, y) != TileState.taken)
             return null;
 
-        return tiles[x,y].standingSoldier;
+        return tiles[x,y].standingEntity;
     }
 
-    public Soldier[] GetAllSoldiers()
-    {
-        List<Soldier> list = new List<Soldier>();
-
-        foreach (Tile obj in tiles)
-        {
-            if (obj.standingSoldier != null)
-                list.Add(obj.standingSoldier);
-        }
-
-        return list.ToArray();
-    }
-
-    public bool MoveSoldier(int x1, int y1, int x2, int y2)
+    public bool MoveEntity(int x1, int y1, int x2, int y2) // old MoveSoldier
     {
         if (GetTileState(x1, y1) == TileState.taken && GetTileState(x2, y2) == TileState.free)
         {
-            tiles[x2, y2].standingSoldier = tiles[x1, y1].standingSoldier;
-            tiles[x1, y1].standingSoldier = null;
+            tiles[x2, y2].standingEntity = tiles[x1, y1].standingEntity;
+            tiles[x1, y1].standingEntity = null;
 
-            tiles[x2, y2].standingSoldier.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0));
+            tiles[x2, y2].standingEntity.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0)) + WORLD_SPACE_OFFSET;
 
             return true;
         }
@@ -169,7 +156,7 @@ public class TilemapManager : MonoBehaviour
         if (x < 0 || y < 0 || x >= mapSize.x || y >= mapSize.y)
             return TileState.outOfBounds;
 
-        if (tiles[x, y].standingSoldier == null)
+        if (tiles[x, y].standingEntity == null)
             return TileState.free;
 
         return TileState.taken;

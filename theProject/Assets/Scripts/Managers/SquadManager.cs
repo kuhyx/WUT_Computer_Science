@@ -27,7 +27,7 @@ public class SquadManager : MonoBehaviour
 		var soldiers = FindObjectsOfType<Soldier>();
 		foreach(var soldier in soldiers)
 		{
-			if(soldier.GetOwnType() == Soldier.SoldierType.Ally)
+			if(soldier.GetOwnTeam() == Soldier.Team.Ally)
 			{
 				playerSquad.TempAddSoldierToSquad(soldier);
 			}
