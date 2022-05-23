@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Squad : MonoBehaviour
 {
+	private Entity.Team ownTeam;
+	public Entity.Team GetOwnTeam() { return ownTeam; }
+	public void SetOwnTeam(Entity.Team newTeam) {ownTeam = newTeam; }
 	#region Orders
 	public abstract class Order // generic order (to keep in queue)
 	{
@@ -30,13 +33,21 @@ public class Squad : MonoBehaviour
 		}
 	}
 	#endregion
-
-	[SerializeField] private List<Soldier> soldiers = new List<Soldier>(); // soldiers belonging to the squad
+	[SerializeField] private Formation formation = new Formation();
+	[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
+	public List<Entity> GetSoldiers() { return soldiers; }
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
 
-	public void TempAddSoldierToSquad(Soldier soldier)
+	public void AddSoldierToSquad(Entity soldier)
 	{
 		soldiers.Add(soldier);
+		soldier.OnDeath.AddListener(RemoveSoldierFromSquad);
+	}
+
+	public void RemoveSoldierFromSquad(Entity soldier)
+	{
+		soldiers.Remove(soldier);
+		soldier.OnDeath.RemoveListener(RemoveSoldierFromSquad);
 	}
 
 	private void Awake()
@@ -44,12 +55,12 @@ public class Squad : MonoBehaviour
 		TickSystem.OnTick += HandleTick;
 	}
 
-    private void Start()
-    {
-		
-    }
+	private void OnDestroy()
+	{
+		TickSystem.OnTick -= HandleTick;
+	}
 
-    private void HandleTick(TickSystem.OnTickEventArgs eventArgs)
+	private void HandleTick(TickSystem.OnTickEventArgs eventArgs)
 	{// pass a single order to all soldiers
 		if (orders.Count < 1)
 			return; // for now nothing to do here
