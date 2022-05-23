@@ -17,9 +17,9 @@ public class Soldier : MonoBehaviour
     private class Movement : Action 
     {
 		public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
-		{//TO DO: CALL PROPER FUNCTION TO MOVE
-            throw new System.NotImplementedException($"(tick: {tickEventArgs.tickNumber}) Trying to teleport to {soldier.movementDestination}");
-			//??tileMap.Teleport(movementDestination)
+		{
+            // move solider to previously set destination
+            TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, soldier.movementDestination.x, soldier.movementDestination.y);
 		}
 	}
     private class TryAttack : Action
@@ -60,6 +60,7 @@ public class Soldier : MonoBehaviour
     [SerializeField] private Soldier target;
     [SerializeField] private SoldierType enemyType;
     [SerializeField] private SoldierType ourType;
+    [SerializeField] private Vector2Int tileCoord = Vector2Int.zero;
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
 
@@ -72,7 +73,6 @@ public class Soldier : MonoBehaviour
         return ourType;
 	}
 
-    // Start is called before the first frame update
     void Start(){
         healthPoints = maxHealthPoints; // initialize health
         UpdateHPDisplay();
@@ -95,6 +95,11 @@ public class Soldier : MonoBehaviour
                 nameText.color = new Color(255, 192, 203);
                 break;
         }
+    }
+
+    public void SetTileCoords(Vector2Int tileCoordinates)
+    {
+        tileCoord = tileCoordinates;
     }
 
     public void setOwnTag(SoldierType type)
@@ -183,7 +188,6 @@ public class Soldier : MonoBehaviour
         return target != null;
     }
 
-    // Update is called once per frame
     void Update()
     {
        //if (target == null) return; 
