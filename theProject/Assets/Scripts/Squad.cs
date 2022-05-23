@@ -40,11 +40,13 @@ public class Squad : MonoBehaviour
 	public void AddSoldierToSquad(Entity soldier)
 	{
 		soldiers.Add(soldier);
+		soldier.OnDeath.AddListener(RemoveSoldierFromSquad);
 	}
 
 	public void RemoveSoldierFromSquad(Entity soldier)
 	{
 		soldiers.Remove(soldier);
+		soldier.OnDeath.RemoveListener(RemoveSoldierFromSquad);
 	}
 
 	private void Awake()
@@ -52,12 +54,12 @@ public class Squad : MonoBehaviour
 		TickSystem.OnTick += HandleTick;
 	}
 
-    private void Start()
-    {
-		
-    }
+	private void OnDestroy()
+	{
+		TickSystem.OnTick -= HandleTick;
+	}
 
-    private void HandleTick(TickSystem.OnTickEventArgs eventArgs)
+	private void HandleTick(TickSystem.OnTickEventArgs eventArgs)
 	{// pass a single order to all soldiers
 		if (orders.Count < 1)
 			return; // for now nothing to do here

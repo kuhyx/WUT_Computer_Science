@@ -37,7 +37,6 @@ public class SquadManager : MonoBehaviour
 				if (soldier.GetOwnTeam() == squad.GetOwnTeam())
 				{
 					squad.AddSoldierToSquad(soldier);
-					soldier.OnDeath.AddListener(squad.RemoveSoldierFromSquad);
 				}
 			}
 			enabled = false;
