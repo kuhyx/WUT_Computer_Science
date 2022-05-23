@@ -95,10 +95,10 @@ public class TilemapManager : MonoBehaviour
 
     // ---------- public functions
 
-    public bool SpawnSoldier(int x, int y, bool isAlly, bool isBase=false)
+    public Entity SpawnSoldier(int x, int y, bool isAlly, bool isBase=false)
     {
         if (GetTileState(x, y) != TileState.free)
-            return false;
+            return null;
 
         if (isBase)
             tiles[x, y].standingEntity = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Base>();
@@ -106,7 +106,7 @@ public class TilemapManager : MonoBehaviour
             tiles[x, y].standingEntity = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
         if (tiles[x, y].standingEntity == null)
-            return false;
+            return null;
 
         if (isAlly)
             tiles[x, y].standingEntity.SetOwnTeam(Base.Team.Ally);
@@ -115,7 +115,7 @@ public class TilemapManager : MonoBehaviour
 
         tiles[x, y].standingEntity.SetTileCoords(new Vector2Int(x, y));
 
-        return true;
+        return tiles[x, y].standingEntity;
     }
 
     public bool DespawnSoldier(int x, int y)

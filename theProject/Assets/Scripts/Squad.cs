@@ -35,6 +35,7 @@ public class Squad : MonoBehaviour
 	#endregion
 
 	[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
+	public List<Entity> GetSoldiers() { return soldiers; }
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
 
 	public void AddSoldierToSquad(Entity soldier)

@@ -8,12 +8,16 @@ public class SquadManager : MonoBehaviour
 	[SerializeField] GameObject squadPrefab;
 	Squad playerSquad;
 	Squad enemySquad;
+
+	Vector2Int playerSpawnCoords = Vector2Int.up; //TEMP SPAWN BY BASE
 	private void Awake()
 	{
 		playerSquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		playerSquad.gameObject.name = "Player Squad";
 		playerSquad.transform.SetParent(transform);
 		playerSquad.SetOwnTeam(Entity.Team.Ally);
+		playerSquad.gameObject.AddComponent<SoldierSpawning>();
+		playerSquad.GetComponent<SoldierSpawning>().SetSpawnCoords(playerSpawnCoords);
 
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		enemySquad.gameObject.name = "Enemy Squad";
