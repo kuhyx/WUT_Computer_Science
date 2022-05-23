@@ -66,6 +66,11 @@ public class Soldier : Base
         setEnemyTag();
     }
 
+    public void SetTileCoords(Vector2Int tileCoordinates)
+    {
+        tileCoord = tileCoordinates;
+    }
+
     public void setEnemyTag()
     {
         if(ourType == SoldierType.Ally) enemyType = SoldierType.Enemy;
