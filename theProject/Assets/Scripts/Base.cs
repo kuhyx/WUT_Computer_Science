@@ -11,8 +11,8 @@ public class Base : MonoBehaviour
         Enemy
     } 
     [SerializeField] private SoldierType ourType;
-    [SerializeField] private float maxHealthPoints = 10;
-    [SerializeField] private float healthPoints = 1;
+    [SerializeField] private float maxHealthPoints = 100;
+    [SerializeField] private float healthPoints = 100;
 
     [SerializeField] private TMP_Text nameText = null;
     [SerializeField] private TMP_Text healthPointsText = null;
