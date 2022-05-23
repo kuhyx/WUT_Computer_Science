@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Soldier : MonoBehaviour
 {
@@ -43,10 +44,8 @@ public class Soldier : MonoBehaviour
     {
         Ally,
         Enemy
-    } 
-    [SerializeField] private Soldier target; 
-    [SerializeField] private SoldierType enemyType;
-    [SerializeField] private SoldierType ourType;
+    }
+    [Header("Values")]
     [SerializeField] private float maxHealthPoints = 10;
     [SerializeField] private float healthPoints = 1;
     [SerializeField] private float rangeAttack = 100;
@@ -54,12 +53,22 @@ public class Soldier : MonoBehaviour
     [SerializeField] private float damageAttack = 1;
     [SerializeField] private int speedAttack = 1; // ticks between attacks
     [SerializeField] private int lastAttackTick = -1;
-
+    [Header("References")]
     [SerializeField] private TMP_Text nameText = null;
     [SerializeField] private TMP_Text healthPointsText = null;
+    [Header("Do-not-change-in-game values")]
+    [SerializeField] private Soldier target;
+    [SerializeField] private SoldierType enemyType;
+    [SerializeField] private SoldierType ourType;
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
 
+
+
+    // variables not visible in inspector
+
+    [HideInInspector] public UnityEvent onDeath = new UnityEvent();
+	
     public SoldierType GetOwnType()
 	{
         return ourType;
@@ -109,6 +118,7 @@ public class Soldier : MonoBehaviour
     private void OnDestroy()
     {
         TickSystem.OnTick -= HandleTick;
+        onDeath.Invoke();
 
         Debug.Log("Soldier: " + ourType.ToString() + " has died", gameObject);
     }

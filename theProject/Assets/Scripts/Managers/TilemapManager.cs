@@ -24,16 +24,19 @@ public class TilemapManager : MonoBehaviour
 
     [Header("Soldiers values")]
 
+    [SerializeField] private Vector2Int allyBaseCoord = Vector2Int.zero;
     [SerializeField] private Vector2Int[] soldierStartingPositions = null;
 
     [Header("Enemies values")]
 
+    [SerializeField] private Vector2Int enemyBaseCoord = Vector2Int.zero;
     [SerializeField] private Vector2Int[] enemyStartingPositions = null;
 
     [Header("References")]
 
     [SerializeField] private Tilemap tilemap = null;
     [SerializeField] private GameObject soldierPrefab = null;
+    [SerializeField] private GameObject basePrefab = null;
 
     // private (do not edit) variables
 
@@ -50,6 +53,11 @@ public class TilemapManager : MonoBehaviour
 
     private void Start()
     {
+        //spawn bases
+        SpawnSoldier(allyBaseCoord.x, allyBaseCoord.y, true, true);
+        SpawnSoldier(enemyBaseCoord.x, enemyBaseCoord.y, false, true);
+
+        //spawn soldiers
         foreach (Vector2Int vec in soldierStartingPositions)
             SpawnSoldier(vec.x, vec.y, true);
         foreach (Vector2Int vec in enemyStartingPositions)
@@ -85,12 +93,15 @@ public class TilemapManager : MonoBehaviour
 
     // ---------- public functions
 
-    public bool SpawnSoldier(int x, int y, bool isAlly)
+    public bool SpawnSoldier(int x, int y, bool isAlly, bool isBase=false)
     {
         if (GetTileState(x, y) != TileState.free)
             return false;
 
-        tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
+        if (isBase)
+            tiles[x, y].standingSoldier = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
+        if (isBase)
+            tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
         if (isAlly)
             tiles[x, y].standingSoldier.setOwnTag(Soldier.SoldierType.Ally);
