@@ -12,20 +12,22 @@ public class SquadManager : MonoBehaviour
 	{
 		playerSquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		playerSquad.gameObject.name = "Player Squad";
+		playerSquad.transform.SetParent(transform);
 
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		enemySquad.gameObject.name = "Enemy Squad";
+		enemySquad.transform.SetParent(transform);
 
 	}
 	// Update is called once per frame
 	void Update()
     {
-		Debug.Log("Added initial soldeirs to squad");
+		Debug.Log("Added initial soldiers to squad");
 		// add all ally soldiers to squad
 		var soldiers = FindObjectsOfType<Soldier>();
 		foreach(var soldier in soldiers)
 		{
-			if(soldier.TempGetOwnType() == Soldier.SoldierType.Ally)
+			if(soldier.GetOwnType() == Soldier.SoldierType.Ally)
 			{
 				playerSquad.TempAddSoldierToSquad(soldier);
 			}

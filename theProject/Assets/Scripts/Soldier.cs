@@ -60,7 +60,7 @@ public class Soldier : MonoBehaviour
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
 
-    public SoldierType TempGetOwnType()
+    public SoldierType GetOwnType()
 	{
         return ourType;
 	}
