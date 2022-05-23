@@ -5,8 +5,20 @@ using UnityEngine;
 public class PlayerClickSystem : MonoBehaviour
 {
     [SerializeField] TilemapManager tilemapManager;
+
+    private BetterInput bInput;
+    private bool leftMouseClicked = false;
+    private Vector2 mousePos = Vector2.zero;
+
 	private void Awake()
 	{
+        bInput = new BetterInput();
+
+        bInput.Main.MouseLeftClick.started += (ctx) => { leftMouseClicked = true; };
+        bInput.Main.MouseLeftClick.canceled += (ctx) => { leftMouseClicked = false; };
+
+        bInput.Main.MousePosition.performed += (ctx) => { mousePos = ctx.ReadValue<Vector2>(); };
+
         tilemapManager = FindObjectOfType<TilemapManager>();
         if(tilemapManager == null)
 		{
@@ -16,12 +28,13 @@ public class PlayerClickSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        if(Input.GetMouseButton(0)) // Change to new input system
+        if(leftMouseClicked) // Change to new input system
 		{
+            leftMouseClicked = false;
             //Debug.Log("CLICK");
             Camera camera = Camera.main;
             RaycastHit hit;
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = camera.ScreenPointToRay(mousePos);
 
             if (Physics.Raycast(ray, out hit))
             {
@@ -42,5 +55,15 @@ public class PlayerClickSystem : MonoBehaviour
                 
             }
         }            
+    }
+
+    private void OnEnable()
+    {
+        bInput.Main.Enable();
+    }
+
+    private void OnDisable()
+    {
+        bInput.Main.Disable();
     }
 }
