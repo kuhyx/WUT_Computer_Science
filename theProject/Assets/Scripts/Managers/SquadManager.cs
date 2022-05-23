@@ -8,15 +8,21 @@ public class SquadManager : MonoBehaviour
 	[SerializeField] GameObject squadPrefab;
 	Squad playerSquad;
 	Squad enemySquad;
+
+	Vector2Int playerSpawnCoords = Vector2Int.up; //TEMP SPAWN BY BASE
 	private void Awake()
 	{
 		playerSquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		playerSquad.gameObject.name = "Player Squad";
 		playerSquad.transform.SetParent(transform);
+		playerSquad.SetOwnTeam(Entity.Team.Ally);
+		playerSquad.gameObject.AddComponent<SoldierSpawning>();
+		playerSquad.GetComponent<SoldierSpawning>().SetSpawnCoords(playerSpawnCoords);
 
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		enemySquad.gameObject.name = "Enemy Squad";
 		enemySquad.transform.SetParent(transform);
+		enemySquad.SetOwnTeam(Entity.Team.Enemy);
 	}
 	// Update is called once per frame
 	void Update()
@@ -24,14 +30,20 @@ public class SquadManager : MonoBehaviour
 		Debug.Log("Added initial soldiers to squad");
 		// add all ally soldiers to squad
 		var soldiers = FindObjectsOfType<Soldier>();
-		foreach(var soldier in soldiers)
-		{
-			if(soldier.GetOwnTeam() == Soldier.Team.Ally)
-			{
-				playerSquad.TempAddSoldierToSquad(soldier);
-			}
-		}
+		var squads = new List<Squad>();
+		squads.Add(playerSquad);
+		squads.Add(enemySquad);
 
-        enabled = false;
+		foreach (var soldier in soldiers)
+		{
+			foreach (var squad in squads)
+			{
+				if (soldier.GetOwnTeam() == squad.GetOwnTeam())
+				{
+					squad.AddSoldierToSquad(soldier);
+				}
+			}
+			enabled = false;
+		}
     }
 }
