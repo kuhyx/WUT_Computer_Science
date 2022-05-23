@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Squad : MonoBehaviour
 {
+	private Entity.Team ownTeam;
+	public Entity.Team GetOwnTeam() { return ownTeam; }
+	public void SetOwnTeam(Entity.Team newTeam) {ownTeam = newTeam; }
 	#region Orders
 	public abstract class Order // generic order (to keep in queue)
 	{
@@ -31,12 +34,17 @@ public class Squad : MonoBehaviour
 	}
 	#endregion
 
-	[SerializeField] private List<Soldier> soldiers = new List<Soldier>(); // soldiers belonging to the squad
+	[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
 
-	public void TempAddSoldierToSquad(Soldier soldier)
+	public void AddSoldierToSquad(Entity soldier)
 	{
 		soldiers.Add(soldier);
+	}
+
+	public void RemoveSoldierFromSquad(Entity soldier)
+	{
+		soldiers.Remove(soldier);
 	}
 
 	private void Awake()
