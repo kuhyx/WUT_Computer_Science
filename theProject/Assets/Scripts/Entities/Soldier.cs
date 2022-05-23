@@ -100,8 +100,6 @@ public class Soldier : Entity
                 enemiesList.Add(obj);
         }
 
-        Debug.Log(soldiers.Length);
-        Debug.Log(enemiesList.Count);
         Entity[] enemies = enemiesList.ToArray();
 
         // We have not found enemy yet so the distance to enemy is "infinite"

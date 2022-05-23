@@ -10,8 +10,6 @@ public class SquadManager : MonoBehaviour
 	Squad enemySquad;
 	private void Awake()
 	{
-		
-
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		enemySquad.gameObject.name = "Enemy Squad";
 		enemySquad.transform.SetParent(transform);
