@@ -21,7 +21,7 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Entity> OnDeath = new UnityEvent<Entity>();
 
-    Vector2Int tileCoord;
+    protected Vector2Int tileCoord;
 
     public Team GetOwnTeam()
 	{
