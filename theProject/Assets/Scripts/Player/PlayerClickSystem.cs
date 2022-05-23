@@ -10,6 +10,9 @@ public class PlayerClickSystem : MonoBehaviour
     private bool leftMouseClicked = false;
     private Vector2 mousePos = Vector2.zero;
 
+    [SerializeField] Squad playerSquad;
+    public void SetPlayerSquad(Squad newSquad) { playerSquad = newSquad; } // called by Squad Manager //DEPENDENCY_INJECTION
+
 	private void Awake()
 	{
         bInput = new BetterInput();
@@ -67,7 +70,9 @@ public class PlayerClickSystem : MonoBehaviour
 				}
                 // a tile was hit
                 Debug.Log($"Tile {x},{y} was selected - DO MOVEMENT ORDER");
-                
+                playerSquad.EnqueueOrder(new Squad.MovementOrder(new Vector2Int(x,y)));
+
+
             }
         }            
     }

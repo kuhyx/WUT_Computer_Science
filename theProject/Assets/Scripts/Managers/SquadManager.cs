@@ -17,7 +17,8 @@ public class SquadManager : MonoBehaviour
 		playerSquad.transform.SetParent(transform);
 		playerSquad.SetOwnTeam(Entity.Team.Ally);
 		playerSquad.gameObject.AddComponent<SoldierSpawning>();
-		playerSquad.GetComponent<SoldierSpawning>().SetSpawnCoords(playerSpawnCoords);
+		playerSquad.GetComponent<SoldierSpawning>().SetSpawnCoords(playerSpawnCoords);//DEPENDENCY_INJECTION
+		FindObjectOfType<PlayerClickSystem>().SetPlayerSquad(playerSquad);//DEPENDENCY_INJECTION
 
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		enemySquad.gameObject.name = "Enemy Squad";

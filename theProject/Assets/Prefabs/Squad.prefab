@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6141901885681798079}
   - component: {fileID: 6141901885681798078}
+  - component: {fileID: 8212255995933922627}
   m_Layer: 0
   m_Name: Squad
   m_TagString: Untagged
@@ -44,4 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeef7310a48872043b4089979ec88b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  formation: {fileID: 0}
   soldiers: []
+--- !u!114 &8212255995933922627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6141901885681798073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5175e17e18d002001bf1ebde5de11b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squad: {fileID: 0}

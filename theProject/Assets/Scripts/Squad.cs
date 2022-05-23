@@ -11,29 +11,37 @@ public class Squad : MonoBehaviour
 	#region Orders
 	public abstract class Order // generic order (to keep in queue)
 	{
-		public virtual void PassToSoldier(Soldier targetSoldier) // "translate" the order to the soldier
+		public virtual void Execute(Squad squad) // "translate" the order to the soldier
 		{// depending on implementation, for example call soldier's method to execute/plan this task
-			Debug.LogWarning($"Generic order passing not overriden\nSoldier {targetSoldier.name} received generic order");
+			Debug.LogWarning($"Generic order execution not overriden\n All soldiers received generic order");
 		}
     }
 
 	public class MovementOrder : Order // example how to add new types of orders
 	{
-		public MovementOrder(int x, int y)
+		public MovementOrder(Vector2Int movementTargetCoords)
 		{
-			this.x = x;
-			this.y = y;
+			targetCoords = movementTargetCoords;
 		}
-		public readonly int x;
-		public readonly int y;
-		public override void PassToSoldier(Soldier targetSoldier)
+		public readonly Vector2Int targetCoords;
+		public override void Execute(Squad squad)
 		{// here we would set soldier's target position for example
-			targetSoldier.HandleMovementOrder(new Vector2Int(x, y));
-			Debug.Log($"Soldier {targetSoldier.name} received movement order towards coordinates {x},{y}");
+			Debug.Log(squad);
+			Dictionary<Entity, Vector2Int> targetCoordsDictionary = squad.
+				GetFormation().
+				CalculatePositions(
+				targetCoords);
+			foreach (Soldier soldier in targetCoordsDictionary.Keys)
+			{
+				Vector2Int targetPositionForSoldier = targetCoordsDictionary[soldier];
+				soldier.HandleMovementOrder(targetPositionForSoldier);
+				Debug.Log($"Soldier {soldier.name} received movement order towards coordinates {targetPositionForSoldier.x},{targetPositionForSoldier.y}");
+			}
 		}
 	}
 	#endregion
-	[SerializeField] private Formation formation = new Formation();
+	[SerializeField] private Formation formation;
+	public Formation GetFormation() { return formation; }
 	[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
 	public List<Entity> GetSoldiers() { return soldiers; }
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
@@ -53,6 +61,7 @@ public class Squad : MonoBehaviour
 	private void Awake()
 	{
 		TickSystem.OnTick += HandleTick;
+		formation = GetComponent<Formation>();
 	}
 
 	private void OnDestroy()
@@ -67,17 +76,11 @@ public class Squad : MonoBehaviour
 
 		Order currentOrder = orders.Dequeue();
 		Debug.Log($"Passing order {currentOrder.ToString()} on tick #{eventArgs.tickNumber}");
-		foreach (Soldier soldier in soldiers)
-		{
-			currentOrder.PassToSoldier(soldier);
-		}
+		currentOrder.Execute(this);
 	}
 
-	[ContextMenu("DEBUG ADD PSEUDO MOVEMENT ORDER")]
-	public void DebugAddMovementOrder()
-	{
-		int targetX = 4;
-		int targetY = 2;
-		orders.Enqueue(new MovementOrder(targetX, targetY));
-	}
+	public void EnqueueOrder(Order orderToEnqueue)
+    {
+		orders.Enqueue(orderToEnqueue);
+    }
 }
