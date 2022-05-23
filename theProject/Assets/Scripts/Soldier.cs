@@ -67,7 +67,7 @@ public class Soldier : MonoBehaviour
 
     // variables not visible in inspector
 
-    [HideInInspector] public UnityEvent onDeath = new UnityEvent();
+    [HideInInspector] public UnityEvent<Soldier> onDeath = new UnityEvent<Soldier>();
 	
     public SoldierType GetOwnType()
 	{
@@ -115,11 +115,15 @@ public class Soldier : MonoBehaviour
         TickSystem.OnTick += HandleTick;
     }
 
+    private void Die()
+	{
+        TickSystem.OnTick -= HandleTick;
+        onDeath.Invoke(this);
+        Destroy(gameObject);
+    }
+
     private void OnDestroy()
     {
-        TickSystem.OnTick -= HandleTick;
-        onDeath.Invoke();
-
         Debug.Log("Soldier: " + ourType.ToString() + " has died", gameObject);
     }
 
@@ -203,7 +207,7 @@ public class Soldier : MonoBehaviour
         healthPoints -= damage;
 
         if (healthPoints <= 0)
-            Destroy(gameObject);
+            Die();
 
         UpdateHPDisplay();
         Debug.Log("I took damage, oh  my HP is now: " + healthPoints + " noooo!!!!", gameObject);
