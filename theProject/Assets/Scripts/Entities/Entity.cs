@@ -21,7 +21,6 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Entity> OnDeath = new UnityEvent<Entity>();
 
-
     public Team GetOwnTeam()
 	{
         return myTeam;
@@ -51,6 +50,18 @@ public class Entity : MonoBehaviour
         }
     }
 
+    protected virtual void Awake()
+    {
+        TickSystem.OnTick += HandleTick;
+    }
+
+    protected virtual void Die()
+    {
+        TickSystem.OnTick -= HandleTick;
+        OnDeath.Invoke(this);
+        Destroy(gameObject);
+    }
+
     public void SetOwnTeam(Team type)
     {
         myTeam = type;
@@ -61,17 +72,16 @@ public class Entity : MonoBehaviour
         healthPoints -= damage;
 
         if (healthPoints <= 0)
-            Destroy(gameObject);
+            Die();
 
         UpdateHPDisplay();
         Debug.Log("I took damage, my HP is now: " + healthPoints + " noooo!!!!", gameObject);
     }
 
-    protected virtual void Die()
-    {
-        OnDeath.Invoke(this);
-        Destroy(gameObject);
-    }
+    protected virtual void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
+	{
+        
+	}
 
     private void OnDestroy()
     {

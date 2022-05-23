@@ -66,19 +66,10 @@ public class Soldier : Entity
         else enemyType = Team.Ally;
     }
 
-    void Awake()
-    {
-        TickSystem.OnTick += HandleTick;
-    }
-
-	protected override void Die()
+	protected override void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
 	{
-        TickSystem.OnTick -= HandleTick;
-        base.Die();
-	}
+       // base.HandleTick(tickEventArgs);
 
-	private void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
-	{
         ref Queue<Action> queueToHandle = ref interrupts;
         if (interrupts.Count < 1) // if no interrupt actions to do, handle regular queue
             queueToHandle = actions;
