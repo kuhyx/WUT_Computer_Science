@@ -31,9 +31,14 @@ public class Squad : MonoBehaviour
 	}
 	#endregion
 
+	[SerializeField] private Formation formation = new Formation();
 	[SerializeField] private List<Soldier> soldiers = new List<Soldier>(); // soldiers belonging to the squad
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
 
+	public List<Soldier> getSoldiers()
+	{
+		 return soldiers;
+	}
 	public void TempAddSoldierToSquad(Soldier soldier)
 	{
 		soldiers.Add(soldier);
