@@ -154,14 +154,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: {x: 10, y: 10}
   WORLD_SPACE_OFFSET: {x: 0.5, y: 1, z: 0.5}
+  allyBaseCoord: {x: 0, y: 0}
   soldierStartingPositions:
   - {x: 0, y: 0}
   - {x: 1, y: 2}
+  enemyBaseCoord: {x: 0, y: 0}
   enemyStartingPositions:
   - {x: 2, y: 0}
   - {x: 9, y: 5}
   tilemap: {fileID: 1853262998}
   soldierPrefab: {fileID: 403095692180922766, guid: a87b1aa46b0ed3e0fba621e11dd4f1e2,
+    type: 3}
+  basePrefab: {fileID: 403095692180922766, guid: cff761b70fcb1dc55bfd414849823b2e,
     type: 3}
 --- !u!4 &282616949
 Transform:
@@ -354,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a470f948c2458f4994fe0cf5f226c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squadPrefab: {fileID: 0}
 --- !u!1 &905024696
 GameObject:
   m_ObjectHideFlags: 0
