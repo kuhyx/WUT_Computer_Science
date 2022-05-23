@@ -10,13 +10,15 @@ public class SquadManager : MonoBehaviour
 	Squad enemySquad;
 	private void Awake()
 	{
-		playerSquad = Instantiate(squadPrefab).GetComponent<Squad>();
-		playerSquad.gameObject.name = "Player Squad";
-		playerSquad.transform.SetParent(transform);
+		
 
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
 		enemySquad.gameObject.name = "Enemy Squad";
 		enemySquad.transform.SetParent(transform);
+
+		playerSquad = Instantiate(squadPrefab).GetComponent<Squad>();
+		playerSquad.gameObject.name = "Player Squad";
+		playerSquad.transform.SetParent(transform);
 
 	}
 	// Update is called once per frame

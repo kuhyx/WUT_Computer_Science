@@ -21,6 +21,8 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Entity> OnDeath = new UnityEvent<Entity>();
 
+    Vector2Int tileCoord;
+
     public Team GetOwnTeam()
 	{
         return myTeam;
@@ -92,5 +94,9 @@ public class Entity : MonoBehaviour
     protected void UpdateHPDisplay()
 	{
         healthPointsText.text = healthPoints.ToString() + "/" + maxHealthPoints.ToString();
+    }
+    public void SetTileCoords(Vector2Int tileCoordinates)
+    {
+        tileCoord = tileCoordinates;
     }
 }

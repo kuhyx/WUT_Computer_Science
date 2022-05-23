@@ -105,7 +105,7 @@ public class TilemapManager : MonoBehaviour
         else
             tiles[x, y].standingEntity = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
-        if (tiles[x, y].standingSoldier == null)
+        if (tiles[x, y].standingEntity == null)
             return false;
 
         if (isAlly)
@@ -159,7 +159,7 @@ public class TilemapManager : MonoBehaviour
 
     public static bool MoveSoldierS(int x1, int y1, int x2, int y2)
     {
-        return ins.MoveSoldier(x1, y1, x2, y2);
+        return ins.MoveEntity(x1, y1, x2, y2);
     }
 
     // ---------- private methods
