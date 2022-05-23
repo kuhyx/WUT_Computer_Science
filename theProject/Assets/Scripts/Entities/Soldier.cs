@@ -17,9 +17,8 @@ public class Soldier : Entity
     private class Movement : Action 
     {
 		public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
-		{//TO DO: CALL PROPER FUNCTION TO MOVE
-            throw new System.NotImplementedException($"(tick: {tickEventArgs.tickNumber}) Trying to teleport to {soldier.movementDestination}");
-			//??tileMap.Teleport(movementDestination)
+		{
+            TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, soldier.movementDestination.x, soldier.movementDestination.y);
 		}
 	}
     private class TryAttack : Action
@@ -100,8 +99,6 @@ public class Soldier : Entity
                 enemiesList.Add(obj);
         }
 
-        Debug.Log(soldiers.Length);
-        Debug.Log(enemiesList.Count);
         Entity[] enemies = enemiesList.ToArray();
 
         // We have not found enemy yet so the distance to enemy is "infinite"
