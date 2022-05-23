@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Squad : MonoBehaviour
 {
+	#region Orders
 	public abstract class Order // generic order (to keep in queue)
 	{
 		public virtual void PassToSoldier(Soldier targetSoldier) // "translate" the order to the soldier
@@ -28,6 +29,7 @@ public class Squad : MonoBehaviour
 			Debug.Log($"Soldier {targetSoldier.name} received movement order towards coordinates {x},{y}");
 		}
 	}
+	#endregion
 
 	[SerializeField] private List<Soldier> soldiers = new List<Soldier>(); // soldiers belonging to the squad
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
