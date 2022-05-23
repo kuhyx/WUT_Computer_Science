@@ -17,9 +17,9 @@ public class Soldier : Base
     private class Movement : Action 
     {
 		public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
-		{//TO DO: CALL PROPER FUNCTION TO MOVE
-            throw new System.NotImplementedException($"(tick: {tickEventArgs.tickNumber}) Trying to teleport to {soldier.movementDestination}");
-			//??tileMap.Teleport(movementDestination)
+		{
+            // move solider to previously set destination
+            TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, soldier.movementDestination.x, soldier.movementDestination.y);
 		}
 	}
     private class TryAttack : Action
@@ -51,6 +51,8 @@ public class Soldier : Base
     [Header("Do-not-change-in-game values")]
     [SerializeField] private Soldier target;
     [SerializeField] private SoldierType enemyType;
+    [SerializeField] private SoldierType ourType;
+    [SerializeField] private Vector2Int tileCoord = Vector2Int.zero;
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
 
@@ -59,7 +61,6 @@ public class Soldier : Base
     [HideInInspector] public UnityEvent onDeath = new UnityEvent();
 
 
-    // Start is called before the first frame update
     void Start(){
         base.Start();
         setEnemyTag();
@@ -145,7 +146,6 @@ public class Soldier : Base
         return target != null;
     }
 
-    // Update is called once per frame
     void Update()
     {
        //if (target == null) return; 

@@ -44,7 +44,12 @@ public class Squad : MonoBehaviour
 		TickSystem.OnTick += HandleTick;
 	}
 
-	private void HandleTick(TickSystem.OnTickEventArgs eventArgs)
+    private void Start()
+    {
+		
+    }
+
+    private void HandleTick(TickSystem.OnTickEventArgs eventArgs)
 	{// pass a single order to all soldiers
 		if (orders.Count < 1)
 			return; // for now nothing to do here

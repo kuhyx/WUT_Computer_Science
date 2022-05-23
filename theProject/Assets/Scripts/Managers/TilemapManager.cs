@@ -40,7 +40,7 @@ public class TilemapManager : MonoBehaviour
 
     // private (do not edit) variables
 
-    [Header("Debug (do not change)")]
+    private static TilemapManager ins;
 
     private Tile[,] tiles = null;
 
@@ -48,6 +48,8 @@ public class TilemapManager : MonoBehaviour
 
     private void Awake()
     {
+        ins = this;
+
         tiles = new Tile[mapSize.x, mapSize.y];
     }
 
@@ -100,7 +102,7 @@ public class TilemapManager : MonoBehaviour
 
         if (isBase)
             tiles[x, y].standingSoldier = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
-        if (isBase)
+        else
             tiles[x, y].standingSoldier = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
 
         if (isAlly)
@@ -110,6 +112,8 @@ public class TilemapManager : MonoBehaviour
 
         if (tiles[x, y].standingSoldier != null)
             return true;
+
+        tiles[x, y].standingSoldier.SetTileCoords(new Vector2Int(x, y));
 
         return false;
     }
@@ -151,15 +155,25 @@ public class TilemapManager : MonoBehaviour
     {
         if (GetTileState(x1, y1) == TileState.taken && GetTileState(x2, y2) == TileState.free)
         {
+            // change proper values
             tiles[x2, y2].standingSoldier = tiles[x1, y1].standingSoldier;
             tiles[x1, y1].standingSoldier = null;
+            tiles[x2, y2].standingSoldier.SetTileCoords(new Vector2Int(x2, y2));
 
+            // change Soldier world position
             tiles[x2, y2].standingSoldier.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0));
 
             return true;
         }
 
         return false;
+    }
+
+    // ---------- public statics methods
+
+    public static bool MoveSoldierS(int x1, int y1, int x2, int y2)
+    {
+        return ins.MoveSoldier(x1, y1, x2, y2);
     }
 
     // ---------- private methods
