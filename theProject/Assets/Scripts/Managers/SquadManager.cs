@@ -3,12 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempSquadManager : MonoBehaviour
+public class SquadManager : MonoBehaviour
 {
+	[SerializeField] GameObject squadPrefab;
 	Squad playerSquad;
+	Squad enemySquad;
 	private void Awake()
 	{
-		playerSquad = FindObjectOfType<Squad>();
+		playerSquad = Instantiate(squadPrefab).GetComponent<Squad>();
+		playerSquad.gameObject.name = "Player Squad";
+
+		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();
+		enemySquad.gameObject.name = "Enemy Squad";
+
 	}
 	// Update is called once per frame
 	void Update()
