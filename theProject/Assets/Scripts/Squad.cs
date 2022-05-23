@@ -33,7 +33,7 @@ public class Squad : MonoBehaviour
 		}
 	}
 	#endregion
-
+	[SerializeField] private Formation formation = new Formation();
 	[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
 	public List<Entity> GetSoldiers() { return soldiers; }
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
