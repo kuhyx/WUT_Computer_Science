@@ -37,6 +37,7 @@ public class TilemapManager : MonoBehaviour
     [SerializeField] private Tilemap tilemap = null;
     [SerializeField] private GameObject soldierPrefab = null;
     [SerializeField] private GameObject basePrefab = null;
+    [SerializeField] private TileBase[] tilesToDraw = null;
 
     // private (do not edit) variables
 
@@ -55,6 +56,14 @@ public class TilemapManager : MonoBehaviour
 
     private void Start()
     {
+        //draw tilemap
+        TileBase[] tilesToDrawTemp = new TileBase[mapSize.x * mapSize.y];
+        for (int i=0; i<tilesToDrawTemp.Length; i++)
+        {
+            tilesToDrawTemp[i] = tilesToDraw[Random.Range(0, tilesToDraw.Length)];
+        }
+        tilemap.SetTilesBlock(new BoundsInt(0, 0, 0, mapSize.x, mapSize.y, 1), tilesToDrawTemp);
+
         //spawn bases
         SpawnSoldier(allyBaseCoord.x, allyBaseCoord.y, true, true);
         SpawnSoldier(enemyBaseCoord.x, enemyBaseCoord.y, false, true);
@@ -95,18 +104,18 @@ public class TilemapManager : MonoBehaviour
 
     // ---------- public functions
 
-    public bool SpawnSoldier(int x, int y, bool isAlly, bool isBase=false)
+    public Entity SpawnSoldier(int x, int y, bool isAlly, bool isBase=false)
     {
         if (GetTileState(x, y) != TileState.free)
-            return false;
+            return null;
 
         if (isBase)
-            tiles[x, y].standingEntity = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Base>();
+            tiles[x, y].standingEntity = Instantiate(basePrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, basePrefab.transform.rotation).GetComponent<Base>();
         else
-            tiles[x, y].standingEntity = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, Quaternion.identity).GetComponent<Soldier>();
+            tiles[x, y].standingEntity = Instantiate(soldierPrefab, tilemap.CellToWorld(new Vector3Int(x, y, 0)) + WORLD_SPACE_OFFSET, soldierPrefab.transform.rotation).GetComponent<Soldier>();
 
         if (tiles[x, y].standingEntity == null)
-            return false;
+            return null;
 
         if (isAlly)
             tiles[x, y].standingEntity.SetOwnTeam(Base.Team.Ally);
@@ -115,7 +124,7 @@ public class TilemapManager : MonoBehaviour
 
         tiles[x, y].standingEntity.SetTileCoords(new Vector2Int(x, y));
 
-        return true;
+        return tiles[x, y].standingEntity;
     }
 
     public bool DespawnSoldier(int x, int y)

@@ -35,10 +35,25 @@ public class PlayerClickSystem : MonoBehaviour
             Camera camera = Camera.main;
             RaycastHit hit;
             Ray ray = camera.ScreenPointToRay(mousePos);
+            RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
+
+            Vector3 tileCoord = new Vector3(-1, -1, -1);
+            bool hitted = false;
 
             if (Physics.Raycast(ray, out hit))
             {
-                Vector3 hitWorldPosition = hit.point;
+                tileCoord = hit.point;
+                hitted = true;
+            }
+            else if (hit2D.collider != null)
+            {
+                tileCoord = hit2D.point;
+                hitted = true;
+            }
+
+            if (hitted)
+            {
+                Vector3 hitWorldPosition = tileCoord;
 
                 Debug.Log($"Hit at {hitWorldPosition}");
                 TilemapManager.Tile selectedTile;
