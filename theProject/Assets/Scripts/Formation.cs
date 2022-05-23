@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Formation : MonoBehaviour
 {
     [SerializeField] Squad squad;
 
     void Awake()
     {
-        this.squad = squad.GetComponent(typeof(Squad));
+        this.squad = squad.GetComponent<Squad>();
     }
 
-    public Dictionary<Soldier, Vector2Int> calculatePositions(Vector2int coordinates)
+    public Dictionary<Entity, Vector2Int> calculatePositions(Vector2Int coordinates)
     {
-        List<Soldier> soldiers = this.squad.getSoldiers();
-        Dictionary<Soldier, Vector2Int> soldierNewCoordinate = new Dictionary<Soldier, Vector2Int>();
+        List<Entity> soldiers = this.squad.GetSoldiers();
+        Dictionary<Entity, Vector2Int> soldierNewCoordinate = new Dictionary<Entity, Vector2Int>();
         int soldierNumber = 0;
-        foreach (Soldier soldier in soldiers)
+        foreach (Entity Entity in soldiers)
         {
-            soldierNewCoordinate.Add(soldier, calculateSoldierCoordinates(soldierNumber, coordinates));
-            MoveSoldierS(x, y, soldierNewCoordinate.Item1, soldierNewCoordinate.Item2);
+            soldierNewCoordinate.Add(Entity, calculateSoldierCoordinates(soldierNumber, coordinates));
         }
         return soldierNewCoordinate;
     }
@@ -28,8 +28,8 @@ public class Formation : MonoBehaviour
     private Vector2Int calculateSoldierCoordinates(in int soldierNumber, in Vector2Int coordinates)
     {
         // Horizontal line we change x
-        Vector2Int coordinates = new Vector2Int(coordinates.Item1 + soldierNumber,  coordinates.Item1);
-        return coordinates;
+        Vector2Int soldierCoordinates = new Vector2Int(coordinates.x + soldierNumber,  coordinates.y);
+        return soldierCoordinates;
     }
 
 
