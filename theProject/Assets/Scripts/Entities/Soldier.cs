@@ -32,9 +32,8 @@ public class Soldier : Entity
             if (!TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, movementStepDestination.x, movementStepDestination.y))
                 return;
 
-            //soldier.transform.position = Mathf.Lerp(soldier.transform.position, new Vector3(movementStepDestination.x, movementStepDestination.y, 0f) + soldier.WORLD_SPACE_OFFSET, 0.1f);
+            //soldier.transform.position = Mathf.Lerp(soldier.transform.position, new Vector3(movementStepDestination.x, movementStepDestination.y, 0f) + soldier.WORLD_SPACE_OFFSET, 0.1f); // in update
             soldier.transform.position = new Vector3(movementStepDestination.x, movementStepDestination.y, 0f) + soldier.WORLD_SPACE_OFFSET;
-            //tiles[x2, y2].standingEntity.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0)) + WORLD_SPACE_OFFSET;
 		}
 	}
     private class TryAttack : Action
