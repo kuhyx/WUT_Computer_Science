@@ -161,7 +161,11 @@ MonoBehaviour:
   enemyBaseCoord: {x: 9, y: 9}
   enemyStartingPositions:
   - {x: 8, y: 8}
+  - {x: 7, y: 8}
   - {x: 7, y: 7}
+  - {x: 6, y: 8}
+  - {x: 6, y: 7}
+  - {x: 8, y: 7}
   tilemap: {fileID: 1853262998}
   soldierPrefab: {fileID: 403095692180922766, guid: a87b1aa46b0ed3e0fba621e11dd4f1e2,
     type: 3}
@@ -332,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemapManager: {fileID: 0}
+  playerSquad: {fileID: 0}
 --- !u!4 &905024698
 Transform:
   m_ObjectHideFlags: 0
