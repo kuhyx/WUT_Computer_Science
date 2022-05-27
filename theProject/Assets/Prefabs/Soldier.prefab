@@ -86,6 +86,8 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  tileCoord: {x: 0, y: 0}
+  WORLD_SPACE_OFFSET: {x: 0.5, y: 0.5, z: 0.5}
   rangeAttack: 3
   rangeView: 1
   damageAttack: 25
@@ -94,6 +96,7 @@ MonoBehaviour:
   target: {fileID: 0}
   enemyType: 0
   movementDestination: {x: 0, y: 0}
+  hasReachedDestination: 1
 --- !u!1 &1997457243244158843
 GameObject:
   m_ObjectHideFlags: 0

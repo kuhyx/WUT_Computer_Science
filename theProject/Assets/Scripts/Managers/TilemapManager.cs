@@ -20,7 +20,8 @@ public class TilemapManager : MonoBehaviour
     [Header("Common Values")]
 
     [SerializeField] private Vector2Int mapSize = new Vector2Int(5,5);
-    [SerializeField] private Vector3 WORLD_SPACE_OFFSET = new Vector3(0.5f, 1f, 0.5f);
+    [SerializeField] private Vector3 WORLD_SPACE_OFFSET = new Vector3(0.5f, 0.5f, 1f); //REFACTOR REMOVE THIS AND REFER TO ENTITIE'S WSO INSTEAD WHEN USED HERE
+    //public Vector3 GetWorldSpaceOffset() { return WORLD_SPACE_OFFSET; }
 
     [Header("Soldiers values")]
 
@@ -157,7 +158,7 @@ public class TilemapManager : MonoBehaviour
             tiles[x2, y2].standingEntity.SetTileCoords(new Vector2Int(x2, y2));
 
             // change Soldier world position
-            tiles[x2, y2].standingEntity.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0)) + WORLD_SPACE_OFFSET;
+            //tiles[x2, y2].standingEntity.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0)) + WORLD_SPACE_OFFSET;
             return true;
         }
 

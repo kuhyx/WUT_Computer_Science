@@ -18,7 +18,23 @@ public class Soldier : Entity
     {
 		public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
 		{
-            TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, soldier.movementDestination.x, soldier.movementDestination.y);
+            if (soldier.tileCoord == soldier.movementDestination)
+            {// reached position - do nothing now
+                soldier.hasReachedDestination = true;
+                return;
+            }
+
+            Vector2Int movementStep = (soldier.movementDestination - soldier.tileCoord);
+            movementStep.Clamp(-Vector2Int.one, Vector2Int.one);
+            Vector2Int movementStepDestination = soldier.tileCoord + movementStep;
+
+
+            if (!TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, movementStepDestination.x, movementStepDestination.y))
+                return;
+
+            //soldier.transform.position = Mathf.Lerp(soldier.transform.position, new Vector3(movementStepDestination.x, movementStepDestination.y, 0f) + soldier.WORLD_SPACE_OFFSET, 0.1f);
+            soldier.transform.position = new Vector3(movementStepDestination.x, movementStepDestination.y, 0f) + soldier.WORLD_SPACE_OFFSET;
+            //tiles[x2, y2].standingEntity.transform.position = tilemap.CellToWorld(new Vector3Int(x2, y2, 0)) + WORLD_SPACE_OFFSET;
 		}
 	}
     private class TryAttack : Action
@@ -36,6 +52,7 @@ public class Soldier : Entity
     public void HandleMovementOrder(Vector2Int destination)
 	{
         movementDestination = destination;
+        hasReachedDestination = false;
         interrupts.Enqueue(new Movement()); // force soldier to find path to the new destination
 	}
 	#endregion
@@ -52,7 +69,7 @@ public class Soldier : Entity
     [SerializeField] private Team enemyType;
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
-	
+    [SerializeField] private bool hasReachedDestination = true;	
     // Start is called before the first frame update
     protected override void Start(){
         base.Start();
@@ -77,7 +94,12 @@ public class Soldier : Entity
             queueToHandle.Dequeue().Execute(this, tickEventArgs);
         else
 		{
-            if(lastAttackTick + speedAttack <= tickEventArgs.tickNumber)
+            if(!hasReachedDestination)
+			{// enqueue movement
+                queueToHandle.Enqueue(new Movement());
+                queueToHandle.Dequeue().Execute(this, tickEventArgs);
+            }
+            else if(lastAttackTick + speedAttack <= tickEventArgs.tickNumber)
 			{
                 queueToHandle.Enqueue(new TryAttack());
                 queueToHandle.Dequeue().Execute(this, tickEventArgs);

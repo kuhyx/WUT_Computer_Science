@@ -21,7 +21,9 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public UnityEvent<Entity> OnDeath = new UnityEvent<Entity>();
 
-    protected Vector2Int tileCoord;
+    [SerializeField] protected Vector2Int tileCoord;
+
+    [SerializeField] protected Vector3 WORLD_SPACE_OFFSET = new Vector3(0.5f, 0.5f, 0.5f);
 
     public Team GetOwnTeam()
 	{

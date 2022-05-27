@@ -156,7 +156,7 @@ MonoBehaviour:
   WORLD_SPACE_OFFSET: {x: 0.5, y: 0.5, z: 0.5}
   allyBaseCoord: {x: 0, y: 0}
   soldierStartingPositions:
-  - {x: 1, y: 1}
+  - {x: 2, y: 1}
   - {x: 2, y: 2}
   enemyBaseCoord: {x: 9, y: 9}
   enemyStartingPositions:
