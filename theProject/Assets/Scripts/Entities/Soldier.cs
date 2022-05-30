@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Communication))]
 public class Soldier : Entity
 {
     private Queue<Action> actions = new Queue<Action>();

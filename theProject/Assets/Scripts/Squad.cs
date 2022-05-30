@@ -42,25 +42,35 @@ public class Squad : MonoBehaviour
 	#endregion
 	[SerializeField] private Formation formation;
 	public Formation GetFormation() { return formation; }
-	[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
-	public List<Entity> GetSoldiers() { return soldiers; }
+	//[SerializeField] private List<Entity> soldiers = new List<Entity>(); // soldiers belonging to the squad
+	public List<Entity> GetSoldiers() { return soldiers.GetTList(); }
     private Queue<Order> orders = new Queue<Order>(); // orders given to the squad
+
+	[SerializeField] private TTLList<Entity> soldiers = new TTLList<Entity>(); // soldiers belonging to the squad
+	[SerializeField] private TTLList<Entity> enemiesSpotted = new TTLList<Entity>(); // enemies currently viewed by squad
+	[SerializeField] private int basicSoldierTTL = 5;
+	[SerializeField] private int basicEnemyTTL = 5;
 
 	public void AddSoldierToSquad(Entity soldier)
 	{
-		soldiers.Add(soldier);
+		soldiers.AddToList(soldier);
 		soldier.OnDeath.AddListener(RemoveSoldierFromSquad);
 	}
 
 	public void RemoveSoldierFromSquad(Entity soldier)
 	{
-		soldiers.Remove(soldier);
+		soldiers.RemoveFromList(soldier);
 		soldier.OnDeath.RemoveListener(RemoveSoldierFromSquad);
 	}
 
 	private void Awake()
 	{
 		TickSystem.OnTick += HandleTick;
+		soldiers.Initialize(true, basicSoldierTTL);
+		TickSystem.OnTick += soldiers.OnTick;
+		enemiesSpotted.Initialize(false, basicEnemyTTL);
+		TickSystem.OnTick += enemiesSpotted.OnTick;
+
 		formation = GetComponent<Formation>();
 	}
 
