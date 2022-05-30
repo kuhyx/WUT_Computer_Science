@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Formation : MonoBehaviour
 {
-    [SerializeField] Squad squad;
+        [SerializeField] Squad squad;
 
     void Awake()
     {
@@ -29,9 +29,21 @@ public class Formation : MonoBehaviour
     // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/in-parameter-modifier
     private Vector2Int CalculateSoldierCoordinates(in int soldierNumber, in Vector2Int coordinates)
     {
-        // Horizontal line we change x
-        Vector2Int soldierCoordinates = new Vector2Int(coordinates.x + soldierNumber,  coordinates.y);
-        return soldierCoordinates;
+    // Horizontal line we change x
+        TilemapManager.TileState tileState = TilemapManager.GetTileState(coordinates.x + soldierNumber, coordinates.y);
+        if ( tileState == TilemapManager.TileState.free)
+        {
+            Vector2Int soldierCoordinates = new Vector2Int(coordinates.x + soldierNumber,  coordinates.y);
+            return soldierCoordinates;
+        } else if (tileState == TilemapManager.TileState.taken)
+        {
+            Vector2Int soldierCoordinates = new Vector2Int(coordinates.x,  coordinates.y);
+            return soldierCoordinates;
+        } else 
+        {
+            Vector2Int soldierCoordinates = new Vector2Int(coordinates.x,  coordinates.y);
+            return soldierCoordinates;
+        }
     }
 
 
