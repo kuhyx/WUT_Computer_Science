@@ -18,18 +18,21 @@ public class Formation : MonoBehaviour
         List<Entity> soldiers = squad.GetSoldiers();
         Dictionary<Entity, Vector2Int> soldiersNewCoordinates = new Dictionary<Entity, Vector2Int>();
         int soldierNumber = 0;
+        int add = 1;
         foreach (Entity Entity in soldiers)
         {
-            soldiersNewCoordinates.Add(Entity, CalculateSoldierCoordinates(soldierNumber, coordinates));
+            soldiersNewCoordinates.Add(Entity, CalculateSoldierCoordinates(soldierNumber, coordinates, add));
             soldierNumber++;
+            add *= -1;
         }
         return soldiersNewCoordinates;
     }
 
     // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/in-parameter-modifier
-    private Vector2Int CalculateSoldierCoordinates(in int soldierNumber, in Vector2Int coordinates)
+    private Vector2Int CalculateSoldierCoordinates(int soldierNumber, in Vector2Int coordinates,in int add)
     {
     // Horizontal line we change x
+        soldierNumber = add * soldierNumber;
         TilemapManager.TileState tileState = TilemapManager.GetTileState(coordinates.x + soldierNumber, coordinates.y);
         if ( tileState == TilemapManager.TileState.free)
         {
@@ -45,6 +48,7 @@ public class Formation : MonoBehaviour
             return soldierCoordinates;
         }
     }
+
 
 
 }
