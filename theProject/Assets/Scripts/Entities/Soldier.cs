@@ -24,9 +24,20 @@ public class Soldier : Entity
                 return;
             }
 
-            Vector2Int movementStep = (soldier.movementDestination - soldier.tileCoord);
-            movementStep.Clamp(-Vector2Int.one, Vector2Int.one);
-            Vector2Int movementStepDestination = soldier.tileCoord + movementStep;
+            List<Vector2Int> path;
+            if(!Pathfinding
+                .Instance
+                .FindPath
+                (soldier
+                .tileCoord,
+                soldier
+                .movementDestination
+                , out path))
+			{
+                return; // cannot find path: do nothing
+			}
+
+            Vector2Int movementStepDestination = path[0];
 
 
             if (!TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, movementStepDestination.x, movementStepDestination.y))
