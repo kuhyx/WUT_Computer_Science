@@ -15,24 +15,55 @@ public class Formation : MonoBehaviour
     public Dictionary<Entity, Vector2Int> CalculatePositions(Vector2Int coordinates)
     {
         
-        List<Entity> soldiers = squad.GetSoldiers();
+        List<Entity> soldiers = new List<Entity>(squad.GetSoldiers());
         Dictionary<Entity, Vector2Int> soldiersNewCoordinates = new Dictionary<Entity, Vector2Int>();
-        int soldierNumber = 0;
-        int add = 1;
-        foreach (Entity Entity in soldiers)
+
+        int numberOfSoldiers = soldiers.Count;
+        for(int i = numberOfSoldiers / 2; i >= 0; i--)
         {
-            soldiersNewCoordinates.Add(Entity, CalculateSoldierCoordinates(soldierNumber, coordinates, add));
-            soldierNumber++;
-            add *= -1;
+            float shortestDistance = Mathf.Infinity; 
+            Entity nearestSoldier = null;
+            Vector2Int newCoordinates = new Vector2Int(coordinates.x + i, coordinates.y);
+            foreach (Entity Entity in soldiers)
+            {
+                float distanceToTile = Vector2.Distance(Entity.GetTileCoord(), newCoordinates);
+                if (distanceToTile < shortestDistance) 
+                {
+                    shortestDistance = distanceToTile;
+                    nearestSoldier = Entity; 
+                }
+            }
+            if (nearestSoldier != null) 
+            {
+                soldiersNewCoordinates.Add(nearestSoldier, newCoordinates);
+                soldiers.Remove(nearestSoldier);
+            }
+            shortestDistance = Mathf.Infinity; 
+            nearestSoldier = null;
+            newCoordinates = new Vector2Int(coordinates.x - i, coordinates.y);
+            foreach (Entity Entity in soldiers)
+            {
+                float distanceToTile = Vector2.Distance(Entity.GetTileCoord(), newCoordinates);
+                if (distanceToTile < shortestDistance) 
+                {
+                    shortestDistance = distanceToTile;
+                    nearestSoldier = Entity; 
+                }
+            }
+            if (nearestSoldier != null) 
+            {
+                soldiersNewCoordinates.Add(nearestSoldier, newCoordinates);
+                soldiers.Remove(nearestSoldier);
+            }
         }
         return soldiersNewCoordinates;
     }
 
     // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/in-parameter-modifier
-    private Vector2Int CalculateSoldierCoordinates(int soldierNumber, in Vector2Int coordinates,in int add)
+    private Vector2Int CalculateSoldierCoordinates(int soldierNumber, in Vector2Int coordinates)
     {
-    // Horizontal line we change x
-        soldierNumber = add * soldierNumber;
+        // Horizontal line we change x
+        if(soldierNumber % 2 == 1) soldierNumber = -1 * soldierNumber;
         TilemapManager.TileState tileState = TilemapManager.GetTileState(coordinates.x + soldierNumber, coordinates.y);
         if ( tileState == TilemapManager.TileState.free)
         {
