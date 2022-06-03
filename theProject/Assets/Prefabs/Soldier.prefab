@@ -78,7 +78,7 @@ MonoBehaviour:
   MySquad: {fileID: 0}
   rangeAttack: 3
   rangeView: 1
-  damageAttack: 0
+  damageAttack: 1
   speedAttack: 2
   lastAttackTick: -1
   target: {fileID: 0}
