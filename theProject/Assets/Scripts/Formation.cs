@@ -17,13 +17,15 @@ public class Formation : MonoBehaviour
         
         List<Entity> soldiers = new List<Entity>(squad.GetSoldiers());
         Dictionary<Entity, Vector2Int> soldiersNewCoordinates = new Dictionary<Entity, Vector2Int>();
+        bool isEven = false;
 
-        int numberOfSoldiers = soldiers.Count;
-        for(int i = numberOfSoldiers / 2; i >= 0; i--)
+
+        if(soldiers.Count % 2 == 0)
         {
+            isEven = true;
             float shortestDistance = Mathf.Infinity; 
             Entity nearestSoldier = null;
-            Vector2Int newCoordinates = new Vector2Int(coordinates.x + i, coordinates.y);
+            Vector2Int newCoordinates = new Vector2Int(coordinates.x, coordinates.y);
             foreach (Entity Entity in soldiers)
             {
                 float distanceToTile = Vector2.Distance(Entity.GetTileCoord(), newCoordinates);
@@ -38,23 +40,65 @@ public class Formation : MonoBehaviour
                 soldiersNewCoordinates.Add(nearestSoldier, newCoordinates);
                 soldiers.Remove(nearestSoldier);
             }
-            shortestDistance = Mathf.Infinity; 
-            nearestSoldier = null;
-            newCoordinates = new Vector2Int(coordinates.x - i, coordinates.y);
-            foreach (Entity Entity in soldiers)
+        } 
+        int numberOfSoldiers = soldiers.Count;
+        /* numberOfSoldiers = 4
+        i = 4 / 2
+        i = 2
+        soldier.Count = 2
+        i = 3 
+        i = 3 / 2 = 1
+        sol
+        */
+        if(isEven)
+        {
+            for(int i = numberOfSoldiers; i >= 0; i-=2)
             {
-                float distanceToTile = Vector2.Distance(Entity.GetTileCoord(), newCoordinates);
-                if (distanceToTile < shortestDistance) 
-                {
-                    shortestDistance = distanceToTile;
-                    nearestSoldier = Entity; 
-                }
+                soldiersNewCoordinates = CalculateNewCoordinates(soldiersNewCoordinates, soldiers, coordinates, i);
             }
-            if (nearestSoldier != null) 
+        }else{
+            for(int i = numberOfSoldiers / 2; i >= 0; i--)
             {
-                soldiersNewCoordinates.Add(nearestSoldier, newCoordinates);
-                soldiers.Remove(nearestSoldier);
+                soldiersNewCoordinates = CalculateNewCoordinates(soldiersNewCoordinates, soldiers, coordinates, i);
             }
+        }
+        return soldiersNewCoordinates;
+    }
+    private Dictionary<Entity, Vector2Int> CalculateNewCoordinates(Dictionary<Entity, Vector2Int> soldiersNewCoordinates, List<Entity> soldiers, Vector2Int coordinates, int i)
+    {
+        float shortestDistance = Mathf.Infinity; 
+        Entity nearestSoldier = null;
+        Vector2Int newCoordinates = new Vector2Int(coordinates.x + i, coordinates.y);
+        foreach (Entity Entity in soldiers)
+        {
+            float distanceToTile = Vector2.Distance(Entity.GetTileCoord(), newCoordinates);
+            if (distanceToTile < shortestDistance) 
+            {
+                shortestDistance = distanceToTile;
+                nearestSoldier = Entity; 
+            }
+        }
+        if (nearestSoldier != null) 
+        {
+            soldiersNewCoordinates.Add(nearestSoldier, newCoordinates);
+            soldiers.Remove(nearestSoldier);
+        }
+        shortestDistance = Mathf.Infinity; 
+        nearestSoldier = null;
+        newCoordinates = new Vector2Int(coordinates.x - i, coordinates.y);
+        foreach (Entity Entity in soldiers)
+        {
+            float distanceToTile = Vector2.Distance(Entity.GetTileCoord(), newCoordinates);
+            if (distanceToTile < shortestDistance) 
+            {
+                shortestDistance = distanceToTile;
+                nearestSoldier = Entity; 
+            }
+        }
+        if (nearestSoldier != null) 
+        {
+            soldiersNewCoordinates.Add(nearestSoldier, newCoordinates);
+            soldiers.Remove(nearestSoldier);
         }
         return soldiersNewCoordinates;
     }
