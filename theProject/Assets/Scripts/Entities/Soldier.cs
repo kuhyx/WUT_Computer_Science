@@ -30,7 +30,7 @@ public class Soldier : Entity
                 return; // cannot find path: do nothing (for now)
 			}
 
-            Vector2Int movementStepDestination = path[path.Count - 1];
+            Vector2Int movementStepDestination = path[0];
 
 
             if (!TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, movementStepDestination.x, movementStepDestination.y))
