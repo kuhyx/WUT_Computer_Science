@@ -24,7 +24,7 @@ public class Pathfinding : MonoBehaviour
 	public bool FindPath(Vector2Int startCoords, Vector2Int endCoords, out List<Vector2Int> path, int maxPathPointDistanceFromStart = int.MaxValue)
 	{
 		path = new List<Vector2Int>();
-		if (TilemapManager.ins.GetTileState(endCoords.x, endCoords.y) == TilemapManager.TileState.outOfBounds)
+		if (TilemapManager.GetTileState(endCoords.x, endCoords.y) == TilemapManager.TileState.outOfBounds)
 		{
 			return false;
 		}
@@ -99,7 +99,7 @@ public class Pathfinding : MonoBehaviour
 	
 	private int GetTargetCost(int cost, Vector2Int targetCoords)
 	{
-		TilemapManager.TileState targetState = TilemapManager.ins.GetTileState(targetCoords.x, targetCoords.y);
+		TilemapManager.TileState targetState = TilemapManager.GetTileState(targetCoords.x, targetCoords.y);
 		if(targetState == TilemapManager.TileState.free)
 		{
 			return cost + EMPTY_TILE_COST;		
@@ -119,7 +119,7 @@ public class Pathfinding : MonoBehaviour
 		neighbors.Add(coords + Vector2Int.right);
 		foreach(Vector2Int neighbor in neighbors)
 		{
-			if(TilemapManager.ins.GetTileState(neighbor.x, neighbor.y) != TilemapManager.TileState.outOfBounds)
+			if(TilemapManager.GetTileState(neighbor.x, neighbor.y) != TilemapManager.TileState.outOfBounds)
 			{
 				final.Add(neighbor);
 			}
