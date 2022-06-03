@@ -45,12 +45,17 @@ public class Communication : MonoBehaviour
                 break;
             }
         }
-        Debug.Log(result.resetTTL);
 
         // look fo enemies (enemyTeam) - add Enemies to enemiesSpotted (send List<Enemies>)
         if (result.resetTTL)//only check for enemies if you can see your squad
         {
-
+            foreach (Soldier sold in soldiersFound)
+            {
+                if (sold.GetOwnTeam() != myTeam)
+                {
+                    result.enemiesSpotted.Add(sold);
+                }
+            }
         }
 
         return result;
@@ -73,10 +78,10 @@ public class Communication : MonoBehaviour
                 Vector2Int curTile = new Vector2Int(i, j);
                 if ( (curTile - curPos).sqrMagnitude <= rangeSQR && curTile != curPos)//is current Tile in a circular range (and not our tile)
                 {
-                    Soldier newSoldier = (Soldier)TilemapManager.GetSoldierS(i, j);
+                    Entity newSoldier = TilemapManager.GetSoldierS(i, j);
 
-                    if (newSoldier != null)
-                        soldiersFound.Add(newSoldier);
+                    if (newSoldier != null && newSoldier.GetType() != typeof(Base))
+                        soldiersFound.Add((Soldier)newSoldier);
                 }
             }
         }

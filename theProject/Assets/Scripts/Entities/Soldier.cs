@@ -105,7 +105,13 @@ public class Soldier : Entity
 
         if (cResult.resetTTL)
         {
+            //reset TTL
+            MySquad.AddSoldierToSquad(this);
 
+            foreach (Soldier sold in cResult.enemiesSpotted)
+            {
+                MySquad.AddSpottedEnemy(sold);
+            }
         }
 
         ref Queue<Action> queueToHandle = ref interrupts;

@@ -21,8 +21,11 @@ public class TTLList<T> where T : UnityEngine.Object
     public void AddToList(T obj)
     {
         Debug.Log(obj);
-        dict.Add(obj, basicTTL);
-        Debug.Log("Added object to dictionary", obj);
+        if (dict.ContainsKey(obj))
+            dict[obj] = basicTTL;
+        else
+            dict.Add(obj, basicTTL);
+        Debug.Log("Added/Changed object in dictionary", obj);
         UpdateViewList();
     }
 

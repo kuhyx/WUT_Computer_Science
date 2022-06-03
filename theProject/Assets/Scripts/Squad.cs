@@ -65,6 +65,11 @@ public class Squad : MonoBehaviour
 		soldier.OnDeath.RemoveListener(RemoveSoldierFromSquad);
 	}
 
+	public void AddSpottedEnemy(Entity enemy)
+    {
+		enemiesSpotted.AddToList(enemy);
+    }
+
 	private void Awake()
 	{
 		TickSystem.OnTick += HandleTick;
