@@ -16,10 +16,14 @@ public class Communication : MonoBehaviour
 
     // ---------- public methods
 
-    public void Initialize(float _viewRange, Soldier _mySoldier, Entity.Team _myTeam)
+    private void Awake()
+    {
+        mySoldier = GetComponent<Soldier>();
+    }
+
+    public void Initialize(float _viewRange, Entity.Team _myTeam)
     {
         viewRange = _viewRange;
-        mySoldier = _mySoldier;
         myTeam = _myTeam;
     }
 
@@ -30,10 +34,24 @@ public class Communication : MonoBehaviour
         result.enemiesSpotted = new List<Soldier>();
 
         // look for soldiers in vincinity
+        Soldier[] soldiersFound = GetSoldiersInVincinity();
 
         // send Keep Alive (myTeam) - reset TTL (myTTL)
+        foreach (Soldier sold in soldiersFound)
+        {
+            if (sold.GetOwnTeam() == myTeam)
+            {
+                result.resetTTL = true;
+                break;
+            }
+        }
+        Debug.Log(result.resetTTL);
 
         // look fo enemies (enemyTeam) - add Enemies to enemiesSpotted (send List<Enemies>)
+        if (result.resetTTL)//only check for enemies if you can see your squad
+        {
+
+        }
 
         return result;
     }
@@ -42,9 +60,27 @@ public class Communication : MonoBehaviour
 
     private Soldier[] GetSoldiersInVincinity()
     {
-        //TO DO - implement
-        Physics.SphereCastAll()
+        List<Soldier> soldiersFound = new List<Soldier>();
 
-        return null;
+        Vector2Int curPos = mySoldier.tileCoord;
+        int range = mySoldier.rangeView;
+        int rangeSQR = range * range;
+
+        for (int i=curPos.x - range; i <= curPos.x + range; i++)
+        {
+            for (int j = curPos.y - range; j <= curPos.y + range; j++)
+            {
+                Vector2Int curTile = new Vector2Int(i, j);
+                if ( (curTile - curPos).sqrMagnitude <= rangeSQR && curTile != curPos)//is current Tile in a circular range (and not our tile)
+                {
+                    Soldier newSoldier = (Soldier)TilemapManager.GetSoldierS(i, j);
+
+                    if (newSoldier != null)
+                        soldiersFound.Add(newSoldier);
+                }
+            }
+        }
+
+        return soldiersFound.ToArray();
     }
 }

@@ -59,7 +59,7 @@ public class Soldier : Entity
 
     [Header("Soldier Values")]
     [SerializeField] private float rangeAttack = 100;
-    [SerializeField] private float rangeView = 1;
+    public int rangeView = 1;
     [SerializeField] private float damageAttack = 1;
     [SerializeField] private int speedAttack = 1; // ticks between attacks
     [SerializeField] private int lastAttackTick = -1;
@@ -69,11 +69,21 @@ public class Soldier : Entity
     [SerializeField] private Team enemyType;
 
     [SerializeField] private Vector2Int movementDestination = Vector2Int.zero;
-    [SerializeField] private bool hasReachedDestination = true;	
-    // Start is called before the first frame update
+    [SerializeField] private bool hasReachedDestination = true;
+
+    private Communication ourCommunication = null;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        ourCommunication = GetComponent<Communication>();
+    }
+
     protected override void Start(){
         base.Start();
         SetEnemyTag();
+
+        ourCommunication.Initialize(rangeView, myTeam);
     }
 
     public void SetEnemyTag()
@@ -84,7 +94,14 @@ public class Soldier : Entity
 
 	protected override void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
 	{
-       // base.HandleTick(tickEventArgs);
+        // base.HandleTick(tickEventArgs);
+
+        Communication.CommunicationResult cResult = ourCommunication.HandleCommuncation();
+
+        if (cResult.resetTTL)
+        {
+
+        }
 
         ref Queue<Action> queueToHandle = ref interrupts;
         if (interrupts.Count < 1) // if no interrupt actions to do, handle regular queue

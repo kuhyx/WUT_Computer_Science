@@ -172,6 +172,11 @@ public class TilemapManager : MonoBehaviour
         return ins.MoveEntity(x1, y1, x2, y2);
     }
 
+    public static Entity GetSoldierS(int x, int y)
+    {
+        return ins.GetSoldier(x, y);
+    }
+
     // ---------- private methods
 
     private TileState GetTileState(int x, int y)
