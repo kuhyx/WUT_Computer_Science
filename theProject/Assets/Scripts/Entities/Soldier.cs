@@ -9,6 +9,7 @@ public class Soldier : Entity
 {
     private Queue<Action> actions = new Queue<Action>();
     private Queue<Action> interrupts = new Queue<Action>();
+    public Squad MySquad = null;
     #region Action Queue Items
     abstract class Action // action "template"
 	{

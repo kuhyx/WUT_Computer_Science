@@ -54,12 +54,14 @@ public class Squad : MonoBehaviour
 	public void AddSoldierToSquad(Entity soldier)
 	{
 		soldiers.AddToList(soldier);
+		((Soldier)soldier).MySquad = this;
 		soldier.OnDeath.AddListener(RemoveSoldierFromSquad);
 	}
 
 	public void RemoveSoldierFromSquad(Entity soldier)
 	{
 		soldiers.RemoveFromList(soldier);
+		((Soldier)soldier).MySquad = null;
 		soldier.OnDeath.RemoveListener(RemoveSoldierFromSquad);
 	}
 
