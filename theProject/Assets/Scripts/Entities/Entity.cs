@@ -30,6 +30,11 @@ public class Entity : MonoBehaviour
         return myTeam;
 	}
 
+    public Vector2Int GetTileCoord()
+    {
+        return tileCoord;
+    }
+
     // Start is called before the first frame update
     protected virtual void Start(){
         healthPoints = maxHealthPoints; // initialize health

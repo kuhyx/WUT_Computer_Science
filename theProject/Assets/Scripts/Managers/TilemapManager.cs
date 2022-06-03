@@ -42,7 +42,7 @@ public class TilemapManager : MonoBehaviour
 
     // private (do not edit) variables
 
-    private static TilemapManager ins;
+    public static TilemapManager ins;
 
     private Tile[,] tiles = null;
 
@@ -179,12 +179,12 @@ public class TilemapManager : MonoBehaviour
 
     // ---------- private methods
 
-    private TileState GetTileState(int x, int y)
+    public static TileState GetTileState(int x, int y)
     {
-        if (x < 0 || y < 0 || x >= mapSize.x || y >= mapSize.y)
+        if (x < 0 || y < 0 || x >= ins.mapSize.x || y >= ins.mapSize.y)
             return TileState.outOfBounds;
 
-        if (tiles[x, y].standingEntity == null)
+        if (ins.tiles[x, y].standingEntity == null)
             return TileState.free;
 
         return TileState.taken;
