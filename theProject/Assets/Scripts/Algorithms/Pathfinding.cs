@@ -52,7 +52,6 @@ public class Pathfinding : MonoBehaviour
 				if (nodesToExplore.Contains(targetCoord)) // do not add a tile to be explored twice
 				{// check if found cheaper path
 					PathNode neighbor = (PathNode)nodesToExplore[targetCoord];
-					//int newCost = GetTargetCost(currentNode.Cost, targetCoord);
 					if (neighbor.Cost > newCost && newCost > 0)
 					{
 						nodesToExplore.Remove(targetCoord);
@@ -63,7 +62,6 @@ public class Pathfinding : MonoBehaviour
 				if (resolvedNodes.Contains(targetCoord))
 				{// check if found cheaper path
 					PathNode neighbor = (PathNode)resolvedNodes[targetCoord];
-					//int newCost = GetTargetCost(currentNode.Cost, targetCoord);
 					if (neighbor.Cost > newCost && newCost > 0)
 						nodesToExplore.Add(targetCoord, new PathNode(currentNode, targetCoord, newCost));
 					continue;
@@ -80,6 +78,8 @@ public class Pathfinding : MonoBehaviour
 
 		}
 		path = ConstructPath(finalNode);
+		if (path.Count < 1)
+			return false;
 		return true;
 	}
 
@@ -113,10 +113,10 @@ public class Pathfinding : MonoBehaviour
 	{
 		List<Vector2Int> final = new List<Vector2Int>();
 		List<Vector2Int> neighbors = new List<Vector2Int>();
-		neighbors.Add(coords += Vector2Int.up);
-		neighbors.Add(coords += Vector2Int.down);
-		neighbors.Add(coords += Vector2Int.left);
-		neighbors.Add(coords += Vector2Int.right);
+		neighbors.Add(coords + Vector2Int.up);
+		neighbors.Add(coords + Vector2Int.down);
+		neighbors.Add(coords + Vector2Int.left);
+		neighbors.Add(coords + Vector2Int.right);
 		foreach(Vector2Int neighbor in neighbors)
 		{
 			if(TilemapManager.ins.GetTileState(neighbor.x, neighbor.y) != TilemapManager.TileState.outOfBounds)
@@ -134,10 +134,9 @@ public class Pathfinding : MonoBehaviour
 		while(currentNode.Previous != null)
 		{//TEMP just give next step
 			path.Add(currentNode.Coords);
-			path.Reverse();
-			path.RemoveAt(0); // remove start node
 			currentNode = currentNode.Previous;
 		}
+		path.Reverse();
 		//throw new System.NotImplementedException();
 		return path;
 	}
