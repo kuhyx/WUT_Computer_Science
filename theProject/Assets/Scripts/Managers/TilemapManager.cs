@@ -42,7 +42,7 @@ public class TilemapManager : MonoBehaviour
 
     // private (do not edit) variables
 
-    private static TilemapManager ins;
+    public static TilemapManager ins;
 
     private Tile[,] tiles = null;
 
