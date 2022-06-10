@@ -63,6 +63,11 @@ public class TTLList<T> where T : UnityEngine.Object
         return new List<T>(dict.Keys);
     }
 
+    public int GetCount()
+    {
+        return dict.Count;
+    }
+
     // ---------- private methods
 
     // DEBUG - Changes a view list to see soldiers active in squad in inspector

@@ -63,6 +63,19 @@ public class Squad : MonoBehaviour
 		soldiers.RemoveFromList(soldier);
 		((Soldier)soldier).MySquad = null;
 		soldier.OnDeath.RemoveListener(RemoveSoldierFromSquad);
+
+		if (soldiers.GetCount() == 0)
+        {
+			Soldier[] objs = FindObjectsOfType<Soldier>();
+
+			foreach (Soldier obj in objs)
+            {
+				if (obj != soldier && obj.GetOwnTeam() == ownTeam)
+                {
+					AddSoldierToSquad(obj);
+                }
+            }
+        }
 	}
 
 	public void AddSpottedEnemy(Entity enemy)
