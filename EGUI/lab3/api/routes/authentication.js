@@ -11,6 +11,7 @@ router.post("/register", async (request, response)=>{
             login: request.body.login,
             email: request.body.email,
             password: hashedPassword,
+            blogTitle: request.body.blogTitle,
         });
 
         const user = await newUser.save();

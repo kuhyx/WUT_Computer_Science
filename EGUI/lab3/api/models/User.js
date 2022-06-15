@@ -14,6 +14,9 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    blogTitle:{
+        type:String
+    }
     
 },
 { timestamps: true }

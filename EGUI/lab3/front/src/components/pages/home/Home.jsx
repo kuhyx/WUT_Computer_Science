@@ -5,18 +5,19 @@ import axios from "axios"
 
 export default function Home() {
     const [blogEntries, setBlogEntires] = useState([]);
-
+    
     useEffect(()=>{
         const fetchEntries = async () => {
-            const response = await axios.get("/posts");
-            console.log(response);
+            console.log("Fetching: ");
+            const response = await axios.get("/entries");
+            setBlogEntires(response.data);
         }
         fetchEntries();
     },[])
     return (
         <div>
 
-            <Blogs/>
+            <Blogs entries={blogEntries} />
         </div> 
         )
 }

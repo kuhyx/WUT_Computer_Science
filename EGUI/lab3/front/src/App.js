@@ -21,7 +21,7 @@ function App() {
         <Route exact path="login" element={logged ? <Home/> :<Login />}/>
         <Route exact path="/register" element={logged ? <Home/> : <Register />} />
         <Route exact path="createEntry" element={logged ? <CreateEntry /> : <Home/> } />
-        <Route exact path="blogEntry:entryId" element={<BlogEntry />} />
+        <Route path="blogEntry/:entryId" element={<BlogEntry />} />
 
     </Routes>
   </BrowserRouter>
