@@ -17,7 +17,7 @@ export default function Home() {
     return (
         <div>
 
-            <Blogs entries={blogEntries} />
+             <Blogs entries={blogEntries} /> 
         </div> 
         )
 }

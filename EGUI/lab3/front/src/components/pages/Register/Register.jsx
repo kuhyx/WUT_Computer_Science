@@ -10,19 +10,31 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [blogTitle, setBlogTitle] = useState("");
+  const [error, setError] = useState(false);
 
 
-  const sendRegisterInfo = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("auth/register", {
+    setError(false);
+    try{
+    const response = await axios.post("http://localhost:5000/api/auth/register", {
       login,
       email,
       password,
       blogTitle,
     });
+    response.data && window.location.replace("/login");
+    }catch(err)
+    {
+      setError(true);
+      if(err.status === 498) alert("THIS EMAIL ALREADY EXISTS");
+      if(err.status === 499) alert("THIS LOGIN ALREADY EXISTS");
+    }
   }
     return (
-        <Form onSubmit={sendRegisterInfo}>
+      <div>
+      {error ? <p class="text-danger">"SOMETHING WENT WRONG" </p>: ""}
+        <form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email"
@@ -53,6 +65,7 @@ export default function Register() {
         <Button variant="primary" type="submit">
             Submit
         </Button>
-    </Form>
+    </form>
+    </div>
     );
 }
