@@ -1,0 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace lab2.Models
+{
+    public class BlogEntry
+    {
+        public string? Title { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime datetime { get; set; }
+        public string? content {get; set; }
+    }
+}
