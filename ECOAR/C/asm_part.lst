@@ -1,0 +1,136 @@
+     1                                  
+     2                                  
+     3                                  section	.data
+     4                                  
+     5                                  
+     6                                  
+     7                                  image_info_address EQU 8  ; First argument passed to our function starts from 8
+     8                                  first_piece_address EQU 12 ; From that point we just add 4 to address of next
+     9                                  ; arguments
+    10                                  piece_to_swap_with_address EQU 16
+    11                                  horizontal_divisons_address EQU 20
+    12                                  piece_width_address EQU 24
+    13                                  piece_height_address EQU 28
+    14                                  piece_width_bytes_address EQU 32
+    15                                  piece_height_bytes_address EQU 36
+    16                                  bytes_per_row_address EQU 40
+    17                                  firstPieceStartingByte EQU 44
+    18                                  secondPieceStartingByte EQU 48
+    19                                  
+    20                                  
+    21                                  pImg_inside_image_info_address EQU 12
+    22                                  
+    23                                  
+    24                                  image_width		EQU 0
+    25                                  image_height		EQU 4
+    26                                  bytes_per_row_inside_image_info_address	EQU 8
+    27                                  image_pImg		EQU	12
+    28                                  image_pHeaderInfo	EQU 16 ; not really used
+    29                                  
+    30                                  ; first.X, first.Y, second.X, second.Y
+    31                                  
+    32                                  
+    33                                  
+    34                                  %macro print 2      ;number of arguments this macro takes
+    35                                    mov	edx, %1       ;message length
+    36                                    mov	ecx, %2       ;message to write
+    37                                    mov	ebx,1         ;file descriptor (stdout)
+    38                                    mov	eax,4         ;system call number (sys_write)
+    39                                    int	0x80          ;call kernel
+    40                                  %endmacro
+    41                                  
+    42                                  
+    43                                  
+    44                                  section	.text
+    45                                  global inner_loops     ;must be declared for linker (ld)
+    46                                  ; extern void hello_world(imageInfo* pInfo, int firstPiece, int pieceToSwapWith,
+    47                                  ;												int horizontalDivisions, int pieceWidth,
+    48                                  ;												int pieceHeight);
+    49                                  
+    50                                  ; mov	ecx, [ebp + 8]	; ecx <- address of imgInfo struct, not saved
+    51                                  ; mov eax, [ebp + 12]	; eax <- firstPiece, not saved
+    52                                  ; mov edx, [ebp + 16] ; edx <- pieceToSwapWith, not saved
+    53                                  ; mov esi, [ecx + image_pImg] ; esi <- start of pixels in picture, saved
+    54                                  ; mov ebx, [ebp + 20] ; ebx <- horizontalDivisions
+    55                                  ; mov edi, [ebp + 24] ; edi <- pieceWidth
+    56                                  
+    57                                  inner_loops:	          ;tells linker entry point
+    58                                  
+    59 00000000 55                        push ebp  ; as per calling convention we need to keep the values of
+    60                                    ; certain registers
+    61 00000001 89E5                      mov ebp,esp
+    62 00000003 53                        push ebx
+    63 00000004 56                        push esi
+    64 00000005 57                        push edi
+    65                                  
+    66                                    ; what we use:
+    67                                    ; ecx - firstPieceFirstByteAddress
+    68                                    ; edx - secondPieceFirstByteAddress
+    69                                    ; esi
+    70                                    ; edi
+    71                                  
+    72                                    ; what we have:
+    73                                    ; eax
+    74                                    ; ebx
+    75                                  
+    76 00000006 53                        push ebx
+    77 00000007 50                        push eax
+    78                                    ;mov eax, [ebp + firstPieceStartingByte]
+    79                                    ;mov eax, [eax + image_pImg]
+    80 00000008 BF00000000                mov edi, 0
+    81                                  
+    82                                  x_pixels_loop:
+    83 0000000D 3B7D20                      cmp edi, [ebp + piece_width_bytes_address]
+    84                                      ;cmp edi, 300
+    85 00000010 7D42                        jge x_pixels_loop_end
+    86 00000012 BE00000000                  mov esi, 0
+    87                                  
+    88                                    ; ecx = secondPieceStartingByte
+    89                                    ; edx = firstPieceStartingByte
+    90                                    ; we still have eax and ebx
+    91                                    ;
+    92                                    y_pixels_loop:
+    93 00000017 3B7524                      cmp esi, [ebp + piece_height_bytes_address]
+    94                                      ;cmp esi, 96000
+    95 0000001A 7D33                        jge y_pixels_loop_end
+    96 0000001C 8B4D30                      mov ecx, [ebp + secondPieceStartingByte]
+    97 0000001F 8B452C                      mov eax, [ebp + firstPieceStartingByte]
+    98 00000022 01F9                        add ecx, edi
+    99 00000024 01F1                        add ecx, esi
+   100 00000026 01F8                        add eax, edi
+   101 00000028 01F0                        add eax, esi
+   102                                  
+   103 0000002A 8A18                        mov BYTE bl, [eax]
+   104 0000002C 8A11                        mov BYTE dl, [ecx]
+   105 0000002E 8819                        mov BYTE[ecx], bl
+   106 00000030 8810                        mov BYTE[eax], dl
+   107                                  
+   108 00000032 8A5801                      mov BYTE bl, [eax + 1]
+   109 00000035 8A5101                      mov BYTE dl, [ecx + 1]
+   110 00000038 885901                      mov BYTE[ecx + 1], bl
+   111 0000003B 885001                      mov BYTE[eax + 1], dl
+   112                                  
+   113 0000003E 8A5802                      mov BYTE bl, [eax + 2]
+   114 00000041 8A5102                      mov BYTE dl, [ecx + 2]
+   115 00000044 885902                      mov BYTE[ecx + 2], bl
+   116 00000047 885002                      mov BYTE[eax + 2], dl
+   117                                  
+   118                                  
+   119                                  
+   120 0000004A 037528                      add esi, [ebp + bytes_per_row_address]
+   121 0000004D EBC8                        jmp y_pixels_loop
+   122                                  
+   123                                  
+   124                                    ; 		for(x = 0; x < pieceWidth * 3; x += 3)
+   125                                    y_pixels_loop_end:
+   126 0000004F 83C703                      add edi, 3
+   127 00000052 EBB9                        jmp x_pixels_loop
+   128                                  
+   129                                    x_pixels_loop_end:
+   130                                  
+   131 00000054 5E                        pop esi
+   132 00000055 5F                        pop edi
+   133 00000056 5B                        pop ebx
+   134 00000057 89EC                      mov esp, ebp
+   135 00000059 5D                        pop ebp
+   136 0000005A C3                        ret

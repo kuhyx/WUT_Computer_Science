@@ -1,0 +1,50 @@
+One of the easiest scenarios, divisable in both dimensions, both being same number and low number
+1. 	Input file : source1.bmp, 
+	Vertical Divisions: 2
+	Horizontal Divisions: 2
+	Result: test1.bmp
+
+Both divisable and equal to 10 but higher number
+2. 	Input file : source1.bmp, 
+	Vertical Divisions: 10
+	Horizontal Divisions: 10
+	Result: test2.bmp
+
+Low number, divisable, different
+3. 	Input file :  source1.bmp,
+	Vertical Divisions: 3
+	Horizontal Divisions: 4
+	Result: test3.bmp
+
+Low number, not divisable, diffrent
+4. 	Input file : source1.bmp, 
+	Vertical Divisions: 4
+	Horizontal Divisions: 3
+	Result: test4.bmp
+
+Very different number, divisable
+5. 	Input file : source1.bmp, 
+	Vertical Divisions: 2
+	Horizontal Divisions: 20
+	Result: test5.bmp
+
+Very different number, divisable
+6. 	Input file : source1.bmp, 
+	Vertical Divisions: 20
+	Horizontal Divisions: 2
+	Result: test6.bmp
+	
+Highest number, different, non divisable
+7. 	Input file : source1.bmp, 
+	Vertical Divisions: 320
+	Horizontal Divisions: 240
+	Result: test7.bmp
+
+Highest number, different, divisable
+8. 	Input file : source1.bmp, 
+	Vertical Divisions: 240
+	Horizontal Divisions: 320
+	Result: test8.bmp
+
+	
+
