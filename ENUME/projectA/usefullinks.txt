@@ -1,0 +1,64 @@
+Useful links:
+
+Problem 1:
+https://stackoverflow.com/questions/27511349/how-to-calculate-machine-epsilon-in-matlab - How to calculate machine epsilion
+
+Problem 3:
+https://www.mathworks.com/help/matlab/learn_matlab/matrices-and-arrays.html - Matrices and arrays MATLAB
+
+https://www.mathworks.com/help/matlab/ref/break.html - Get out of while loop
+
+mathworks.com/help/matlab/ref/triu.html - upper triangular matrix in matlab
+
+LaTeX related:
+https://latex-tutorial.com/symbols/text-formatting/ - Italics
+
+https://www.overleaf.com/learn/latex/Table_of_contents - Table of contents
+
+https://www.overleaf.com/learn/latex/Sections_and_chapters - Sections and chapters
+
+https://www.overleaf.com/learn/latex/Bibliography_management_with_bibtex - Bibliography management
+
+https://en.wikibooks.org/wiki/LaTeX/Title_Creation - Title Creation
+
+https://tex.stackexchange.com/questions/73862/how-can-i-make-a-clickable-table-of-contents - Clickable table of contents
+
+https://tex.stackexchange.com/questions/75116/what-can-i-use-to-typeset-matlab-code-in-my-document - Matlab in LaTeX
+
+https://tex.stackexchange.com/questions/269841/1-5e-10-style-scientific-notation-looks-ugly-in-latex-math-mode-how-can-i-forma - Pretty scientific notation LaTeX
+
+https://tex.stackexchange.com/questions/422197/latex-environment-to-write-in-plain-text-mode - How to treat special characters as simple characters (like '^')
+
+https://www.overleaf.com/learn/latex/Subscripts_and_superscripts - Subscripts and superscripts latex
+
+https://tex.stackexchange.com/questions/32217/3-dots-in-matrix/32221 - 3 dots latex
+
+https://stackoverflow.com/questions/48240982/how-do-you-align-a-system-of-equations - System of equations latex
+
+https://tex.stackexchange.com/questions/526025/problem-with-vdotswithin - vdots alligned to equal sign
+
+https://www.overleaf.com/learn/latex/Brackets_and_Parentheses - Curly brackets, double 'pipes'
+
+https://tex.stackexchange.com/questions/130516/how-to-write-something-vertically-below-another-math-symbol - Symbol vertically below another
+
+https://tex.stackexchange.com/questions/103998/how-to-force-a-table-of-contents-to-start-new-page - new page at the start of chapter in table of contents
+
+https://www.codegrepper.com/code-examples/whatever/column+vector+latex - Vector in latex
+
+https://tex.stackexchange.com/questions/9901/how-to-have-matrices-side-by-side-in-latex - Matrices side by side in LaTeX
+
+https://latex.wikia.org/wiki/Percent_sign_(LaTeX_symbol) - percentage sign latex
+
+https://tex.stackexchange.com/questions/508341/writing-a-system-of-linear-equations - Writing system of equations LaTeX
+
+https://www.overleaf.com/learn/latex/Matrices - matrixes latex
+
+https://tex.stackexchange.com/questions/294561/using-textbf-vs-mathbf-in-math-mode - mathbf vs textbf
+
+https://www.math-linux.com/latex-26/faq/latex-faq/article/how-to-get-dots-in-latex-ldots-cdots-vdots-and-ddots - Dots LaTeX
+
+https://www.overleaf.com/learn/latex/Tables - Tables LaTeX
+
+https://en.wikibooks.org/wiki/LaTeX/Special_Characters - an arrow (circumflex) above letter in latex
+
+https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols - For every symbol in LaTeX 
