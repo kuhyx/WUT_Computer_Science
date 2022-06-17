@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NHD-2.7-12864WDY3
+D 2.7 Yellow Graphic OLED - 128 x 64 pixels - 3.3V - 8-bit Parallel/3-wire SPI or 4-wire SPI - Controller:SSD1322 - 1 x 20 Top
+K
+F http://www.newhavendisplay.com/specs/NHD-2.7-12864WDY3.pdf
+$ENDCMP
+#
+#End Doc Library

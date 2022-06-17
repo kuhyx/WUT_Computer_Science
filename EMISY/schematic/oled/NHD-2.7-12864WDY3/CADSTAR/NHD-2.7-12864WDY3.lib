@@ -1,0 +1,19 @@
+.NHD-2.7-12864WDY3 :1 ;2.7 Yellow Graphic OLED - 128 x 64 pixels - 3.3V - 8-bit Parallel/3-wire SPI or 4-wire SPI - Controller:SSD1322 - 1 x 20 Top
+NHD2712864WDY3
+*STM J
+*NGS
+*PNM 1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14 15=15 16=16 17=17 18=18 19=19 20=20 21=MH1 22=MH2 23=MH3 24=MH4
+*PLB 1="VSS" 2="VDD" 3="NC (BC_VDD)" 4="D/C" 5="R/W" 6="E" 7="DB0" 8="DB1" 9="DB2" 10="DB3" 11="DB4" 12="DB5" 13="DB6" 14="DB7" 15="N.C. (VCC)" 16="'RES'" 17="'CS'" 18="'SHDN (N.C.)'" 19="BS1" 20="BS0" 21="MH1" 22="MH2" 23="MH3" 24="MH4"
+*MXP 24
+*DFN NHD-2.7-12864WDY3
+~!Manufacturer_Name (Newhaven Display)
+~!Manufacturer_Part_Number (NHD-2.7-12864WDY3)
+~!Mouser Part Number (763-NHD2712864WDY3)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Newhaven-Display/NHD-27-12864WDY3?qs=HXFqYaX1Q2xb9z240q0YhA%3D%3D)
+~!Arrow Part Number (-)
+~!Arrow Price/Stock (-)
+~!Link Datasheet (http://www.newhavendisplay.com/specs/NHD-2.7-12864WDY3.pdf)
+~!Height (3.4mm)
+~!3D_Model (NHD-2.7-12864WDY3)
+NHD-2.7-12864WDY3
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 13.1!U 14.1!U 15.1!U 16.1!U 17.1!U 18.1!U 19.1!U 20.1!U 21.1!U 22.1!U 23.1!U 24.1!U 

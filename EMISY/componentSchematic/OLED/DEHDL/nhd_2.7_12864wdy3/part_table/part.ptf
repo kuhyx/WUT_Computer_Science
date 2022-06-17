@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'NHD_2.7_12864WDY3'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Newhaven Display", "NHD-2.7-12864WDY3" (!) = "", "NHD2712864WDY3", "Other", "763-NHD2712864WDY3", "https://www.mouser.co.uk/ProductDetail/Newhaven-Display/NHD-27-12864WDY3?qs=HXFqYaX1Q2xb9z240q0YhA%3D%3D", "", "", "2.7 Yellow Graphic OLED - 128 x 64 pixels - 3.3V - 8-bit Parallel/3-wire SPI or 4-wire SPI - Controller:SSD1322 - 1 x 20 Top", "http://www.newhavendisplay.com/specs/NHD-2.7-12864WDY3.pdf", "3.4 mm"
+END_PART
+
+END.

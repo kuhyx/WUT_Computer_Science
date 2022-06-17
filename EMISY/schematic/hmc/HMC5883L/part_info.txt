@@ -1,0 +1,9 @@
+Manufacturer=Honeywell
+PartNumber=HMC5883L
+PartCategory=Integrated Circuit
+PackageCategory=Other
+PinCount=16
+Version=1.3
+Released=2020-09-21 09:32:14
+Downloaded=2022-05-21 11:57:29
+3D=Y

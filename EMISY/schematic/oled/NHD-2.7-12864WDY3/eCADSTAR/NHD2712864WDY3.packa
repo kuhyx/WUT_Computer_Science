@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "NHD-2_7-12864WDY3"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2022-03-29-14:55:38)
+    (mountForm default
+        (footprintRef "NHD2712864WDY3")
+        (spec "System")
+    )
+)

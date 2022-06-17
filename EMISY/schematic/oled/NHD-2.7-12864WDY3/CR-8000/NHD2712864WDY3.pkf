@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "NHD2712864WDY3"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "NHD2712864WDY3")
+        (spec "default")
+    )
+)

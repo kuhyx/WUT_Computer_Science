@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "HMC5883L"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2020-09-21-09:32:14)
+    (mountForm default
+        (footprintRef "HMC5883L")
+        (spec "System")
+    )
+)

@@ -1,0 +1,9 @@
+Manufacturer=Newhaven Display
+PartNumber=NHD-2.7-12864WDY3
+PartCategory=Connector
+PackageCategory=Other
+PinCount=24
+Version=1.2
+Released=2022-03-29 14:55:38
+Downloaded=2022-06-03 11:07:16
+3D=Y

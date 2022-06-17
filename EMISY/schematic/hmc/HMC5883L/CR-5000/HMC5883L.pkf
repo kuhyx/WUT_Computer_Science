@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "HMC5883L"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "HMC5883L")
+        (spec "default")
+    )
+)
