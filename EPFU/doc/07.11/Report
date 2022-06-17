@@ -1,0 +1,7 @@
+Data Structures: We will use int, char, int 2D array for board, char array for names of the players for data structures
+
+Interaction with the user: Our plan is to show a lot of messages to user about what it happening, so for example at the start we will welcome user to play, we will
+let users input their names and later refer to them by their names ( using char array ), we will also print out scoreboard with names of the players and scores
+we will use printf for showing messages to the user and scanf for getting information from the user
+
+Main loop: Inside the main.c file
