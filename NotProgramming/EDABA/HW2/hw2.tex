@@ -1,0 +1,34 @@
+\documentclass[12pt]{article}
+\title{EDABA Homework 2}
+\author{Krzysztof Rudnicki, 307585}
+\begin{document}
+\maketitle
+\section{Task 1}
+Find names of Students attending \underline{at least 3 lectures}
+\[ LS1 := LS(L\# \rightarrow L1\#) \] 
+\[ LS2 := LS(L\# \rightarrow L2\#) \] 
+\[ R1 := LS \bowtie LS1 \]  
+\[ R2 := \sigma_{L\# \neq L1\#} (R1) \] 
+\[ R3 := R2 \bowtie LS2 \] 
+\[ RF := \sigma_{L\# \neq L2\# \: AND \: L1\# \neq L2\#} (R1) \] 
+\[ S1 = \pi_{S\#}(RF) \] 
+\[ RES = \pi_{SName} (S1 \bowtie ST) \] 
+
+\section{Task 2}
+Find names of Students attending \underline{at least 2 lectures having ECTS > 5}
+\[ LS51 := LS \bowtie \pi_{L\#}(\sigma_{ECTS>5}(L)) \] 
+\[ LS52 := LS51(L\# \rightarrow L52\#) \] 
+\[ R1 := LS51 \bowtie LS52 \]  
+\[ R2 := \sigma_{L\# \neq LS52\#} (R1) \] 
+\[ R3 := \pi_{S\#}(R2) \] 
+\[ Res := \pi_{SName,S\#}(ST \bowtie R3) \] 
+
+\section{Task 3}
+\underline{Find the oldest students}
+\[ R1 := \pi_{S\#, Age}(ST) \] 
+\[ R2 := \pi_{S\#, Age}(ST) \] 
+\[ R3 := R1xR2(AGE \rightarrow AGE2) \] 
+\[ R4 := \sigma_{R1.age < R2.age2} (R3) \] 
+\[ R5 := \pi_{S\#}(ST) - \pi_{S1}(R3) \] 
+
+\end{document}
