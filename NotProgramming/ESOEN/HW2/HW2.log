@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022/Arch Linux) (preloaded format=xelatex 2022.11.5)  5 NOV 2022 13:59
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022/Arch Linux) (preloaded format=xelatex 2022.11.5)  5 NOV 2022 15:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -22,6 +22,24 @@ File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
+) (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+) (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 107.
+ (/usr/share/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2022/04/12 v5.0l Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
 ) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2022-04-14 L3 backend support: XeTeX
 \l__color_backend_stack_int=\count189
@@ -54,16 +72,46 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
- [1
 
-] (./HW2.aux) ) 
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+File: 1A.png Graphic file (type bmp)
+<1A.png>
+File: 1B.png Graphic file (type bmp)
+<1B.png>
+[1
+
+]
+File: 31.png Graphic file (type bmp)
+<31.png>
+File: 32.png Graphic file (type bmp)
+<32.png>
+File: 33.png Graphic file (type bmp)
+<33.png>
+File: 34.png Graphic file (type bmp)
+<34.png>
+ [2]
+File: 35.png Graphic file (type bmp)
+<35.png>
+File: 36.png Graphic file (type bmp)
+<36.png>
+File: 37.png Graphic file (type bmp)
+<37.png>
+File: Class1_103.png Graphic file (type bmp)
+<Class1_103.png>
+ [3]
+File: 4.png Graphic file (type bmp)
+<4.png>
+ [4] (./HW2.aux) ) 
 Here is how much of TeX's memory you used:
- 482 strings out of 476156
- 10214 string characters out of 5814963
- 311701 words of memory out of 5000000
- 21329 multiletter control sequences out of 15000+600000
+ 1124 strings out of 476156
+ 19195 string characters out of 5814963
+ 317357 words of memory out of 5000000
+ 21943 multiletter control sequences out of 15000+600000
  469307 words of font info for 34 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 35i,5n,38p,340b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,5n,62p,462b,109s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on HW2.xdv (1 page, 9408 bytes).
+Output written on HW2.xdv (4 pages, 33812 bytes).

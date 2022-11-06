@@ -1,18 +1,35 @@
 # Fdb version 3
-["xdvipdfmx"] 1667653186 "HW2.xdv" "HW2.pdf" "HW2" 1667653186
-  "HW2.xdv" 1667653186 9408 ed6fcbd2a23fce2a5fa2d215d2f02a64 "xelatex"
+["xdvipdfmx"] 1667657560 "HW2.xdv" "HW2.pdf" "HW2" 1667657560
+  "HW2.xdv" 1667657560 33812 ab9544d3548f861bb63510c83085a432 "xelatex"
   (generated)
   "HW2.pdf"
-["xelatex"] 1667653185 "/home/kuhyx/Zlew/Studia/WUT_Computer_Science/NotProgramming/ESOEN/HW2/HW2.tex" "HW2.xdv" "HW2" 1667653186
-  "/home/kuhyx/Zlew/Studia/WUT_Computer_Science/NotProgramming/ESOEN/HW2/HW2.tex" 1667653185 1094 4b200e9d3155af14ceb5aa91cd9c5138 ""
+["xelatex"] 1667657560 "/home/kuhyx/Zlew/Studia/WUT_Computer_Science/NotProgramming/ESOEN/HW2/HW2.tex" "HW2.xdv" "HW2" 1667657560
+  "/home/kuhyx/Zlew/Studia/WUT_Computer_Science/NotProgramming/ESOEN/HW2/HW2.tex" 1667657559 4128 6b210fab73ef39d12aa3558edc3455d7 ""
   "/usr/share/texmf-dist/tex/latex/base/article.cls" 1650183167 20144 8a7de377ae7a11ee924a7499611f5a9d ""
   "/usr/share/texmf-dist/tex/latex/base/size12.clo" 1650183167 8449 bc7344e882df4d7e51c046514dee83e4 ""
   "/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd" 1650183167 2430 06a89bcded389391906798ea7a3f3aaa ""
+  "/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1650183167 1224 978390e9c2234eab29404bc21b268d1e ""
+  "/usr/share/texmf-dist/tex/latex/graphics-def/xetex.def" 1650183167 14363 d3c336f2f510c0b73629f44e987d2e6a ""
+  "/usr/share/texmf-dist/tex/latex/graphics/graphics.sty" 1650183167 18399 7e40f80366dffb22c0e7b70517db5cb4 ""
+  "/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty" 1650183167 7996 a8fb260d598dcaf305a7ae7b9c3e3229 ""
+  "/usr/share/texmf-dist/tex/latex/graphics/keyval.sty" 1650183167 2671 4de6781a30211fe0ea4c672e4a2a8166 ""
+  "/usr/share/texmf-dist/tex/latex/graphics/trig.sty" 1650183167 4009 187ea2dc3194cd5a76cd99a8d7a6c4d0 ""
   "/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def" 1650183167 35763 558b6bb076dfa9b058fe5c58dc6e0434 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1667608630 5825165 3134581dd7c4dda880f963204bf37269 ""
-  "HW2.aux" 1667653186 1350 086026ea45cf03e87ebaf925d123d031 "xelatex"
-  "HW2.tex" 1667653185 1094 4b200e9d3155af14ceb5aa91cd9c5138 ""
+  "1A.png" 1667655927 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "1B.png" 1667655944 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "31.png" 1667656042 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "32.png" 1667656049 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "33.png" 1667656053 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "34.png" 1667656051 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "35.png" 1667656052 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "36.png" 1667656050 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "37.png" 1667656049 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "4.png" 1667656171 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "Class1_103.png" 1667655221 4661 76fac92a3a370a3059fed3ef3ec0c0f2 ""
+  "HW2.aux" 1667657560 2077 83146d5596cd248c068d285981c82852 "xelatex"
+  "HW2.tex" 1667657559 4128 6b210fab73ef39d12aa3558edc3455d7 ""
   (generated)
   "HW2.aux"
   "HW2.log"
