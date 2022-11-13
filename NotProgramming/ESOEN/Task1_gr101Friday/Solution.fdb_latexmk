@@ -1,0 +1,20 @@
+# Fdb version 3
+["xdvipdfmx"] 1666825174 "Solution.xdv" "Solution.pdf" "Solution" 1666825174
+  "Solution.xdv" 1666825174 22532 8da5f0f433dc7a4b3467f541904bf08f "xelatex"
+  (generated)
+  "Solution.pdf"
+["xelatex"] 1666825174 "/home/kuhyx/Zlew/Studia/NieNotatki/Projekty/WUT_Computer_Science/NotProgramming/ESOEN/Task1_gr101Friday/Solution.tex" "Solution.xdv" "Solution" 1666825174
+  "/home/kuhyx/Zlew/Studia/NieNotatki/Projekty/WUT_Computer_Science/NotProgramming/ESOEN/Task1_gr101Friday/Solution.tex" 1666825174 2440 5fb408d62b8780a791507b1716c56e45 ""
+  "/usr/share/texmf-dist/tex/latex/base/article.cls" 1650183167 20144 8a7de377ae7a11ee924a7499611f5a9d ""
+  "/usr/share/texmf-dist/tex/latex/base/size12.clo" 1650183167 8449 bc7344e882df4d7e51c046514dee83e4 ""
+  "/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd" 1650183167 2430 06a89bcded389391906798ea7a3f3aaa ""
+  "/usr/share/texmf-dist/tex/latex/enumitem/enumitem.sty" 1650181202 51697 f8f08183cd2080d9d18a41432d651dfb ""
+  "/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def" 1650183167 35763 558b6bb076dfa9b058fe5c58dc6e0434 ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
+  "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1666824708 5825170 7422ea4810d2988ef351e51b8d675697 ""
+  "Solution.aux" 1666825174 408 dfbfd302a7ca96ca66ded22e2ecd73b8 "xelatex"
+  "Solution.tex" 1666825174 2440 5fb408d62b8780a791507b1716c56e45 ""
+  (generated)
+  "Solution.aux"
+  "Solution.log"
+  "Solution.xdv"

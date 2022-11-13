@@ -1,0 +1,44 @@
+\documentclass[12pt]{article}
+\title{EDABA Homework 3}
+\author{Krzysztof Rudnicki, 307585}
+\begin{document}
+\maketitle
+\section{Task 1}
+Find lectures with the highest ECTS 
+
+
+
+\begin{verbatim}
+    LECT_highest = SELECT L#, LNAME FROM LECT AS X WHERE NOT EXIST 
+    ( SELECT * FROM LECT AS Y WHERE Y.L# != X.L# AND Y.ECTS > X.ECTS )
+    \end{verbatim}
+\section{Task 2}
+Find students attending some lectures with the highest ECTS 
+\begin{verbatim}
+    LECT_highest = SELECT L#, LNAME FROM LECT AS X WHERE NOT EXIST 
+    ( SELECT * FROM LECT AS Y WHERE Y.L# != X.L# AND Y.ECTS > X.ECTS )
+    SELECT UNIQUE SN, S#
+    FROM ST
+    WHERE ST.S# = S#_HIGHEST
+    S#_HIGHEST = 
+    SELECT S# 
+    FROM LS
+    WHERE LS.L# = LECT_highest.L#
+    \end{verbatim}
+    \newpage
+\section{Task 3}
+Find lectures which have more than 3 ECTS and are attended by \textbf{some} students from the track CS
+\begin{verbatim}
+    L_THREE_CS = SELECT UNIQUE L# FROM
+    (SELECT L# FROM LECT WHERE ECTS > 3 
+    INTERSECT 
+    SELECT L# FROM ST, LS WHERE (ST.S# = LS.S# AND ST.TRACK = CS)) 
+    \end{verbatim}
+\section{Task 4}
+Find the students attending  ONLY lectures with ECTS >3, i.e. no other lectures - using EXIST (NOT EXIST) statement
+\begin{verbatim}
+    SELECT S#, SN FROM STUDENT AS X WHERE
+    NOT EXIST 
+    ( SELECT S# FROM LECTURES AS Y WHERE Y.ECTS < 4)     
+    \end{verbatim}
+\end{document}
