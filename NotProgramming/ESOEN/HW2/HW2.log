@@ -1,0 +1,134 @@
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022/Arch Linux) (preloaded format=xelatex 2022.11.5)  6 NOV 2022 22:03
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/kuhyx/Zlew/Studia/WUT_Computer_Science/NotProgramming/ESOEN/HW2/HW2.tex
+(/home/kuhyx/Zlew/Studia/WUT_Computer_Science/NotProgramming/ESOEN/HW2/HW2.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10> (/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count181
+\c@section=\count182
+\c@subsection=\count183
+\c@subsubsection=\count184
+\c@paragraph=\count185
+\c@subparagraph=\count186
+\c@figure=\count187
+\c@table=\count188
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+) (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 107.
+ (/usr/share/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2022/04/12 v5.0l Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+File: l3backend-xetex.def 2022-04-14 L3 backend support: XeTeX
+\l__color_backend_stack_int=\count189
+\g__color_backend_stack_int=\count190
+\g__graphics_track_int=\count191
+\l__pdf_internal_box=\box50
+\g__pdf_backend_object_int=\count192
+\g__pdf_backend_annotation_int=\count193
+\g__pdf_backend_link_int=\count194
+) (./HW2.aux)
+\openout1 = `HW2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 5.
+ (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 6.
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+File: 1A.pdf Graphic file (type pdf)
+<use 1A.pdf>
+File: 1B.pdf Graphic file (type pdf)
+<use 1B.pdf>
+[1
+
+] [2]
+File: 31.pdf Graphic file (type pdf)
+<use 31.pdf>
+File: 32.pdf Graphic file (type pdf)
+<use 32.pdf>
+File: 33.pdf Graphic file (type pdf)
+<use 33.pdf>
+File: 34.pdf Graphic file (type pdf)
+<use 34.pdf>
+ [3]
+File: 35.pdf Graphic file (type pdf)
+<use 35.pdf>
+File: 36.pdf Graphic file (type pdf)
+<use 36.pdf>
+ [4]
+File: 37.pdf Graphic file (type pdf)
+<use 37.pdf>
+File: Class1_103.png Graphic file (type bmp)
+<Class1_103.png>
+ [5]
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+
+ []
+
+File: 4.pdf Graphic file (type pdf)
+<use 4.pdf>
+
+Overfull \hbox (18.0pt too wide) in paragraph at lines 69--70
+[][] 
+ []
+
+[6]
+File: 5.pdf Graphic file (type pdf)
+<use 5.pdf>
+ [7] (./HW2.aux) ) 
+Here is how much of TeX's memory you used:
+ 1048 strings out of 476156
+ 18530 string characters out of 5814963
+ 317372 words of memory out of 5000000
+ 21857 multiletter control sequences out of 15000+600000
+ 470228 words of font info for 38 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 55i,6n,62p,462b,191s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on HW2.xdv (7 pages, 36324 bytes).
