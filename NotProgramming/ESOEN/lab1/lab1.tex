@@ -1,0 +1,76 @@
+\documentclass[12pt]{article}
+
+\title{ESOEN Lab 1 Report}
+\author{Krzysztof Rudnicki, 307585}
+\begin{document}
+\maketitle
+\section{Project specification}
+
+\subsection{System description}
+My project topic was theater.
+\paragraph{What is the goal of the system?}
+The goal of the system is to allow users to book seats for theater spectacle.
+\paragraph{What scope does it cover?}
+Project needs have external web interface for booking tickets and internal for creating events. 
+\paragraph{What functionalities does it offer?}
+System allows theater visitors to book tickets for a spectacle and theater staff to create bookable events.
+\paragraph{Who are the intended users?}
+Theater owners, event managers and visitors. 
+\paragraph{Do the customers have the access to the system?}
+Yes, the web interface system must allow customers (external to theater) to access it in order to function properly.
+
+\subsection{Problem domain glossary}
+\begin{itemize}
+    \item Theatre Company - Institution that takes care of scheduling, organizing and finding theater venue.
+    \item Theatre Venue - Place where the spectacle can take place. 
+    \item Ticket - Item identifying ticket holder as being allowed to watch a spectacle.  
+    \item Spectacle - Event organized by theatre company. 
+    \item Potential Customer  - Person who has not yet buy the theatre ticket.
+    \item Ticket Holder - Person who has already bought the theatre ticket. 
+    \item Event Manager - Person responsible for scheduling spectacle dates and filling this information into our system. 
+    \item Spectacle Date - Specific Year, Month, Day, Hour and minute on which the spectacle will be played. 
+    \item Seat - Area assigned to specific ticket holder from which they are expected to watch the spectacle 
+    \item Booking Ticket - Paying for ticket in the system
+\end{itemize}
+
+\subsection{Requirements specification}
+\subsubsection{Functional requirements 1/2}
+\begin{tabular}{| c | c | p{5cm} | c | }
+    \hline 
+  Id & Name & Description & Priority \\ \hline
+  1. & Spectacle Management & Creating and modifying spectacle  & 5 \\ \hline
+  1.1. & Creating Spectacle & Entering spectacle details into system and saving them & 5 \\ \hline 
+  1.1.1. & Managing tickets & Defining tickets limit, price, types and discounts  & 5 \\ \hline 
+  1.1.2 & Managing spectacle date & Defining when the spectacle will take place & 4 \\ \hline  
+  1.1.3 & Managing seats & Defining seats placement, types and ticket price for specific seat & 2 \\ \hline 
+  1.1.2 & Creating Spectacle & Specifying date and name of spectacle & 5 \\ \hline 
+  2 & Viewing Bookable spectacles & Potential Customer view allowing them to see what spectacles are available to book & 5 \\ \hline 
+  2.1 & Spectacle Generalized list & Spectacle list with most general information, title, date, venue, remaining tickets and their price & 5 \\ \hline 
+  2.2 & Spectacle detailed view & Accessible after choosing one of the spectacles, containing in addition to general information: spectacle description, actors that will take part in it, director, date of when it was first played & 1 \\ \hline 
+\end{tabular}
+\subsubsection{Functional requirements 2/2}
+\begin{tabular}{| c | c | p{5cm} | c | }
+    \hline 
+  3 & Booking spectacle ticket & Paying and reserving ticket for specific spectacle & 5 \\ \hline 
+  3.1 & Choosing seat & Choosing specific seat for which potential customer buys ticket from the list & 2 \\ \hline 
+  3.2 & Choosing discounts & Choosing potential discounts like student discount for the ticket & 1 \\ \hline 
+  3.3 & Buying multiple tickets & Buying multiple tickets within one booking ticket operation, with potential group discounts & 1 \\ \hline 
+  3.3 & Paying for ticket & Sending money to the theater company & 5 \\ \hline 
+  3.4 & Verifying payment & Veryfing whether money was received & 5 \\ \hline 
+  3.5 & Receiving ticket & Getting the ticket or id allowing to receive ticket later in theater venue & 5 \\ \hline 
+  3.6 & Refunding tickets & Ticket holder returns the ticket back to the system and receives 50\% of money back & 1 \\ \hline 
+\end{tabular}
+
+\subsubsection{Non-functional requirements}
+\begin{itemize} 
+    \item In general system should have the uptime of more than 90\% per year, which means no more than 36 days of downtime per year  
+    \item Booking tickets should support at most 100 people at the same time for 99\% of system uptime 
+    \item Verifying payment should not take more than 10 seconds in more than 90\% of cases 
+    \item System should be able to hold information about no more than 50 spectacles 
+    \item System should prioritize giving specific seat to a person who first bought the ticket for this seat 
+    \item Ticket should be received in digital form if possible, but there should be a fallback mechanism which allows to receive ticket 
+\end{itemize}
+
+
+
+\end{document}
