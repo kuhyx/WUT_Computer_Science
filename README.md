@@ -4,5 +4,6 @@ It does not contain multiple projects that I did in a group like: </br>
 https://github.com/PolishPigeon/E-PSYOPS - Unity Game used to pass last 3 laboratories of EOPSY course </br>
 https://github.com/BartDrown/polygon-21z - Unity Game for my third Polygon Project </br>
 https://gitlab.com/Maciekxdabu/polygon-22l-samochdzik - Unity Game for my fourth Polygon Project </br>
-https://github.com/kuchyx/ECRYPT_PROJECT - ECRYPT project done in 2 persons group </br>
+https://github.com/kuchyx/ECRYPT_PROJECT - ECRYPT project done in 2 persons group, creating and testing sieve of erastothenes python program </br>
+https://github.com/kuchyx/EDABA-LAB - EDABA project where a database concept, design and implementation was created in two persons group </br>
 And tens of reports from laboratories done either solo or in group.
