@@ -26,6 +26,8 @@ Does not work if no path  (Should print out NO PATH FOUND)
 
 
 import heapq
+import sys
+
 class MazeSolver:
 
     # self corresponds to "this" in js, it refers to object of MazeSolver class
@@ -147,8 +149,12 @@ def print_maze(maze, path=None):
 
 # Ran first in the code
 if __name__ == '__main__':
+    print (sys.argv)
+    file_name = 'maze.txt'
+    if len(sys.argv) > 1:
+        file_name = sys.argv[1]
     # Open and load text file to array
-    maze = load_maze('mazes/mazeDeadEnd.txt')
+    maze = load_maze(file_name)
     # Initialize MazeSolver object with maze as paramater
     solver = MazeSolver(maze)
     # Find path using MazeSolver solve method
