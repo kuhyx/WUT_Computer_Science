@@ -25,6 +25,7 @@ import heapq
 import sys
 import time
 import os
+from random import shuffle, randrange
 
 
 class MazeSolver:
@@ -177,6 +178,35 @@ def save_maze(maze, path=None, file_name = 'Maze', iteration = 0):
         f.write('\n')
 
 
+
+def make_maze(w = 16, h = 8):
+    vis = [[0] * w + [1] for _ in range(h)] + [[1] * (w + 1)]
+    ver = [["#  "] * w + ['#'] for _ in range(h)] + [[]]
+    hor = [["###"] * w + ['#'] for _ in range(h + 1)]
+
+    def walk(x, y):
+        vis[y][x] = 1
+
+        d = [(x - 1, y), (x, y + 1), (x + 1, y), (x, y - 1)]
+        shuffle(d)
+        for (xx, yy) in d:
+            if vis[yy][xx]: continue
+            if xx == x: hor[max(y, yy)][x] = "#  "
+            if yy == y: ver[y][max(x, xx)] = "   "
+            walk(xx, yy)
+
+    walk(randrange(w), randrange(h))
+
+    s = ""
+    for (a, b) in zip(hor, ver):
+        s += ''.join(a + ['\n'] + b + ['\n'])
+    sList = list(s)
+    sList[3*w + 3] = 'S'
+    sList[len(sList) - (3*w + 6)] = 'E'
+    s = ''.join(sList)
+    return s
+
+
 # Ran first in the code
 if __name__ == '__main__':
     start_time = time.perf_counter()
@@ -187,7 +217,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         file_name = sys.argv[1]
         if sys.argv[1] == '-h' or sys.argv[1] == '--help':
-            print('python main.py - run the script against default maze file (any file named maze.txt in the code directory) \n python main.py filename.txt - run the script against filename.txt file \n python main.py -h --help print this prompt \n python main.py -t --test non interactive (does not print steps) for testing different heuristics, goes through entire folder of mazes file and compares heuristic speed and path length')
+            print('python main.py - run the script against default maze file (any file named maze.txt in the code directory) \n python main.py filename.txt - run the script against filename.txt file \n python main.py -h --help print this prompt \n python main.py -t --test non interactive (does not print steps) for testing different heuristics, goes through entire folder of mazes file and compares heuristic speed and path length \n python main.py -g [NUMBER] - generates as many mazes as entered in Number parameter and puts it in the mazes folder')
             sys.exit()
         if sys.argv[1] == '-t' or sys.argv[1] == '--test':
              test_mode = True
@@ -202,7 +232,19 @@ if __name__ == '__main__':
     solvedPath = solver.solve()
     if not test_mode:
         print_maze(loadedMaze, solvedPath)
+    if test_mode and folder_name != '':
+        for filename in os.listdir(folder_name):
+            filename_directory = os.path.join(folder_name, filename)
+            print(filename_directory)
+            # Open and load text file to array
+            loadedMaze = load_maze(filename_directory)
+            # Initialize MazeSolver object with maze as parameter
+            solver = MazeSolver(loadedMaze, test_mode)
+            # Find path using MazeSolver solve method
+            solvedPath = solver.solve()
+            save_maze(loadedMaze, solvedPath, filename, 0)
     save_maze(loadedMaze, solvedPath, file_name, 0)
     end_time = time.perf_counter()
     execution_time = end_time - start_time
+    print(make_maze())
     print(f"The execution time is: {execution_time}")
