@@ -155,7 +155,7 @@ class MazeSolver:
         heuristic_time = end_time - start_time
         return heuristic, heuristic_time
 
-    def heuristic_random(self, position):
+    def heuristic_random(self):
         """Heuristic function that just returns random value between 0 and 1"""
         start_time = time.perf_counter()
         heuristic = random()
@@ -301,9 +301,19 @@ def test_mode():
         sum_of_paths += len(solved_path)
         save_maze(loaded_maze, True, solved_path, filename, 0)
         files_amount += 1
+    if files_amount == 0:
+        print("no mazes found! Generate some using python main.py -g [NUMBER]")
+        sys.exit()
     average_path = sum_of_paths / files_amount
     average_time = sum_of_time / files_amount
-    print(f"For: {files_amount} files, sum of path lengths = {sum_of_paths}, average path length = {average_path},  sum_of_time = {sum_of_time}, average time to solve: {average_time}, heuristic_total_total_time: {heuristic_total_total_time}, all_heuristic_called: {all_heuristic_called}, average_heuristic_time: {heuristic_total_total_time / all_heuristic_called}")
+    print(f"""For: {files_amount} files,
+    sum of path lengths = {sum_of_paths},
+    average path length = {average_path},
+    sum_of_time = {sum_of_time},
+    average time to solve: {average_time},
+    heuristic_total_total_time: {heuristic_total_total_time},
+    all_heuristic_called: {all_heuristic_called},
+    average_heuristic_time: {heuristic_total_total_time / all_heuristic_called}""")
 
 def default():
     """ Runs default operation - reads, solves and prints single maze from file """
