@@ -23,14 +23,17 @@ Does not work if no path  (Should print out NO PATH FOUND)
 
 import heapq
 import sys
+import time
+import os
 
 
 class MazeSolver:
     '''Maze Solver'''
     # self corresponds to "this" in js, it refers to object of MazeSolver class
 
-    def __init__(self, maze):
+    def __init__(self, maze, test_mode):
         # assign read maze 2D array to parameter from class MazeSolver
+        self.test = test_mode
         self.maze = maze
         self.start, self.end = self.find_start_and_end()
 
@@ -84,7 +87,7 @@ class MazeSolver:
         # we use heapq so the element with lowest heuristic value will always
         # be at the top of heap
         heapq.heappush(
-            queue, (self.heuristic_euclidean(
+            queue, (self.heuristic_manhattan(
                 self.start), self.start, [
                 self.start]))
 
@@ -111,9 +114,10 @@ class MazeSolver:
                 if neighbor not in visited:
                     new_path = path + [neighbor]
                     heapq.heappush(
-                        queue, (self.heuristic_euclidean(neighbor), neighbor, new_path))
-            print_maze(self.maze, new_path)
-            print()
+                        queue, (self.heuristic_manhattan(neighbor), neighbor, new_path))
+            if not self.test:
+                print_maze(self.maze, new_path)
+                print()
         return path
 
     # This heuristic returns the Manhattan distance between the given position
@@ -158,17 +162,47 @@ def print_maze(maze, path=None):
                 print(cell, end='')
         print()
 
+def save_maze(maze, path=None, file_name = 'Maze', iteration = 0):
+    if not os.path.exists('solvedMazes'): 
+        os.mkdir('solvedMazes')
+    f = open(f"solvedMazes/{iteration}solved{file_name}", "w")
+    if path is None:
+        path = []
+    for row_i, row in enumerate(maze):
+        for col_i, cell in enumerate(row):
+            if (row_i, col_i) in path:
+                f.write('*')
+            else:
+                f.write(cell)
+        f.write('\n')
+
 
 # Ran first in the code
 if __name__ == '__main__':
-    print(sys.argv)
+    start_time = time.perf_counter()
+    # print(sys.argv)
     file_name = 'maze.txt'
+    test_mode = False
+    folder_name = ''
     if len(sys.argv) > 1:
         file_name = sys.argv[1]
+        if sys.argv[1] == '-h' or sys.argv[1] == '--help':
+            print('python main.py - run the script against default maze file (any file named maze.txt in the code directory) \n python main.py filename.txt - run the script against filename.txt file \n python main.py -h --help print this prompt \n python main.py -t --test non interactive (does not print steps) for testing different heuristics, goes through entire folder of mazes file and compares heuristic speed and path length')
+            sys.exit()
+        if sys.argv[1] == '-t' or sys.argv[1] == '--test':
+             test_mode = True
+             file_name = 'maze.txt'
+             if len(sys.argv) > 2:
+                folder_name = sys.argv[2]
     # Open and load text file to array
     loadedMaze = load_maze(file_name)
     # Initialize MazeSolver object with maze as parameter
-    solver = MazeSolver(loadedMaze)
+    solver = MazeSolver(loadedMaze, test_mode)
     # Find path using MazeSolver solve method
     solvedPath = solver.solve()
-    print_maze(loadedMaze, solvedPath)
+    if not test_mode:
+        print_maze(loadedMaze, solvedPath)
+    save_maze(loadedMaze, solvedPath, file_name, 0)
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    print(f"The execution time is: {execution_time}")
