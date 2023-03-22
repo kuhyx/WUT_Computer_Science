@@ -50,7 +50,7 @@ class MazeSolver:
 
         for row_i, row in enumerate(self.maze):
             for col_i, cell in enumerate(row):
-                if cell == "maze_data":
+                if cell == "S":
                     start = (row_i, col_i)
                 elif cell == "E":
                     end = (row_i, col_i)
@@ -81,26 +81,8 @@ class MazeSolver:
 
     # find path through maze
 
-    def solve(self):
-        """Solves the maze"""
-        queue = []
-        # set means that values inside can not repeat
-        visited = set()
-        # https://docs.python.org/3/library/heapq.html
-        # push onto the queue (which becomes heapq), element containing values
-        # we use heapq so the element with lowest heuristic value will always
-        # be at the top of heap
-        heapq.heappush(
-            queue, (self.heuristic_manhattan(self.start), self.start, [self.start])
-        )
-
-        # Go through queue until it'maze_data empty
-        # Find neighbor (which is not wall) closest to the
-        # END point (based on heuristic)
-        # Go there and repeat
-        # if cannot find path it starts over but skips the path that lead it to
-        # dead end
-        path = None
+    def solve_loop(self, queue, visited):
+        """ Goes through maze and finds the path """
         while queue:
             # pop first element of heap
             # first value is skipped and we only save current position and path
@@ -123,6 +105,27 @@ class MazeSolver:
                 print_maze(self.maze, new_path)
                 print()
         return path
+
+    def solve(self):
+        """Solves the maze"""
+        queue = []
+        # set means that values inside can not repeat
+        visited = set()
+        # https://docs.python.org/3/library/heapq.html
+        # push onto the queue (which becomes heapq), element containing values
+        # we use heapq so the element with lowest heuristic value will always
+        # be at the top of heap
+        heapq.heappush(
+            queue, (self.heuristic_manhattan(self.start), self.start, [self.start])
+        )
+
+        # Go through queue until it'maze_data empty
+        # Find neighbor (which is not wall) closest to the
+        # END point (based on heuristic)
+        # Go there and repeat
+        # if cannot find path it starts over but skips the path that lead it to
+        # dead end
+        return self.solve_loop(queue, visited)
 
     # This heuristic returns the Manhattan distance between the given position
     # and the maze'maze_data end
@@ -167,23 +170,27 @@ def print_maze(maze, path=None):
                 print(cell, end="")
         print()
 
-
-def save_maze(maze, path=None, saved_file="Maze", iteration=0):
+def save_maze(maze, solved=True, path=None, saved_file="Maze", iteration=0):
     """Saves maze from array to txt file"""
-    if not os.path.exists("solvedMazes"):
-        os.mkdir("solvedMazes")
-    with open(f"solvedMazes/{iteration}solved{saved_file}", "w", encoding="utf8") as file:
-        maze_file = file.read()
-    if path is None:
-        path = []
-    for row_i, row in enumerate(maze):
-        for col_i, cell in enumerate(row):
-            if (row_i, col_i) in path:
-                maze_file.write("*")
-            else:
-                maze_file.write(cell)
-        maze_file.write("\n")
-
+    if solved:
+        folder_name = "solvedMazes"
+    else:
+        folder_name = "generatedMazes"
+    if not os.path.exists(folder_name):
+        os.mkdir(folder_name)
+    with open(f"{folder_name}/{iteration}{saved_file}", "w", encoding="utf8") as maze_file:
+        if path is None:
+            path = []
+        for row_i, row in enumerate(maze):
+            for col_i, cell in enumerate(row):
+                if (row_i, col_i) in path:
+                    maze_file.write("*")
+                else:
+                    maze_file.write(cell)
+            if solved:
+                maze_file.write("\n")
+        if not solved:
+            maze_file.write("\n")
 
 def make_maze(width=16, height=8):
     """ generate maze with given width and height """
@@ -214,23 +221,14 @@ def make_maze(width=16, height=8):
     for horizontal_line, vertical_line in zip(hor, ver):
         maze_data += "".join(horizontal_line + ["\n"] + vertical_line + ["\n"])
     maze_data_list = list(maze_data)
-    maze_data_list[3 * width + 3] = "maze_data"
+    maze_data_list[3 * width + 3] = "S"
     maze_data_list[len(maze_data_list) - (3 * width + 6)] = "E"
     maze_data = "".join(maze_data_list)
     return maze_data
 
-
-# Ran first in the code
-if __name__ == "__main__":
-    start_time = time.perf_counter()
-    # print(sys.argv)
-    FILE_NAME = "maze.txt"
-    TEST_MODE = False
-    FOLDER_NAME = ""
-    if len(sys.argv) > 1:
-        FILE_NAME = sys.argv[1]
-        if sys.argv[1] == "-h" or sys.argv[1] == "--help":
-            print(
+def print_help():
+    """prints help"""
+    print(
 """python main.py - run the script against default maze file
 (any file named maze.txt in the code directory)
 
@@ -240,36 +238,61 @@ python main.py -t --test non interactive (does not print steps) for testing
 different heuristics, goes through entire folder of mazes file and
 compares heuristic speed and path length
 
-python main.py -g [NUMBER] - generates as many mazes as entered in
+python main.py -g --generate [NUMBER] - generates as many mazes as entered in
 Number parameter and puts it in the mazes folder"""
             )
+
+def test_mode():
+    """ Loads and solves multiple mazes in order to compare heuristics """
+    for filename in os.listdir(FOLDER_NAME):
+        filename_directory = os.path.join(FOLDER_NAME, filename)
+        print(filename_directory)
+        # Open and load text file to array
+        loaded_maze_test = load_maze(filename_directory)
+        # Initialize MazeSolver object with maze as parameter
+        solver_test = MazeSolver(loaded_maze_test, TEST_MODE)
+        # Find path using MazeSolver solve method
+        solved_path = solver_test.solve()
+        save_maze(loadedMaze, True, solved_path, filename, 0)
+
+
+# Ran first in the code
+if __name__ == "__main__":
+    start_time = time.perf_counter()
+    # print(sys.argv)
+    FILE_NAME = "maze.txt"
+    TEST_MODE = False
+    FOLDER_NAME = ""
+    GENERATE_AMOUNT = 0
+    if len(sys.argv) > 1:
+        FILE_NAME = sys.argv[1]
+        if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+            print_help()
             sys.exit()
         if sys.argv[1] == "-t" or sys.argv[1] == "--test":
             TEST_MODE = True
             FILE_NAME = "maze.txt"
             if len(sys.argv) > 2:
                 FOLDER_NAME = sys.argv[2]
+        if sys.argv[1] == '-g' or sys.argv[1] == '--generate':
+            if len(sys.argv) > 2:
+                GENERATE_AMOUNT = int(sys.argv[2])
+    if GENERATE_AMOUNT > 0:
+        for n in range(GENERATE_AMOUNT):
+            GENERATED_MAZE = make_maze()
+            save_maze(GENERATED_MAZE, False, None, f'generated{n}.txt')
+        sys.exit()
     # Open and load text file to array
     loadedMaze = load_maze(FILE_NAME)
     # Initialize MazeSolver object with maze as parameter
     solver = MazeSolver(loadedMaze, TEST_MODE)
     # Find path using MazeSolver solve method
-    solvedPath = solver.solve()
+    SOLVED_PATH = solver.solve()
     if not TEST_MODE:
-        print_maze(loadedMaze, solvedPath)
+        print_maze(loadedMaze, SOLVED_PATH)
     if TEST_MODE and FOLDER_NAME != "":
-        for filename in os.listdir(FOLDER_NAME):
-            filename_directory = os.path.join(FOLDER_NAME, filename)
-            print(filename_directory)
-            # Open and load text file to array
-            loadedMaze = load_maze(filename_directory)
-            # Initialize MazeSolver object with maze as parameter
-            solver = MazeSolver(loadedMaze, TEST_MODE)
-            # Find path using MazeSolver solve method
-            solvedPath = solver.solve()
-            save_maze(loadedMaze, solvedPath, filename, 0)
-    save_maze(loadedMaze, solvedPath, FILE_NAME, 0)
+        test_mode()
+    save_maze(loadedMaze, True, SOLVED_PATH, FILE_NAME, 0)
     end_time = time.perf_counter()
     execution_time = end_time - start_time
-    print(make_maze())
     print(f"The execution time is: {execution_time}")
