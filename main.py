@@ -32,7 +32,7 @@ class MazeSolver:
 
     # self corresponds to "this" in js, it refers to object of MazeSolver class
     def __init__(self, maze):
-        # assign readed maze 2D array to parameter from class MazeSolver
+        # assign read maze 2D array to parameter from class MazeSolver
         self.maze = maze
         self.start, self.end = self.find_start_and_end()
 
@@ -51,7 +51,7 @@ class MazeSolver:
                     return start, end
         print(f"DID NOT FOUND START OR END, Start: {start}, End: {end}")
 
-# Go through each neighboor
+# Go through each neighbor
 #       N
 #     N * N
 #       N
@@ -77,8 +77,8 @@ class MazeSolver:
         # set means that values inside can not repeat
         visited = set()
         # https://docs.python.org/3/library/heapq.html
-        # push onto the queue (which becomes heapq), element containinig values
-        # we use heapq so the element with lowest heurisitc value will always
+        # push onto the queue (which becomes heapq), element containing values
+        # we use heapq so the element with lowest heuristic value will always
         # be at the top of heap
         heapq.heappush(
             queue, (self.heuristicEuclidean(
@@ -86,7 +86,7 @@ class MazeSolver:
                 self.start]))
 
         # go through queue until it's empty
-        # find neighbour (which is not wall) closests to END point (based on heuristic)
+        # find neighbor (which is not wall) closest to END point (based on heuristic)
         # go there and repeat
         # if cannot find path it starts over but skips the path that lead it to
         # dead end
@@ -110,9 +110,9 @@ class MazeSolver:
             print_maze(self.maze, new_path)
             print()
 
-    # This heuristic returns the Manhatan distance between the given position
+    # This heuristic returns the Manhattan distance between the given position
     # and the maze's end
-    def heuristicManhatan(self, position):
+    def heuristicManhattan(self, position):
         return abs(position[0] - self.end[0]) + abs(position[1] - self.end[1])
 
     # This heuristic returns the Euclidean distance between the given position
@@ -155,7 +155,7 @@ if __name__ == '__main__':
         file_name = sys.argv[1]
     # Open and load text file to array
     maze = load_maze(file_name)
-    # Initialize MazeSolver object with maze as paramater
+    # Initialize MazeSolver object with maze as parameter
     solver = MazeSolver(maze)
     # Find path using MazeSolver solve method
     path = solver.solve()
