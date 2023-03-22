@@ -27,7 +27,7 @@ import heapq
 import sys
 import time
 import os
-from random import shuffle, randrange
+from random import shuffle, randrange, random
 
 
 class MazeSolver:
@@ -99,7 +99,7 @@ class MazeSolver:
                 if neighbor not in visited:
                     new_path = path + [neighbor]
                     heapq.heappush(
-                        queue, (self.heuristic_manhattan(neighbor), neighbor, new_path)
+                        queue, (self.heuristic_random(neighbor), neighbor, new_path)
                     )
             if not self.test:
                 print_maze(self.maze, new_path)
@@ -116,7 +116,7 @@ class MazeSolver:
         # we use heapq so the element with lowest heuristic value will always
         # be at the top of heap
         heapq.heappush(
-            queue, (self.heuristic_manhattan(self.start), self.start, [self.start])
+            queue, (self.heuristic_random(self.start), self.start, [self.start])
         )
 
         # Go through queue until it'maze_data empty
@@ -140,6 +140,10 @@ class MazeSolver:
         return (
             abs(position[0] - self.end[0]) ** 2 + abs(position[1] - self.end[1]) ** 2
         ) ** 0.5
+
+    def heuristic_random(self, position):
+        """Heuristic function that just returns random value between 0 and 1"""
+        return random()
 
 
 # Open and load text file to array
@@ -257,16 +261,27 @@ Number parameter and puts it in the generatedMazes folder"""
 
 def test_mode():
     """ Loads and solves multiple mazes in order to compare heuristics """
+    create_maze_folder(False)
+    sum_of_paths = 0
+    files_amount = 0
+    sum_of_time = 0
     for filename in os.listdir(FOLDER_NAME):
         filename_directory = os.path.join(FOLDER_NAME, filename)
-        print(filename_directory)
         # Open and load text file to array
         loaded_maze = load_maze(filename_directory)
         # Initialize MazeSolver object with maze as parameter
         solver_test = MazeSolver(loaded_maze, TEST_MODE)
         # Find path using MazeSolver solve method
+        start_time = time.perf_counter()
         solved_path = solver_test.solve()
+        end_time = time.perf_counter()
+        sum_of_time += end_time - start_time
+        sum_of_paths += len(solved_path)
         save_maze(loaded_maze, True, solved_path, filename, 0)
+        files_amount += 1
+    average_path = sum_of_paths / files_amount
+    average_time = sum_of_time / files_amount
+    print(f"For: {files_amount} files, sum of path lengths = {sum_of_paths}, average path length = {average_path},  sum_of_time = {sum_of_time}, average time to solve: {average_time}")
 
 def default():
     """ Runs default operation - reads, solves and prints single maze from file """
@@ -281,7 +296,6 @@ def default():
 
 # Ran first in the code
 if __name__ == "__main__":
-    start_time = time.perf_counter()
     # print(sys.argv)
     FILE_NAME = "maze.txt"
     TEST_MODE = False
@@ -305,9 +319,6 @@ if __name__ == "__main__":
                 for n in range(GENERATE_AMOUNT):
                     GENERATED_MAZE = make_maze()
                     save_maze(GENERATED_MAZE, False, None, f'generated{n}.txt')
-                    sys.exit()
+                sys.exit()
         FILE_NAME = sys.argv[1]
     default()
-    end_time = time.perf_counter()
-    execution_time = end_time - start_time
-    print(f"The execution time is: {execution_time}")
