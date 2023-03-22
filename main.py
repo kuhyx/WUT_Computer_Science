@@ -8,27 +8,26 @@ as simple as possible (but of course it does not have to). Example solution:
 https://angeluriot.com/maze_solver/.
 Test multiple heuristics (at least two) h(n) and discuss the differences be-
 tween the obtained results.
-"""
-""" Technical requirements:
+
+Technical requirements:
 - implemented in Python.
 - adheres to basic standards of lean coding in accordance to PEP8
 - comments in the crucial parts to help with readability and understanding.
 - The clear instruction how to run and test the code should be included.
-"""
-"""
+
 Thinks that do not work:
 Does not work if no Start (Should print out NO START FOUND)
 Does not work if no End   (Should print out NO END FOUND)
 Does not work if no path  (Should print out NO PATH FOUND)
 """
 
-
-
-
 import heapq
-class MazeSolver:
 
+
+class MazeSolver:
+    '''Maze Solver'''
     # self corresponds to "this" in js, it refers to object of MazeSolver class
+
     def __init__(self, maze):
         # assign readed maze 2D array to parameter from class MazeSolver
         self.maze = maze
@@ -38,16 +37,19 @@ class MazeSolver:
 # Start/End character
 
     def find_start_and_end(self):
+        '''Finds start and end points in the maze'''
         start = end = None
-        for row in range(len(self.maze)):
-            for col in range(len(self.maze[row])):
-                if self.maze[row][col] == 'S':
-                    start = (row, col)
-                elif self.maze[row][col] == 'E':
-                    end = (row, col)
+
+        for row_i, row in enumerate(self.maze):
+            for col_i, cell in enumerate(row):
+                if cell == 'S':
+                    start = (row_i, col_i)
+                elif cell == 'E':
+                    end = (row_i, col_i)
                 if start is not None and end is not None:
                     return start, end
         print(f"DID NOT FOUND START OR END, Start: {start}, End: {end}")
+        return start, end
 
 # Go through each neighboor
 #       N
@@ -56,6 +58,7 @@ class MazeSolver:
 # If it is not a "wall" (#) add its position to list of neighbors
 
     def get_neighbors(self, position):
+        '''Finds point's neighbours'''
         row, col = position
         neighbors = []
         if row > 0 and self.maze[row - 1][col] != '#':
@@ -71,6 +74,7 @@ class MazeSolver:
 # find path through maze
 
     def solve(self):
+        '''Solves the maze'''
         queue = []
         # set means that values inside can not repeat
         visited = set()
@@ -79,15 +83,17 @@ class MazeSolver:
         # we use heapq so the element with lowest heurisitc value will always
         # be at the top of heap
         heapq.heappush(
-            queue, (self.heuristicEuclidean(
+            queue, (self.heuristic_euclidean(
                 self.start), self.start, [
                 self.start]))
 
-        # go through queue until it's empty
-        # find neighbour (which is not wall) closests to END point (based on heuristic)
-        # go there and repeat
+        # Go through queue until it's empty
+        # Find neighbour (which is not wall) closests to the
+        # END point (based on heuristic)
+        # Go there and repeat
         # if cannot find path it starts over but skips the path that lead it to
         # dead end
+        path = None
         while queue:
             # pop first element of heap
             # first value is skipped and we only save current position and path
@@ -96,61 +102,68 @@ class MazeSolver:
             # if we already visited current skip code and go to next iteration
             if current in visited:
                 continue
-# if we found the end return path
+            # if we found the end return path
             if current == self.end:
-                return path
+                break
             visited.add(current)
             for neighbor in self.get_neighbors(current):
                 if neighbor not in visited:
                     new_path = path + [neighbor]
                     heapq.heappush(
-                        queue, (self.heuristicEuclidean(neighbor), neighbor, new_path))
+                        queue, (self.heuristic_euclidean(neighbor), neighbor, new_path))
             print_maze(self.maze, new_path)
             print()
+        return path
 
     # This heuristic returns the Manhatan distance between the given position
     # and the maze's end
-    def heuristicManhatan(self, position):
+    def heuristic_manhatan(self, position):
+        '''Heuristic function that uses Manhatan distance'''
         return abs(position[0] - self.end[0]) + abs(position[1] - self.end[1])
 
     # This heuristic returns the Euclidean distance between the given position
     # and the maze's end
-    def heuristicEuclidean(self, position):
+    def heuristic_euclidean(self, position):
+        '''Heuristic function that uses Euclidean distance'''
         return (abs(position[0] - self.end[0])**2 +
                 abs(position[1] - self.end[1])**2)**0.5
 
 
 # Open and load text file to array
 def load_maze(filename):
+    '''Loads a maze from the specified file'''
     # Open for reading only and save to fileContents
-    fileContents = open(filename, 'r')
-    # strip() removes extra white spaces from the beginning and the end of a string
-    # list() changes string to array of chars
-    # Inside of square brackets we will have an array of characters for each line of file
-    # after going through every line in a file we will have 2D array of arrays
-    # of characters of every line
-    maze = [list(line.strip()) for line in fileContents]
+    with open(filename, 'r', encoding='utf8') as file_contents:
+        # strip() removes extra white spaces from the beginning and the end of
+        # a string
+        # list() changes string to array of chars
+        # Inside of square brackets we will have an array of characters for
+        # each line of file
+        # After going through every line in a file we will have 2D array of arrays
+        # of characters of every line
+        maze = [list(line.strip()) for line in file_contents]
     return maze
 
 
 def print_maze(maze, path=None):
+    '''Prints the maze'''
     if path is None:
         path = []
-    for row in range(len(maze)):
-        for col in range(len(maze[row])):
-            if (row, col) in path:
+    for row_i, row in enumerate(maze):
+        for col_i, cell in enumerate(row):
+            if (row_i, col_i) in path:
                 print('*', end='')
             else:
-                print(maze[row][col], end='')
+                print(cell, end='')
         print()
 
 
 # Ran first in the code
 if __name__ == '__main__':
     # Open and load text file to array
-    maze = load_maze('mazes/mazeDeadEnd.txt')
+    loadedMaze = load_maze('mazes/mazeDeadEnd.txt')
     # Initialize MazeSolver object with maze as paramater
-    solver = MazeSolver(maze)
+    solver = MazeSolver(loadedMaze)
     # Find path using MazeSolver solve method
-    path = solver.solve()
-    print_maze(maze, path)
+    solvedPath = solver.solve()
+    print_maze(loadedMaze, solvedPath)
