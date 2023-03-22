@@ -59,7 +59,7 @@ class MazeSolver:
 # If it is not a "wall" (#) add its position to list of neighbors
 
     def get_neighbors(self, position):
-        '''Finds point's neighbours'''
+        '''Finds point's neighbors'''
         row, col = position
         neighbors = []
         if row > 0 and self.maze[row - 1][col] != '#':
@@ -89,7 +89,7 @@ class MazeSolver:
                 self.start]))
 
         # Go through queue until it's empty
-        # Find neighbor (which is not wall) closests to the
+        # Find neighbor (which is not wall) closest to the
         # END point (based on heuristic)
         # Go there and repeat
         # if cannot find path it starts over but skips the path that lead it to
@@ -161,7 +161,7 @@ def print_maze(maze, path=None):
 
 # Ran first in the code
 if __name__ == '__main__':
-    print (sys.argv)
+    print(sys.argv)
     file_name = 'maze.txt'
     if len(sys.argv) > 1:
         file_name = sys.argv[1]
