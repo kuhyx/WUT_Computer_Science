@@ -83,6 +83,8 @@ class MazeSolver:
 
     def solve_loop(self, queue, visited):
         """ Goes through maze and finds the path """
+        heuristic_total_time = 0
+        heuristics_called = 0
         while queue:
             # pop first element of heap
             # first value is skipped and we only save current position and path
@@ -98,13 +100,16 @@ class MazeSolver:
             for neighbor in self.get_neighbors(current):
                 if neighbor not in visited:
                     new_path = path + [neighbor]
+                    heuristic, heuristic_time = self.heuristic_manhattan(neighbor)
+                    heuristic_total_time += heuristic_time
+                    heuristics_called += 1
                     heapq.heappush(
-                        queue, (self.heuristic_random(neighbor), neighbor, new_path)
+                        queue, (heuristic, neighbor, new_path)
                     )
             if not self.test:
                 print_maze(self.maze, new_path)
                 print()
-        return path
+        return path, heuristic_total_time, heuristics_called
 
     def solve(self):
         """Solves the maze"""
@@ -115,8 +120,9 @@ class MazeSolver:
         # push onto the queue (which becomes heapq), element containing values
         # we use heapq so the element with lowest heuristic value will always
         # be at the top of heap
+        heuristic = self.heuristic_manhattan(self.start)
         heapq.heappush(
-            queue, (self.heuristic_random(self.start), self.start, [self.start])
+            queue, (heuristic, self.start, [self.start])
         )
 
         # Go through queue until it'maze_data empty
@@ -131,19 +137,31 @@ class MazeSolver:
     # and the maze'maze_data end
     def heuristic_manhattan(self, position):
         """Heuristic function that uses Manhattan distance"""
-        return abs(position[0] - self.end[0]) + abs(position[1] - self.end[1])
+        start_time = time.perf_counter()
+        heuristic = abs(position[0] - self.end[0]) + abs(position[1] - self.end[1])
+        end_time = time.perf_counter()
+        heuristic_time = end_time - start_time
+        return heuristic, heuristic_time
 
     # This heuristic returns the Euclidean distance between the given position
     # and the maze'maze_data end
     def heuristic_euclidean(self, position):
         """Heuristic function that uses Euclidean distance"""
-        return (
+        start_time = time.perf_counter()
+        heuristic = (
             abs(position[0] - self.end[0]) ** 2 + abs(position[1] - self.end[1]) ** 2
         ) ** 0.5
+        end_time = time.perf_counter()
+        heuristic_time = end_time - start_time
+        return heuristic, heuristic_time
 
     def heuristic_random(self, position):
         """Heuristic function that just returns random value between 0 and 1"""
-        return random()
+        start_time = time.perf_counter()
+        heuristic = random()
+        end_time = time.perf_counter()
+        heuristic_time = end_time - start_time
+        return heuristic, heuristic_time
 
 
 # Open and load text file to array
@@ -265,6 +283,8 @@ def test_mode():
     sum_of_paths = 0
     files_amount = 0
     sum_of_time = 0
+    heuristic_total_total_time = 0
+    all_heuristic_called = 0
     for filename in os.listdir(FOLDER_NAME):
         filename_directory = os.path.join(FOLDER_NAME, filename)
         # Open and load text file to array
@@ -273,7 +293,9 @@ def test_mode():
         solver_test = MazeSolver(loaded_maze, TEST_MODE)
         # Find path using MazeSolver solve method
         start_time = time.perf_counter()
-        solved_path = solver_test.solve()
+        solved_path, heuristic_total_time, heuristics_called = solver_test.solve()
+        heuristic_total_total_time += heuristic_total_time
+        all_heuristic_called += heuristics_called
         end_time = time.perf_counter()
         sum_of_time += end_time - start_time
         sum_of_paths += len(solved_path)
@@ -281,7 +303,7 @@ def test_mode():
         files_amount += 1
     average_path = sum_of_paths / files_amount
     average_time = sum_of_time / files_amount
-    print(f"For: {files_amount} files, sum of path lengths = {sum_of_paths}, average path length = {average_path},  sum_of_time = {sum_of_time}, average time to solve: {average_time}")
+    print(f"For: {files_amount} files, sum of path lengths = {sum_of_paths}, average path length = {average_path},  sum_of_time = {sum_of_time}, average time to solve: {average_time}, heuristic_total_total_time: {heuristic_total_total_time}, all_heuristic_called: {all_heuristic_called}, average_heuristic_time: {heuristic_total_total_time / all_heuristic_called}")
 
 def default():
     """ Runs default operation - reads, solves and prints single maze from file """
