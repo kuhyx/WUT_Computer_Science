@@ -1,0 +1,8 @@
+Manhattan:
+For: 1000 files, sum of path lengths = 122194, average path length = 122.194,  sum_of_time = 0.8560767570011194, average time to solve: 0.0008560767570011194, heuristic_total_total_time: 0.10561735888813928, all_heuristic_called: 282721, average_heuristic_time: 3.735745094568118e-07
+
+Euclidean:
+For: 1000 files, sum of path lengths = 120936, average path length = 120.936,  sum_of_time = 1.268625628994414, average time to solve: 0.001268625628994414, heuristic_total_total_time: 0.34228658579650073, all_heuristic_called: 276120, average_heuristic_time: 1.2396298196309602e-06
+
+Random:
+For: 1000 files, sum of path lengths = 131126, average path length = 131.126,  sum_of_time = 1.2832818229990153, average time to solve: 0.0012832818229990153, heuristic_total_total_time: 0.07322999603366043, all_heuristic_called: 417262, average_heuristic_time: 1.7550123431719262e-07
