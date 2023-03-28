@@ -100,7 +100,7 @@ class MazeSolver:
             for neighbor in self.get_neighbors(current):
                 if neighbor not in visited:
                     new_path = path + [neighbor]
-                    heuristic, heuristic_time = self.heuristic_manhattan(neighbor)
+                    heuristic, heuristic_time = self.heuristic_euclidean(neighbor)
                     heuristic_total_time += heuristic_time
                     heuristics_called += 1
                     heapq.heappush(
@@ -120,7 +120,7 @@ class MazeSolver:
         # push onto the queue (which becomes heapq), element containing values
         # we use heapq so the element with lowest heuristic value will always
         # be at the top of heap
-        heuristic = self.heuristic_manhattan(self.start)
+        heuristic = self.heuristic_euclidean(self.start)
         heapq.heappush(
             queue, (heuristic, self.start, [self.start])
         )
@@ -155,7 +155,7 @@ class MazeSolver:
         heuristic_time = end_time - start_time
         return heuristic, heuristic_time
 
-    def heuristic_random(self):
+    def heuristic_random(self, position):
         """Heuristic function that just returns random value between 0 and 1"""
         start_time = time.perf_counter()
         heuristic = random()
