@@ -158,7 +158,7 @@ class Game:
     def print_board(self):
         """Print the board in the console"""
 
-        def get_piece_code(self, pos, background):
+        def get_piece_code(pos, background):
             """Return code piece"""
             if (*pos, False) in self.white_positions:
                 return "w"
@@ -178,7 +178,7 @@ class Game:
         for row in range(self.board_size*4):
             for col in range(self.board_size):
                 background = "#" if col % 2 == (row//4) % 2 else " "
-                checker = get_piece_code(col, row//4, background)
+                checker = get_piece_code((col, row//4), background)
 
                 if col == 0:
                     if line % 4 == 2:
@@ -349,7 +349,8 @@ class Game:
         has_moved = False
         possible_moves = self.get_possible_moves(color)
         while not has_moved:
-            user_input = input('How do you want to move? (format: d6 e5)\n')
+            user_input = input(
+                f'You are {color}. How do you want to move? (format: d6 e5)\n')
             regex = r"^[a-z]\d+\s[a-z]\d+$"
             match = re.search(regex, user_input)
             if not match:
