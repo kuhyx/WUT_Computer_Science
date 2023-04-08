@@ -1,7 +1,7 @@
 import re
 import copy
 """
-Program that plays draughts (checkers) with user on 8x8 board using min-max with alpha-beta prunning
+Program that plays draughts (checkers) with user on 8x8 board using min-max with alpha-beta pruning
 """
 
 
@@ -56,10 +56,10 @@ class Game:
     def check_piece_exists(self, coords, color):
         """Check if a piece of given color exists at a given spot"""
         if color == "white":
-            if any(piece in self.white_positions for piece in ((*coords, False), (*coords, False))):
+            if any(piece in self.white_positions for piece in ((*coords, False), (*coords, True))):
                 return True
         else:
-            if any(piece in self.black_positions for piece in ((*coords, False), (*coords, False))):
+            if any(piece in self.black_positions for piece in ((*coords, False), (*coords, True))):
                 return True
         return False
 
@@ -86,7 +86,8 @@ class Game:
     def check_capture(self, from_, to, color):
         """Check if a piece was captured for a given move. Return captured piece coordinates or None"""
         # captures can only happen if the player moved twice-diagonally
-        if (abs(to[0]-from_[0]) != 2 or abs(to[1]-from_[1] != 2)):
+
+        if (abs(to[0]-from_[0]) != 2 or abs(to[1]-from_[1]) != 2):
             return None
 
         middle = (abs(to[0]+from_[0])//2, abs(to[1]+from_[1])//2)
@@ -97,22 +98,19 @@ class Game:
             return middle
         return None
 
-    def check_move_legal(self, from_, to, color):
+    def check_move_legal(self, from_, to, color, give_feedback=False):
         """Check if a move is legal. Return a boolean or coordinates of captured piece"""
         if self.check_move_out_of_bounds(from_, to):
-            if from_ == (2, 3):
-                print(f"To: {to}")
+            if give_feedback:
                 print("Illegal move! Final position is out of the bounds of the board")
             return False
         if not self.check_piece_exists(from_, color):
-            if from_ == (2, 3):
-                print(f"To: {to}")
+            if give_feedback:
                 print(
                     "Illegal move! There is no piece on the starting position that belongs to the player")
             return False
         if self.check_piece_exists(to, "white") or self.check_piece_exists(to, "black"):
-            if from_ == (2, 3):
-                print(f"To: {to}")
+            if give_feedback:
                 print("Illegal move! Cannot move to position taken by another piece")
             return False
         capture = self.check_capture(from_, to, color)
@@ -120,9 +118,8 @@ class Game:
             if self.check_move_piece_capable(from_, to, color):
                 return True
             else:
-                if from_ == (2, 3):
-                    print(f"To: {to}")
-                    print('Illegal move!')
+                if give_feedback:
+                    print('Illegal move! You can only move diagonally')
                 return False
         return capture
 
@@ -136,17 +133,24 @@ class Game:
 
         if (color == "white"):
             self.white_positions.remove((*from_, king))
-            self.white_positions.append((*to, king))
             if (capture):
                 captured_king = self.check_piece_king(capture, "black")
                 self.black_positions.remove((*move_legal, captured_king))
+            if to[1] == self.board_size-1:
+                self.white_positions.append((*to, True))
+            else:
+                self.white_positions.append((*to, king))
 
         else:
             self.black_positions.remove((*from_, king))
-            self.black_positions.append((*to, king))
             if (capture):
                 captured_king = self.check_piece_king(capture, "white")
                 self.white_positions.remove((*move_legal, captured_king))
+            if to[1] == 0:
+                self.black_positions.append((*to, True))
+            else:
+                self.black_positions.append((*to, king))
+
         return True
 
     def print_board(self):
@@ -196,8 +200,7 @@ class Game:
         print()
 
 # Ran first in the code
-    def get_possible_move_capture(self, from_, color):
-        print(f"Checking piece {from_}")
+    def get_possible_moves_capture(self, from_, color):
         # all capturing moves:
         legal_moves = []
         move_down_left_two = (from_[0] + 2, from_[1] - 2)
@@ -214,7 +217,7 @@ class Game:
             legal_moves.append((from_, move_up_right_two))
         return legal_moves
 
-    def get_possible_move_non_capture(self, from_, color):
+    def get_possible_moves_non_capture(self, from_, color):
         # all non-capturing moves
         legal_moves = []
         move_down_left_one = (from_[0] + 1, from_[1] - 1)
@@ -238,38 +241,38 @@ class Game:
         if color == "white":
             for white_position in self.white_positions:
                 # print((white_position[0], white_position[1]))
-                legal_moves += self.get_possible_move_non_capture(
+                legal_moves += self.get_possible_moves_non_capture(
                     (white_position[0], white_position[1]), color)
-                captures += self.get_possible_move_capture(
+                captures += self.get_possible_moves_capture(
                     (white_position[0], white_position[1]), color)
         elif color == "black":
             for black_position in self.black_positions:
-                legal_moves += self.get_possible_move_non_capture(
+                legal_moves += self.get_possible_moves_non_capture(
                     (black_position[0], black_position[1]), color)
-                captures += self.get_possible_move_capture(
+                captures += self.get_possible_moves_capture(
                     (black_position[0], black_position[1]), color)
-        print('CAPTURES: ')
-        print(captures)
-        # if len(captures) > 0:
-        #    print('CAPTURE POSSIBLE')
-        #    print(captures)
-        #    return captures
-        print('LEGAL MOVES')
-        print(legal_moves + captures)
+
+        if len(captures) > 0:
+            return captures
         return legal_moves + captures
 
-    def alpha_beta(self, depth, alpha, beta, color):
-        if depth == 0:
-            return self.evaluate(), None
+    def alpha_beta(self, depth, alpha, beta, color, current_color=None):
+        if current_color == None:
+            current_color = color
 
-        if color == 'white':
+        if depth == 0:
+            return self.evaluate(color), None
+
+        opposite_color = 'white' if current_color == 'black' else 'black'
+        if current_color == color:
             max_eval = float('-inf')
             best_move = None
 
-            for move in self.get_possible_moves(color):
+            for move in self.get_possible_moves(current_color):
                 new_state = copy.deepcopy(self)
-                new_state.make_move(*move, 'white')
-                eval, _ = new_state.alpha_beta(depth-1, alpha, beta, 'black')
+                new_state.make_move(*move, current_color)
+                eval, _ = new_state.alpha_beta(
+                    depth-1, alpha, beta, color, opposite_color)
 
                 if eval > max_eval:
                     max_eval = eval
@@ -286,10 +289,11 @@ class Game:
             min_eval = float('inf')
             best_move = None
 
-            for move in self.get_possible_moves(color):
+            for move in self.get_possible_moves(current_color):
                 new_state = copy.deepcopy(self)
-                new_state.make_move(*move, 'black')
-                eval, _ = new_state.alpha_beta(depth-1, alpha, beta, 'white')
+                new_state.make_move(*move, current_color)
+                eval, _ = new_state.alpha_beta(
+                    depth-1, alpha, beta, color, opposite_color)
 
                 if eval < min_eval:
                     min_eval = eval
@@ -302,7 +306,7 @@ class Game:
 
             return min_eval, best_move
 
-    def evaluate(self):
+    def evaluate(self, color):
         white_score = 0
         black_score = 0
 
@@ -318,7 +322,7 @@ class Game:
             else:
                 black_score += 5
 
-        return white_score - black_score
+        return white_score - black_score if color == 'white' else black_score - white_score
 
     def input_to_coordinates(self, input):
         pos_x = ord(input[0])-ord('a')
@@ -327,6 +331,7 @@ class Game:
 
     def handle_player_move(self, color):
         has_moved = False
+        possible_moves = self.get_possible_moves(color)
         while not has_moved:
             user_input = input('How do you want to move? (format: d6 e5)\n')
             regex = r"^[a-z]\d+\s[a-z]\d+$"
@@ -337,22 +342,46 @@ class Game:
             [move_from, move_to] = user_input.split(' ')
             from_coordinates = self.input_to_coordinates(move_from)
             to_coordinates = self.input_to_coordinates(move_to)
-            has_moved = self.make_move(
-                from_coordinates, to_coordinates, color)
+
+            if not (from_coordinates, to_coordinates) in possible_moves:
+                legal_no_captures = self.check_move_legal(
+                    from_coordinates, to_coordinates, color, True)
+                if legal_no_captures:
+                    print("Invalid move! You can capture a piece")
+                continue
+
+            has_moved = self.make_move(from_coordinates, to_coordinates, color)
         self.print_board()
+
+    def start_game(self, player_color='black'):
+        if player_color != 'black' and player_color != 'white':
+            print('Invalid color! Color can be black or white')
+            return
+        ai_color = 'black' if player_color == 'white' else 'white'
+
+        game.print_board()
+        if player_color == 'white':
+            game.handle_player_move('white')
+
+        while True:
+            possible_moves_ai = game.get_possible_moves(ai_color)
+            if len(possible_moves_ai) == 0:
+                print(f'Game over, {player_color} wins')
+                return
+            _, ai_move = game.alpha_beta(1, 5, 10, ai_color)
+            game.make_move(*ai_move, ai_color)
+            print(
+                f"AI's move: {chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} {chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}")
+            game.print_board()
+
+            possible_moves_player = game.get_possible_moves(player_color)
+            if len(possible_moves_player) == 0:
+                print(f'Game over, {ai_color} wins')
+                return
+            game.handle_player_move(player_color)
 
 
 # Ran first in the code
 if __name__ == "__main__":
     game = Game(8)
-    while True:
-        game.print_board()
-        possible_moves_black = game.get_possible_moves('black')
-        if len(possible_moves_black) == 0:
-            print('Game over. White wins')
-        game.handle_player_move('black')
-        possible_moves_white = game.get_possible_moves('black')
-        if len(possible_moves_white) == 0:
-            print('Game over. Black wins')
-        _, ai_move = game.alpha_beta(1, 5, 10, 'white')
-        game.make_move(ai_move[0], ai_move[1], 'white')
+    game.start_game('white')
