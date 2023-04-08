@@ -155,11 +155,20 @@ class Game:
 
         return True
 
-    def print_board(self):
+    def print_board(self, rotate=False):
         """Print the board in the console"""
 
-        def get_piece_code(pos, background):
-            """Return code piece"""
+        def print_letters():
+            """Print the letters above or under the board"""
+            print("   ", end="")
+            for col in range(self.board_size):
+                if rotate:
+                    print(f"  {chr(ord('a')+self.board_size-1-col)}", end=" ")
+                else:
+                    print(f"  {chr(ord('a')+col)}", end=" ")
+
+        def get_square_code(pos, background):
+            """Return the code of a given square on the board"""
             if (*pos, False) in self.white_positions:
                 return "w"
             if (*pos, True) in self.white_positions:
@@ -170,15 +179,18 @@ class Game:
                 return "B"
             return background
 
-        print("   ", end="")
-        for col in range(self.board_size):
-            print(f"  {chr(ord('a')+col)} ", end="")
+        print_letters()
         print(" ")
+
+        row_range = range(
+            self.board_size*4) if not rotate else reversed(range(self.board_size*4))
         line = 0
-        for row in range(self.board_size*4):
+        for row in row_range:
             for col in range(self.board_size):
-                background = "#" if col % 2 == (row//4) % 2 else " "
-                checker = get_piece_code((col, row//4), background)
+                background = "#" if (col % 2 == (row//4) % 2) != rotate\
+                    else " "
+                checker = get_square_code((col, row//4), background)\
+                    if not rotate else get_square_code((self.board_size-1-col, row//4), background)
 
                 if col == 0:
                     if line % 4 == 2:
@@ -201,9 +213,8 @@ class Game:
         print("   ", end="")
         for col in range(self.board_size):
             print("+---", end="")
-        print("+\n   ", end="")
-        for col in range(self.board_size):
-            print(f"  {chr(ord('a')+col)}", end=" ")
+        print("+")
+        print_letters()
         print()
 
 # Ran first in the code
@@ -368,7 +379,7 @@ class Game:
                 continue
 
             has_moved = self.make_move(from_coordinates, to_coordinates, color)
-        self.print_board()
+        self.print_board(color == 'white')
 
     def start_game(self, player_color='black'):
         """Start the main loop of the game"""
@@ -377,7 +388,7 @@ class Game:
             return
         ai_color = 'black' if player_color == 'white' else 'white'
 
-        game.print_board()
+        game.print_board(player_color == 'white')
         if player_color == 'white':
             game.handle_player_move('white')
 
@@ -392,7 +403,7 @@ class Game:
                 "AI's move: "
                 f"{chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} "
                 f"{chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}")
-            game.print_board()
+            game.print_board(player_color == 'white')
 
             possible_moves_player = game.get_possible_moves(player_color)
             if len(possible_moves_player) == 0:
@@ -404,4 +415,4 @@ class Game:
 # Ran first in the code
 if __name__ == "__main__":
     game = Game(8)
-    game.start_game('white')
+    game.start_game('black')
