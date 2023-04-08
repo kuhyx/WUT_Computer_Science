@@ -40,9 +40,10 @@ class Game:
 
   def check_move_out_of_bounds(self, from_, to):
     """Check if the move destination is out of the bounds of the board"""
-    if to[0] < 0 or to[0] >= self.board_size:
+    if to[0] < 0 or to[0] >= self.board_size - 1:
       print(f"Illegal move! Final x coordinate must be between 0 and {self.board_size}!")
-    if to[1] < 0 or to[1] >= self.board_size:
+      return True
+    if to[1] < 0 or to[1] >= self.board_size - 1:
       print(f"Illegal move! Final y coordinate must be between 0 and {self.board_size}!")
       return True
     return False
@@ -50,10 +51,10 @@ class Game:
   def check_piece_exists(self, coords, color):
     """Check if a piece of given color exists at a given spot"""
     if color == "white":
-      if (*coords, False) | (*coords, False) in self.white_positions:
+      if any(piece in self.white_positions for piece in ((*coords, False), (*coords, False))):
         return True
     else:
-      if (*coords, False) | (*coords, False) in self.black_positons:
+      if any(piece in self.black_positions for piece in ((*coords, False), (*coords, False))):
         return True
     return False
 
@@ -99,7 +100,7 @@ class Game:
     if not self.check_piece_exists(from_, color):
       print("Illegal move! There is no piece on the starting position that belongs to the player")
       return False
-    if self.check_piece_exists(to, "white") or check_piece_exists(to, "black"):
+    if self.check_piece_exists(to, "white") or self.check_piece_exists(to, "black"):
       print("Illegal move! Cannot move to position taken by another piece")
       return False
     capture = self.check_capture(from_, to, color)
@@ -179,13 +180,61 @@ class Game:
       print(f"  {chr(ord('a')+x)}", end=" ")
     print()
     
-# Ran first in the code
+  def get_possible_move_up(self, from_, color):
+    # all moves "up":
+    legal_moves = []
+    move_up_left_two = (from_[0] - 2, from_[1] - 2)
+    move_up_right_two = (from_[0] - 2, from_[1] + 2)
+    move_up_left_one = (from_[0] - 1, from_[1] - 1)
+    move_up_right_one = (from_[0] - 1, from_[1] + 1)
+    if self.check_move_legal(from_, move_up_left_two, color) != False:
+      legal_moves.append((from_, move_up_two))
+    elif self.check_move_legal(from_, move_up_right_two, color) != False:
+      legal_moves.append((from_, move_up_right_two))
+    elif self.check_move_legal(from_, move_up_left_one, color) != False:
+      legal_moves.append((from_, move_up_left_one))
+    elif self.check_move_legal(from_, move_up_right_one, color) != False:
+      legal_moves.append((from_, move_up_right_one))
+    return legal_moves
+  
+  def get_possible_move_down(self, from_, color):
+    # all moves "down":
+    legal_moves = []
+    move_down_left_two = (from_[0] + 2, from_[1] - 2)
+    move_down_right_two = (from_[0] + 2, from_[1] + 2)
+    move_down_left_one = (from_[0] + 1, from_[1] - 1)
+    move_down_right_one = (from_[0] + 1, from_[1] + 1)
+    if self.check_move_legal(from_, move_down_left_two, color) != False:
+      legal_moves.append((from_, move_down_two))
+    elif self.check_move_legal(from_, move_down_right_two, color) != False:
+      legal_moves.append((from_, move_down_right_two))
+    elif self.check_move_legal(from_, move_down_left_one, color) != False:
+      legal_moves.append((from_, move_down_left_one))
+    elif self.check_move_legal(from_, move_down_right_one, color) != False:
+      legal_moves.append((from_, move_down_right_one))
+    return legal_moves
 
-  def get_possible_moves(color):
-    # toDo: get possible moves for single piece, then iterate through all pieces 
-    #if color == "white":
-    #  for s
-    pass
+  def get_possible_move(self, from_, color):
+    # get all possible moves from the pawn in from_ position
+    # "-" in first position -> move to the "left" 
+    # "+" in first postiin -> move to the "right"
+    # "-" in second postion -> move "up"
+    # "+" in second position -> move "down"
+    legal_moves = self.get_possible_move_up(from_, color)
+    legal_moves.append(self.get_possible_move_down(from_, color))
+    return legal_moves
+
+  def get_possible_moves(self, color):
+    # toDo: get possible moves for single piece, then iterate through all pieces
+    legal_moves = []
+    if color == "white":
+      for white_position in self.white_positions:
+        print((white_position[0], white_position[1]))
+        legal_moves.append(self.get_possible_move((white_position[0], white_position[1]), color))
+    elif color == "black":
+      for black_position in self.black_positions:
+        legal_moves.append(self.get_possible_move((black_position[0], black_position[1]), color))
+    return legal_moves
   
   def alpha_beta(self, depth, alpha, beta, player):
     if depth == 0:
@@ -195,8 +244,8 @@ class Game:
         max_eval = float('-inf')
         best_move = None
         
-        for move in state.get_possible_moves(player):
-            new_state = copy.deepcopy(state)
+        for move in self.get_possible_moves(player):
+            new_state = copy.deepcopy(self)
             new_state.move(*move)
             eval, _ = alpha_beta(new_state, depth-1, alpha, beta, 'o')
             
@@ -249,7 +298,10 @@ class Game:
     
     return x_score - o_score
 
+# Ran first in the code
 if __name__ == "__main__":
   game = Game(8)
   game.print_board()
+  print(game.get_possible_moves("white"))
+  print(game.get_possible_moves("black"))
   
