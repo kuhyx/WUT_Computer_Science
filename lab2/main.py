@@ -44,15 +44,15 @@ class Game:
                             (x_coordinate, y_coordinate, False))
         return black_positions
 
-  def check_move_out_of_bounds(self, from_, to):
-    """Check if the move destination is out of the bounds of the board"""
-    if to[0] < 0 or to[0] >= self.board_size - 1:
-      print(f"Illegal move! Final x coordinate must be between 0 and {self.board_size}!")
-      return True
-    if to[1] < 0 or to[1] >= self.board_size - 1:
-      print(f"Illegal move! Final y coordinate must be between 0 and {self.board_size}!")
-      return True
-    return False
+    def check_move_out_of_bounds(self, from_, to):
+      """Check if the move destination is out of the bounds of the board"""
+      if to[0] < 0 or to[0] >= self.board_size - 1:
+        print(f"Illegal move! Final x coordinate must be between 0 and {self.board_size}!")
+        return True
+      if to[1] < 0 or to[1] >= self.board_size - 1:
+        print(f"Illegal move! Final y coordinate must be between 0 and {self.board_size}!")
+        return True
+      return False
 
     def check_piece_exists(self, coords, color):
         """Check if a piece of given color exists at a given spot"""
@@ -143,173 +143,173 @@ class Game:
         return True
 
     def print_board(self):
-        """Print the board in the console"""
-        print("   ", end="")
+      """Print the board in the console"""
+      print("   ", end="")
+      for x in range(self.board_size):
+        print(f"  {chr(ord('a')+x)} ", end="")
+      print(" ")
+      line = 0
+      for y in range(self.board_size*4):
         for x in range(self.board_size):
-            print(f"  {chr(ord('a')+x)} ", end="")
-        print(" ")
-        line = 0
-        for y in range(self.board_size*4):
-            for x in range(self.board_size):
-                bg = "#" if x % 2 == (y//4) % 2 else " "
-                checker = bg
-                if ((x, y//4, False) in self.white_positions):
-                    checker = "w"
-                elif ((x, y//4, True) in self.white_positions):
-                    checker = "W"
-                elif ((x, y//4, False) in self.black_positions):
-                    checker = "b"
-                elif ((x, y//4, True) in self.black_positions):
-                    checker = "B"
+          bg = "#" if x%2==(y//4)%2 else " "
+          checker = bg
+          if((x, y//4, False) in self.white_positions):
+            checker = "w"
+          elif((x, y//4, True) in self.white_positions):
+            checker = "W"
+          elif((x, y//4, False) in self.black_positions):
+            checker = "b"
+          elif((x, y//4, True) in self.black_positions):
+            checker = "B"
 
-        if(x==0):
-          if(line%4==2):
-            print('{:3d}'.format(y//4), end="")
-          else:
-            print("   ", end="")
-        
-        match line%4:
-          case 0:
-            print("+---", end="")
-          case 1 | 3:
-            print(f"|{3*bg}", end="")
-          case 2:
-            print(f"|{bg}{checker}{bg}", end="")
-      if(line%4==0):
-        print("+")
-      else:
-        print(f"|{y//4}" if line%4==2 else "|")
-      line+=1
-    print("   ", end="")
-    for x in range(self.board_size):
-      print("+---", end="")
-    print("+\n   ", end="")
-    for x in range(self.board_size):
-      print(f"  {chr(ord('a')+x)}", end=" ")
-    print()
+          if(x==0):
+            if(line%4==2):
+              print('{:3d}'.format(y//4), end="")
+            else:
+              print("   ", end="")
+          
+          match line%4:
+            case 0:
+              print("+---", end="")
+            case 1 | 3:
+              print(f"|{3*bg}", end="")
+            case 2:
+              print(f"|{bg}{checker}{bg}", end="")
+        if(line%4==0):
+          print("+")
+        else:
+          print(f"|{y//4}" if line%4==2 else "|")
+        line+=1
+      print("   ", end="")
+      for x in range(self.board_size):
+        print("+---", end="")
+      print("+\n   ", end="")
+      for x in range(self.board_size):
+        print(f"  {chr(ord('a')+x)}", end=" ")
+      print()
     
 # Ran first in the code
-  def get_possible_move_down(self, from_, color):
-    # all moves "down":
-    legal_moves = []
-    move_down_left_two = (from_[0] + 2, from_[1] - 2)
-    move_down_right_two = (from_[0] + 2, from_[1] + 2)
-    move_down_left_one = (from_[0] + 1, from_[1] - 1)
-    move_down_right_one = (from_[0] + 1, from_[1] + 1)
-    if self.check_move_legal(from_, move_down_left_two, color) != False:
-      legal_moves.append((from_, move_down_two))
-    elif self.check_move_legal(from_, move_down_right_two, color) != False:
-      legal_moves.append((from_, move_down_right_two))
-    elif self.check_move_legal(from_, move_down_left_one, color) != False:
-      legal_moves.append((from_, move_down_left_one))
-    elif self.check_move_legal(from_, move_down_right_one, color) != False:
-      legal_moves.append((from_, move_down_right_one))
-    return legal_moves
+    def get_possible_move_down(self, from_, color):
+      # all moves "down":
+      legal_moves = []
+      move_down_left_two = (from_[0] + 2, from_[1] - 2)
+      move_down_right_two = (from_[0] + 2, from_[1] + 2)
+      move_down_left_one = (from_[0] + 1, from_[1] - 1)
+      move_down_right_one = (from_[0] + 1, from_[1] + 1)
+      if self.check_move_legal(from_, move_down_left_two, color) != False:
+        legal_moves.append((from_, move_down_two))
+      elif self.check_move_legal(from_, move_down_right_two, color) != False:
+        legal_moves.append((from_, move_down_right_two))
+      elif self.check_move_legal(from_, move_down_left_one, color) != False:
+        legal_moves.append((from_, move_down_left_one))
+      elif self.check_move_legal(from_, move_down_right_one, color) != False:
+        legal_moves.append((from_, move_down_right_one))
+      return legal_moves
 
-  def get_possible_move(self, from_, color):
-    # get all possible moves from the pawn in from_ position
-    # "-" in first position -> move to the "left" 
-    # "+" in first postiin -> move to the "right"
-    # "-" in second postion -> move "up"
-    # "+" in second position -> move "down"
-    legal_moves = self.get_possible_move_up(from_, color)
-    legal_moves.append(self.get_possible_move_down(from_, color))
-    return legal_moves
+    def get_possible_move(self, from_, color):
+      # get all possible moves from the pawn in from_ position
+      # "-" in first position -> move to the "left" 
+      # "+" in first postiin -> move to the "right"
+      # "-" in second postion -> move "up"
+      # "+" in second position -> move "down"
+      legal_moves = self.get_possible_move_up(from_, color)
+      legal_moves.append(self.get_possible_move_down(from_, color))
+      return legal_moves
 
-  def get_possible_moves(self, color):
-    # toDo: get possible moves for single piece, then iterate through all pieces
-    legal_moves = []
-    if color == "white":
+    def get_possible_moves(self, color):
+      # toDo: get possible moves for single piece, then iterate through all pieces
+      legal_moves = []
+      if color == "white":
+        for white_position in self.white_positions:
+          print((white_position[0], white_position[1]))
+          legal_moves.append(self.get_possible_move((white_position[0], white_position[1]), color))
+      elif color == "black":
+        for black_position in self.black_positions:
+          legal_moves.append(self.get_possible_move((black_position[0], black_position[1]), color))
+      return legal_moves
+    
+    def alpha_beta(self, depth, alpha, beta, player):
+      if depth == 0:
+          return self.evaluate(), None
+      
+      if player == 'x':
+          max_eval = float('-inf')
+          best_move = None
+          
+          for move in self.get_possible_moves(player):
+              new_state = copy.deepcopy(self)
+              new_state.move(*move)
+              eval, _ = alpha_beta(new_state, depth-1, alpha, beta, 'o')
+              
+              if eval > max_eval:
+                  max_eval = eval
+                  best_move = move
+              
+              alpha = max(alpha, eval)
+              
+              if alpha >= beta:
+                  break
+          
+          return max_eval, best_move
+      
+      else:
+          min_eval = float('inf')
+          best_move = None
+          
+          for move in state.get_possible_moves(player):
+              new_state = copy.deepcopy(state)
+              new_state.move(*move)
+              eval, _ = alpha_beta(new_state, depth-1, alpha, beta, 'x')
+              
+              if eval < min_eval:
+                  min_eval = eval
+                  best_move = move
+              
+              beta = min(beta, eval)
+              
+              if beta <= alpha:
+                  break
+          
+          return min_eval, best_move
+        
+    def evaluate(self):
+      white_score = 0
+      black_score = 0
+      
       for white_position in self.white_positions:
-        print((white_position[0], white_position[1]))
-        legal_moves.append(self.get_possible_move((white_position[0], white_position[1]), color))
-    elif color == "black":
+        if white_position[2]:
+          white_score += 2
+        else:
+          white_score += 2
+        
       for black_position in self.black_positions:
-        legal_moves.append(self.get_possible_move((black_position[0], black_position[1]), color))
-    return legal_moves
-  
-  def alpha_beta(self, depth, alpha, beta, player):
-    if depth == 0:
-        return self.evaluate(), None
-    
-    if player == 'x':
-        max_eval = float('-inf')
-        best_move = None
-        
-        for move in self.get_possible_moves(player):
-            new_state = copy.deepcopy(self)
-            new_state.move(*move)
-            eval, _ = alpha_beta(new_state, depth-1, alpha, beta, 'o')
-            
-            if eval > max_eval:
-                max_eval = eval
-                best_move = move
-            
-            alpha = max(alpha, eval)
-            
-            if alpha >= beta:
-                break
-        
-        return max_eval, best_move
-    
-    else:
-        min_eval = float('inf')
-        best_move = None
-        
-        for move in state.get_possible_moves(player):
-            new_state = copy.deepcopy(state)
-            new_state.move(*move)
-            eval, _ = alpha_beta(new_state, depth-1, alpha, beta, 'x')
-            
-            if eval < min_eval:
-                min_eval = eval
-                best_move = move
-            
-            beta = min(beta, eval)
-            
-            if beta <= alpha:
-                break
-        
-        return min_eval, best_move
+        if black_position[2]:
+          black_score += 2
+        else:
+          black_score += 2
       
-  def evaluate(self):
-    white_score = 0
-    black_score = 0
-    
-    for white_position in self.white_positions:
-      if white_position[2]:
-        white_score += 2
-      else:
-        white_score += 2
-      
-    for black_position in self.black_positions:
-      if black_position[2]:
-        black_score += 2
-      else:
-        black_score += 2
-    
-    return x_score - o_score
+      return x_score - o_score
 
-  def input_to_coordinates(self, input):
-    pos_x = ord(input[0])-ord('a')
-    pos_y = int(input[1::])
-    return pos_x, pos_y
+    def input_to_coordinates(self, input):
+      pos_x = ord(input[0])-ord('a')
+      pos_y = int(input[1::])
+      return pos_x, pos_y
 
-  def handle_player_move(self, color):
-      has_moved = False
-      while not has_moved:
-          user_input = input('How do you want to move? (format: d6 e5)\n')
-          regex = r"^[A-Za-z]\d+\s[A-Za-z]\d+$"
-          match = re.search(regex, user_input)
-          if not match:
-              print('Invalid input, try again')
-              continue
-          [move_from, move_to] = user_input.split(' ')
-          from_coordinates = self.input_to_coordinates(move_from)
-          to_coordinates = self.input_to_coordinates(move_to)
-          has_moved = self.make_move(
-              from_coordinates, to_coordinates, color)
-      self.print_board()
+    def handle_player_move(self, color):
+        has_moved = False
+        while not has_moved:
+            user_input = input('How do you want to move? (format: d6 e5)\n')
+            regex = r"^[A-Za-z]\d+\s[A-Za-z]\d+$"
+            match = re.search(regex, user_input)
+            if not match:
+                print('Invalid input, try again')
+                continue
+            [move_from, move_to] = user_input.split(' ')
+            from_coordinates = self.input_to_coordinates(move_from)
+            to_coordinates = self.input_to_coordinates(move_to)
+            has_moved = self.make_move(
+                from_coordinates, to_coordinates, color)
+        self.print_board()
 
 
 
