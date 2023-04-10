@@ -4,6 +4,7 @@ Program that plays draughts (checkers) with user on 8x8 board using min-max with
 import re
 import copy
 import math
+import sys
 
 
 class Game:
@@ -382,7 +383,7 @@ class Game:
             has_moved = self.make_move(from_coordinates, to_coordinates, color)
         self.print_board(color == 'white')
 
-    def start_game(self, player_color='black'):
+    def start_game(self, player_color='black', algorithm_depth = 5):
         """Start the main loop of the game"""
         if player_color not in ('black', 'white'):
             print('Invalid color! Color can be black or white')
@@ -392,10 +393,9 @@ class Game:
         game.print_board(player_color == 'white')
         if player_color == 'white':
             game.handle_player_move('white')
-        algorithm_depth = 5
         while True:
             ai_turn = True
-            while ai_turn:
+            while ai_turn:  
                 possible_moves_ai = game.get_possible_moves(ai_color)
                 if len(possible_moves_ai[0]) == 0:
                     print(f'Game over, {player_color} wins')
@@ -417,8 +417,121 @@ class Game:
                 game.handle_player_move(player_color)
                 player_turn = game.get_possible_moves(player_color)[1] and possible_moves_player[1]
 
+    def ai_turn(self, ai_color, algorithm_depth, possible_moves_ai, print_info):
+        if len(possible_moves_ai) == 0:
+            if print_info:
+                print(f'Game over, {ai_color} loses')
+            return True
+        _, ai_move = game.alpha_beta(algorithm_depth, (5, 10), ai_color)
+        if ai_move == None:
+            ai_move = possible_moves_ai[0]
+        game.make_move(*ai_move, ai_color)
+        if print_info: 
+            print(
+                "AI's move: "
+                f"{chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} "
+                f"{chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}")
+            game.print_board(True)
+        return False
+    
+    def auto_game(self, white_depth, black_depth):
+        """Auto game mode between two bots"""
+        game_turn = 0        
+        max_turns = 250
+        while True and game_turn < max_turns:
+            bot_white_turn = True
+            while bot_white_turn:
+                possible_moves_ai = game.get_possible_moves('white')
+                if self.ai_turn('white', white_depth, possible_moves_ai[0], False):
+                    return 'white'
+                bot_white_turn = game.get_possible_moves('white')[1] and possible_moves_ai[1]
+            bot_black_turn = True
+            while bot_black_turn:
+                possible_moves_ai = game.get_possible_moves('black')
+                if self.ai_turn('black', black_depth, possible_moves_ai[0], False):
+                    return 'black'
+                bot_black_turn = game.get_possible_moves('black')[1] and possible_moves_ai[1]
+            game_turn += 1
+        if game_turn >= max_turns:
+            print(f"Game ended after {max_turns} turns!")
+            return ''
+
+    def auto_simulation(self, white_depth, black_depth, iterations):
+        print(f"Running {iterations} simulations with white depth = {white_depth}, black depth = {black_depth}") 
+        white_wins = 0
+        black_wins = 0
+        white_pieces_captured = 0
+        black_pieces_captured = 0
+        i = 0
+        while i < iterations:
+            result = game.auto_game(white_depth, black_depth)
+            if result == 'white':
+                black_wins += 1
+            if result == 'black':
+                white_wins += 1
+            if result == '':
+                break
+            white_pieces_captured += 16 - len(game.white_positions)
+            black_pieces_captured += 16 - len(game.black_positions)
+            i += 1
+        print(f"White wins = {white_wins}, Black wins = {black_wins}, white pieces captured in total = {white_pieces_captured}, black pieces captured in total = {black_pieces_captured}")
+        print()
+
+def print_help():
+    """prints help"""
+    print(
+        """python main.py [algorithm_depth] - play the game against the bot as black, if no algorithm depth is specified the default (5) will be set
+
+python main.py -h --help print this prompt
+python main.py -t --test [max_white_depth] [max_black_depth] non interactive (does not print moves) for testing how different bot depth play against eachother, if depths are not provided default value of 5 is set 
+compares heuristic speed and path length
+python main.py -w --white [algorithm_depth] play as white pieces, if no algorithm depth is specified the default (5) will be set
+python main.py -b --black [algorithm_depth] play as black pieces, if no algorithm depth is specified the default (5) will be set
+"""
+    )
+
+
+def default(color = 'black', algorithm_depth = 5):
+    """default program function -> allows to play a game against bot (by default as black)"""
+    game.start_game(color, algorithm_depth)
+
 
 # Ran first in the code
 if __name__ == "__main__":
     game = Game(8)
-    game.start_game('black')
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "-h" or sys.argv[1] == "--help":
+            print_help()
+            sys.exit()
+        if sys.argv[1] == "-t" or sys.argv[1] == "--test":
+            max_white_depth = 4
+            max_black_depth = 4
+            if len(sys.argv) > 2:
+                max_white_depth = int(sys.argv[2])
+            if len(sys.argv) > 3:
+                max_black_depth = int(sys.argv[3])
+            for i in range(max_white_depth + 1):
+                for j in range(max_black_depth + 1):
+                    game = Game(8)
+                    game.auto_simulation(i, j, 10)
+            sys.exit()
+        if sys.argv[1] == "-w" or sys.argv[1] == "--white":
+            algorithm_depth = 5
+            if len(sys.argv) > 2:
+                algorithm_depth = int(sys.argv[2])
+            default('white', algorithm_depth)
+            sys.exit()
+        if sys.argv[1] == "-b" or sys.argv[1] == "--black":
+            algorithm_depth = 5
+            if len(sys.argv) > 2:
+                algorithm_depth = int(sys.argv[2])
+            default('black', algorithm_depth)
+            sys.exit()
+        if len(sys.argv) > 1:
+            default('black', int(sys.argv[1]))
+    default()
+
+
+
+
+
