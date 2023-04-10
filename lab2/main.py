@@ -3,6 +3,7 @@ Program that plays draughts (checkers) with user on 8x8 board using min-max with
 """
 import re
 import copy
+import math
 
 
 class Game:
@@ -16,7 +17,7 @@ class Game:
     def initialize_white(self):
         """Initialize white pieces"""
         white_positions = []
-        for y_coordinate in range(3):
+        for y_coordinate in range(math.floor((self.board_size - 2) / 2)):
             for x_coordinate in range(self.board_size):
                 if y_coordinate % 2 == 0:
                     if x_coordinate % 2 == 1:
@@ -31,7 +32,7 @@ class Game:
     def initialize_black(self):
         """Initialize black pieces"""
         black_positions = []
-        for y_coordinate in range(self.board_size - 3, self.board_size):
+        for y_coordinate in range(self.board_size - math.floor((self.board_size - 2) / 2), self.board_size):
             for x_coordinate in range(self.board_size):
                 if y_coordinate % 2 == 0:
                     if x_coordinate % 2 == 1:
@@ -273,8 +274,8 @@ class Game:
                     (black_position[0], black_position[1]), color)
 
         if len(captures) > 0:
-            return captures
-        return legal_moves + captures
+            return (captures, True)
+        return (legal_moves + captures, False)
 
     def alpha_beta(self, depth, alpha_beta, color, current_color=None):
         """Do alpha beta pruning for given parameters
@@ -291,7 +292,7 @@ class Game:
             max_eval = float('-inf')
             best_move = None
 
-            for move in self.get_possible_moves(current_color):
+            for move in self.get_possible_moves(current_color)[0]:
                 new_state = copy.deepcopy(self)
                 new_state.make_move(*move, current_color)
                 eval_, _ = new_state.alpha_beta(
@@ -312,7 +313,7 @@ class Game:
             min_eval = float('inf')
             best_move = None
 
-            for move in self.get_possible_moves(current_color):
+            for move in self.get_possible_moves(current_color)[0]:
                 new_state = copy.deepcopy(self)
                 new_state.make_move(*move, current_color)
                 eval_, _ = new_state.alpha_beta(
@@ -358,7 +359,7 @@ class Game:
     def handle_player_move(self, color):
         """Prompt player to move, validate their input and make move"""
         has_moved = False
-        possible_moves = self.get_possible_moves(color)
+        possible_moves = self.get_possible_moves(color)[0]
         while not has_moved:
             user_input = input(
                 f'You are {color}. How do you want to move? (format: d6 e5)\n')
@@ -391,25 +392,30 @@ class Game:
         game.print_board(player_color == 'white')
         if player_color == 'white':
             game.handle_player_move('white')
-
+        algorithm_depth = 5
         while True:
-            possible_moves_ai = game.get_possible_moves(ai_color)
-            if len(possible_moves_ai) == 0:
-                print(f'Game over, {player_color} wins')
-                return
-            _, ai_move = game.alpha_beta(1, (5, 10), ai_color)
-            game.make_move(*ai_move, ai_color)
-            print(
-                "AI's move: "
-                f"{chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} "
-                f"{chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}")
-            game.print_board(player_color == 'white')
-
-            possible_moves_player = game.get_possible_moves(player_color)
-            if len(possible_moves_player) == 0:
-                print(f'Game over, {ai_color} wins')
-                return
-            game.handle_player_move(player_color)
+            ai_turn = True
+            while ai_turn:
+                possible_moves_ai = game.get_possible_moves(ai_color)
+                if len(possible_moves_ai[0]) == 0:
+                    print(f'Game over, {player_color} wins')
+                    return
+                _, ai_move = game.alpha_beta(algorithm_depth, (5, 10), ai_color)
+                game.make_move(*ai_move, ai_color)
+                print(
+                    "AI's move: "
+                    f"{chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} "
+                    f"{chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}")
+                game.print_board(player_color == 'white')
+                ai_turn = game.get_possible_moves(ai_color)[1] and possible_moves_ai[1]
+            player_turn = True
+            while player_turn:
+                possible_moves_player = game.get_possible_moves(player_color)
+                if len(possible_moves_player[0]) == 0:
+                    print(f'Game over, {ai_color} wins')
+                    return
+                game.handle_player_move(player_color)
+                player_turn = game.get_possible_moves(player_color)[1] and possible_moves_player[1]
 
 
 # Ran first in the code
