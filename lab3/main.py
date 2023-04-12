@@ -13,11 +13,36 @@ def rastrigin(x_argument, y_argument):
         y_argument**2 - 10 * np.cos(2 * np.pi * y_argument)
 
 
+def generate(generation_number,
+             population,
+             number_of_parents=5,
+             size_of_population=20,
+             mutation_strength=0.1,
+             ):
+    """ Run single generation """
+    # Evaluate the fitness of each individual
+    fitness = np.array([rastrigin(x, y) for x, y in population])
+
+    # Select the top number_of_parents individuals
+    parents = population[np.argsort(fitness)[:number_of_parents]]
+
+    # Generate the next generation of lambda individuals by recombination
+    children = np.concatenate([np.random.permutation(
+        parents) for generation_number in range(size_of_population // number_of_parents)])
+
+    # Add mutation to the children
+    mutation = np.random.normal(
+        loc=0, scale=mutation_strength, size=(
+            size_of_population, 2))
+    population = children + mutation
+    return fitness, population
+
+
 def evolution_strategy(
         number_of_parents=5,
         size_of_population=20,
         mutation_strength=0.1,
-        iterations=100,
+        number_of_generations=100,
         min_max=(-5.12, 5.12)
 ):
     """ Define the Evolutionary Strategy (μ, λ) algorithm """
@@ -26,23 +51,14 @@ def evolution_strategy(
         low=min_max[0], high=min_max[1], size=(
             size_of_population, 2))
 
-    # Iterate for a fixed number of iterations
-    for i in range(iterations):
-        # Evaluate the fitness of each individual
-        fitness = np.array([rastrigin(x, y) for x, y in population])
-
-        # Select the top number_of_parents individuals
-        parents = population[np.argsort(fitness)[:number_of_parents]]
-
-        # Generate the next generation of lambda individuals by recombination
-        children = np.concatenate([np.random.permutation(
-            parents) for i in range(size_of_population // number_of_parents)])
-
-        # Add mutation to the children
-        mutation = np.random.normal(
-            loc=0, scale=mutation_strength, size=(
-                size_of_population, 2))
-        population = children + mutation
+    # Iterate untill we reach max number of generate and terminate 
+    for generation_number in range(number_of_generations):
+        fitness, population = generate(
+            generation_number,
+            population,
+            number_of_parents,
+            size_of_population,
+            mutation_strength)
 
     # Evaluate the fitness of the final population
     fitness = np.array([rastrigin(x, y) for x, y in population])
@@ -71,7 +87,7 @@ def print_help():
     -nop --number_of_parents [number]
     -sop --size_of_population [number]
     -ms --mutation_strength [number]
-    -i --iterations [number]
+    -nog --number_of_generations [number]
     -min --min_value [number]
     -max --max_value [number]
     Those arguments can be given in any order and any argument which was not entered will be replaced with default value,
@@ -85,8 +101,8 @@ def user_input():
     arguments = {
         "number_of_parents": 5,
         "size_of_population": 20,
-        "standard_deviation": 0.1,
-        "iterations": 100,
+        "mutation_strength": 0.1,
+        "number_of_generations": 100,
         "min": -5.12,
         "max": 5.12}
     for argument in enumerate(sys.argv):
@@ -98,9 +114,9 @@ def user_input():
         if argument in ('-sop', '--size_of_population'):
             arguments["size_of_population"] = float(argument)
         if argument in ('-ms', '--mutation_strength'):
-            arguments["standard_deviation"] = float(argument)
-        if argument in ('-i', '--iterations'):
-            arguments["iterations"] = float(argument)
+            arguments["mutation_strength"] = float(argument)
+        if argument in ('-nog', '--number_of_generations'):
+            arguments["number_of_generations"] = float(argument)
         if argument in ('-min', '--min_value'):
             arguments["min"] = float(argument)
         if argument in ('-max', '--max_value'):
@@ -117,7 +133,7 @@ if __name__ == "__main__":
         ARGUMENTS["number_of_parents"],
         ARGUMENTS["size_of_population"],
         ARGUMENTS["mutation_strength"],
-        ARGUMENTS["iterations"],
+        ARGUMENTS["number_of_generations"],
         (ARGUMENTS["min"], ARGUMENTS["max"]))
 
     print("Best individual found:", best_individual)
