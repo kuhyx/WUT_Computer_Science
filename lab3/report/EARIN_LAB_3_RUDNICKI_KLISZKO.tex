@@ -1,0 +1,55 @@
+\documentclass{article}[12pt]
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{float}
+\title{EARIN Lab 3 Report}
+\author{Krzysztof Rudnicki, 307585 \\ Jakub Kliszko, 303866  }
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Exercise Variant 2 - "Rastrigin function"}
+Our task was to write a program that optimizes Rastrigin function: \\
+\[ f (x, y) =
+20 + (x^2 - 10 \, cos(2πx)) + (y^2 - 10 \,  cos(2πy)) \]
+Using Evolutionary Strategy ($\mu$, $\lambda$) (later refered as ES($\mu$, $\lambda$)) \\ 
+Program can be ran by installing python, moving to project directory and issuing command:
+\begin{lstlisting}[language=bash]
+python main.py
+\end{lstlisting}
+There are 6 parameters we can (but do not have to) change:
+\begin{enumerate}
+\item Number of parents (default equal to 5)
+\item Size of population (default equal to 20)
+\item Mutation Strength (default equal to 0.1)
+\item Number of generations (default equal to 100)
+\item Minimal Value (default equal to -5.12)
+\item Maximal Value (default equal to 5.12)
+\end{enumerate}
+To set parameters values user can add those flags to program run:
+\begin{lstlisting}[language=bash]
+    -nop --number_of_parents [number]
+    -sop --size_of_population [number]
+    -ms --mutation_strength [number]
+    -nog --number_of_generations [number]
+    -min --min_value [number]
+    -max --max_value [number]
+\end{lstlisting}
+Order of those parameters does not matter, user can provide none, one, or any number of arguments \\ 
+Exemplary use (settings all values to default values):
+\begin{lstlisting}[language=bash]
+    python main.py -nop 5 -sop 20 -s 0.1 -i 100 -min -5.12 -max 5.12
+\end{lstlisting}
+To print help info about program user can issue help flag:
+\begin{lstlisting}[language=bash]
+    python main.py -h
+\end{lstlisting}
+
+\section{Implementation}
+\section{Results}
+
+\end{document}

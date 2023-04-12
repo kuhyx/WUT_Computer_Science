@@ -78,8 +78,8 @@ def print_help():
     Default values:
     number_of_parents=5,
     size_of_population=20,
-    stadard_deviation=0.1,
-    iterations=100,
+    mutation_strength=0.1,
+    number_of_generations=100,
     min_value=-5.12,
     max_value=5.12
 
@@ -146,3 +146,4 @@ if __name__ == "__main__":
     print("Best fitness found:", best_fitness)
     print("total_generation_time: ", total_generation_time)
     print("time_per_generation: ", time_per_generation)
+    
