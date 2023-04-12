@@ -4,6 +4,7 @@ Program that optimizes Rastrigin function: f (x, y) =
 Using Evolutionary Strategy (μ, λ).
 """
 import sys
+import time
 import numpy as np
 
 
@@ -51,7 +52,7 @@ def evolution_strategy(
         low=min_max[0], high=min_max[1], size=(
             size_of_population, 2))
 
-    # Iterate untill we reach max number of generate and terminate 
+    # Iterate untill we reach max number of generate and terminate
     for generation_number in range(number_of_generations):
         fitness, population = generate(
             generation_number,
@@ -129,12 +130,19 @@ def user_input():
 if __name__ == "__main__":
     # Run the Evolutionary Strategy algorithm
     ARGUMENTS = user_input()
+    start_time = time.perf_counter()
     best_individual, best_fitness = evolution_strategy(
         ARGUMENTS["number_of_parents"],
         ARGUMENTS["size_of_population"],
         ARGUMENTS["mutation_strength"],
         ARGUMENTS["number_of_generations"],
         (ARGUMENTS["min"], ARGUMENTS["max"]))
+    end_time = time.perf_counter()
+    total_generation_time = end_time - start_time
+    time_per_generation = total_generation_time / \
+        ARGUMENTS["number_of_generations"]
 
     print("Best individual found:", best_individual)
     print("Best fitness found:", best_fitness)
+    print("total_generation_time: ", total_generation_time)
+    print("time_per_generation: ", time_per_generation)
