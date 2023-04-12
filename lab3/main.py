@@ -1,10 +1,13 @@
 """
-Program that optimizes Rastrigin function: f (x, y) =
-20 + (x^2 - 10cos(2πx)) + (y^2 - 10 cos(2πy)).
+Program that optimizes Rastrigin function: file_ (x_point_value, y_point_value) =
+20 + (x_point_value^2 - 10cos(2πx)) + (y_point_value^2 - 10 cos(2πy)).
 Using Evolutionary Strategy (μ, λ).
 """
 import sys
 import time
+import tempfile
+from cv2 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -22,7 +25,8 @@ def generate(generation_number,
              ):
     """ Run single generation """
     # Evaluate the fitness of each individual
-    fitness = np.array([rastrigin(x, y) for x, y in population])
+    fitness = np.array([rastrigin(x_point_value, y_point_value)
+                       for x_point_value, y_point_value in population])
 
     # Select the top number_of_parents individuals
     parents = population[np.argsort(fitness)[:number_of_parents]]
@@ -62,18 +66,19 @@ def evolution_strategy(
             mutation_strength)
 
     # Evaluate the fitness of the final population
-    fitness = np.array([rastrigin(x, y) for x, y in population])
+    fitness = np.array([rastrigin(x_point_value, y_point_value)
+                       for x_point_value, y_point_value in population])
 
     # Return the best individual found
     best_idx = np.argmin(fitness)
-    return population[best_idx], fitness[best_idx]
+    return population[best_idx], fitness[best_idx], population
 
 
 def print_help():
     """ Print program functionality and how to access it """
     print("""
-    python main.py - Default functionality optimizing Rastrigin function f (x, y) =
-    20 + (x^2 - 10cos(2πx)) + (y^2 - 10 cos(2πy))
+    python main.py - Default functionality optimizing Rastrigin function file_ (x_point_value, y_point_value) =
+    20 + (x_point_value^2 - 10cos(2πx)) + (y_point_value^2 - 10 cos(2πy))
     using Evolutionary Strategy (μ, λ), using only default values
     Default values:
     number_of_parents=5,
@@ -95,6 +100,47 @@ def print_help():
     exemplary use:
     python main.py -nop 5 -sop 20 -s 0.1 -i 100 -min -5.12 -max 5.12
     """)
+
+
+def output(population_output):
+    """ Draw result of our function """
+    # define number of data points
+    output_length = len(population_output)
+    # define the visualization params
+    colors = np.random.rand(output_length)
+
+    with tempfile.NamedTemporaryFile(suffix=".png") as file_:
+        # iterate over the optimization steps
+        # generate random 2D data - replace it with the results from your
+        # algorithm
+        print(population_output)
+        x_data = []
+        y_data = []
+        for x_point_value, y_point_value in population_output:
+            x_data.append(x_point_value)
+            y_data.append(y_point_value)
+        print("x_data", x_data)
+        # plot the data
+        plt.cla()
+        plt.figure()
+        plt.scatter(x_data, y_data, c=colors, alpha=0.5)
+        plt.xlim([0, 1])
+        plt.ylim([0, 1])
+        plt.savefig(file_.name)
+
+        # read image
+        image = cv2.imread(file_.name)
+
+        # show the image, provide window name first
+        cv2.imshow('visualization', image)
+
+        # add wait key. window waits until user presses a key and quits if
+        # the key is 'q'
+        if cv2.waitKey(0) == 113:
+            # and finally destroy/close all open windows
+            sys.exit()
+
+    cv2.destroyAllWindows()
 
 
 def user_input():
@@ -131,7 +177,7 @@ if __name__ == "__main__":
     # Run the Evolutionary Strategy algorithm
     ARGUMENTS = user_input()
     start_time = time.perf_counter()
-    best_individual, best_fitness = evolution_strategy(
+    best_individual, best_fitness, output_population = evolution_strategy(
         ARGUMENTS["number_of_parents"],
         ARGUMENTS["size_of_population"],
         ARGUMENTS["mutation_strength"],
@@ -146,4 +192,4 @@ if __name__ == "__main__":
     print("Best fitness found:", best_fitness)
     print("total_generation_time: ", total_generation_time)
     print("time_per_generation: ", time_per_generation)
-    
+    output(output_population)
