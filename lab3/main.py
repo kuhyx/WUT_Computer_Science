@@ -27,7 +27,7 @@ def evolution_strategy(top_individuals, lambda_, sigma, iterations):
 
         # Generate the next generation of lambda individuals by recombination
         children = np.concatenate(
-            [np.random.permutation(parents) for i in range(lambda_)])
+            [np.random.permutation(parents) for i in range(lambda_ // top_individuals)])
 
         # Add mutation to the children
         mutation = np.random.normal(loc=0, scale=sigma, size=(lambda_, 2))
