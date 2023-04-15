@@ -4,9 +4,10 @@ Program that optimizes Rastrigin function: file_ (x_point_value, y_point_value) 
 Using Evolutionary Strategy (μ, λ).
 """
 import sys
+import os
 import time
 import tempfile
-from cv2 import cv2
+import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -109,7 +110,7 @@ def output(population_output):
     # define the visualization params
     colors = np.random.rand(output_length)
 
-    with tempfile.NamedTemporaryFile(suffix=".png") as file_:
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
         # iterate over the optimization steps
         # generate random 2D data - replace it with the results from your
         # algorithm
@@ -141,6 +142,12 @@ def output(population_output):
             sys.exit()
 
     cv2.destroyAllWindows()
+
+    try:
+        file_.close()
+        os.unlink(file_.name)
+    except:
+        pass
 
 
 def user_input():
