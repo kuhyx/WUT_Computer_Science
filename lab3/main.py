@@ -52,10 +52,10 @@ def evolution_strategy(
         mutation_strength=0.1,
         number_of_generations=123,
         min_max=(-5.12, 5.12),
+        number_of_outputs = 10
 ):
     """ Define the Evolutionary Strategy (μ, λ) algorithm """
     # Initialize the population
-    number_of_outputs = 7
     population = np.random.uniform(
         low=min_max[0], high=min_max[1], size=(
             size_of_population, 2))
@@ -103,6 +103,7 @@ def print_help():
     number_of_generations=100,
     min_value=-5.12,
     max_value=5.12
+    number_of_outputs = 100
 
     python main.py -h --help print this prompt
     Any of the default values an be changed using arguments:
@@ -112,9 +113,10 @@ def print_help():
     -nog --number_of_generations [number]
     -min --min_value [number]
     -max --max_value [number]
+    -noo, --number_of_outputs [number]
     Those arguments can be given in any order and any argument which was not entered will be replaced with default value,
     exemplary use:
-    python main.py -nop 5 -sop 20 -s 0.1 -i 100 -min -5.12 -max 5.12
+    python main.py -nop 5 -sop 20 -ms 0.1 -i 100 -min -5.12 -max 5.12 -noo 100
     """)
 
 
@@ -248,7 +250,8 @@ def user_input():
         "mutation_strength": 0.1,
         "number_of_generations": 100,
         "min": -5.12,
-        "max": 5.12}
+        "max": 5.12,
+        "number_of_outputs": 10}
     for index, argument in enumerate(sys.argv):
         if argument in ('-h', '--help'):
             print_help()
@@ -265,6 +268,8 @@ def user_input():
             arguments["min"] = float(sys.argv[index+1])
         if argument in ('-max', '--max_value'):
             arguments["max"] = float(sys.argv[index+1])
+        if argument in ('-noo', '--number_of_outputs'):
+            arguments["number_of_outputs"] = int(sys.argv[index + 1])
 
     return arguments
 
@@ -279,7 +284,8 @@ if __name__ == "__main__":
         ARGUMENTS["size_of_population"],
         ARGUMENTS["mutation_strength"],
         ARGUMENTS["number_of_generations"],
-        (ARGUMENTS["min"], ARGUMENTS["max"]))
+        (ARGUMENTS["min"], ARGUMENTS["max"]),
+        ARGUMENTS["number_of_outputs"])
     end_time = time.perf_counter()
     total_generation_time = end_time - start_time
     time_per_generation = total_generation_time / \
