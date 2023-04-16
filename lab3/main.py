@@ -61,7 +61,7 @@ def evolution_strategy(
             size_of_population, 2))
 
     summary = []
-    output(population, 0)
+    output(population, 0, f"0&nop_{number_of_parents}&sop_{size_of_population}&ms_{mutation_strength}&nog_{number_of_generations}&min_max_{min_max}&noo_{number_of_outputs}")
 
     number_of_outputs = min([number_of_outputs-1, number_of_generations])
 
@@ -77,10 +77,10 @@ def evolution_strategy(
             else number_of_generations//(number_of_outputs-1)
         offset = number_of_generations % step
         if (generation_number - offset) % step == 0:
-            output(population, generation_number)
+            output(population, generation_number, f"{generation_number}&nop_{number_of_parents}&sop_{size_of_population}&ms_{mutation_strength}&nog_{number_of_generations}&min_max_{min_max}&noo_{number_of_outputs}")
             summary.append(population)
 
-    print_summary(summary)
+    print_summary(summary, f"{generation_number}&nop_{number_of_parents}&sop_{size_of_population}&ms_{mutation_strength}&nog_{number_of_generations}&min_max_{min_max}&noo_{number_of_outputs}")
     # Evaluate the fitness of the final population
     fitness = np.array([rastrigin(x_point_value, y_point_value)
                        for x_point_value, y_point_value in population])
@@ -148,7 +148,7 @@ def get_output_bounds(x_data, y_data):
     return x_bounds, y_bounds
 
 
-def output(population_output, generation_number):
+def output(population_output, generation_number, file_name = "temp"):
     """ Draw result of our function """
 
     # define the visualization params
@@ -156,8 +156,6 @@ def output(population_output, generation_number):
 
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
         # iterate over the optimization steps
-        # generate random 2D data - replace it with the results from your
-        # algorithm
         x_data = []
         y_data = []
         for x_point_value, y_point_value in population_output:
@@ -179,7 +177,7 @@ def output(population_output, generation_number):
 
         # show the image, provide window name first
         cv2.imshow(f"Generation {generation_number}", image)
-
+        cv2.imwrite(file_name + ".jpg", image)
         # add wait key. window waits until user presses a key and quits if
         # the key is 'q'
         if cv2.waitKey(0) == 113:
@@ -192,7 +190,7 @@ def output(population_output, generation_number):
     os.unlink(file_.name)
 
 
-def print_summary(populations):
+def print_summary(populations, file_name = "temp_summary"):
     """ Draw result of our function for chosen generations """
 
     # define the visualization params
@@ -226,9 +224,11 @@ def print_summary(populations):
 
         # read image
         image = cv2.imread(file_.name)
+        cv2.imwrite("SUMMARY&" + file_name + ".jpg", image)
 
         # show the image, provide window name first
         cv2.imshow(f"Summary", image)
+
 
         # add wait key. window waits until user presses a key and quits if
         # the key is 'q'
