@@ -7,6 +7,8 @@ import sys
 import os
 import time
 import tempfile
+# run pylint with:
+# pylint --generated-members=cv2.* .\main.py
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,8 +20,7 @@ def rastrigin(x_argument, y_argument):
         y_argument**2 - 10 * np.cos(2 * np.pi * y_argument)
 
 
-def generate(generation_number,
-             population,
+def generate(population,
              number_of_parents=5,
              size_of_population=20,
              mutation_strength=0.1,
@@ -33,8 +34,9 @@ def generate(generation_number,
     parents = population[np.argsort(fitness)[:number_of_parents]]
 
     # Generate the next generation of lambda individuals by recombination
-    children = np.concatenate([np.random.permutation(
-        parents) for generation_number in range(size_of_population // number_of_parents)])
+    children = np.concatenate(
+        [np.random.permutation(parents) for i in range((size_of_population//number_of_parents)+1)])
+    children = children[:size_of_population]
 
     # Add mutation to the children
     mutation = np.random.normal(
@@ -48,23 +50,33 @@ def evolution_strategy(
         number_of_parents=5,
         size_of_population=20,
         mutation_strength=0.1,
-        number_of_generations=100,
-        min_max=(-5.12, 5.12)
+        number_of_generations=123,
+        min_max=(-5.12, 5.12),
 ):
     """ Define the Evolutionary Strategy (μ, λ) algorithm """
     # Initialize the population
+    number_of_outputs = 7
     population = np.random.uniform(
         low=min_max[0], high=min_max[1], size=(
             size_of_population, 2))
 
-    # Iterate untill we reach max number of generate and terminate
-    for generation_number in range(number_of_generations):
+    output(population, 0)
+
+    number_of_outputs = min([number_of_outputs-1, number_of_generations])
+
+    # Iterate until we reach max number of generate and terminate
+    for generation_number in range(1, number_of_generations+1):
         fitness, population = generate(
-            generation_number,
             population,
             number_of_parents,
             size_of_population,
             mutation_strength)
+        step = number_of_generations//number_of_outputs \
+            if number_of_generations % number_of_outputs == 0 \
+            else number_of_generations//(number_of_outputs-1)
+        offset = number_of_generations % step
+        if (generation_number - offset) % step == 0:
+            output(population, generation_number)
 
     # Evaluate the fitness of the final population
     fitness = np.array([rastrigin(x_point_value, y_point_value)
@@ -103,37 +115,65 @@ def print_help():
     """)
 
 
-def output(population_output):
+def get_output_bounds(x_data, y_data):
+    """Get x and y output limits for pyplot"""
+    # min_size = 0.2
+    min_output_size = ARGUMENTS["mutation_strength"]*10
+
+    xmin = min(x_data)
+    xmax = max(x_data)
+    ymin = min(y_data)
+    ymax = max(y_data)
+    x_diff = xmax - xmin
+    y_diff = ymax - ymin
+
+    if min_output_size is None:
+        min_output_size = max(x_diff, y_diff)
+
+    margin = max(x_diff, y_diff)/5
+
+    if x_diff < min_output_size:
+        xmax += (min_output_size - x_diff)/2
+        xmin -= (min_output_size - x_diff)/2
+    if y_diff < min_output_size:
+        ymax += (min_output_size - y_diff)/2
+        ymin -= (min_output_size - y_diff)/2
+    x_bounds = [xmin-margin, xmax+margin]
+    y_bounds = [ymin-margin, ymax+margin]
+    return x_bounds, y_bounds
+
+
+def output(population_output, generation_number):
     """ Draw result of our function """
-    # define number of data points
-    output_length = len(population_output)
+
     # define the visualization params
-    colors = np.random.rand(output_length)
+    colors = np.random.rand(len(population_output))
 
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
         # iterate over the optimization steps
         # generate random 2D data - replace it with the results from your
         # algorithm
-        print(population_output)
         x_data = []
         y_data = []
         for x_point_value, y_point_value in population_output:
             x_data.append(x_point_value)
             y_data.append(y_point_value)
-        print("x_data", x_data)
+
+        x_lim, y_lim = get_output_bounds(x_data, y_data)
+
         # plot the data
         plt.cla()
         plt.figure()
         plt.scatter(x_data, y_data, c=colors, alpha=0.5)
-        plt.xlim([0, 1])
-        plt.ylim([0, 1])
+        plt.xlim(x_lim)
+        plt.ylim(y_lim)
         plt.savefig(file_.name)
 
         # read image
         image = cv2.imread(file_.name)
 
         # show the image, provide window name first
-        cv2.imshow('visualization', image)
+        cv2.imshow(f"Generation {generation_number}", image)
 
         # add wait key. window waits until user presses a key and quits if
         # the key is 'q'
@@ -143,11 +183,8 @@ def output(population_output):
 
     cv2.destroyAllWindows()
 
-    try:
-        file_.close()
-        os.unlink(file_.name)
-    except:
-        pass
+    file_.close()
+    os.unlink(file_.name)
 
 
 def user_input():
@@ -159,22 +196,22 @@ def user_input():
         "number_of_generations": 100,
         "min": -5.12,
         "max": 5.12}
-    for argument in enumerate(sys.argv):
+    for index, argument in enumerate(sys.argv):
         if argument in ('-h', '--help'):
             print_help()
             sys.exit()
         if argument in ('-nop', '--number_of_parents'):
-            arguments["number_of_parents"] = float(argument)
+            arguments["number_of_parents"] = int(sys.argv[index+1])
         if argument in ('-sop', '--size_of_population'):
-            arguments["size_of_population"] = float(argument)
+            arguments["size_of_population"] = int(sys.argv[index+1])
         if argument in ('-ms', '--mutation_strength'):
-            arguments["mutation_strength"] = float(argument)
+            arguments["mutation_strength"] = float(sys.argv[index+1])
         if argument in ('-nog', '--number_of_generations'):
-            arguments["number_of_generations"] = float(argument)
+            arguments["number_of_generations"] = int(sys.argv[index+1])
         if argument in ('-min', '--min_value'):
-            arguments["min"] = float(argument)
+            arguments["min"] = float(sys.argv[index+1])
         if argument in ('-max', '--max_value'):
-            arguments["max"] = float(argument)
+            arguments["max"] = float(sys.argv[index+1])
 
     return arguments
 
@@ -199,4 +236,3 @@ if __name__ == "__main__":
     print("Best fitness found:", best_fitness)
     print("total_generation_time: ", total_generation_time)
     print("time_per_generation: ", time_per_generation)
-    output(output_population)
