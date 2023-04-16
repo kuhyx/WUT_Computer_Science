@@ -60,6 +60,7 @@ def evolution_strategy(
         low=min_max[0], high=min_max[1], size=(
             size_of_population, 2))
 
+    summary = []
     output(population, 0)
 
     number_of_outputs = min([number_of_outputs-1, number_of_generations])
@@ -77,7 +78,9 @@ def evolution_strategy(
         offset = number_of_generations % step
         if (generation_number - offset) % step == 0:
             output(population, generation_number)
+            summary.append(population)
 
+    print_summary(summary)
     # Evaluate the fitness of the final population
     fitness = np.array([rastrigin(x_point_value, y_point_value)
                        for x_point_value, y_point_value in population])
@@ -174,6 +177,56 @@ def output(population_output, generation_number):
 
         # show the image, provide window name first
         cv2.imshow(f"Generation {generation_number}", image)
+
+        # add wait key. window waits until user presses a key and quits if
+        # the key is 'q'
+        if cv2.waitKey(0) == 113:
+            # and finally destroy/close all open windows
+            sys.exit()
+
+    cv2.destroyAllWindows()
+
+    file_.close()
+    os.unlink(file_.name)
+
+
+def print_summary(populations):
+    """ Draw result of our function for chosen generations """
+
+    # define the visualization params
+    main_color = [[1, 1, 1]] * len(populations[0])
+    final_color = [[0, 1, 0]] * len(populations[0])
+
+    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
+        # iterate over the optimization steps
+        # generate random 2D data - replace it with the results from your
+        # algorithm
+        plt.cla()
+        plt.figure()
+        bounds = None
+        for ind, pop in enumerate(populations):
+            x_data = []
+            y_data = []
+            for x_point_value, y_point_value in pop:
+                x_data.append(x_point_value)
+                y_data.append(y_point_value)
+
+            if ind == 0:
+                bounds = get_output_bounds(x_data, y_data)
+            # plot the data
+            transparency = ind/(len(populations)-1)
+            color = [[transparency, 0, 0]] * len(pop)
+            plt.scatter(x_data, y_data, c=color,
+                        alpha=transparency, label=f"{ind}")
+        plt.xlim(bounds[0])
+        plt.ylim(bounds[1])
+        plt.savefig(file_.name)
+
+        # read image
+        image = cv2.imread(file_.name)
+
+        # show the image, provide window name first
+        cv2.imshow(f"Summary", image)
 
         # add wait key. window waits until user presses a key and quits if
         # the key is 'q'
