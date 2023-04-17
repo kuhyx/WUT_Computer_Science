@@ -1,7 +1,7 @@
-PWD /home/kuchy/EARIN/lab3/report
+PWD /home/kuchy/earin/EARIN/lab3/report
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/xetex/xelatex.fmt
-INPUT /home/kuchy/EARIN/lab3/report/EARIN_LAB_3_RUDNICKI_KLISZKO.tex
+INPUT /home/kuchy/earin/EARIN/lab3/report/EARIN_LAB_3_RUDNICKI_KLISZKO.tex
 OUTPUT EARIN_LAB_3_RUDNICKI_KLISZKO.log
 INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
@@ -495,6 +495,9 @@ INPUT /usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 OUTPUT EARIN_LAB_3_RUDNICKI_KLISZKO.xdv
+INPUT ./example_halfway.jpg
+INPUT ./example_halfway.jpg
+INPUT example_halfway.jpg
 INPUT EARIN_LAB_3_RUDNICKI_KLISZKO.aux
 INPUT ./EARIN_LAB_3_RUDNICKI_KLISZKO.out
 INPUT ./EARIN_LAB_3_RUDNICKI_KLISZKO.out

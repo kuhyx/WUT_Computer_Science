@@ -2,6 +2,8 @@
     "recommendations": [
         "ms-python.python",
         "ms-python.pylint",
-        "mikoz.black-py"
+        "mikoz.black-py",
+        "james-yu.latex-workshop",
+        "kisstkondoros.vscode-gutter-preview"
     ]
 }

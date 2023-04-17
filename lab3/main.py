@@ -61,7 +61,7 @@ def evolution_strategy(
             size_of_population, 2))
 
     summary = []
-    output(population, 0, f"0&nop_{number_of_parents}&sop_{size_of_population}&ms_{mutation_strength}&nog_{number_of_generations}&min_max_{min_max}&noo_{number_of_outputs}")
+    output(population, 0, f"0:nop-{number_of_parents}:sop-{size_of_population}:ms-{mutation_strength}:nog-{number_of_generations}:min-max-{min_max}:noo-{number_of_outputs}")
 
     number_of_outputs = min([number_of_outputs-1, number_of_generations])
 
@@ -77,10 +77,10 @@ def evolution_strategy(
             else number_of_generations//(number_of_outputs-1)
         offset = number_of_generations % step
         if (generation_number - offset) % step == 0:
-            output(population, generation_number, f"{generation_number}&nop_{number_of_parents}&sop_{size_of_population}&ms_{mutation_strength}&nog_{number_of_generations}&min_max_{min_max}&noo_{number_of_outputs}")
+            output(population, generation_number, f"{generation_number}:nop_{number_of_parents}:sop_{size_of_population}:ms_{mutation_strength}:nog_{number_of_generations}:min_max_{min_max}:noo_{number_of_outputs}")
             summary.append(population)
 
-    print_summary(summary, f"{generation_number}&nop_{number_of_parents}&sop_{size_of_population}&ms_{mutation_strength}&nog_{number_of_generations}&min_max_{min_max}&noo_{number_of_outputs}")
+    print_summary(summary, f"{generation_number}:nop-{number_of_parents}:sop-{size_of_population}:ms-{mutation_strength}:nog-{number_of_generations}:min-max-{min_max}:noo-{number_of_outputs}")
     # Evaluate the fitness of the final population
     fitness = np.array([rastrigin(x_point_value, y_point_value)
                        for x_point_value, y_point_value in population])
@@ -224,7 +224,7 @@ def print_summary(populations, file_name = "temp_summary"):
 
         # read image
         image = cv2.imread(file_.name)
-        cv2.imwrite("SUMMARY&" + file_name + ".jpg", image)
+        cv2.imwrite("SUMMARY:" + file_name + ".jpg", image)
 
         # show the image, provide window name first
         cv2.imshow(f"Summary", image)
