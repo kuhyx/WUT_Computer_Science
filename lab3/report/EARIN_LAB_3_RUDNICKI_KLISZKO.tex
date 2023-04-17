@@ -50,6 +50,11 @@ Exemplary use (settings all values to default values):
     python main.py -nop 5 -sop 20 -s 0.1
     -i 100 -min -5.12 -max 5.12 -noo 10
 \end{lstlisting}
+There are additional flags for quality of life with the program
+\begin{lstlisting}
+    -nd --no_display (If used will NOT print out the plots)
+    -s --save (If used WILL save plot files to code folder)
+\end{lstlisting}
 To print help info about program user can issue help flag:
 \begin{lstlisting}[language=bash]
     python main.py -h
@@ -66,7 +71,7 @@ At the end summary of results on plot will display with red gradient showing res
     \includegraphics[width=8cm]{example_summary.jpg}
     \centering
     \end{figure}
-Results will be displayed and saved in the same folder as code directory for further inspection, with file name containing information about input parameters 
+Results will be displayed and if user requested saved in the same folder as code directory for further inspection, with file name containing information about input parameters 
 \section{Results}
 We have successfully implemented ES($\mu$, $\lambda$) to optimize Rastrigin function \\ 
 Rastrigin function is used to test optimization algorithms as it contains a lot of local minima 
