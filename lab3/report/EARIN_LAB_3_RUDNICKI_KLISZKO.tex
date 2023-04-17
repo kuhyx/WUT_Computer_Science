@@ -82,6 +82,7 @@ Results will be displayed and if user requested saved in the same folder as code
     \item Time per generation - Total generation time divided by number of generations
 \end{itemize}
 \section{Results}
+\subsection{Exemplary generation plots}
 We have successfully implemented ES($\mu$, $\lambda$) to optimize Rastrigin function \\ 
 Rastrigin function is used to test optimization algorithms as it contains a lot of local minima, our plots should therefore tend to contain values closer and closer to zeros \\ 
 Exemplary run of the program with parameters:
@@ -143,5 +144,30 @@ Additonal info from execution of the program with those parameters:
     \item Time per generation:  0.0026635264500328047
 \end{itemize}
 
+\subsection{Generation time}
+We have also decided to change parameters of generations and see how they affect generation time \\ 
+First we ran program with default parameters and then changed each of it separately, results can be found in the table below \\ 
+\begin{figure}[H]
+    \caption{From left: Parameter changed, New value in place of old parameter value, Best individual found, Best fitness, Total generation time and Time Per Generation [TPG]}
+\begin{tabular}{| c | c | c | c | c | c |}
+    \hline
+Parameter & New Value & Individual (x, y) & Fitness & Total Time [ms] & TPG [ms]   \\
+\hline
+None & x & $\approx$ [-1.98e0,  1.03e0] & $\approx$ 5.32e0 & $\approx$ 7.123e-3 & $\approx$ 7.123e-05  \\
+\hline
+Parents Number & 1000 & $\approx$ [-4.51e-4  -5.88e-3] & $\approx$  6.91e-3 & $\approx$ 2.689e-1 & $\approx$ 2.689e-3  \\
+\hline
+Population Size & 4000 & $\approx$ [7.16e-4,  2.77e-3] & $\approx$ 1.63e-3 & $\approx$ 1.0526e0 & $\approx$ 1.052e-2  \\
+\hline
+Mutation Strength & 20 & $\approx$ [5.73e0,   5.76e0] & $\approx$  8.58e1 & $\approx$ 6.890e-3 &  $\approx$ 6.890e-5  \\
+\hline
+MinMax value & [-1024, 1024] & $\approx$ [-2.84e2,  2.00e2] & $\approx$ 1.21e5 & $\approx$ 7.412e-3 & $\approx$ 7.412e-5  \\
+\hline
+Generations Number & 20000 & $\approx$ [-1.01e0,  9.48e-1] & $\approx$ 2.46e0 & $\approx$ 1.409e0 & $\approx$ 7.048e-5  \\
+\hline
+    
+\end{tabular}
+\end{figure}
+As we can see the most calculation intensive parameters are number of generations and population size, then parents number. \\ Changing Mutation Strength and MinMax value does not influence generation time much
 
 \end{document}
