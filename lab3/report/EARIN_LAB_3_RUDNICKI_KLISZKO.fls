@@ -498,6 +498,9 @@ OUTPUT EARIN_LAB_3_RUDNICKI_KLISZKO.xdv
 INPUT ./example_halfway.jpg
 INPUT ./example_halfway.jpg
 INPUT example_halfway.jpg
+INPUT ./example_summary.jpg
+INPUT ./example_summary.jpg
+INPUT example_summary.jpg
 INPUT EARIN_LAB_3_RUDNICKI_KLISZKO.aux
 INPUT ./EARIN_LAB_3_RUDNICKI_KLISZKO.out
 INPUT ./EARIN_LAB_3_RUDNICKI_KLISZKO.out

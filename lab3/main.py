@@ -52,10 +52,13 @@ def evolution_strategy(
         mutation_strength=0.1,
         number_of_generations=123,
         min_max=(-5.12, 5.12),
-        number_of_outputs = 10
+        number_of_outputs = 10,
+        no_display = False
 ):
     """ Define the Evolutionary Strategy (μ, λ) algorithm """
     # Initialize the population
+    total_time = 0
+    start_time = time.perf_counter()
     population = np.random.uniform(
         low=min_max[0], high=min_max[1], size=(
             size_of_population, 2))
@@ -76,18 +79,24 @@ def evolution_strategy(
             if number_of_generations % number_of_outputs == 0 \
             else number_of_generations//(number_of_outputs-1)
         offset = number_of_generations % step
-        if (generation_number - offset) % step == 0:
+        end_time = time.perf_counter()
+        total_time += end_time - start_time
+        if (generation_number - offset) % step == 0 and not no_display:
             output(population, generation_number, f"{generation_number}:nop_{number_of_parents}:sop_{size_of_population}:ms_{mutation_strength}:nog_{number_of_generations}:min_max_{min_max}:noo_{number_of_outputs}")
             summary.append(population)
 
-    print_summary(summary, f"{generation_number}:nop-{number_of_parents}:sop-{size_of_population}:ms-{mutation_strength}:nog-{number_of_generations}:min-max-{min_max}:noo-{number_of_outputs}")
+    if not no_display:
+        print_summary(summary, f"{generation_number}:nop-{number_of_parents}:sop-{size_of_population}:ms-{mutation_strength}:nog-{number_of_generations}:min-max-{min_max}:noo-{number_of_outputs}")
+    start_time = time.perf_counter()
     # Evaluate the fitness of the final population
     fitness = np.array([rastrigin(x_point_value, y_point_value)
                        for x_point_value, y_point_value in population])
 
     # Return the best individual found
     best_idx = np.argmin(fitness)
-    return population[best_idx], fitness[best_idx], population
+    end_time = time.perf_counter()
+    total_time += end_time - start_time
+    return population[best_idx], fitness[best_idx], population, total_time
 
 
 def print_help():
@@ -115,6 +124,8 @@ def print_help():
     -max --max_value [number]
     -noo, --number_of_outputs [number]
     Those arguments can be given in any order and any argument which was not entered will be replaced with default value,
+    Additional flags:
+    -nd, --no-display (does not show the plots)
     exemplary use:
     python main.py -nop 5 -sop 20 -ms 0.1 -i 100 -min -5.12 -max 5.12 -noo 100
     """)
@@ -251,7 +262,8 @@ def user_input():
         "number_of_generations": 100,
         "min": -5.12,
         "max": 5.12,
-        "number_of_outputs": 10}
+        "number_of_outputs": 10,
+        "no_display": False}
     for index, argument in enumerate(sys.argv):
         if argument in ('-h', '--help'):
             print_help()
@@ -270,6 +282,8 @@ def user_input():
             arguments["max"] = float(sys.argv[index+1])
         if argument in ('-noo', '--number_of_outputs'):
             arguments["number_of_outputs"] = int(sys.argv[index + 1])
+        if argument in ('-nd', '--no_display'):
+            arguments["no_display"] = True
 
     return arguments
 
@@ -278,20 +292,18 @@ def user_input():
 if __name__ == "__main__":
     # Run the Evolutionary Strategy algorithm
     ARGUMENTS = user_input()
-    start_time = time.perf_counter()
-    best_individual, best_fitness, output_population = evolution_strategy(
+    best_individual, best_fitness, output_population, generation_time = evolution_strategy(
         ARGUMENTS["number_of_parents"],
         ARGUMENTS["size_of_population"],
         ARGUMENTS["mutation_strength"],
         ARGUMENTS["number_of_generations"],
         (ARGUMENTS["min"], ARGUMENTS["max"]),
-        ARGUMENTS["number_of_outputs"])
-    end_time = time.perf_counter()
-    total_generation_time = end_time - start_time
-    time_per_generation = total_generation_time / \
+        ARGUMENTS["number_of_outputs"],
+        ARGUMENTS["no_display"])
+    time_per_generation = generation_time / \
         ARGUMENTS["number_of_generations"]
 
     print("Best individual found:", best_individual)
     print("Best fitness found:", best_fitness)
-    print("total_generation_time: ", total_generation_time)
+    print("total_generation_time: ", generation_time)
     print("time_per_generation: ", time_per_generation)

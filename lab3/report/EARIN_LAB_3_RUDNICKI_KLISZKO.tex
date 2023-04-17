@@ -56,13 +56,19 @@ To print help info about program user can issue help flag:
 \end{lstlisting}
 Results will be displayed on 2D scatter plot. There will be as many outputs as user wanted with incrementation of generation so that the final plot will be on final generation \\ 
 \begin{figure}[H]
-    \caption{Exemplary plot halfway through generation with parameters \\ nop 250 sop 1000 ms 0.1 nog 500 min max (-5.12, 5.12) }
+    \caption{Exemplary plot halfway through generation with parameters \\ nop 250 sop 1000 ms 0.1 nog 500 min max (-5.12, 5.12) noo 10 }
     \includegraphics[width=8cm]{example_halfway.jpg}
     \centering
     \end{figure}
 At the end summary of results on plot will display with red gradient showing results from the earliest (white) to latest (bright red) \\  
+\begin{figure}[H]
+    \caption{Exemplary summary plot with parameters\\ nop 250 sop 1000 ms 0.1 nog 500 min max (-5.12, 5.12) noo 10 }
+    \includegraphics[width=8cm]{example_summary.jpg}
+    \centering
+    \end{figure}
 Results will be displayed and saved in the same folder as code directory for further inspection, with file name containing information about input parameters 
 \section{Results}
-We have successfully implemented ES($\mu$, $\lambda$) to optimize Rastrigin function
+We have successfully implemented ES($\mu$, $\lambda$) to optimize Rastrigin function \\ 
+Rastrigin function is used to test optimization algorithms as it contains a lot of local minima 
 
 \end{document}
