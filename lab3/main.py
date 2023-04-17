@@ -152,7 +152,7 @@ def print_help():
     -nd, --no-display (does not show the plots)
     -s, --save (if issued WILL save the files)
     exemplary use:
-    python main.py -nop 5 -sop 20 -ms 0.1 -i 100 -min -5.12 -max 5.12 -noo 100
+    python main.py -nop 5 -sop 20 -ms 0.1 -nog 100 -min -5.12 -max 5.12 -noo 100
     """
     )
 
