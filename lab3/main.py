@@ -284,9 +284,10 @@ def user_input():
     return arguments
 
 def print_output(print_info, save_results, summary):
-    for population, file_name, generation_number in print_info:
+    for population, generation_number, file_name in print_info:
         output(population, generation_number, file_name, save_results)
-    print_summary(summary)
+        summary_file_name = file_name
+    print_summary(summary, summary_file_name, save_results)
 
 # Ran first in the code
 if __name__ == "__main__":

@@ -4,6 +4,8 @@
 \usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{float}
+\usepackage{subfig}
+
 \title{EARIN Lab 3 Report}
 \author{Krzysztof Rudnicki, 307585 \\ Jakub Kliszko, 303866  }
 \date{\today}
@@ -62,18 +64,84 @@ To print help info about program user can issue help flag:
 Results will be displayed on 2D scatter plot. There will be as many outputs as user wanted with incrementation of generation so that the final plot will be on final generation \\ 
 \begin{figure}[H]
     \caption{Exemplary plot halfway through generation with parameters \\ nop 250 sop 1000 ms 0.1 nog 500 min max (-5.12, 5.12) noo 10 }
-    \includegraphics[width=8cm]{example_halfway.jpg}
+    \includegraphics[width=\textwidth]{example_halfway.jpg}
     \centering
     \end{figure}
 At the end summary of results on plot will display with red gradient showing results from the earliest (white) to latest (bright red) \\  
 \begin{figure}[H]
     \caption{Exemplary summary plot with parameters\\ nop 250 sop 1000 ms 0.1 nog 500 min max (-5.12, 5.12) noo 10 }
-    \includegraphics[width=8cm]{example_summary.jpg}
+    \includegraphics[width=\textwidth]{example_summary.jpg}
     \centering
     \end{figure}
-Results will be displayed and if user requested saved in the same folder as code directory for further inspection, with file name containing information about input parameters 
+Results will be displayed and if user requested saved in the same folder as code directory for further inspection, with file name containing information about input parameters \\
+4 more information will also be displayed: 
+\begin{itemize}
+    \item Best individual found - x, y coordinates closest to 0
+    \item Best fitness found
+    \item Total Generation Time - including ONLY generation (not plot display)
+    \item Time per generation - Total generation time divided by number of generations
+\end{itemize}
 \section{Results}
 We have successfully implemented ES($\mu$, $\lambda$) to optimize Rastrigin function \\ 
-Rastrigin function is used to test optimization algorithms as it contains a lot of local minima 
+Rastrigin function is used to test optimization algorithms as it contains a lot of local minima, our plots should therefore tend to contain values closer and closer to zeros \\ 
+Exemplary run of the program with parameters:
+\begin{itemize}
+    \item Number of parents - 250
+    \item Size of population - 1000
+    \item Mutation Strength - 0.1
+    \item Number of generations - 20
+    \item Min value - -5.12
+    \item Max value - 5.12
+    \item Number of outputs - 10
+\end{itemize}
+
+\begin{figure}[H]
+    \advance\leftskip-3cm
+    \begin{tabular}{cc}
+    \subfloat[0 generation]{
+    \includegraphics[width = 0.7\textwidth]{0.jpg}} &
+    \subfloat[2 generation]{
+    \includegraphics[width = 0.7\textwidth]{2.jpg}} \\
+    \subfloat[4 generation]{
+    \includegraphics[width = 0.7\textwidth]{4.jpg}} &
+    \subfloat[6 generation]{
+    \includegraphics[width = 0.7\textwidth]{6.jpg}} \\
+    \subfloat[8 generation]{
+    \includegraphics[width = 0.7\textwidth]{8.jpg}} &
+    \subfloat[10 generation]{
+    \includegraphics[width = 0.7\textwidth]{10.jpg}} \\
+    \end{tabular}
+\caption{First 10 Generation plots with parameters nop-250:sop-1000:ms-0.1:nog-20:min-max-(-5.12, 5.12):noo-10 }
+    \end{figure}
+
+    \begin{figure}[H]
+        \advance\leftskip-3cm
+        \begin{tabular}{cc}
+    
+        \subfloat[12 generation]{
+        \includegraphics[width = 0.7\textwidth]{12.jpg}} &
+        \subfloat[14 generation]{
+        \includegraphics[width = 0.7\textwidth]{14.jpg}} \\
+        \subfloat[16 generation]{
+        \includegraphics[width = 0.7\textwidth]{16.jpg}} &
+        \subfloat[18 generation]{
+        \includegraphics[width = 0.7\textwidth]{18.jpg}} \\
+        \subfloat[20 generation]{
+        \includegraphics[width = 0.7\textwidth]{20.jpg}} &
+        \subfloat[Summary]{
+        \includegraphics[width = 0.7\textwidth]{summary.jpg}} \\
+        \end{tabular}
+    \caption{Last 10 Generation plots and summary plot with parameters nop-250:sop-1000:ms-0.1:nog-20:min-max-(-5.12, 5.12):noo-10 }
+        \end{figure}
+
+As we can see with every generation the result comes closer and closer to the center of the plot (point (0, 0)) \\ At the begining (0 generation) we have random points with coordinates between -5.12 and 5.12 \\ Which later form groups of points with center group becoming bigger and bigger (generations between 2 and 12) \\ To finallly reach one big group centered around (0, 0) (generations between 14 and 20) \\ Summary plot clearly shows that the final groups (once that most red) are close to point (0, 0) \\ 
+Additonal info from execution of the program with those parameters: 
+\begin{itemize}
+    \item Best individual found: [-0.00512557 -0.00185114]
+    \item Best fitness found: 0.005891436754870583
+    \item Total generation time:  0.0532705290006561
+    \item Time per generation:  0.0026635264500328047
+\end{itemize}
+
 
 \end{document}

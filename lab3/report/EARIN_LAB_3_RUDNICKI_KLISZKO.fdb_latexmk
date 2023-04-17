@@ -1,11 +1,11 @@
 # Fdb version 4
-["xdvipdfmx"] 1681757884 "EARIN_LAB_3_RUDNICKI_KLISZKO.xdv" "EARIN_LAB_3_RUDNICKI_KLISZKO.pdf" "EARIN_LAB_3_RUDNICKI_KLISZKO" 1681757884 0
-  "EARIN_LAB_3_RUDNICKI_KLISZKO.xdv" 1681757884 33124 09e315a7c52dfa256c17b04adeecd4ac "xelatex"
+["xdvipdfmx"] 1681761425 "EARIN_LAB_3_RUDNICKI_KLISZKO.xdv" "EARIN_LAB_3_RUDNICKI_KLISZKO.pdf" "EARIN_LAB_3_RUDNICKI_KLISZKO" 1681761425 0
+  "EARIN_LAB_3_RUDNICKI_KLISZKO.xdv" 1681761425 54184 8821a93d69deac25b2ffe66805704041 "xelatex"
   (generated)
   "EARIN_LAB_3_RUDNICKI_KLISZKO.pdf"
   (rewritten before read)
-["xelatex"] 1681757884 "/home/kuchy/earin/EARIN/lab3/report/EARIN_LAB_3_RUDNICKI_KLISZKO.tex" "EARIN_LAB_3_RUDNICKI_KLISZKO.xdv" "EARIN_LAB_3_RUDNICKI_KLISZKO" 1681757884 0
-  "/home/kuchy/earin/EARIN/lab3/report/EARIN_LAB_3_RUDNICKI_KLISZKO.tex" 1681757883 3477 8ed5d7943c9fec7b536ad469925926ad ""
+["xelatex"] 1681761425 "/home/kuchy/earin/EARIN/lab3/report/EARIN_LAB_3_RUDNICKI_KLISZKO.tex" "EARIN_LAB_3_RUDNICKI_KLISZKO.xdv" "EARIN_LAB_3_RUDNICKI_KLISZKO" 1681761425 0
+  "/home/kuchy/earin/EARIN/lab3/report/EARIN_LAB_3_RUDNICKI_KLISZKO.tex" 1681761425 6607 75561c07df640700770be5e2235d7a60 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1679564905 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1679564905 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1679564905 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -38,6 +38,8 @@
   "/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1679564905 2462 8ce5f9a9c63002f2c1af03c262cf29af ""
   "/usr/share/texmf-dist/tex/latex/base/size10.clo" 1679564905 8448 c33a4e1cb35cee9b33c2b21033b73e39 ""
   "/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd" 1679564905 2430 8418b3f1835e588625becbcac4dbce56 ""
+  "/usr/share/texmf-dist/tex/latex/caption/caption.sty" 1679564905 55778 14d5c99aa26410e440820bb9ea5b8b3a ""
+  "/usr/share/texmf-dist/tex/latex/caption/caption3.sty" 1679564905 71836 1a735454ad10692452eb2f2fc37f3865 ""
   "/usr/share/texmf-dist/tex/latex/float/float.sty" 1679564905 6749 16d2656a1984957e674b149555f1ea1d ""
   "/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1679564905 1224 978390e9c2234eab29404bc21b268d1e ""
   "/usr/share/texmf-dist/tex/latex/graphics-def/xetex.def" 1679564905 14788 1dde73f396dd97d88c838bee2a352abe ""
@@ -61,16 +63,29 @@
   "/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty" 1679564905 77021 d05e9115c67855816136d82929db8892 ""
   "/usr/share/texmf-dist/tex/latex/refcount/refcount.sty" 1679564905 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1679564905 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
+  "/usr/share/texmf-dist/tex/latex/subfig/subfig.sty" 1679564905 21369 9ef165ca6df8815c92e693146a376c92 ""
   "/usr/share/texmf-dist/tex/latex/tools/array.sty" 1679564905 12691 5b542990fe866f3d772f71346cf85b95 ""
   "/usr/share/texmf-dist/tex/latex/tools/tabularx.sty" 1679564905 7147 be6981d9f5d866a5634048c4a11814a9 ""
   "/usr/share/texmf-dist/tex/latex/url/url.sty" 1679564905 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1679564905 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1680438638 11046058 c421129080a65de742470a82b56f326d ""
-  "EARIN_LAB_3_RUDNICKI_KLISZKO.aux" 1681757884 1319 29ad114a76f2d8d01aa31fa0dc1b211c "xelatex"
-  "EARIN_LAB_3_RUDNICKI_KLISZKO.out" 1681757884 454 50b668959753031c85a7636eb970de0c "xelatex"
-  "EARIN_LAB_3_RUDNICKI_KLISZKO.tex" 1681757883 3477 8ed5d7943c9fec7b536ad469925926ad ""
+  "0.jpg" 1681759509 87686 fdcc70f185e7fed1e054614ef7fd1d99 ""
+  "10.jpg" 1681759509 35289 05feeebd2669a1eaadd76cf24fefdaf5 ""
+  "12.jpg" 1681759509 31816 a9ed363592906d46ee5b6515a4c92003 ""
+  "14.jpg" 1681759509 42591 e56cb908db6f8c390fa15bd606b8e7e8 ""
+  "16.jpg" 1681759509 43391 433aaa137393f985e8e0ad5934b67c0f ""
+  "18.jpg" 1681759509 44235 8b8f1cd83e131e04baf0ec8f709477d7 ""
+  "2.jpg" 1681759509 51403 23f3872e85e47a182ec5801160a0bad7 ""
+  "20.jpg" 1681759509 43506 5da10c8bdf661be5d929ed99ca44dd22 ""
+  "4.jpg" 1681759509 39503 aa9b71e017c328011badbe7e6738a6d5 ""
+  "6.jpg" 1681759509 45028 5dc52477f526227db313fc589bb9c108 ""
+  "8.jpg" 1681759509 40633 34cc6363dd361341ebb04deff63f6dd2 ""
+  "EARIN_LAB_3_RUDNICKI_KLISZKO.aux" 1681761425 3428 c1a7746a56f3636bd859f0c0a8311e53 "xelatex"
+  "EARIN_LAB_3_RUDNICKI_KLISZKO.out" 1681761425 454 50b668959753031c85a7636eb970de0c "xelatex"
+  "EARIN_LAB_3_RUDNICKI_KLISZKO.tex" 1681761425 6607 75561c07df640700770be5e2235d7a60 ""
   "example_halfway.jpg" 1681756460 43787 f0809821c60091352d61146053f795f2 ""
   "example_summary.jpg" 1681756506 17901 286cc778e6a6b564c8027d51b98a968f ""
+  "summary.jpg" 1681760676 25294 025e44a37ad32dc1d16a583d04349a03 ""
   (generated)
   "EARIN_LAB_3_RUDNICKI_KLISZKO.aux"
   "EARIN_LAB_3_RUDNICKI_KLISZKO.log"
