@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "mhutchie.git-graph",
+        "pkief.material-icon-theme",
+        "ms-python.black-formatter",
+        "ms-python.pylint",
+        "ms-python.python",
+        "wesbos.theme-cobalt2",
+        "donjayamanne.githistory",
+        "kisstkondoros.vscode-gutter-preview",
+        "james-yu.latex-workshop"
+    ]
+}
