@@ -3,11 +3,14 @@
         "mhutchie.git-graph",
         "pkief.material-icon-theme",
         "ms-python.black-formatter",
-        "ms-python.pylint",
         "ms-python.python",
         "wesbos.theme-cobalt2",
         "donjayamanne.githistory",
         "kisstkondoros.vscode-gutter-preview",
-        "james-yu.latex-workshop"
+        "james-yu.latex-workshop",
+        "danielsanmedium.dscodegpt",
+        "ms-ceintl.vscode-language-pack-pl",
+        "ms-python.pylint",
+        "tomoki1207.pdf"
     ]
 }
