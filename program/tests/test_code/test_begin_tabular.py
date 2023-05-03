@@ -1,7 +1,7 @@
 """
     Tests begin document function
 """
-from code.main import begin_document
+from code.main import begin_tabular
 
 # Write python tests for a function translating LaTeX documentclass to html
 def given_empty_then_error():
@@ -10,16 +10,16 @@ def given_empty_then_error():
     When: N/A
     Then: Error message
     """
-    assert begin_document("") == "Error!"
+    assert begin_tabular("") == "Error!"
 
 
 def given_not_closed_then_error():
     r"""
-    Given: "\\begin\{document"
+    Given: command not closed
     When: N/A
     Then: Error message
     """
-    assert begin_document(r"\\begin{document") == "Error!"
+    assert begin_tabular(r"\\begin{tabular") == "Error!"
 
 
 def given_no_opening_then_error():
@@ -28,16 +28,16 @@ def given_no_opening_then_error():
     When: N/A
     Then: Error message
     """
-    assert begin_document(r"\\begindocument}") == "Error!"
+    assert begin_tabular(r"\\begintabular}") == "Error!"
 
 
 def given_misspeled_then_error():
     """
-    Given: misspelled begin document
+    Given: misspelled begin tabular
     When: N/A
     Then: Error message
     """
-    assert begin_document(r"\\begim{document}") == "Error!"
+    assert begin_tabular(r"\\begim{tabular}") == "Error!"
 
 
 def given_no_slash_then_error():
@@ -46,19 +46,19 @@ def given_no_slash_then_error():
     When: N/A
     Then: Error message
     """
-    assert begin_document(r"begin{document}") == "Error!"
+    assert begin_tabular(r"begin{tabular}") == "Error!"
 
 
 def given_correct_then_html():
     """
-    Given: \\documentclass{article}
+    Given: \begin{tabular}
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert begin_document(r"\begin{document}") == "<html>"
+    assert begin_tabular(r"\begin{tabular}") == "<table>"
 
 
-def test_begin_document():
+def test_begin_tabular():
     given_correct_then_html()
     given_empty_then_error()
     given_misspeled_then_error()
