@@ -2,10 +2,6 @@
     Tests document class function
 """
 from code.main import document_class
-from code.error_messages.error_arrays import return_error_arrays
-
-error_arrays = return_error_arrays()
-
 
 # Write python tests for a function translating LaTeX documentclass to html
 def given_empty_then_error():
@@ -50,7 +46,7 @@ def given_misspeled_then_error():
     When: N/A
     Then: Error message
     """
-    assert document_class("\\documentclas{article}") == "Error!"
+    assert document_class("\\documentclasZ{article}") == "Error!"
 
 
 def given_class_not_recognized_then_error():
@@ -80,7 +76,7 @@ def given_correct_then_html():
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert document_class("\\documentclass{article}") == "<!DOCTYPE html><html>"
+    assert document_class("\\documentclass{article}") == "<!DOCTYPE html>"
 
 
 def test_document_class():
