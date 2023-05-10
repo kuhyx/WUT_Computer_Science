@@ -48,6 +48,14 @@ def given_no_slash_then_error():
     """
     assert begin_tabular(r"begin{tabular}") == "Error!"
 
+def given_tabular_star_then_error():
+    """
+    Given: no backslash at start
+    When: N/A
+    Then: Error message
+    """
+    assert begin_tabular(r"begin{tabular*}") == "Error!"
+
 
 def given_correct_then_html():
     """

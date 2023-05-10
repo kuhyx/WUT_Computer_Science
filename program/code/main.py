@@ -20,11 +20,16 @@ def generic_checks(latex_string):
     if "}" not in latex_string:
         print(latex_string + error_arrays[1])
         return "Error!"
+    return
+
+def generic_checks_command(latex_string):
+    error_arrays = return_error_arrays()
+    if generic_checks(latex_string) == "Error!":
+        return "Error!"
     if latex_string[0] != "\\":
         print(latex_string + error_arrays[6])
         return "Error!"
     return
-    
 
 
 def document_class(latex_string):
@@ -33,7 +38,7 @@ def document_class(latex_string):
     \documentclass{article}
     """
     error_arrays = return_error_arrays()
-    if generic_checks(latex_string) == "Error!":
+    if generic_checks_command(latex_string) == "Error!":
         return "Error!"
     if latex_string[len("\\documentclass{") - 1] != "{":
         print(latex_string + error_arrays[3])
@@ -52,7 +57,7 @@ def begin_document(latex_string):
     Converts LaTeX begin document method to html
     \begin{document}
     """
-    if generic_checks(latex_string) == "Error!":
+    if generic_checks_command(latex_string) == "Error!":
         return "Error!"
     if command_name_check(latex_string, "begin") == "Error!":
         return "Error!"
@@ -62,7 +67,7 @@ def begin_tabular(latex_string):
     r"""
     Checks if LaTeX begin tabular method is correct
     """
-    if generic_checks(latex_string) == "Error!":
+    if generic_checks_command(latex_string) == "Error!":
         return "Error!"
     if command_name_check(latex_string, "begin") == "Error!":
         return "Error!"
@@ -78,6 +83,29 @@ def tabular_parameters(latex_string):
         return ""
     return "Error!"
 
+def tabular_columns_parameters(latex_string):
+    if generic_checks(latex_string) == "Error!":
+        return "Error!"
+    return latex_string
+
+def length_conversions(latex_length):
+    length_dictionary = {
+        "pt": [1.3, "px"],
+
+        "mm": [1, "mm"],
+
+        "cm": [1, "cm"],
+
+        "in": [1, "in"],
+
+        "ex": [1, "ex"],
+
+        "em": [1, "em"],
+    }
+    return length_dictionary.get(latex_length, "Error!")
+
+def parameter_arguments(latex_string):
+    return latex_string
 
 if __name__ == "__main__":
     document_class("")
