@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import datasets, transforms
+import matplotlib.pyplot as plt
 
 # Set random seed for reproducibility
 torch.manual_seed(42)
@@ -43,25 +44,29 @@ criterion = nn.CrossEntropyLoss()
 # Optimizer
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
+# Lists to store loss and accuracy values
+loss_values = []
+train_acc_values = []
+val_acc_values = []
+
 # Training loop
 for epoch in range(num_epochs):
     for batch_idx, (data, targets) in enumerate(train_loader):
         # Reshape the input data
         data = data.view(data.size(0), -1)
-        
+
         # Forward pass
         outputs = model(data)
         loss = criterion(outputs, targets)
-        
+
         # Backward pass and optimization
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        
-        # Print loss value for every learning step
-        if (batch_idx+1) % 100 == 0:
-            print(f'Epoch [{epoch+1}/{num_epochs}], Step [{batch_idx+1}/{len(train_loader)}], Loss: {loss.item():.4f}')
-    
+
+        # Append loss value for every learning step
+        loss_values.append(loss.item())
+
     # Calculate accuracy on train set after each epoch
     correct = 0
     total = 0
@@ -71,9 +76,9 @@ for epoch in range(num_epochs):
         _, predicted = torch.max(outputs.data, 1)
         total += targets.size(0)
         correct += (predicted == targets).sum().item()
-    
+
     train_accuracy = 100 * correct / total
-    print(f'Accuracy on Train Set after Epoch {epoch+1}: {train_accuracy:.2f}%')
+    train_acc_values.append(train_accuracy)
 
     # Calculate accuracy on validation set after each epoch
     correct = 0
@@ -84,9 +89,30 @@ for epoch in range(num_epochs):
         _, predicted = torch.max(outputs.data, 1)
         total += targets.size(0)
         correct += (predicted == targets).sum().item()
-    
-    validation_accuracy = 100 * correct / total
-    print(f'Accuracy on Validation Set after Epoch {epoch+1}: {validation_accuracy:.2f}%')
-    print('---')
 
-# Conclusions and observations can be included in the report
+    validation_accuracy = 100 * correct / total
+    val_acc_values.append(validation_accuracy)
+
+    # Print loss value for every learning step
+    print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss_values[-1]:.4f}, Train Accuracy: {train_accuracy:.2f}%, Validation Accuracy: {validation_accuracy:.2f}%')
+
+# Plot the loss value for every learning step
+plt.plot(loss_values)
+plt.xlabel('Learning Step')
+plt.ylabel('Loss')
+plt.title('Loss Value')
+plt.show()
+
+# Plot the accuracy on train set after each epoch
+plt.plot(train_acc_values)
+plt.xlabel('Epoch')
+plt.ylabel('Train Accuracy')
+plt.title('Accuracy on Train Set')
+plt.show()
+
+# Plot the accuracy on validation set after each epoch
+plt.plot(val_acc_values)
+plt.xlabel('Epoch')
+plt.ylabel('Validation Accuracy')
+plt.title('Accuracy on Validation Set')
+plt.show()
