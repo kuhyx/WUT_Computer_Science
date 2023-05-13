@@ -101,6 +101,7 @@ plt.plot(loss_values)
 plt.xlabel('Learning Step')
 plt.ylabel('Loss')
 plt.title('Loss Value')
+plt.savefig('loss_value.png')
 plt.show()
 
 # Plot the accuracy on train set after each epoch
@@ -108,6 +109,7 @@ plt.plot(train_acc_values)
 plt.xlabel('Epoch')
 plt.ylabel('Train Accuracy')
 plt.title('Accuracy on Train Set')
+plt.savefig('train_accuracy.png')
 plt.show()
 
 # Plot the accuracy on validation set after each epoch
@@ -115,4 +117,5 @@ plt.plot(val_acc_values)
 plt.xlabel('Epoch')
 plt.ylabel('Validation Accuracy')
 plt.title('Accuracy on Validation Set')
+plt.savefig('validation_accuracy.png')
 plt.show()
