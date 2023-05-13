@@ -5,6 +5,7 @@
         "mikoz.black-py",
         "james-yu.latex-workshop",
         "kisstkondoros.vscode-gutter-preview",
-        "streetsidesoftware.code-spell-checker"
+        "streetsidesoftware.code-spell-checker",
+        "wesbos.theme-cobalt2"
     ]
 }
