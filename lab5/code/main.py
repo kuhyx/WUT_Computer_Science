@@ -2,24 +2,25 @@
 import numpy as np
 # pytorch for deep learning models
 import torch
+# nn like neural network
 import torch.nn as nn
 import torch.optim as optim
 
-# Pima indians describes pateitn medical data and whether they had diabetes for last 5 years
+# Pima indians describes patient medical data and whether they had diabetes for last 5 years
 # It is binary classification (they could either have diabetes 1 or not 0)
 # load the file as a matrix of numbers,
 dataset = np.loadtxt('pima-indians-diabetes.csv', delimiter=',')
 input_columns = 8
 # split into input (X) -> in this case everything beside info whether patient had diabetes or not is input
-# We are spliting data into two subsets by using NumPy slie operator : and choose first 8 columns using 0:8 slice
+# We are splitting data into two subsets by using NumPy slice operator : and choose first 8 columns using 0:8 slice
 X = dataset[:,0:input_columns]
 # and output (y) variables -> in this case we are only interested whether patient had diabetes or not as an output
 # you can simplify that y = f(X)
-# We are spliting the data by using slice operator : and choosing last column
+# We are splitting the data by using slice operator : and choosing last column
 y = dataset[:,input_columns]
 
 # we need to convert this data to pytorch tensors 
-# Pyutoarch usually operates on 32-bit floating point and NumPy by default uses 64 bit floating point
+# Pytorch usually operates on 32-bit floating point and NumPy by default uses 64 bit floating point
 X = torch.tensor(X, dtype=torch.float32)
 # We can also correct the shape to fit what PyTorch would expect (here we are converting n vectors to n x 1 matrix)
 # This simplifies handling matrix multiplication operations (which are the basis of deep learning models)
@@ -33,13 +34,13 @@ class PimaClassifier(nn.Module):
         super().__init__()
         # There are 3 (fully connected) layers in class, each with their activation function
         # creates Linear layer, it maps input to a hidden layer of 12 neurons
-        # input features have a size of 8 (same number as number of eatures in pima indians diabetes dataset)
+        # input features have a size of 8 (same number as number of features in pima indians diabetes dataset)
         first_output_neurons = 12
         self.hidden1 = nn.Linear(input_columns, first_output_neurons)
         # This creates ReLU (rectified linear unit) activation function applied after first hidden layer
         self.act1 = nn.ReLU() 
 
-        # This maps the ouput of first layer (which was 12 neurons) to new hidden layer of 8 neurons
+        # This maps the output of first layer (which was 12 neurons) to new hidden layer of 8 neurons
         second_output_neurons = 8
         self.hidden2 = nn.Linear(first_output_neurons, second_output_neurons)
         # ReLU activation function applied after second hidden layer
@@ -89,7 +90,7 @@ batch_size = 10
 
 # We split dataset into batches and pass batches one by one into a model to training loop
 # after using all batches we finish one epoch and can start over again to refine the model
-# we use two netsed for loops for training, one is for epochs
+# we use two nested for loops for training, one is for epochs
 for epoch in range(n_epochs):
     # and one for batches
     for i in range(0, len(X), batch_size):
@@ -103,7 +104,7 @@ for epoch in range(n_epochs):
         loss = loss_fn(y_pred, ybatch)
         # optimize model
         optimizer.zero_grad()
-        # callculate the innacuracy
+        # calculate the inaccuracy
         loss.backward()
         # optimizer takes next step
         optimizer.step()

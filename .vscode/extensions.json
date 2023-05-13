@@ -4,6 +4,7 @@
         "ms-python.pylint",
         "mikoz.black-py",
         "james-yu.latex-workshop",
-        "kisstkondoros.vscode-gutter-preview"
+        "kisstkondoros.vscode-gutter-preview",
+        "streetsidesoftware.code-spell-checker"
     ]
 }
