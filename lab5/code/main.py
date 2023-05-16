@@ -4,13 +4,7 @@ from torch import nn
 from torch import optim
 from torchvision import datasets, transforms
 import matplotlib.pyplot as plt
-
-# Global Constants
-LEARNING_RATE = 0.001
-BATCH_SIZE = 64
-NUM_HIDDEN_LAYERS = 2
-WIDTH = 128
-OPTIMIZER_TYPE = 'Adam'
+import time
 
 
 def set_hyperparameters():
@@ -203,7 +197,7 @@ def calculate_validation_set_accuracy(training_parameters, epoch):
     val_acc_values.append(validation_accuracy)
 
 
-if __name__ == "__main__":
+def main_part(show_plot=True):
     (
         HYPERPARAMETERS,
         TRAIN_LOADER,
@@ -212,32 +206,83 @@ if __name__ == "__main__":
         CRITERION,
         OPTIMIZER,
     ) = initial_configuration()
+    start_time = time.time()
     LOADERS = set_loaders(
         TRAIN_LOADER, TEST_LOADER)
     TRAINING_PARAMETERS = set_training_parameters(
         HYPERPARAMETERS, LOADERS, MODEL, CRITERION, OPTIMIZER)
     training_loop(TRAINING_PARAMETERS)
+    file = open("results.txt", "a")
+    file.write(
+        "-------------------------------------------------------------------------------------")
+    file.write(
+        f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}")
+    file.write(f"Execution time: {(time.time() - start_time)}")
+    file.write(
+        "-------------------------------------------------------------------------------------")
 
-# Plot the loss value for every learning step
-plt.plot(loss_values)
-plt.xlabel('Learning Step')
-plt.ylabel('Loss')
-plt.title('Loss Value')
-plt.savefig('loss_value.png')
-plt.show()
+    # Plot the loss value for every learning step
+    plt.plot(loss_values)
+    plt.xlabel('Learning Step')
+    plt.ylabel('Loss')
+    plt.title('Loss Value')
+    plt.savefig(
+        f'loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png')
+    if show_plot:
+        plt.show()
 
-# Plot the accuracy on train set after each epoch
-plt.plot(train_acc_values)
-plt.xlabel('Epoch')
-plt.ylabel('Train Accuracy')
-plt.title('Accuracy on Train Set')
-plt.savefig('train_accuracy.png')
-plt.show()
+    # Plot the accuracy on train set after each epoch
+    plt.plot(train_acc_values)
+    plt.xlabel('Epoch')
+    plt.ylabel('Train Accuracy')
+    plt.title('Accuracy on Train Set')
+    plt.savefig(
+        f'trainAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png')
+    if show_plot:
+        plt.show()
 
-# Plot the accuracy on validation set after each epoch
-plt.plot(val_acc_values)
-plt.xlabel('Epoch')
-plt.ylabel('Validation Accuracy')
-plt.title('Accuracy on Validation Set')
-plt.savefig('validation_accuracy.png')
-plt.show()
+    # Plot the accuracy on validation set after each epoch
+    plt.plot(val_acc_values)
+    plt.xlabel('Epoch')
+    plt.ylabel('Validation Accuracy')
+    plt.title('Accuracy on Validation Set')
+    plt.savefig(
+        f'validationAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png')
+    if show_plot:
+        plt.show()
+
+
+if __name__ == "__main__":
+    LEARNING_RATE = 0.001
+    BATCH_SIZE = 64
+    NUM_HIDDEN_LAYERS = 2
+    WIDTH = 128
+    OPTIMIZER_TYPE = 'Adam'
+
+    learning_rate_values = [0.1, 0.01, 0.001]
+    for lr in learning_rate_values:
+        LEARNING_RATE = lr
+        main_part(False)
+    LEARNING_RATE = 0.001
+
+    batch_size_values = [64, 128, 256]
+    for bs in batch_size_values:
+        BATCH_SIZE = bs
+        main_part(False)
+    BATCH_SIZE = 64
+
+    hidden_layers_values = [1, 2, 3]
+    for hl in hidden_layers_values:
+        NUM_HIDDEN_LAYERS = hl
+        main_part(False)
+    NUM_HIDDEN_LAYERS = 2
+
+    width_values = [64, 128, 256, 512, 1024]
+    for width in WIDTH:
+        WIDTH = width
+        main_part(False)
+    WIDTH = 128
+
+    for optimizer in ['SGD', 'SGD_Momentum', 'Adam']:
+        OPTIMIZER_TYPE = optimizer
+        main_part(False)
