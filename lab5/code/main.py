@@ -3,6 +3,7 @@ import torch
 from torch import nn
 from torch import optim
 from torchvision import datasets, transforms
+import matplotlib.pyplot as plt
 
 
 def set_hyperparameters():
@@ -37,6 +38,12 @@ def create_data_loaders(train_dataset, test_dataset, hyperparameters):
         dataset=test_dataset, batch_size=hyperparameters["batch_size"], shuffle=False
     )
     return train_loader, test_loader
+
+
+# Lists to store loss and accuracy values
+loss_values = []
+train_acc_values = []
+val_acc_values = []
 
 
 def define_model(hyperparameters):
@@ -92,11 +99,12 @@ def single_train_iteration(
         print(
             f'''
             Epoch [{epoch+1}/{training_parameters['hyperparameters']["num_epochs"]}],
-            Step [{batch_idx+1}/ \
-                {len(training_parameters['loaders']['train_loader'])}],
+            Step [{batch_idx+1}/ {len(training_parameters['loaders']['train_loader'])}],
             Loss: {loss.item():.4f}
             '''
         )
+    # Append loss value for every learning step
+    loss_values.append(loss.item())
     return data, training_parameters['optimizer']
 
 
@@ -157,6 +165,7 @@ def calculate_accuracy_epoch(training_parameters, epoch):
     train_accuracy = 100 * correct / total
     print(
         f"Accuracy on Train Set after Epoch {epoch+1}: {train_accuracy:.2f}%")
+    train_acc_values.append(train_accuracy)
 
 
 def calculate_validation_set_accuracy(training_parameters, epoch):
@@ -175,6 +184,7 @@ def calculate_validation_set_accuracy(training_parameters, epoch):
         f"Accuracy on Validation Set after Epoch {epoch+1}: {validation_accuracy:.2f}%"
     )
     print("---")
+    val_acc_values.append(validation_accuracy)
 
 
 if __name__ == "__main__":
@@ -191,3 +201,27 @@ if __name__ == "__main__":
     TRAINING_PARAMETERS = set_training_parameters(
         HYPERPARAMETERS, LOADERS, MODEL, CRITERION, OPTIMIZER)
     training_loop(TRAINING_PARAMETERS)
+
+# Plot the loss value for every learning step
+plt.plot(loss_values)
+plt.xlabel('Learning Step')
+plt.ylabel('Loss')
+plt.title('Loss Value')
+plt.savefig('loss_value.png')
+plt.show()
+
+# Plot the accuracy on train set after each epoch
+plt.plot(train_acc_values)
+plt.xlabel('Epoch')
+plt.ylabel('Train Accuracy')
+plt.title('Accuracy on Train Set')
+plt.savefig('train_accuracy.png')
+plt.show()
+
+# Plot the accuracy on validation set after each epoch
+plt.plot(val_acc_values)
+plt.xlabel('Epoch')
+plt.ylabel('Validation Accuracy')
+plt.title('Accuracy on Validation Set')
+plt.savefig('validation_accuracy.png')
+plt.show()
