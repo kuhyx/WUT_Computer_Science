@@ -268,9 +268,8 @@ if __name__ == "__main__":
     OPTIMIZER_TYPE = 'Adam'
 
     learning_rate_values = [0.1, 0.01, 0.001]
-    i = 9
+    i = 0
     MAX_TESTS = 17
-    """
     for lr in learning_rate_values:
         LEARNING_RATE = lr
         main_part(False)
@@ -293,7 +292,7 @@ if __name__ == "__main__":
         i += 1
         print(f"Test {i}/{MAX_TESTS} ran")
     NUM_HIDDEN_LAYERS = 2
-    """
+
     width_values = [64, 128, 256, 512, 1024]
     for width in width_values:
         WIDTH = width
