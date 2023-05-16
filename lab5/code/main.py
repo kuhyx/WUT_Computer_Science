@@ -216,42 +216,48 @@ def main_part(show_plot=True):
     training_loop(TRAINING_PARAMETERS, show_plot)
     file = open("results.txt", "a")
     file.write(
-        "-------------------------------------------------------------------------------------")
+        "-------------------------------------------------------------------------------------" + "\n")
     file.write(
-        f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}")
-    file.write(f"Execution time: {(time.time() - start_time)}")
+        f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}" + "\n")
+    file.write(f"Execution time: {(time.time() - start_time)}" + "\n")
     file.write(
-        "-------------------------------------------------------------------------------------")
+        "-------------------------------------------------------------------------------------" + "\n")
 
     # Plot the loss value for every learning step
+    learning_step_title = f'loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png'
     plt.plot(loss_values)
     plt.xlabel('Learning Step')
     plt.ylabel('Loss')
-    plt.title('Loss Value')
-    plt.savefig(
-        f'loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png')
+    plt.title(learning_step_title)
+    plt.savefig(learning_step_title
+                )
     if show_plot:
         plt.show()
+    plt.close()
 
     # Plot the accuracy on train set after each epoch
+    train_accuracy_title = f'trainAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png'
     plt.plot(train_acc_values)
     plt.xlabel('Epoch')
     plt.ylabel('Train Accuracy')
-    plt.title('Accuracy on Train Set')
+    plt.title(train_accuracy_title)
     plt.savefig(
-        f'trainAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png')
+        train_accuracy_title)
     if show_plot:
         plt.show()
+    plt.close()
 
     # Plot the accuracy on validation set after each epoch
+    validation_accuracy_title = f'validationAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png'
     plt.plot(val_acc_values)
     plt.xlabel('Epoch')
     plt.ylabel('Validation Accuracy')
-    plt.title('Accuracy on Validation Set')
+    plt.title(validation_accuracy_title)
     plt.savefig(
-        f'validationAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png')
+        validation_accuracy_title)
     if show_plot:
         plt.show()
+    plt.close()
 
 
 if __name__ == "__main__":
@@ -262,8 +268,9 @@ if __name__ == "__main__":
     OPTIMIZER_TYPE = 'Adam'
 
     learning_rate_values = [0.1, 0.01, 0.001]
-    i = 0
+    i = 9
     MAX_TESTS = 17
+    """
     for lr in learning_rate_values:
         LEARNING_RATE = lr
         main_part(False)
@@ -286,9 +293,9 @@ if __name__ == "__main__":
         i += 1
         print(f"Test {i}/{MAX_TESTS} ran")
     NUM_HIDDEN_LAYERS = 2
-
+    """
     width_values = [64, 128, 256, 512, 1024]
-    for width in WIDTH:
+    for width in width_values:
         WIDTH = width
         main_part(False)
         i += 1
