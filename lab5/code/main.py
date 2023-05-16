@@ -266,7 +266,14 @@ if __name__ == "__main__":
     NUM_HIDDEN_LAYERS = 2
     WIDTH = 128
     OPTIMIZER_TYPE = 'Adam'
-
+    print("0/2")
+    main_part(True)
+    print("1/2")
+    BATCH_SIZE = 64
+    NUM_HIDDEN_LAYERS = 0
+    main_part(True)
+    print("2/2")
+    """
     learning_rate_values = [0.1, 0.01, 0.001]
     i = 0
     MAX_TESTS = 17
@@ -306,3 +313,4 @@ if __name__ == "__main__":
         main_part(False)
         i += 1
         print(f"Test {i}/{MAX_TESTS} ran")
+    """
