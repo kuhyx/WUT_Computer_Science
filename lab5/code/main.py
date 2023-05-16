@@ -5,15 +5,19 @@ from torch import optim
 from torchvision import datasets, transforms
 import matplotlib.pyplot as plt
 
+# Global Constants
+LEARNING_RATE = 0.001
+BATCH_SIZE = 64
+NUM_HIDDEN_LAYERS = 2
+WIDTH = 128
+OPTIMIZER_TYPE = 'Adam'
+
 
 def set_hyperparameters():
     """ sets hyperparameters used throughout the network """
     return {
-        "learning_rate": 0.001,
-        "batch_size": 64,
-        "num_epochs": 2,
-        "input_size": 28 * 28,  # MNIST images are 28x28 pixels
-        "hidden_size": 128,
+        "num_epochs": 5,
+        "init_input_size": 28 * 28,  # MNIST images are 28x28 pixels
         "num_classes": 10,
     }
 
@@ -29,13 +33,13 @@ def load_datasets():
     return train_dataset, test_dataset
 
 
-def create_data_loaders(train_dataset, test_dataset, hyperparameters):
+def create_data_loaders(train_dataset, test_dataset):
     """ Create train and test data loaders """
     train_loader = torch.utils.data.DataLoader(
-        dataset=train_dataset, batch_size=hyperparameters["batch_size"], shuffle=True
+        dataset=train_dataset, batch_size=BATCH_SIZE, shuffle=True
     )
     test_loader = torch.utils.data.DataLoader(
-        dataset=test_dataset, batch_size=hyperparameters["batch_size"], shuffle=False
+        dataset=test_dataset, batch_size=BATCH_SIZE, shuffle=False
     )
     return train_loader, test_loader
 
@@ -48,14 +52,29 @@ val_acc_values = []
 
 def define_model(hyperparameters):
     """ Define the multilayer perceptron training_parameters['model'] """
-    model = nn.Sequential(
-        nn.Linear(hyperparameters["input_size"],
-                  hyperparameters["hidden_size"]),
-        nn.ReLU(),
-        nn.Linear(hyperparameters["hidden_size"],
-                  hyperparameters["num_classes"]),
-    )
+    # Define the multilayer perceptron model
+    model = nn.Sequential()
+    model.add_module('flatten', nn.Flatten())
+    input_size = hyperparameters['init_input_size']
+    for i in range(NUM_HIDDEN_LAYERS):
+        model.add_module(f'linear{i}', nn.Linear(input_size, WIDTH))
+        model.add_module(f'relu{i}', nn.ReLU())
+        input_size = WIDTH
+    model.add_module('output', nn.Linear(
+        input_size, hyperparameters['num_classes']))
     return model
+
+
+def get_optimizer(model):
+    """ Return optimizer function """
+    if OPTIMIZER_TYPE == 'SGD':
+        return optim.SGD(model.parameters(), lr=LEARNING_RATE)
+    elif OPTIMIZER_TYPE == 'SGD_Momentum':
+        return optim.SGD(model.parameters(), lr=LEARNING_RATE, momentum=0.9)
+    elif OPTIMIZER_TYPE == 'Adam':
+        return optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    else:
+        raise ValueError("Unsupported optimizer type!")
 
 
 def initial_configuration():
@@ -68,14 +87,12 @@ def initial_configuration():
     # Load MNIST dataset and apply transformations
     train_dataset, test_dataset = load_datasets()
     train_loader, test_loader = create_data_loaders(
-        train_dataset, test_dataset, hyperparameters
-    )
+        train_dataset, test_dataset)
     model = define_model(hyperparameters)
     # Loss function
     criterion = nn.CrossEntropyLoss()
     # training_parameters['optimizer']
-    optimizer = optim.Adam(
-        model.parameters(), lr=hyperparameters["learning_rate"])
+    optimizer = get_optimizer(model)
     return hyperparameters, train_loader, test_loader, model, criterion, optimizer
 
 
@@ -99,7 +116,7 @@ def single_train_iteration(
         print(
             f'''
             Epoch [{epoch+1}/{training_parameters['hyperparameters']["num_epochs"]}],
-            Step [{batch_idx+1}/ {len(training_parameters['loaders']['train_loader'])}],
+            Step [{batch_idx+1}/{len(training_parameters['loaders']['train_loader'])}],
             Loss: {loss.item():.4f}
             '''
         )
