@@ -105,14 +105,14 @@ def single_train_iteration(
     loss.backward()
     training_parameters['optimizer'].step()
     # Print loss value for every learning step
-    if (batch_idx + 1) % 100 == 0:
+    """if (batch_idx + 1) % 100 == 0:
         print(
             f'''
             Epoch [{epoch+1}/{training_parameters['hyperparameters']["num_epochs"]}],
             Step [{batch_idx+1}/{len(training_parameters['loaders']['train_loader'])}],
             Loss: {loss.item():.4f}
             '''
-        )
+        )"""
     # Append loss value for every learning step
     loss_values.append(loss.item())
     return data, training_parameters['optimizer']
@@ -144,7 +144,7 @@ def set_training_parameters(hyperparameters, loaders, model, criterion, optimize
     }
 
 
-def training_loop(training_parameters):
+def training_loop(training_parameters, print_info=True):
     """
     Train network for all epochs
     """
@@ -156,13 +156,13 @@ def training_loop(training_parameters):
                 data, training_parameters, targets, batch_idx, epoch
             )
         calculate_accuracy_epoch(
-            training_parameters, epoch)
+            training_parameters, epoch, print_info)
         calculate_validation_set_accuracy(
-            training_parameters, epoch)
+            training_parameters, epoch, print_info)
     return epoch, training_parameters['loaders']['train_loader']
 
 
-def calculate_accuracy_epoch(training_parameters, epoch):
+def calculate_accuracy_epoch(training_parameters, epoch, print_info=True):
     """ Calculate accuracy on train set after each epoch """
     correct = 0
     total = 0
@@ -173,12 +173,13 @@ def calculate_accuracy_epoch(training_parameters, epoch):
         total += targets.size(0)
         correct += (predicted == targets).sum().item()
     train_accuracy = 100 * correct / total
-    print(
-        f"Accuracy on Train Set after Epoch {epoch+1}: {train_accuracy:.2f}%")
+    if print_info:
+        print(
+            f"Accuracy on Train Set after Epoch {epoch+1}: {train_accuracy:.2f}%")
     train_acc_values.append(train_accuracy)
 
 
-def calculate_validation_set_accuracy(training_parameters, epoch):
+def calculate_validation_set_accuracy(training_parameters, epoch, print_info=True):
     """ Calculate accuracy on validation set after each epoch """
     correct = 0
     total = 0
@@ -190,10 +191,11 @@ def calculate_validation_set_accuracy(training_parameters, epoch):
         correct += (predicted == targets).sum().item()
 
     validation_accuracy = 100 * correct / total
-    print(
-        f"Accuracy on Validation Set after Epoch {epoch+1}: {validation_accuracy:.2f}%"
-    )
-    print("---")
+    if print_info:
+        print(
+            f"Accuracy on Validation Set after Epoch {epoch+1}: {validation_accuracy:.2f}%"
+        )
+        print("---")
     val_acc_values.append(validation_accuracy)
 
 
@@ -211,7 +213,7 @@ def main_part(show_plot=True):
         TRAIN_LOADER, TEST_LOADER)
     TRAINING_PARAMETERS = set_training_parameters(
         HYPERPARAMETERS, LOADERS, MODEL, CRITERION, OPTIMIZER)
-    training_loop(TRAINING_PARAMETERS)
+    training_loop(TRAINING_PARAMETERS, show_plot)
     file = open("results.txt", "a")
     file.write(
         "-------------------------------------------------------------------------------------")
@@ -260,29 +262,41 @@ if __name__ == "__main__":
     OPTIMIZER_TYPE = 'Adam'
 
     learning_rate_values = [0.1, 0.01, 0.001]
+    i = 0
+    MAX_TESTS = 17
     for lr in learning_rate_values:
         LEARNING_RATE = lr
         main_part(False)
+        i += 1
+        print(f"Test {i}/{MAX_TESTS} ran")
     LEARNING_RATE = 0.001
 
     batch_size_values = [64, 128, 256]
     for bs in batch_size_values:
         BATCH_SIZE = bs
         main_part(False)
+        i += 1
+        print(f"Test {i}/{MAX_TESTS} ran")
     BATCH_SIZE = 64
 
     hidden_layers_values = [1, 2, 3]
     for hl in hidden_layers_values:
         NUM_HIDDEN_LAYERS = hl
         main_part(False)
+        i += 1
+        print(f"Test {i}/{MAX_TESTS} ran")
     NUM_HIDDEN_LAYERS = 2
 
     width_values = [64, 128, 256, 512, 1024]
     for width in WIDTH:
         WIDTH = width
         main_part(False)
+        i += 1
+        print(f"Test {i}/{MAX_TESTS} ran")
     WIDTH = 128
 
     for optimizer in ['SGD', 'SGD_Momentum', 'Adam']:
         OPTIMIZER_TYPE = optimizer
         main_part(False)
+        i += 1
+        print(f"Test {i}/{MAX_TESTS} ran")
