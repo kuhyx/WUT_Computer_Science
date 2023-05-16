@@ -105,14 +105,14 @@ def single_train_iteration(
     loss.backward()
     training_parameters['optimizer'].step()
     # Print loss value for every learning step
-    """if (batch_idx + 1) % 100 == 0:
+    if (batch_idx + 1) % 100 == 0:
         print(
             f'''
             Epoch [{epoch+1}/{training_parameters['hyperparameters']["num_epochs"]}],
             Step [{batch_idx+1}/{len(training_parameters['loaders']['train_loader'])}],
             Loss: {loss.item():.4f}
             '''
-        )"""
+        )
     # Append loss value for every learning step
     loss_values.append(loss.item())
     return data, training_parameters['optimizer']
