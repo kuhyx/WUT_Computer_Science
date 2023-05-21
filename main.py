@@ -83,7 +83,7 @@ def movement(hyperparameters, env, q_table, total_reward=0):
     """
     action = choose_action(hyperparameters, env, q_table)
     # Take the action and observe the next state
-    next_state, reward, terminated, truncated, info = env.step(action)
+    _, reward, terminated, truncated, _ = env.step(action)
     done = terminated or truncated
     q_table = update_q_table(q_table, action, hyperparameters, reward)
 
@@ -95,7 +95,7 @@ def episode_step(env, hyperparameters, q_table, episode_rewards):
     """
     Actions done with every episode
     """
-    state, _ = env.reset()  # Reset the environment to an initial state
+    env.reset()  # Reset the environment to an initial state
     done = False  # Boolean to indicate episode completion
     total_reward = 0  # Accumulate rewards for the episode
 
@@ -113,7 +113,7 @@ def training_loop(hyperparameters, env, q_table):
     """
     episode_rewards = []  # List to store episode rewards
 
-    for episode in range(hyperparameters["max_episodes"]):
+    for _ in range(hyperparameters["max_episodes"]):
         env, hyperparameters, q_table, episode_rewards = episode_step(
             env, hyperparameters, q_table, episode_rewards)
 
@@ -124,14 +124,14 @@ def inference(env, q_table):
     """
     Inference using the updated Q-table
     """
-    state, _ = env.reset()
+    env.reset()
     done = False
 
     while not done:
         # Choose the action with the highest Q-value
         action = np.argmax(q_table)
         # Take the action and observe the next state
-        next_state, reward, terminated, truncated, info = env.step(action)
+        _, terminated, truncated, _ = env.step(action)
         done = terminated or truncated
 
 
