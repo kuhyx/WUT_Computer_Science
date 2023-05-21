@@ -8,3 +8,4 @@ dependencies:
   - moviepy
   - numpy
   - python=3.9
+  - pygame
