@@ -1,0 +1,10 @@
+name: rl-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - gymnasium
+  - matplotlib
+  - moviepy
+  - numpy
+  - python=3.9
