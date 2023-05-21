@@ -50,7 +50,7 @@ def given_line_then_array():
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("|") == ["{style=\"border-left: 1px solid black;\"}"]
+    assert tabular_columns_parameters("|") == ["style=\"border-left: 1px solid black;\""]
 
 def given_double_line_then_array():
     """
@@ -58,7 +58,7 @@ def given_double_line_then_array():
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("||") == ["{style=\"border-left: 1px solid black;\"}", "{style=\"border-left: 1px solid black;\"}"]
+    assert tabular_columns_parameters("||") == ["style=\"border-left: 1px solid black;\"", "style=\"border-left: 1px solid black;\""]
 
 def given_c_then_array():
     """

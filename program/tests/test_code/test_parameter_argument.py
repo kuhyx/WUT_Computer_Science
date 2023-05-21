@@ -14,7 +14,7 @@ def given_unknown_then_error():
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("l{5cm}") == "Error!"
+    assert tabular_columns_parameters("l{1.3cm}") == "Error!"
 
 def given_p_then_array():
     """
@@ -22,10 +22,28 @@ def given_p_then_array():
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("p{5cm}") == ["p", 5, [5, "cm"]]
+    assert tabular_columns_parameters("p{1.3pt}") == "style=\"vertical-align: top; width: 1.69px;\""
+
+def given_m_then_array():
+    """
+    Given: 
+    When: N/A
+    Then: <!DOCTYPE html><html>
+    """
+    assert tabular_columns_parameters("m{1.3pt}") == "style=\"vertical-align: middle; width: 1.69px;\""
+
+def given_b_then_array():
+    """
+    Given: 
+    When: N/A
+    Then: <!DOCTYPE html><html>
+    """
+    assert tabular_columns_parameters("b{1.3pt}") == "style=\"vertical-align: bottom; width: 1.69px;\""
 
 
 def test_parameter_arguments():
     given_empty_then_empty()
-    given_empty_brackets_then_empty()
-    given_c_then_array()
+    given_unknown_then_error()
+    given_p_then_array()
+    given_m_then_array()
+    given_b_then_array()
