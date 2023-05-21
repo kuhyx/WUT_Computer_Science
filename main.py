@@ -6,7 +6,7 @@ import gymnasium as gym
 import numpy as np
 
 
-def initialize_environment():
+def initialize_environment(hyperparameters):
     """
     Initialize environment and video recording
     """
@@ -18,7 +18,7 @@ def initialize_environment():
     env = gym.wrappers.RecordVideo(
         env,
         video_folder='vid',
-        episode_trigger=lambda x: x == 1,
+        episode_trigger=lambda x: x == hyperparameters["max_episodes"],
         disable_logger=False,
         name_prefix=time_string)
     return env
@@ -45,7 +45,7 @@ def initialize_hyperparameters():
         "learning_rate": 0.1,
         "discount_factor": 0.99,
         "epsilon": 0.2,
-        "max_episodes": 1
+        "max_episodes": 1000
     }
     return hyperparameters
 
@@ -136,9 +136,9 @@ def inference(env, q_table):
 
 
 if __name__ == '__main__':
-    ENV = initialize_environment()
-    Q_TABLE = initialize_q_table(ENV)
     HYPERPARAMETERS = initialize_hyperparameters()
+    ENV = initialize_environment(HYPERPARAMETERS)
+    Q_TABLE = initialize_q_table(ENV)
     ENV, Q_TABLE = training_loop(HYPERPARAMETERS, ENV, Q_TABLE)
     inference(ENV, Q_TABLE)
 
