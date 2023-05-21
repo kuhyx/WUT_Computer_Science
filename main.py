@@ -131,7 +131,7 @@ def inference(env, q_table):
         # Choose the action with the highest Q-value
         action = np.argmax(q_table)
         # Take the action and observe the next state
-        _, terminated, truncated, _ = env.step(action)
+        _, _, terminated, truncated, _ = env.step(action)
         done = terminated or truncated
 
 
