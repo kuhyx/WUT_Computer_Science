@@ -1,10 +1,7 @@
-"""
-    Tests tabular_parameters function
-"""
-
 from code.main import tabular_columns_parameters
 
-def given_empty_then_empty():
+
+def given_empty_then_error():
     """
     Given: 
     When: N/A
@@ -12,97 +9,49 @@ def given_empty_then_empty():
     """
     assert tabular_columns_parameters("") == "Error!"
 
-def given_empty_brackets_then_empty():
+
+def given_unknown_then_error():
     """
-    Given: {}
+    Given: 
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("{}") == "Error!"
+    assert tabular_columns_parameters("l{1.3cm}") == "Error!"
 
-def given_c_then_array():
+
+def given_p_then_array():
     """
-    Given: [c]
+    Given: 
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("{c}") == ["align='center'"]
+    assert tabular_columns_parameters(
+        "p{1.3pt}") == "style=\"vertical-align: top; width: 1.69px;\""
 
-def given_l_then_array():
+
+def given_m_then_array():
     """
-    Given: [c]
+    Given: 
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("{l}") == ["align='left'"]
+    assert tabular_columns_parameters(
+        "m{1.3pt}") == "style=\"vertical-align: middle; width: 1.69px;\""
 
-def given_r_then_array():
+
+def given_b_then_array():
     """
-    Given: [c]
+    Given: 
     When: N/A
     Then: <!DOCTYPE html><html>
     """
-    assert tabular_columns_parameters("{r}") == ["align='right'"]
-
-def given_line_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("|") == ["style=\"border-left: 1px solid black;\""]
-
-def given_double_line_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("||") == ["style=\"border-left: 1px solid black;\"", "style=\"border-left: 1px solid black;\""]
-
-def given_c_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("{c}") == ["c"]
-
-def given_c_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("{c}") == ["c"]
-
-def given_c_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("{c}") == ["c"]
-
-def given_c_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("{c}") == ["c"]
-
-def given_c_then_array():
-    """
-    Given: [c]
-    When: N/A
-    Then: <!DOCTYPE html><html>
-    """
-    assert tabular_columns_parameters("{c}") == ["c"]
-
+    assert tabular_columns_parameters(
+        "b{1.3pt}") == "style=\"vertical-align: bottom; width: 1.69px;\""
 
 
 def test_tabular_columns_parameters():
-    given_empty_then_empty()
-    given_empty_brackets_then_empty()
-    given_c_then_array()
+    given_empty_then_error()
+    given_unknown_then_error()
+    given_p_then_array()
+    given_m_then_array()
+    given_b_then_array()

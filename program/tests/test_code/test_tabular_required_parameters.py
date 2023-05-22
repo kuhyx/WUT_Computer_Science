@@ -4,6 +4,7 @@
 
 from code.main import tabular_required_parameters
 
+
 def given_empty_then_error():
     """
     Given: 
@@ -12,6 +13,7 @@ def given_empty_then_error():
     """
     assert tabular_required_parameters("") == "Error!"
 
+
 def given_empty_brackets_then_error():
     """
     Given: {}
@@ -19,6 +21,7 @@ def given_empty_brackets_then_error():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{}") == "Error!"
+
 
 def given_just_line_then_error():
     """
@@ -37,6 +40,7 @@ def given_just_lines_then_error():
     """
     assert tabular_required_parameters("{|||||||}") == "Error!"
 
+
 def given_single_left_then_correct():
     """
     Given: {l}
@@ -44,6 +48,7 @@ def given_single_left_then_correct():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{l}") == ['l']
+
 
 def given_single_center_then_correct():
     """
@@ -53,6 +58,7 @@ def given_single_center_then_correct():
     """
     assert tabular_required_parameters("{c}") == ['c']
 
+
 def given_single_right_then_correct():
     """
     Given: {r}
@@ -60,6 +66,7 @@ def given_single_right_then_correct():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{r}") == ['r']
+
 
 def given_empty_wrap_p_then_error():
     """
@@ -69,6 +76,7 @@ def given_empty_wrap_p_then_error():
     """
     assert tabular_required_parameters("{p}") == "Error!"
 
+
 def given_empty_wrap_m_then_error():
     """
     Given: {r}
@@ -76,6 +84,7 @@ def given_empty_wrap_m_then_error():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{m}") == "Error!"
+
 
 def given_empty_wrap_b_then_error():
     """
@@ -85,6 +94,7 @@ def given_empty_wrap_b_then_error():
     """
     assert tabular_required_parameters("{b}") == "Error!"
 
+
 def given_empty_wrap_p_brackets_then_error():
     """
     Given: {r}
@@ -92,6 +102,7 @@ def given_empty_wrap_p_brackets_then_error():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{p{}}") == "Error!"
+
 
 def given_empty_wrap_m_brackets_then_error():
     """
@@ -101,6 +112,7 @@ def given_empty_wrap_m_brackets_then_error():
     """
     assert tabular_required_parameters("{m{}}") == "Error!"
 
+
 def given_empty_wrap_b_brackets_then_error():
     """
     Given: {r}
@@ -108,7 +120,6 @@ def given_empty_wrap_b_brackets_then_error():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{b{}}") == "Error!"
-
 
 
 def test_tabular_required_parameters():
