@@ -3,6 +3,7 @@ Code for preprocessing data and creating model that predicts and
 recomends anime based on another anime entered by user
 """
 import pandas as pd
+
 import numpy as np
 import argparse
 
@@ -220,9 +221,9 @@ def handle_arguments():
     parser.add_argument('--neighbors', '-n', help='Specify number of nearest neighbors',
                         required=False, default=5)
     parser.add_argument('--user_threshold', '-ut', help='Specify minimal number of votes required for user to be included in the data, set to -1 for no threshold',
-                        required=False, default=500)
+                        required=False, type=int,  default=500)
     parser.add_argument('--anime_threshold', '-at', help='Specify minimal number of votes required for anime to be included in the data, set to -1 for no threshold',
-                        required=False, default=200)
+                        required=False, type=int, default=200)
     # Parse the command-line arguments
     args = parser.parse_args()
 
