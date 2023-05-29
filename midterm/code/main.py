@@ -156,12 +156,12 @@ def preprocessing(rating_data, anime_contact_data, debug=False):
     return pivot_table
 
 
-def predict(prediction_model, pivot_table):
+def predict(prediction_model, pivot_table, seed=42):
     """
     This will choose a random anime name and our prediction_model will predict similar anime.
     """
+    np.random.seed(seed)
     random_anime = np.random.choice(pivot_table.shape[0])
-
     query = pivot_table.iloc[random_anime, :].values.reshape(1, -1)
     distance, suggestions = prediction_model.kneighbors(query, n_neighbors=6)
     random_anime_name = pivot_table.index[random_anime]
