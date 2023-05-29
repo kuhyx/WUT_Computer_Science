@@ -50,17 +50,18 @@ def merge_rating_anime_data(rating_data, anime_contact_data, debug=False):
     return rating_data
 
 
-def split_data_below_thresholds(rating_data, data_name, threshold, debug=False):
+def split_data_below_thresholds(rating_data, data_name, threshold=-1, debug=False):
     """
     Removes data with data_name which is below given threshold
     """
-    count = rating_data[data_name].value_counts()
-    rating_data = rating_data[
-        rating_data[data_name].isin(count[count >= threshold].index)
-    ].copy()
-    rating_shape_cut = rating_data.shape
-    if debug:
-        print(rating_shape_cut)
+    if threshold != -1:
+        count = rating_data[data_name].value_counts()
+        rating_data = rating_data[
+            rating_data[data_name].isin(count[count >= threshold].index)
+        ].copy()
+        rating_shape_cut = rating_data.shape
+        if debug:
+            print(rating_shape_cut)
     return rating_data
 
 
@@ -136,13 +137,15 @@ def get_data_info(rating_data, debug=False):
             f"Min total rating: {smallest_rating}, Max total rating: {highest_rating}")
 
 
-def preprocessing(rating_data, anime_contact_data, debug=False):
+def preprocessing(rating_data, anime_contact_data, debug=False, user_threshold=500, anime_threshold=200):
     """
     Preprocesses data for making model more accurate and/or faster
     """
     rating_data = merge_rating_anime_data(rating_data, anime_contact_data)
-    rating_data = split_data_below_thresholds(rating_data, "user_id", 500)
-    rating_data = split_data_below_thresholds(rating_data, "anime_id", 200)
+    rating_data = split_data_below_thresholds(
+        rating_data, "user_id", user_threshold)
+    rating_data = split_data_below_thresholds(
+        rating_data, "anime_id", anime_threshold)
     rating_data = combine_name_and_ratings(rating_data)
 
     rating_data = rating_data.drop(columns="rating_x")
@@ -184,12 +187,13 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM"):
             )
 
 
-def create_model(pivot_table, metric="cosine", algorithm="brute"):
+def create_model(pivot_table, metric="cosine", algorithm="brute", neighbors=5):
     """
     Creates model based on neaarest neighbor for anime prediction
     """
     pivot_table_matrix = csr_matrix(pivot_table.values)
-    model = NearestNeighbors(metric=metric, algorithm=algorithm)
+    model = NearestNeighbors(n_neighbors=neighbors,
+                             metric=metric, algorithm=algorithm)
     model.fit(pivot_table_matrix)
     return model
 
@@ -197,7 +201,7 @@ def create_model(pivot_table, metric="cosine", algorithm="brute"):
 def handle_arguments():
     parser = argparse.ArgumentParser(description='Example script with pyargs')
     parser.add_argument('--data_limit', '-dl',
-                        help='Specify data limit, Recommended at least 50k', required=False, type=int, default=-1)
+                        help='Specify data limit, Recommended at least 500k, set to -1 for no limit', required=False, type=int, default=-1)
     parser.add_argument('--seed', '-s', help='Specify seed',
                         type=int, required=False, default=42)
     parser.add_argument('--debug', '-d', help='Use debug (more information) prints',
@@ -213,17 +217,24 @@ def handle_arguments():
                         required=False, default="brute", choices=allowed_algorithms)
     parser.add_argument('--anime', '-an', help='Specify anime to choose',
                         required=False, default="RANDOM")
+    parser.add_argument('--neighbors', '-n', help='Specify number of nearest neighbors',
+                        required=False, default=5)
+    parser.add_argument('--user_threshold', '-ut', help='Specify minimal number of votes required for user to be included in the data, set to -1 for no threshold',
+                        required=False, default=500)
+    parser.add_argument('--anime_threshold', '-at', help='Specify minimal number of votes required for anime to be included in the data, set to -1 for no threshold',
+                        required=False, default=200)
     # Parse the command-line arguments
     args = parser.parse_args()
 
     # Access the values of the arguments
-    return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime
+    return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold
 
 
 if __name__ == "__main__":
-    seed, debug, data_limit, db, metric, algorithm, anime = handle_arguments()
+    seed, debug, data_limit, db, metric, algorithm, anime, neighbors, user_threshold, anime_threshold = handle_arguments()
 
     RATING_DATA, ANIME_CONTACT_DATA = get_data(data_limit, db)
-    PIVOT_TABLE = preprocessing(RATING_DATA, ANIME_CONTACT_DATA, debug)
-    MODEL = create_model(PIVOT_TABLE, metric, algorithm)
+    PIVOT_TABLE = preprocessing(
+        RATING_DATA, ANIME_CONTACT_DATA, debug, user_threshold, anime_threshold)
+    MODEL = create_model(PIVOT_TABLE, metric, algorithm, neighbors)
     predict(MODEL, PIVOT_TABLE, seed, anime)

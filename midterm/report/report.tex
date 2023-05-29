@@ -7,7 +7,38 @@
 \maketitle
 \section{Progress}
 We have implemented reading data from csv files, preprocessing them with optional showing of some of the information about the data and used model/learner for implementing neighbour searches \\ 
-Right now the model predicts random anime choosen from the table  
+Program is very flexible and allows for a lot of modification from command line arguments \\
+Full list here:
+\begin{lstlisting}[language=bash]
+options:
+-h, --help            show this help message and exit
+--data_limit DATA_LIMIT, -dl DATA_LIMIT
+                      Specify data limit, Recommended at least 500k,
+                      set to -1 for no limit
+--seed SEED, -s SEED  Specify seed
+--debug DEBUG, -d DEBUG
+                      Use debug (more information) prints
+--database DATABASE, -db DATABASE
+                      Specify database path
+--metric {cosine,mahalanobis,euclidean}
+-m {cosine,mahalanobis,euclidean}
+                      Specify metric for NearestNeighbor learner
+--algorithm {auto,ball_tree,kd_tree,brute}
+-a {auto,ball_tree,kd_tree,brute}
+                      Specify algorithm for Nearest Neighbor learner
+--anime ANIME, -an ANIME
+                      Specify anime to choose
+--neighbors NEIGHBORS, -n NEIGHBORS
+                      Specify number of nearest neighbors
+--user_threshold USER_THRESHOLD, -ut USER_THRESHOLD
+                      Specify minimal number of votes
+                    required for user to be included in
+                    the data, set to -1 for no threshold
+--anime_threshold ANIME_THRESHOLD, -at ANIME_THRESHOLD
+                      Specify minimal number of votes
+                      required for anime to be included
+                      in the data, set to -1 for no threshold
+\end{lstlisting}
 \section{Results}
 \subsection{Presentation}
 \subsubsection{Plots}
@@ -29,5 +60,7 @@ All of functionality that we want to implement is available in sklearn and scipy
 \subsection{Results and findings}
 
 \section{Finishing project}
+\subsection{Embedding more data in user and anime}
+Currently we are only embedding pure rating values of users, we do not take into consideration, popularity, "controversy", studio which created the anime, length of anime (number of episodes and length of episodes), and when it was aired \\ 
 
 \end{document}

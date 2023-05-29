@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Arch Linux) (preloaded format=xelatex 2023.4.17)  29 MAY 2023 22:15
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Arch Linux) (preloaded format=xelatex 2023.4.17)  29 MAY 2023 23:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -201,19 +201,73 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 8.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 8.
- [1
+ (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+) (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+Overfull \hbox (99.60498pt too wide) in paragraph at lines 16--17
+[][][][][][][][][][][][][][][][][][][][] 
+ []
 
-] [2] (./report.aux)
+
+Overfull \hbox (20.40417pt too wide) in paragraph at lines 20--21
+[][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (70.80469pt too wide) in paragraph at lines 25--26
+[][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (99.60498pt too wide) in paragraph at lines 28--29
+[][][][][][][][][][][][][][][] 
+ []
+
+[1
+
+]
+Overfull \hbox (20.40417pt too wide) in paragraph at lines 32--33
+[][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (6.00403pt too wide) in paragraph at lines 35--36
+[][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (13.2041pt too wide) in paragraph at lines 36--37
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (6.00403pt too wide) in paragraph at lines 39--40
+[][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (49.20447pt too wide) in paragraph at lines 40--41
+[][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+ []
+
+[3] (./report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 2CBB39A98792ADED098F7EA274B20901;1102.
+(rerunfilecheck)             Checksum: 3CD7533541C949103C3CE99EE358800F;1363.
  ) 
 Here is how much of TeX's memory you used:
- 8689 strings out of 476683
- 138341 string characters out of 5809790
- 1852018 words of memory out of 5000000
- 28875 multiletter control sequences out of 15000+600000
+ 8873 strings out of 476683
+ 140477 string characters out of 5809790
+ 1887018 words of memory out of 5000000
+ 29053 multiletter control sequences out of 15000+600000
  513616 words of font info for 43 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,6n,76p,353b,855s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 72i,6n,76p,461b,1742s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.xdv (2 pages, 20600 bytes).
+Output written on report.xdv (3 pages, 44220 bytes).
