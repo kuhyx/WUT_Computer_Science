@@ -163,7 +163,7 @@ def preprocessing(rating_data, anime_contact_data, debug=False, user_threshold=5
     return pivot_table
 
 
-def predict(prediction_model, pivot_table, seed=42, anime="RANDOM"):
+def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendation_number=6):
     """
     This will choose a random anime name and our prediction_model will predict similar anime.
     """
@@ -178,7 +178,7 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM"):
         chosen_anime_name = anime
 
     distance, suggestions = prediction_model.kneighbors(
-        query, n_neighbors=6)
+        query, n_neighbors=recommendation_number)
     for i in range(0, len(distance.flatten())):
         if i == 0:
             print(f"Recommendations for {chosen_anime_name}:\n")
@@ -224,18 +224,21 @@ def handle_arguments():
                         required=False, type=int,  default=500)
     parser.add_argument('--anime_threshold', '-at', help='Specify minimal number of votes required for anime to be included in the data, set to -1 for no threshold',
                         required=False, type=int, default=200)
+    parser.add_argument('--recommendation_amount', '-ra', help='Specify how much anime should be recommended',
+                        required=False, type=int, default=5)
+
     # Parse the command-line arguments
     args = parser.parse_args()
-
+    args.recommendation_amount = args.recommendation_amount + 1
     # Access the values of the arguments
-    return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold
+    return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold, args.recommendation_amount
 
 
 if __name__ == "__main__":
-    seed, debug, data_limit, db, metric, algorithm, anime, neighbors, user_threshold, anime_threshold = handle_arguments()
+    seed, debug, data_limit, db, metric, algorithm, anime, neighbors, user_threshold, anime_threshold, recommendation_amount = handle_arguments()
 
     RATING_DATA, ANIME_CONTACT_DATA = get_data(data_limit, db)
     PIVOT_TABLE = preprocessing(
         RATING_DATA, ANIME_CONTACT_DATA, debug, user_threshold, anime_threshold)
     MODEL = create_model(PIVOT_TABLE, metric, algorithm, neighbors)
-    predict(MODEL, PIVOT_TABLE, seed, anime)
+    predict(MODEL, PIVOT_TABLE, seed, anime, recommendation_amount)

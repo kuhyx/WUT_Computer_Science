@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Arch Linux) (preloaded format=xelatex 2023.4.17)  29 MAY 2023 23:15
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Arch Linux) (preloaded format=xelatex 2023.4.17)  30 MAY 2023 00:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -157,6 +157,21 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip50
+) (/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 107.
+ (/usr/share/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2022/09/22 v5.0n Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
 ) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2023-01-16 L3 backend support: XeTeX
 \g__graphics_track_int=\count276
@@ -167,107 +182,137 @@ File: l3backend-xetex.def 2023-01-16 L3 backend support: XeTeX
 ) (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 6.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 7.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
 \c@lstlisting=\count280
-Package hyperref Info: Link coloring OFF on input line 6.
+Package hyperref Info: Link coloring OFF on input line 7.
  (./report.out) (./report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 8.
+(Font)              <14.4> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 8.
+(Font)              <7> on input line 9.
  (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
-Overfull \hbox (99.60498pt too wide) in paragraph at lines 16--17
+Overfull \hbox (99.60498pt too wide) in paragraph at lines 17--18
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (20.40417pt too wide) in paragraph at lines 20--21
+Overfull \hbox (20.40417pt too wide) in paragraph at lines 21--22
 [][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (70.80469pt too wide) in paragraph at lines 25--26
+Overfull \hbox (70.80469pt too wide) in paragraph at lines 26--27
 [][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (99.60498pt too wide) in paragraph at lines 28--29
+Overfull \hbox (99.60498pt too wide) in paragraph at lines 29--30
 [][][][][][][][][][][][][][][] 
  []
 
 [1
 
 ]
-Overfull \hbox (20.40417pt too wide) in paragraph at lines 32--33
+Overfull \hbox (20.40417pt too wide) in paragraph at lines 33--34
 [][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (6.00403pt too wide) in paragraph at lines 35--36
+Overfull \hbox (6.00403pt too wide) in paragraph at lines 36--37
 [][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (13.2041pt too wide) in paragraph at lines 36--37
+Overfull \hbox (13.2041pt too wide) in paragraph at lines 37--38
 [][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (6.00403pt too wide) in paragraph at lines 39--40
+Overfull \hbox (6.00403pt too wide) in paragraph at lines 40--41
 [][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (49.20447pt too wide) in paragraph at lines 40--41
+Overfull \hbox (49.20447pt too wide) in paragraph at lines 41--42
 [][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+Overfull \hbox (42.0044pt too wide) in paragraph at lines 48--49
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (27.60425pt too wide) in paragraph at lines 51--52
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (13.2041pt too wide) in paragraph at lines 52--53
+[][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (6.00403pt too wide) in paragraph at lines 53--54
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (49.20447pt too wide) in paragraph at lines 55--56
+[][][][][][][][][][][][][][][][][][][] 
+ []
+
+File: execution_time.png Graphic file (type bmp)
+<execution_time.png>
+[2] [3]
+File: user_rating.png Graphic file (type bmp)
+<user_rating.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
 
  []
 
-[3] (./report.aux)
+[4] [5] [6] (./report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 3CD7533541C949103C3CE99EE358800F;1363.
+(rerunfilecheck)             Checksum: 4C398292A139416992649EA7186521F9;1675.
  ) 
 Here is how much of TeX's memory you used:
- 8873 strings out of 476683
- 140477 string characters out of 5809790
+ 9325 strings out of 476683
+ 147107 string characters out of 5809790
  1887018 words of memory out of 5000000
- 29053 multiletter control sequences out of 15000+600000
+ 29485 multiletter control sequences out of 15000+600000
  513616 words of font info for 43 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  72i,6n,76p,461b,1742s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.xdv (3 pages, 44220 bytes).
+Output written on report.xdv (6 pages, 67048 bytes).
