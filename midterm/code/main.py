@@ -4,6 +4,8 @@ recomends anime based on another anime entered by user
 """
 import pandas as pd
 import numpy as np
+import argparse
+
 from sklearn.neighbors import NearestNeighbors
 from scipy.sparse import csr_matrix
 
@@ -184,8 +186,27 @@ def create_model(pivot_table):
     return model
 
 
+def handle_arguments():
+    parser = argparse.ArgumentParser(description='Example script with pyargs')
+    parser.add_argument('--data_limit', '-dl',
+                        help='Specify data limit, Recommended at least 50k', required=False, type=int, default=-1)
+    parser.add_argument('--seed', '-s', help='Specify seed',
+                        type=int, required=False, default=42)
+    parser.add_argument('--debug', '-d', help='Use debug (more information) prints',
+                        type=bool, required=False, default=False)
+    parser.add_argument('--database', '-db', help='Specify database path',
+                        required=False, default="database")
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
+    # Access the values of the arguments
+    return args.seed, args.debug, args.data_limit, args.database
+
+
 if __name__ == "__main__":
-    RATING_DATA, ANIME_CONTACT_DATA = get_data(524288)
-    PIVOT_TABLE = preprocessing(RATING_DATA, ANIME_CONTACT_DATA)
+    seed, debug, data_limit, db = handle_arguments()
+
+    RATING_DATA, ANIME_CONTACT_DATA = get_data(data_limit, db)
+    PIVOT_TABLE = preprocessing(RATING_DATA, ANIME_CONTACT_DATA, debug)
     MODEL = create_model(PIVOT_TABLE)
-    predict(MODEL, PIVOT_TABLE)
+    predict(MODEL, PIVOT_TABLE, seed)
