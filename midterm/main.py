@@ -105,7 +105,7 @@ def get_top_ranked(rating_data, data_name, join_table=None, top_data_taken=20):
     top_users = group_data_by_rating.dropna().sort_values(ascending=False)[
         :top_data_taken]
     top_rated = join_table.join(top_users, rsuffix="_r",
-                            how="inner", on=data_name + "_id")
+                                how="inner", on=data_name + "_id")
     return top_rated
 
 
@@ -148,44 +148,39 @@ def preprocessing(rating_data, anime_contact_data, debug=False):
         print(rating_data)
         get_data_info(rating_data)
 
-    piviot_table = rating_data.pivot_table(
+    pivot_table = rating_data.pivot_table(
         index="Name", columns="user_id", values="rating"
     ).fillna(0)
     if debug:
-        print(piviot_table)
-    return piviot_table
+        print(pivot_table)
+    return pivot_table
 
 
-def predict(prediction_model, piviot_table):
+def predict(prediction_model, pivot_table):
     """
     This will choose a random anime name and our prediction_model will predict similar anime.
     """
-    random_anime = np.random.choice(piviot_table.shape[0])
+    random_anime = np.random.choice(pivot_table.shape[0])
 
-    query = piviot_table.iloc[random_anime, :].values.reshape(1, -1)
+    query = pivot_table.iloc[random_anime, :].values.reshape(1, -1)
     distance, suggestions = prediction_model.kneighbors(query, n_neighbors=6)
-
+    random_anime_name = pivot_table.index[random_anime]
     for i in range(0, len(distance.flatten())):
         if i == 0:
-            print(f"Recommendations for {0}:\n".format(
-                piviot_table.index[random_anime]))
+            print(f"Recommendations for {random_anime_name}:\n")
         else:
             print(
-                f"{0}: {1}, with distance of {2}:".format(
-                    i,
-                    piviot_table.index[suggestions.flatten()[i]],
-                    distance.flatten()[i],
-                )
+                f"{i}: {pivot_table.index[suggestions.flatten()[i]]}, with distance of {distance.flatten()[i]}:"
             )
 
 
-def create_model(piviot_table):
+def create_model(pivot_table):
     """
     Creates model based on neaarest neighbor for anime prediction
     """
-    piviot_table_matrix = csr_matrix(piviot_table.values)
+    pivot_table_matrix = csr_matrix(pivot_table.values)
     model = NearestNeighbors(metric="cosine", algorithm="brute")
-    model.fit(piviot_table_matrix)
+    model.fit(pivot_table_matrix)
     return model
 
 
