@@ -90,6 +90,38 @@ def tabular_parameters(latex_string):
     return "Error!"
 
 
+def only_pipes_and_space(latex_string):
+    """Checks if latex string only contains | or " ", if yes returns True, if no returns false"""
+    return all(char == '|' or char == ' ' or char == '{' or char == '}' for char in latex_string)
+
+
+def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
+    return_array = []
+    i = 0
+    latex_string_length = len(latex_string)
+    while i < latex_string_length:
+        character = latex_string[i]
+        if character in ['l', 'c', 'r', '|']:
+            print("entered")
+            return_array.append(
+                simple_parameters_dictionary.get(latex_string[i]))
+            i += 1
+            continue
+        if character in ['p', 'm', 'b']:
+            closing_bracket = latex_string.find('}', i + 1)
+            columns_string = latex_string[i:closing_bracket + 1]
+            print(columns_string)
+            result = tabular_columns_parameters(columns_string)
+            if result == "Error!":
+                return result
+            return_array.append(result)
+            i = closing_bracket
+            continue
+        i += 1
+    print(return_array)
+    return return_array
+
+
 def tabular_required_parameters(latex_string):
     if generic_checks(latex_string) == "Error!":
         return "Error!"
@@ -102,7 +134,10 @@ def tabular_required_parameters(latex_string):
         "r": "align='right'",
         "|": "style=\"border-left: 1px solid black"
     }
-    return latex_string
+    if only_pipes_and_space(latex_string):
+        print("tabular_required_parameters, required table parameters are only pipes and spaces!:", latex_string)
+        return "Error!"
+    return main_tabular_parameters_loop(latex_string, simple_parameters_dictionary)
 
 
 def length_conversions(latex_length):
