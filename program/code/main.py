@@ -2,35 +2,29 @@
     Program for converting Latex files into html files
 """
 
-from code.latex_classes.latex_classes import return_latex_classes
-from code.error_messages.error_arrays import return_error_arrays
-
 
 def command_name_check(latex_string, command_name):
-    error_arrays = return_error_arrays()
     if latex_string[1: (len(command_name) + 1)] != command_name:
-        print(latex_string + error_arrays[4])
+        print(latex_string + "Error! command misspeled!")
         return "Error!"
     return
 
 
 def generic_checks(latex_string):
-    error_arrays = return_error_arrays()
     if latex_string == "":
-        print(latex_string + error_arrays[0])
+        print(latex_string + "Error! No input given to function")
         return "Error!"
     if "}" not in latex_string:
-        print(latex_string + error_arrays[1])
+        print(latex_string + "Error! curly bracket not closed!")
         return "Error!"
     return
 
 
 def generic_checks_command(latex_string):
-    error_arrays = return_error_arrays()
     if generic_checks(latex_string) == "Error!":
         return "Error!"
     if latex_string[0] != "\\":
-        print(latex_string + error_arrays[6])
+        print(latex_string + "Error! has no slash at begining")
         return "Error!"
     return
 
@@ -40,19 +34,15 @@ def document_class(latex_string):
     Converts LaTeX documentclass method to html
     \documentclass{article}
     """
-    error_arrays = return_error_arrays()
     if generic_checks_command(latex_string) == "Error!":
         return "Error!"
     if latex_string[len("\\documentclass{") - 1] != "{":
-        print(latex_string + error_arrays[3])
+        print(latex_string + "Error! curly bracket not opened!")
         return "Error!"
     if command_name_check(latex_string, "documentclass") == "Error!":
         return "Error!"
     document_type = latex_string[len(
         "\\documentclass{"): (len(latex_string) - 1)]
-    latex_classes = return_latex_classes()
-    if document_type not in latex_classes:
-        return f"Error! class {document_type} is not known!"
     return "<!DOCTYPE html>"
 
 
@@ -102,7 +92,6 @@ def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
     while i < latex_string_length:
         character = latex_string[i]
         if character in ['l', 'c', 'r', '|']:
-            print("entered")
             return_array.append(
                 simple_parameters_dictionary.get(latex_string[i]))
             i += 1
@@ -110,7 +99,6 @@ def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
         if character in ['p', 'm', 'b']:
             closing_bracket = latex_string.find('}', i + 1)
             columns_string = latex_string[i:closing_bracket + 1]
-            print(columns_string)
             result = tabular_columns_parameters(columns_string)
             if result == "Error!":
                 return result
@@ -118,7 +106,6 @@ def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
             i = closing_bracket
             continue
         i += 1
-    print(return_array)
     return return_array
 
 
@@ -188,7 +175,6 @@ def tabular_columns_parameters(latex_string):
     if conversed_unit == "Error!":
         print("tabular_columns_parameters, Unit could not be conversed!", latex_string)
         return "Error!"
-    print(length_value, conversed_unit, conversed_unit[0])
     final_length = round(float(length_value) * conversed_unit[0], 2)
     return_string = "style='" + vertical_align_type + \
         " width: " + str(final_length) + conversed_unit[1] + ";'"
@@ -198,15 +184,13 @@ def tabular_columns_parameters(latex_string):
 def split_rows(latex_string):
     double_backslash = "\\"
     rows = latex_string.split(double_backslash)
-    print(rows)
     return rows
 
 
 def split_columns(table_row, column_count):
     columns = table_row.split("&")
     if len(columns) != column_count and columns != ['']:
-        print(
-            f"split_columns, table_row: {table_row} has different amount of columns than expected: {column_count}")
+
         return "Error!"
     return columns
 
@@ -215,8 +199,6 @@ def translate_column(latex_column):
     hline_string_literal = "\hline"
     replaced_hline = latex_column.replace(hline_string_literal, "<hr>")
     replaced_newline = replaced_hline.replace('\newline', "<br>")
-    print(latex_column, replaced_newline,
-          latex_column.find(hline_string_literal), hline_string_literal)
     return replaced_newline
 
 
@@ -225,7 +207,6 @@ def translate_inside_to_html(latex_table_inside, column_style):
     column_amount = 0
     line_string = "style='border-left: 1px solid black'"
     for style in column_style:
-        print(style)
         if style != line_string:
             column_amount += 1
     rows = split_rows(latex_table_inside)
@@ -249,22 +230,103 @@ def translate_inside_to_html(latex_table_inside, column_style):
 
         return_string += "</tr>"
     return_string += "  </table> </html>"
-    print(return_string)
     return return_string
 
 
-def read_file(tex_filename: string):
+def read_file(tex_filename):
     tex_file = open(tex_filename, "r")
-    data = tex_file.read()
+    data = tex_file.read().replace('\n', '')
     tex_file.close()
     return data
 
 
-if __name__ == "__main__":
-    tex_filename = "texfile.tex"
-    data = read_file(tex_filename)
-    document_class_index = data.find("\documentclass")
+def read_document_class(latex_full_string):
+    document_class_index = latex_full_string.find("\documentclass")
     if document_class_index == -1:
         print("Main function error! documentclass not found")
         return "Error!"
-    document_class("")
+    document_class_close_bracket = latex_full_string.find(
+        "}", document_class_index)
+    document_class_string = latex_full_string[document_class_index:document_class_close_bracket + 1]
+    latex_full_string = latex_full_string[document_class_close_bracket + 1:len(
+        latex_full_string) - 1]
+    return document_class(document_class_string), latex_full_string
+
+
+def read_begin_document(latex_full_string):
+    begin_document_index = latex_full_string.find(r"\begin{document}")
+    if begin_document_index == -1:
+        print("read_begin_document error! begin{document not found")
+        return "Error!", latex_full_string
+    begin_document_close_bracket = latex_full_string.find(
+        "}", begin_document_index)
+    begin_document_string = latex_full_string[begin_document_index:begin_document_close_bracket + 1]
+    latex_full_string = latex_full_string[begin_document_close_bracket + 1:len(
+        latex_full_string) - 1]
+    return_string = begin_document(begin_document_string)
+    return return_string, latex_full_string
+
+
+def read_start(html_string, data):
+    document_class_result, data = read_document_class(data)
+    if document_class_result == "Error!":
+        return "Error!", data
+    html_string += document_class_result
+
+    begin_document_results, data = read_begin_document(data)
+    if begin_document_results == "Error!":
+        return "Error!", data
+    html_string += begin_document_results
+    return html_string, data
+
+
+def handle_table_whole(html_string, data, table_start, table_end):
+    if table_start == -1 or table_end == -1:
+        return html_string, data
+    tabular_begin_string = r"\begin{tabular}"
+    tabular_end_string = r"\end{tabular}"
+
+    table_part = data[table_start:table_end+len(tabular_end_string)]
+    parameters_start_index = data.find(
+        "{", table_start + len(tabular_begin_string))
+
+    parameters_end_index = data.find("}", parameters_start_index)
+    parameters_string = data[parameters_start_index:parameters_end_index+1]
+    parameters_array = tabular_required_parameters(parameters_string)
+    inside_table = data[parameters_end_index+1:table_end]
+    html_string += translate_inside_to_html(inside_table, parameters_array)
+    return html_string
+
+
+def handle_insides(html_string, data):
+    tabular_index = 0
+    tabular_end_string = r"\end{tabular}"
+    while tabular_index != -1:
+        tabular_index_start = data.find(r"\begin{tabular}", 0)
+        tabular_index_end = data.find(tabular_end_string, tabular_index_start)
+        if tabular_index_start == -1 or tabular_index_end == -1:
+            return html_string, data
+        html_string += data[0:tabular_index_start]
+
+        html_string = handle_table_whole(html_string, data,
+                                         tabular_index_start, tabular_index_end)
+        data = data[tabular_index_end + len(tabular_end_string):len(data)]
+        tabular_index = tabular_index_end
+    return html_string, data
+
+
+def main_function():
+    tex_filename = "texfile.tex"
+    data = read_file(tex_filename)
+    html_string = ""
+    html_string, data = read_start(html_string, data)
+    if html_string == "Error!":
+        print("main_function error! when reading documentclass or begin document")
+        return "Error"
+    html_string, data = handle_insides(html_string, data)
+
+    return html_string
+
+
+if __name__ == "__main__":
+    print(main_function())

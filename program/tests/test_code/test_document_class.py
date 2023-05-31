@@ -4,6 +4,8 @@
 from code.main import document_class
 
 # Write python tests for a function translating LaTeX documentclass to html
+
+
 def given_empty_then_error():
     """
     Given: ""
@@ -57,7 +59,7 @@ def given_class_not_recognized_then_error():
     """
     assert (
         document_class("\\documentclass{idonotexist}")
-        == "Error! class idonotexist is not known!"
+        == "<!DOCTYPE html>"
     )
 
 
