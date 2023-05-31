@@ -217,6 +217,10 @@ def translate_inside_to_html(latex_table_inside, column_style):
         column_number = 0
         for column in columns:
             return_string += "<td "
+            if column_number >= len(column_style):
+                print(
+                    f"Error! column_number index: {column_number} is out of length of column_style: {column_style}")
+                return "Error!"
             current_style = column_style[column_number]
             while current_style == line_string:
                 return_string += line_string
@@ -315,8 +319,7 @@ def handle_insides(html_string, data):
     return html_string, data
 
 
-def main_function():
-    tex_filename = "texfile.tex"
+def main_function(tex_filename):
     data = read_file(tex_filename)
     html_string = ""
     html_string, data = read_start(html_string, data)
@@ -329,4 +332,7 @@ def main_function():
 
 
 if __name__ == "__main__":
-    print(main_function())
+    tex_filename = "texfile.tex"
+    final_html = main_function(tex_filename)
+    f = open(tex_filename + ".html", "w")
+    f.write(final_html)
