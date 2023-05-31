@@ -132,7 +132,7 @@ def tabular_required_parameters(latex_string):
         "l": "align='left'",
         "c": "align='center'",
         "r": "align='right'",
-        "|": "style=\"border-left: 1px solid black"
+        "|": "style='border-left: 1px solid black'"
     }
     if only_pipes_and_space(latex_string):
         print("tabular_required_parameters, required table parameters are only pipes and spaces!:", latex_string)
@@ -190,14 +190,81 @@ def tabular_columns_parameters(latex_string):
         return "Error!"
     print(length_value, conversed_unit, conversed_unit[0])
     final_length = round(float(length_value) * conversed_unit[0], 2)
-    return_string = "style=\"" + vertical_align_type + \
-        " width: " + str(final_length) + conversed_unit[1] + ";\""
+    return_string = "style='" + vertical_align_type + \
+        " width: " + str(final_length) + conversed_unit[1] + ";'"
     return return_string
 
 
-def parameter_arguments(latex_string):
-    return latex_string
+def split_rows(latex_string):
+    double_backslash = "\\"
+    rows = latex_string.split(double_backslash)
+    print(rows)
+    return rows
+
+
+def split_columns(table_row, column_count):
+    columns = table_row.split("&")
+    if len(columns) != column_count and columns != ['']:
+        print(
+            f"split_columns, table_row: {table_row} has different amount of columns than expected: {column_count}")
+        return "Error!"
+    return columns
+
+
+def translate_column(latex_column):
+    hline_string_literal = "\hline"
+    replaced_hline = latex_column.replace(hline_string_literal, "<hr>")
+    replaced_newline = replaced_hline.replace('\newline', "<br>")
+    print(latex_column, replaced_newline,
+          latex_column.find(hline_string_literal), hline_string_literal)
+    return replaced_newline
+
+
+def translate_inside_to_html(latex_table_inside, column_style):
+    return_string = "<html> <table>"
+    column_amount = 0
+    line_string = "style='border-left: 1px solid black'"
+    for style in column_style:
+        print(style)
+        if style != line_string:
+            column_amount += 1
+    rows = split_rows(latex_table_inside)
+    for row in rows:
+        return_string += "<tr>"
+
+        columns = split_columns(row, column_amount)
+        column_number = 0
+        for column in columns:
+            return_string += "<td "
+            current_style = column_style[column_number]
+            while current_style == line_string:
+                return_string += line_string
+                column_number += 1
+                current_style = column_style[column_number]
+
+            return_string += column_style[column_number] + ">"
+            return_string += translate_column(column)
+            column_number += 1
+            return_string += "</td>"
+
+        return_string += "</tr>"
+    return_string += "  </table> </html>"
+    print(return_string)
+    return return_string
+
+
+def read_file(tex_filename: string):
+    tex_file = open(tex_filename, "r")
+    data = tex_file.read()
+    tex_file.close()
+    return data
 
 
 if __name__ == "__main__":
+    tex_filename = "texfile.tex"
+    data = read_file(tex_filename)
+    document_class_index = data.find("\documentclass")
+    if document_class_index == -1:
+        print("Main function error! documentclass not found")
+        return "Error!"
     document_class("")

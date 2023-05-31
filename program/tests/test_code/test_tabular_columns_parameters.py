@@ -26,7 +26,7 @@ def given_p_then_array():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_columns_parameters(
-        "p{1.3pt}") == "style=\"vertical-align: top; width: 1.69px;\""
+        "p{1.3pt}") == "style='vertical-align: top; width: 1.69px;'"
 
 
 def given_m_then_array():
@@ -36,7 +36,7 @@ def given_m_then_array():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_columns_parameters(
-        "m{1.3pt}") == "style=\"vertical-align: middle; width: 1.69px;\""
+        "m{1.3pt}") == "style='vertical-align: middle; width: 1.69px;'"
 
 
 def given_b_then_array():
@@ -46,7 +46,7 @@ def given_b_then_array():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_columns_parameters(
-        "b{1.3pt}") == "style=\"vertical-align: bottom; width: 1.69px;\""
+        "b{1.3pt}") == "style='vertical-align: bottom; width: 1.69px;'"
 
 
 def test_tabular_columns_parameters():

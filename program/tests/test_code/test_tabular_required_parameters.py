@@ -129,18 +129,18 @@ def given_filled_p_brackets_then_correct():
     Then: <!DOCTYPE html><html>
     """
     assert tabular_required_parameters("{p{1.3pt}}") == [
-        "style=\"vertical-align: top; width: 1.69px;\""]
+        "style='vertical-align: top; width: 1.69px;'"]
 
 
 def given_complicated_then_correct():
     assert tabular_required_parameters("{|lp{1.3pt}c|r|}") == [
-        "style=\"border-left: 1px solid black",
+        "style='border-left: 1px solid black'",
         "align='left'",
-        "style=\"vertical-align: top; width: 1.69px;\"",
+        "style='vertical-align: top; width: 1.69px;'",
         "align='center'",
-        "style=\"border-left: 1px solid black",
+        "style='border-left: 1px solid black'",
         "align='right'",
-        "style=\"border-left: 1px solid black"
+        "style='border-left: 1px solid black'"
     ]
 
 
