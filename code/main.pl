@@ -1,7 +1,8 @@
 % month_days(Month, DaysInMonth, DaysBeforeMonth) 
 % returns the number of days in Month and the number of days it takes to reach that date in year 2023
 % prolog works by defining facts and rules and when queried about them returns values
-% it works different from functional programming in this  aspect since it doesn't just follow instruction it returns output based on world state
+% it works different from functional programming in this  aspect since it 
+% doesn't just follow instruction it returns output based on world state
 month_days('01', 31, 0).
 month_days('02', 28, 31).
 month_days('03', 31, 59).
