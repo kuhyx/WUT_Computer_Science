@@ -25,7 +25,7 @@ day_of_year(Date, DayOfYear) :-
   atom_chars(Month, MonthChars),
   month_days(Month, DaysInMonth, MonthDays),
   atom_number(Day, DayNumber),
-  (DayNumber > DaysInMonth -> fail ; DayOfYear is MonthDays + DayNumber).
+  ((DayNumber < DaysInMonth, DayNumber > 0) -> DayOfYear is MonthDays + DayNumber) ; fail.
 
 % interval(Date1, Date2) prints the number of days between Date1 and Date2
 % We always expect date to be in format ddmm where 'd' stands for day and 'm' stands for month
