@@ -105,6 +105,38 @@ def only_pipes_and_space(latex_string):
     return all(char in ("|", " ", "{", "}") for char in latex_string)
 
 
+def handle_complicated_parameter(latex_string, return_array, i):
+    """
+    handles single complicated parameter from loop
+    """
+    closing_bracket = latex_string.find("}", i + 1)
+    columns_string = latex_string[i: closing_bracket + 1]
+    result = tabular_columns_parameters(columns_string)
+    if result == "Error!":
+        return return_array, i, result
+    return_array.append(result)
+    i = closing_bracket
+    return return_array, i, ""
+
+
+def main_tabular_parameters_loop_inside(latex_string, i,
+                                        simple_parameters_dictionary,
+                                        return_array):
+    """
+    Handles single tabular parameter character
+    """
+    character = latex_string[i]
+    if character in ["l", "c", "r", "|"]:
+        return_array.append(
+            simple_parameters_dictionary.get(latex_string[i]))
+        i += 1
+        return return_array, i, ""
+    if character in ["p", "m", "b"]:
+        return handle_complicated_parameter(latex_string, return_array, i)
+    i += 1
+    return return_array, i, ""
+
+
 def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
     """
     Converts simple and paragraph table parameters into html style code
@@ -113,22 +145,10 @@ def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
     i = 0
     latex_string_length = len(latex_string)
     while i < latex_string_length:
-        character = latex_string[i]
-        if character in ["l", "c", "r", "|"]:
-            return_array.append(
-                simple_parameters_dictionary.get(latex_string[i]))
-            i += 1
-            continue
-        if character in ["p", "m", "b"]:
-            closing_bracket = latex_string.find("}", i + 1)
-            columns_string = latex_string[i: closing_bracket + 1]
-            result = tabular_columns_parameters(columns_string)
-            if result == "Error!":
-                return result
-            return_array.append(result)
-            i = closing_bracket
-            continue
-        i += 1
+        return_array, i, result = main_tabular_parameters_loop_inside(
+            latex_string, i, simple_parameters_dictionary, return_array)
+        if result == "Error!":
+            return result
     return return_array
 
 
@@ -149,18 +169,26 @@ def tabular_required_errors(latex_string):
     return ""
 
 
-def tabular_required_parameters(latex_string):
+def simple_parameters_dictionary_return():
     """
-    Converts simple tabular parameters to html style commands
+    Defines html styles for simple tabular parameters
     """
-    if tabular_required_errors(latex_string) == "Error!":
-        return "Error!"
     simple_parameters_dictionary = {
         "l": "align='left'",
         "c": "align='center'",
         "r": "align='right'",
         "|": "style='border-left: 1px solid black'",
     }
+    return simple_parameters_dictionary
+
+
+def tabular_required_parameters(latex_string):
+    """
+    Converts simple tabular parameters to html style commands
+    """
+    if tabular_required_errors(latex_string) == "Error!":
+        return "Error!"
+    simple_parameters_dictionary = simple_parameters_dictionary_return()
     if only_pipes_and_space(latex_string):
         print(
             """tabular_required_parameters,
@@ -187,18 +215,38 @@ def length_conversions(latex_length):
     return length_dictionary.get(latex_length, "Error!")
 
 
-def tabular_columns_parameters(latex_string):
+def construct_return_string(vertical_align_type, final_length, conversed_unit):
     """
-    Handles tabular paragraph parameters and translates them to html style
+    Construsts entire html style of parameters
     """
-    if generic_checks(latex_string) == "Error!":
-        return "Error!"
+    return_string = (
+        "style='"
+        + vertical_align_type
+        + " width: "
+        + str(final_length)
+        + conversed_unit[1]
+        + ";'"
+    )
+    return return_string
+
+
+def return_parameter_dictionary():
+    """
+    Returns html styles for each complicated latex parameter
+    """
     parameter_dictionary = {
         "p": "vertical-align: top;",
         "m": "vertical-align: middle;",
         "b": "vertical-align: bottom;",
     }
-    vertical_align_type = parameter_dictionary.get(latex_string[0], "Error!")
+    return parameter_dictionary
+
+
+def tabular_columns_parameters_errors(latex_string, vertical_align_type):
+    """
+    Checks for intermediate errors
+    Checks if parameter length starts with curly bracket
+    """
     if vertical_align_type == "Error!":
         print("tabular_columns_parameters, unknown parameter: ",
               latex_string[0])
@@ -210,15 +258,37 @@ def tabular_columns_parameters(latex_string):
             latex_string,
         )
         return "Error!"
-    length_parameter_with_bracket = latex_string.partition("{")[2]
-    length_parameter = length_parameter_with_bracket.partition("}")[0]
-    length_value = ""
+    return ""
+
+
+def string_length_no_whitespace(length_parameter):
+    """
+    Calculates string width without whitespace
+    """
     i = 0
+    length_value = ""
     for character in length_parameter:
         if character.isalpha():
             break
         length_value += character
         i += 1
+    return i, length_value
+
+
+def tabular_columns_parameters(latex_string):
+    """
+    Handles tabular paragraph parameters and translates them to html style
+    """
+    if generic_checks(latex_string) == "Error!":
+        return "Error!"
+    parameter_dictionary = return_parameter_dictionary()
+    vertical_align_type = parameter_dictionary.get(latex_string[0], "Error!")
+    if tabular_columns_parameters_errors(
+            latex_string, vertical_align_type) == "Error!":
+        return "Error!"
+    length_parameter_with_bracket = latex_string.partition("{")[2]
+    length_parameter = length_parameter_with_bracket.partition("}")[0]
+    i, length_value = string_length_no_whitespace(length_parameter)
     length_unit = length_parameter[i:]
     conversed_unit = length_conversions(length_unit)
     if conversed_unit == "Error!":
@@ -226,15 +296,8 @@ def tabular_columns_parameters(latex_string):
         Unit could not be conversed!""", latex_string)
         return "Error!"
     final_length = round(float(length_value) * conversed_unit[0], 2)
-    return_string = (
-        "style='"
-        + vertical_align_type
-        + " width: "
-        + str(final_length)
-        + conversed_unit[1]
-        + ";'"
-    )
-    return return_string
+    return construct_return_string(vertical_align_type,
+                                   final_length, conversed_unit)
 
 
 def split_rows(latex_string):
@@ -266,6 +329,72 @@ def translate_column(latex_column):
     return replaced_newline
 
 
+def handle_line_strings(line_string,
+                        column_style, column_number, return_string):
+    """
+    Converts lines untill there are no more lines
+    """
+    current_style = column_style[column_number]
+    if current_style == line_string:
+        while current_style == line_string:
+            return_string += line_string
+            column_number += 1
+            current_style = column_style[column_number]
+    return return_string, column_number
+
+
+def handle_single_column(column, column_style,
+                         column_number, line_string, return_string):
+    """
+    Handles single column from columns loop
+    """
+    return_string += "<td "
+    if column_number >= len(column_style):
+        print(
+            f"""Error! column_number index: {column_number}
+        is out of length of column_style: {column_style}"""
+        )
+        return "Error!"
+    return_string, column_number = handle_line_strings(
+        line_string, column_style, column_number, return_string)
+
+    return_string += column_style[column_number] + ">"
+    return_string += translate_column(column)
+    column_number += 1
+    return_string += "</td>"
+    return return_string, column_number
+
+
+def handle_latex_columns(columns, column_style,
+                         column_number, line_string, return_string):
+    """
+    Goes through every column in a row and translates it to html
+    """
+    for column in columns:
+        return_string, column_number = handle_single_column(column,
+                                                            column_style,
+                                                            column_number,
+                                                            line_string,
+                                                            return_string)
+    return return_string, column_number
+
+
+def go_through_latex_rows(rows, return_string,
+                          column_amount, column_style, line_string):
+    """
+    Goes through latex table insides row by row
+    """
+    for row in rows:
+        return_string += "<tr>"
+        columns = split_columns(row, column_amount)
+        column_number = 0
+        return_string, column_number = handle_latex_columns(
+            columns, column_style, column_number, line_string, return_string)
+
+        return_string += "</tr>"
+    return return_string
+
+
 def translate_inside_to_html(latex_table_inside, column_style):
     """
     Translates entire table insides to html
@@ -277,31 +406,8 @@ def translate_inside_to_html(latex_table_inside, column_style):
         if style != line_string:
             column_amount += 1
     rows = split_rows(latex_table_inside)
-    for row in rows:
-        return_string += "<tr>"
-
-        columns = split_columns(row, column_amount)
-        column_number = 0
-        for column in columns:
-            return_string += "<td "
-            if column_number >= len(column_style):
-                print(
-                    f"""Error! column_number index: {column_number}
-                    is out of length of column_style: {column_style}"""
-                )
-                return "Error!"
-            current_style = column_style[column_number]
-            while current_style == line_string:
-                return_string += line_string
-                column_number += 1
-                current_style = column_style[column_number]
-
-            return_string += column_style[column_number] + ">"
-            return_string += translate_column(column)
-            column_number += 1
-            return_string += "</td>"
-
-        return_string += "</tr>"
+    return_string = go_through_latex_rows(
+        rows, return_string, column_amount, column_style, line_string)
     return_string += "</table>"
     return return_string
 
