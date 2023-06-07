@@ -340,12 +340,12 @@ def handle_line_strings(line_string,
     """
     Converts lines untill there are no more lines
     """
-    current_style = column_style[column_number - 1]
+    current_style = column_style[column_number]
     if current_style == line_string:
         while current_style == line_string:
             return_string += line_string
             column_number += 1
-            current_style = column_style[column_number - 1]
+            current_style = column_style[column_number]
     return return_string, column_number
 
 
