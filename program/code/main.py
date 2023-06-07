@@ -44,6 +44,9 @@ def document_class_only_checks(latex_string):
     """
     Checks only errors connected to document class
     """
+    if len(latex_string) < len("\\documentclass{"):
+        print(latex_string + "Error! latex string to short to be document class!")
+        return "Error!"
     if latex_string[len("\\documentclass{") - 1] != "{":
         print(latex_string + "Error! curly bracket not opened!")
         return "Error!"
@@ -355,7 +358,7 @@ def handle_single_column(column, column_style,
             f"""Error! column_number index: {column_number}
         is out of length of column_style: {column_style}"""
         )
-        return "Error!"
+        return "Error!", column_number
     return_string, column_number = handle_line_strings(
         line_string, column_style, column_number, return_string)
 
