@@ -1,0 +1,427 @@
+\documentclass[12pt]{article}
+
+\usepackage{listings}
+\usepackage{graphicx}
+
+\lstset{
+  basicstyle=\small,
+  breaklines=true
+  }
+
+
+\date{\today}
+\title{ECOTE - Final Documentation \\ 
+Translator of a \LaTeX \, subset to HTML
+}
+\author{Krzysztof Rudnicki, 307585 \\
+Semester: 2023L}
+
+\begin{document}
+\maketitle
+\section{General overview and assumptions}
+My task was to create a translator of \LaTeX \, subset to selected text format with focus on \LaTeX \, tables \\ 
+I decided to change to translator of \LaTeX \, subset to HTML since I know \LaTeX \, very well and HTML relatively well, I decide to translate \LaTeX into HTML since HTML is easy, a little bit different than \LaTeX and popular which makes this translator a practical tool.
+\subsection{Assumptions}
+\begin{itemize}
+    \item "Tables" will be represented using \LaTeX \, \emph{table} environment 
+    \item All changes influenced by different \LaTeX \, document class are ignored in html 
+    \item Everything between documentclass and begin document is ignored when generating html
+    \item Program tries to generate final html even if encountering errors which would make final html not complete
+    \item Only commands defined in \LaTeX \, subset are translated, rest is translated literally as raw text to html
+\end{itemize}
+\section{Functional requirements}
+The goal of the project is to transform .tex file to (working ) .html file if the subset of .tex file is within project scope or output error message explaining why the html could not be outputed
+\subsection{\LaTeX \, subset}
+This project will focus almost exclusively on \emph{tabular} environment \\
+\begin{itemize}
+    \item $\backslash$documentclass\{class\}: Defines what layout standard \LaTeX will use 
+    \item $\backslash$begin\{document\}: Ends (in our case empty) preamble
+    \item $\backslash$end\{document\}: Ends \LaTeX \, document
+    \item $\backslash$begin\{tabular\}[pos]\{table spec\}: Opens environment used to typeset tables 
+    \item $\backslash$end\{tabular\}: Closes environment used to typeset tables 
+\end{itemize}
+Supported tabular arguments:
+\begin{itemize}
+    \item l, c, r - respectively left-justified, centered and right-justified column
+    \item  | - single vertical line 
+    \item  || - double vertical line 
+    \item p\{'width'\} - paragraph column (that wraps), aligned at the top 
+    \item m\{'width'\} - paragraph column (that wraps), aligned at the middle 
+    \item b\{'width'\} - paragraph column (that wraps), aligned at the bottom 
+\end{itemize}
+
+Supported commands inside tabular environment
+\begin{itemize}
+    \item \& - separate columns
+    \item $\backslash$$\backslash$ - start new row
+    \item $\backslash$hline - horizontal line
+    \item $\backslash$cline\{i-j\} horizontal line beginning in column i and ending in column j
+    \item $\backslash$newline - new line \emph{inside} the cell
+\end{itemize}
+\section{Implementation}
+I decided to use Python as a language in which I will implement my solution \\ 
+The reasons for using python are as follow:
+\begin{enumerate}
+    \item It is the easiest language among those that I know
+    \item I know it enough to be confident in my ability to implement this solution in python
+    \item I want to learn python more through this project
+\end{enumerate}
+Negative aspects of python which is that it is very slow language do not bother me as I believe the project scope will not be big enough for this to become an issue
+  
+\subsection{General architecture}
+\begin{tabular}{|l|p{10cm}|}
+    \hline 
+    Module & Description \\ 
+    \hline 
+    Main & Handles texfile, puts it to a function translating to html and saves output html file \\
+    \hline
+    FileHandler & Handles reading latex file and transforming it to string in python  \\ 
+    \hline 
+    ReadStart & Checks documentclass and begin document functions of latex file and if they are correct outputs starting html tags \\
+    \hline
+    HandleInside & Goes through inside of LaTeX document and transforms each of its part to HTML
+    \\
+    \hline
+    HandleTable & Reads table, including table parameters and actual contents and transforms it to html \\ 
+    \hline
+    TabInsideHandler & Handles actual content of table and translates them to html \\
+\end{tabular}
+
+
+
+
+
+
+\subsection{Data structures}
+\begin{itemize}
+\item File entered by user is represented by python File class 
+\item Parsed \LaTeX \, code is represented by data structure based on node classes 
+\item Tabular environment parameters are stored in an array, if the parameter contains additional optional parameters they are stored in a pair of the parent argument and array of all optional arguments 
+\item Generated HTML code is stored in node classes 
+\item Final HTML code is stored in plain text and then written to File
+\end{itemize}
+
+\subsection{Module descriptions}
+\subsubsection{Main}
+Puts latex filename to filehandler, sends retrieved string to function translating tex to html and then saves final html file 
+\subsubsection{FileHandler}
+Handles texfile and transforms it to python string \\ 
+Input: \\ 
+tex\_filename - LaTeX file filename \\ 
+Functions: 
+\begin{itemize}
+    \item Handle arguments - Checks if arguments are correct, reads file and saves it to python string
+    \item Invoke Latex Handler - Sends file from file handler to LatexHandler 
+\end{itemize}
+\subsubsection{LatexHandler}
+Transforms tex string to html
+Input: tex string
+Functions: 
+\begin{itemize}
+    \item ReadStart - Checks begininig of tex file and returns html code if the begining is correct
+    \item HandleInside - Handles insides of tex file, both tables and loose text and translates it to html
+\end{itemize}
+\subsubsection{ReadStart}
+Checks begininig of tex file and returns html code if the begining is correct \\ 
+Input: tex string \\ 
+Output: html\_string
+
+\begin{itemize}
+\item read\_document\_class - Checks if document class exists and is written according to tex rules, returns <!DOCTYPE html> if yes
+\item read\_begin\_document - (optional) Checks if begin\{document\} function was written in tex file if yes adds <html> to html\_string
+\item HandleInside - Passes parsed tex data and html\_string to function handling inside of tex document 
+\end{itemize}
+
+\subsubsection{HandleInside}
+Translates tex string starting at begin document and ending at end document, returns final html\_string \\ 
+Parameters: \\ 
+\begin{itemize}
+\item tex\_data - String read from tex file
+\item html\_string - Final output string to which table data and loose text will be added 
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item HandleTable - Converts tex tables to html tables
+    \item HandleLoose - Goes through text that is not in table and converts it to html  
+\end{itemize}
+
+\subsubsection{HandleTable}
+Converts tex tables to html tables \\ 
+Parameters: \\ 
+\begin{itemize}
+\item tex\_data - String read from tex file
+\item html\_string - Final output string to which table data and loose text will be added 
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item TabArgHandler - Reads tex table parameters and translates them to html style
+    \item TabInsideHandler - Reads inside of tex table and together with parse parameters outputs correct table layout and look
+\end{itemize}
+
+\subsubsection{TabInsideHandler}
+Together with html table parameters translates inside of tex table to html  \\ 
+Parameters: \\ 
+\begin{itemize}
+\item TableContents - Latex string containing only inside of table
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item ReadTableContent - Parses table content and checks for errors 
+    \item ConvertToHTML - Converts table inside to html
+\end{itemize}
+
+\subsubsection{TabArgHandler}
+Reads tex table parameters and translates them to html style  \\ 
+Parameters: \\ 
+\begin{itemize}
+\item TableArguments - Arguments provided with $\backslash$begin\{tabular\} environment
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item ReadTableARguments - Parses table arguments and checks for errors 
+    \item ConvertToHTML - Converts table arguments to html style
+\end{itemize}
+
+\subsection{Input/output description}
+Input is a .tex file (\LaTeX \, file) \\ 
+Outpus is an .html file \\ 
+In case of errors error message will be outputed on the terminal \\
+Input File path is entered as an argument to terminal with "-i" or "--input" flag for example:
+\begin{lstlisting}[language=bash]
+python main.py -i texFile.tex
+\end{lstlisting}
+Output file path can be named by user by using "-o" or "--output" flag:
+\begin{lstlisting}[language=bash]
+python main.py -i texFile.tex -o htmlFile.html
+\end{lstlisting}
+If no "-o" flag is issued the output file will have the same name as input file with changed extension to html (so in this example texFile.tex will become texFile.html) \\ 
+If the path to file name consists of spaces, path name needs to be but in ""
+\begin{lstlisting}[language=bash]
+python main.py -i "My Folder/input.tex"
+\end{lstlisting}
+\subsection{Others}
+\section{Unit tests}
+There are over 12 unit tests  for program functions, all of them can be ran by using python test environment:
+\begin{lstlisting}
+python -m pytest unit_tests
+
+collected 12 items                                                                                                            
+
+unit_tests/test_code/test_begin_document.py .                                                                           [  8%]
+unit_tests/test_code/test_begin_tabular.py .                                                                            [ 16%]
+unit_tests/test_code/test_document_class.py .                                                                           [ 25%]
+unit_tests/test_code/test_length_conversions.py .                                                                       [ 33%]
+unit_tests/test_code/test_only_pipes_and_space.py .                                                                     [ 41%]
+unit_tests/test_code/test_split_columns.py .                                                                            [ 50%]
+unit_tests/test_code/test_split_rows.py .                                                                               [ 58%]
+unit_tests/test_code/test_tabular_columns_parameters.py .                                                               [ 66%]
+unit_tests/test_code/test_tabular_parameters.py .                                                                       [ 75%]
+unit_tests/test_code/test_tabular_required_parameters.py .                                                              [ 83%]
+unit_tests/test_code/test_translate_column.py .                                                                         [ 91%]
+unit_tests/test_code/test_translate_inside_to_html.py .                                                                 [100%]
+
+===================================================== 12 passed in 0.02s ======================================================
+\end{lstlisting}
+\section{Functional test cases}
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+    \hline 
+    Title  &  Input (\LaTeX) & Output \\
+    \hline
+
+    empty file &
+    \begin{lstlisting}
+
+    \end{lstlisting}&
+    \begin{lstlisting}
+Error! expected \documentclass at the begining of LaTeX file 
+    \end{lstlisting} \\
+    \hline
+
+    Document class &
+    \begin{lstlisting}
+\documentclass[options]{class}
+    \end{lstlisting}&
+    \begin{lstlisting}
+Error! expected \begin{document} after document class
+    \end{lstlisting} \\
+    \hline
+
+    \begin{lstlisting}
+Extra text between document class and begin document
+    \end{lstlisting}&
+    \begin{lstlisting}
+\documentclass[options]{class}
+"extra text"
+\begin{document}
+    \end{lstlisting}&
+    \begin{lstlisting}
+Error! unexpected text between document class and begin document
+    \end{lstlisting}  \\
+    \hline 
+
+\begin{lstlisting}
+Just document class and begin document
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! no \end{document} at the end of LaTeX code
+\end{lstlisting}  \\
+\hline 
+
+    \end{tabular} 
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+\hline 
+Title  &  Input (\LaTeX) & Output \\
+\hline
+
+\begin{lstlisting}
+Just document class and begin/end document
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+Plain text inside
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+Lorem ipsum dolor sit amet.
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+Lorem ipsum dolor sit amet.
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+Reduntant \end{document} (ignored)
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+Lorem ipsum dolor sit amet.
+\end{document}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+Lorem ipsum dolor sit amet.
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+LaTeX comments
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+Lorem ipsum dolor sit amet.
+% some comment
+\end{document}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! LaTeX comment detected at line 3
+\end{lstlisting}  \\
+\hline 
+
+
+
+\end{tabular}
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+    \hline
+Title  &  Input (\LaTeX) & Output \\
+\hline
+
+\begin{lstlisting}
+Table with vertical lines
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\begin{tabular}{ l | c | r }
+test & 2 & test \\
+4 & 5 & 6 \\
+\end{tabular}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+<table>
+<tr>
+<td align='left'>test</td>
+<td align='center' style="border-left: 1px solid black;">2</td>
+<td align='right'>test</td>
+</tr>
+<tr>
+<td align='left'>4</td>
+<td align='center' style="border-left: 1px solid black;">5</td>
+<td align='right'>6</td>
+</tr>
+</table>
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+Missing &
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\begin{tabular}{ l c r }
+1 & 2 & 3 \\
+4 & 5 6 \\
+\end{tabular}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! Missing third column in second row 
+\end{lstlisting}  \\
+\hline 
+
+\end{tabular}
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+    \hline
+Title  &  Input (\LaTeX) & Output \\
+\hline
+
+\begin{lstlisting}
+Too much columns
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\begin{tabular}{ l c r }
+1 & 2 & 3 & 4 & 5 \\
+4 & 5 6 \\
+\end{tabular}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! Too much columns in row 1, expected 3, got 5
+\end{lstlisting}  \\
+\hline 
+
+\end{tabular}
+    
+\end{document}

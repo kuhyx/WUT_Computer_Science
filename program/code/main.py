@@ -1,6 +1,7 @@
 """
     Program for converting Latex files into html files
 """
+import argparse
 
 
 def command_name_check(latex_string, command_name):
@@ -537,8 +538,17 @@ def main_function(tex_filename):
     return html_string
 
 
+def handle_arguments():
+    parser = argparse.ArgumentParser(
+        description='Specify tex filename and path')
+    parser.add_argument('--filename', '-f',
+                        help='Specify tex filename, include path if needed ', required=False, default="texfile.tex")
+    args = parser.parse_args()
+    return args.filename
+
+
 if __name__ == "__main__":
-    TEX_FILENAME = "texfile.tex"
+    TEX_FILENAME = handle_arguments()
     FINAL_HTML = main_function(TEX_FILENAME)
     with open(TEX_FILENAME + ".html", "w", encoding="UTF-8") as f:
         f.write(FINAL_HTML)
