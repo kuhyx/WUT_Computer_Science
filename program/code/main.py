@@ -319,6 +319,8 @@ def split_columns(table_row, column_count):
     """
     columns = table_row.split("&")
     if len(columns) != column_count and columns != [""]:
+        print(
+            f"Error! extracted columns length: {columns} and columns_count: {column_count} is different!")
         return "Error!"
     return columns
 
@@ -327,7 +329,7 @@ def translate_column(latex_column):
     """
     Translate insides of a single latex tabular column to html
     """
-    hline_string_literal = "\\hline"
+    hline_string_literal = "hline"
     replaced_hline = latex_column.replace(hline_string_literal, "<hr>")
     replaced_newline = replaced_hline.replace("\newline", "<br>")
     return replaced_newline
@@ -338,12 +340,12 @@ def handle_line_strings(line_string,
     """
     Converts lines untill there are no more lines
     """
-    current_style = column_style[column_number]
+    current_style = column_style[column_number - 1]
     if current_style == line_string:
         while current_style == line_string:
             return_string += line_string
             column_number += 1
-            current_style = column_style[column_number]
+            current_style = column_style[column_number - 1]
     return return_string, column_number
 
 
@@ -374,12 +376,14 @@ def handle_latex_columns(columns, column_style,
     """
     Goes through every column in a row and translates it to html
     """
-    for column in columns:
-        return_string, column_number = handle_single_column(column,
-                                                            column_style,
-                                                            column_number,
-                                                            line_string,
-                                                            return_string)
+
+    if columns != "Error!":
+        for column in columns:
+            return_string, column_number = handle_single_column(column,
+                                                                column_style,
+                                                                column_number,
+                                                                line_string,
+                                                                return_string)
     return return_string, column_number
 
 
@@ -494,8 +498,7 @@ def handle_table_whole(html_string, data, table_start, table_end):
 
     parameters_start_index = data.find(
         "{", table_start + len(tabular_begin_string))
-
-    parameters_end_index = data.find("}", parameters_start_index)
+    parameters_end_index = data.find(" }", parameters_start_index)
     parameters_string = data[parameters_start_index: parameters_end_index + 1]
     parameters_array = tabular_required_parameters(parameters_string)
     inside_table = data[parameters_end_index + 1: table_end]
@@ -537,7 +540,7 @@ def main_function(tex_filename):
         when reading documentclass or begin document""")
         return "Error"
     html_string, data = handle_insides(html_string, data)
-
+    html_string = html_string.replace('}', '')
     return html_string
 
 
