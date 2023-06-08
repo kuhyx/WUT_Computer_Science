@@ -2,10 +2,12 @@
 Code for preprocessing data and creating model that predicts and
 recomends anime based on another anime entered by user
 """
+import math
 import argparse
 import pandas as pd
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import VALID_METRICS_SPARSE
 from scipy.sparse import csr_matrix
 
 
@@ -191,12 +193,12 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
 def calculate_neighbors(rows_number, neighbors=5):
     neighbor_value = {
         "default": 5,
-        "sqrt": sqrt(rows_number),
-        "half": rows_number / 2,
-        "log": log(rows_number),
+        "sqrt": math.floor(math.sqrt(rows_number)),
+        "half": math.floor(rows_number / 2),
+        "log": math.floor(math.log(rows_number)),
         "n-1": rows_number - 1
     }
-    if type(neighbors) == string:
+    if isinstance(neighbors, str):
         return neighbor_value[neighbors]
     return neighbors
 
@@ -269,20 +271,51 @@ def handle_arguments():
     return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold, args.recommendation_amount, args.auto
 
 
-def auto_mode():
+def simulate_different_data_size():
     data_spread: [27306186, 54612373, -1]
-    metric_spread: ["cosine", "mahalanobis", "euclidean"]
-    algorithm_spread: ['auto', 'ball_tree', 'kd_tree', 'brute']
-    neighbor_spread: [5, "sqrt", "half", "log", "n-1"]
-    user_threshold_spread: [0, 500, 1000]
-    anime_threshold_spread: [0, 200, 500]
+    for data_size in data_spread:
+        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+        preprocess_model_predict(
+            starting_rating_data, starting_anime_contact_data, starting_rows_number, data_limit=data_size)
 
 
-def preprocess_model_predict(data_limit, db, debug, user_threshold, anime_threshold, metric, algorithm, neighbors, seed, anime, recommendation_amount):
-    RATING_DATA, ANIME_CONTACT_DATA, ROWS_NUMBER = get_data(data_limit, db)
+def auto_mode():
+    print("Started auto mode")
+    metric_spread = ["cosine", "euclidean"]
+    algorithm_spread = ['ball_tree', 'kd_tree', 'brute']
+    neighbor_spread = [5, "sqrt", "half", "log", "n-1"]
+    user_threshold_spread = [500]
+    anime_threshold_spread = [200]
+    # No reason to access and waste computational power every time we run the simulation
+    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+    print("automode, metric spread")
+    for metric in metric_spread:
+        preprocess_model_predict(
+            starting_rating_data, starting_anime_contact_data, starting_rows_number, metric=metric)
+    for algorithm in algorithm_spread:
+        print("automode, algorithm_spread")
+        for metric in sorted(VALID_METRICS_SPARSE[algorithm]):
+            preprocess_model_predict(
+                starting_rating_data, starting_anime_contact_data, starting_rows_number, algorithm=algorithm)
+    for neighbor_amount in neighbor_spread:
+        print("automode, neighbor_spread")
+        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
+                                 starting_rows_number, neighbors=neighbor_amount)
+    for user_threshold in user_threshold_spread:
+        print("automode, user_threshold_spread")
+        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
+                                 starting_rows_number, user_threshold=user_threshold)
+    for anime_threshold in anime_threshold_spread:
+        print("automode, anime_threshold_spread")
+        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
+                                 starting_rows_number, anime_threshold=anime_threshold)
+    # simulate_different_data_size()
+
+
+def preprocess_model_predict(rating_data, anime_contact_data, rows_number, data_limit=-1, db="database", debug=False, user_threshold=500, anime_threshold=200, metric="cosine", algorithm="brute", neighbors=5, seed=42, anime="RANDOM", recommendation_amount=5):
     PIVOT_TABLE = preprocessing(
-        RATING_DATA, ANIME_CONTACT_DATA, debug, user_threshold, anime_threshold)
-    MODEL = create_model(PIVOT_TABLE, ROWS_NUMBER,
+        rating_data, anime_contact_data, debug, user_threshold, anime_threshold)
+    MODEL = create_model(PIVOT_TABLE, rows_number,
                          metric, algorithm, neighbors)
     predict(MODEL, PIVOT_TABLE, seed, anime, recommendation_amount)
 
@@ -290,7 +323,9 @@ def preprocess_model_predict(data_limit, db, debug, user_threshold, anime_thresh
 if __name__ == "__main__":
     SEED, DEBUG, DATA_LIMIT, DB, METRIC, ALGORITHM, ANIME, NEIGHBORS, USER_THRESHOLD, ANIME_THRESHOLD, RECOMMENDATION_AMOUNT, AUTO = handle_arguments()
     if not AUTO:
-        preprocess_model_predict(DATA_LIMIT, DB, DEBUG, USER_THRESHOLD, ANIME_THRESHOLD,
+        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+        preprocess_model_predict(starting_rating_data, starting_anime_contact_data, starting_rows_number,
+                                 DATA_LIMIT, DB, DEBUG, USER_THRESHOLD, ANIME_THRESHOLD,
                                  METRIC, ALGORITHM, NEIGHBORS, SEED, ANIME, RECOMMENDATION_AMOUNT)
     if AUTO:
         auto_mode()
