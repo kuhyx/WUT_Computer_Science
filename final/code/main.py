@@ -173,7 +173,6 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
     This will choose a random anime name and our prediction_model will predict similar anime.
     """
     np.random.seed(seed)
-    print(pivot_table)
     if anime == "RANDOM":
         chosen_anime = np.random.choice(pivot_table.shape[0])
         query = pivot_table.iloc[chosen_anime, :].values.reshape(1, -1)
@@ -316,7 +315,6 @@ def auto_mode():
         preprocess_model_predict(
             starting_rating_data, starting_anime_contact_data, starting_rows_number, original_pivot_table, metric=metric)
     for algorithm in algorithm_spread:
-        print("automode, algorithm_spread")
         for metric in sorted(VALID_METRICS_SPARSE[algorithm]):
             preprocess_model_predict(
                 starting_rating_data, starting_anime_contact_data, starting_rows_number, original_pivot_table,  algorithm=algorithm)
