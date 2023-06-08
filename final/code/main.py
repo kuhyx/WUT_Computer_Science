@@ -11,7 +11,7 @@ from sklearn.neighbors import VALID_METRICS_SPARSE
 from scipy.sparse import csr_matrix
 
 
-def get_data(limit_data=-1, data_folder_path="database"):
+def get_data_cpu(limit_data=-1, data_folder_path="database"):
     """
     Reads anime from csv database
     """
@@ -23,6 +23,11 @@ def get_data(limit_data=-1, data_folder_path="database"):
     else:
         rating_data = pd.read_csv(data_folder_path + "/animelist.csv")
     anime_data = pd.read_csv(data_folder_path + "/anime.csv")
+    return rating_data, anime_data
+
+
+def get_data(limit_data=-1, data_folder_path="database", gpu=False):
+    rating_data, anime_data = get_data_cpu(limit_data, data_folder_path)
 
     # used to fetch anime_id(MAL_ID)
     anime_data = anime_data.rename(columns={"MAL_ID": "anime_id"})
@@ -114,7 +119,7 @@ def get_top_ranked(rating_data, data_name, join_table=None, top_data_taken=20):
     return top_rated
 
 
-def get_data_info(rating_data, debug=False):
+def get_data_info(rating_data, debug=False, gpu=False):
     """
     Get some informations about data
     """
@@ -123,7 +128,6 @@ def get_data_info(rating_data, debug=False):
 
     top_rated = get_top_ranked(rating_data, "user")
     top_rated = get_top_ranked(rating_data, "anime", top_rated)
-
     pivot = pd.crosstab(top_rated.user_id, top_rated.anime_id,
                         top_rated.rating, aggfunc=np.sum)
 
@@ -154,7 +158,7 @@ def preprocessing(rating_data, anime_contact_data,
     rating_data = rating_data.rename(columns={"rating_y": "rating"})
     if debug and not auto:
         print(rating_data)
-        get_data_info(rating_data)
+        get_data_info(rating_data, True)
 
     pivot_table = rating_data.pivot_table(
         index="Name", columns="user_id", values="rating"
@@ -274,9 +278,25 @@ def handle_arguments():
 def simulate_different_data_size():
     data_spread: [27306186, 54612373, -1]
     for data_size in data_spread:
-        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
+            gpu=True)
         preprocess_model_predict(
             starting_rating_data, starting_anime_contact_data, starting_rows_number, data_limit=data_size)
+
+
+def simulate_different_thresholds(rating_data, anime_contact_data):
+    for user_threshold in user_threshold_spread:
+        print("automode, user_threshold_spread")
+        PIVOT_TABLE = preprocessing(
+            rating_data, anime_contact_data, user_threshold)
+        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
+                                 starting_rows_number, user_threshold=user_threshold)
+    for anime_threshold in anime_threshold_spread:
+        print("automode, anime_threshold_spread")
+        PIVOT_TABLE = preprocessing(
+            rating_data, anime_contact_data, anime_threshold)
+        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
+                                 starting_rows_number, anime_threshold=anime_threshold)
 
 
 def auto_mode():
@@ -287,37 +307,31 @@ def auto_mode():
     user_threshold_spread = [500]
     anime_threshold_spread = [200]
     # No reason to access and waste computational power every time we run the simulation
-    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
+        gpu=True)
+    original_pivot_table = preprocessing(
+        starting_rating_data, starting_anime_contact_data)
     print("automode, metric spread")
     for metric in metric_spread:
         preprocess_model_predict(
-            starting_rating_data, starting_anime_contact_data, starting_rows_number, metric=metric)
+            starting_rating_data, starting_anime_contact_data, starting_rows_number, original_pivot_table, metric=metric)
     for algorithm in algorithm_spread:
         print("automode, algorithm_spread")
         for metric in sorted(VALID_METRICS_SPARSE[algorithm]):
             preprocess_model_predict(
-                starting_rating_data, starting_anime_contact_data, starting_rows_number, algorithm=algorithm)
+                starting_rating_data, starting_anime_contact_data, starting_rows_number, original_pivot_table,  algorithm=algorithm)
     for neighbor_amount in neighbor_spread:
         print("automode, neighbor_spread")
         preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                 starting_rows_number, neighbors=neighbor_amount)
-    for user_threshold in user_threshold_spread:
-        print("automode, user_threshold_spread")
-        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                 starting_rows_number, user_threshold=user_threshold)
-    for anime_threshold in anime_threshold_spread:
-        print("automode, anime_threshold_spread")
-        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                 starting_rows_number, anime_threshold=anime_threshold)
+                                 starting_rows_number, original_pivot_table,  neighbors=neighbor_amount)
+    # simulate_different_thresholds(starting_rating_data, starting_anime_contact_data)
     # simulate_different_data_size()
 
 
-def preprocess_model_predict(rating_data, anime_contact_data, rows_number, data_limit=-1, db="database", debug=False, user_threshold=500, anime_threshold=200, metric="cosine", algorithm="brute", neighbors=5, seed=42, anime="RANDOM", recommendation_amount=5):
-    PIVOT_TABLE = preprocessing(
-        rating_data, anime_contact_data, debug, user_threshold, anime_threshold)
-    MODEL = create_model(PIVOT_TABLE, rows_number,
+def preprocess_model_predict(rating_data, anime_contact_data, rows_number, pivot_table, data_limit=-1, db="database", debug=False, user_threshold=500, anime_threshold=200, metric="cosine", algorithm="brute", neighbors=5, seed=42, anime="RANDOM", recommendation_amount=5):
+    MODEL = create_model(pivot_table, rows_number,
                          metric, algorithm, neighbors)
-    predict(MODEL, PIVOT_TABLE, seed, anime, recommendation_amount)
+    predict(MODEL, pivot_table, seed, anime, recommendation_amount)
 
 
 if __name__ == "__main__":
