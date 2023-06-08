@@ -25,7 +25,8 @@ def get_data(limit_data=-1, data_folder_path="database"):
     # used to fetch anime_id(MAL_ID)
     anime_data = anime_data.rename(columns={"MAL_ID": "anime_id"})
     anime_contact_data = anime_data[["anime_id", "Name"]]
-    return rating_data, anime_contact_data
+    rows_number = rating_data.shape[0]
+    return rating_data, anime_contact_data, rows_number
 
 
 def merge_rating_anime_data(rating_data, anime_contact_data, debug=False):
@@ -187,12 +188,26 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
             )
 
 
-def create_model(pivot_table, metric="cosine", algorithm="brute", neighbors=5):
+def calculate_neighbors(rows_number, neighbors=5):
+    neighbor_value = {
+        "default": 5,
+        "sqrt": sqrt(rows_number),
+        "half": rows_number / 2,
+        "log": log(rows_number),
+        "n-1": rows_number - 1
+    }
+    if type(neighbors) == string:
+        return neighbor_value[neighbors]
+    return neighbors
+
+
+def create_model(pivot_table, rows_number, metric="cosine", algorithm="brute", neighbors=5):
     """
     Creates model based on neaarest neighbor for anime prediction
     """
+    neighbors_number = calculate_neighbors(rows_number, neighbors)
     pivot_table_matrix = csr_matrix(pivot_table.values)
-    model = NearestNeighbors(n_neighbors=neighbors,
+    model = NearestNeighbors(n_neighbors=neighbors_number,
                              metric=metric, algorithm=algorithm)
     model.fit(pivot_table_matrix)
     return model
@@ -254,11 +269,28 @@ def handle_arguments():
     return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold, args.recommendation_amount, args.auto
 
 
-if __name__ == "__main__":
-    SEED, DEBUG, DATA_LIMT, DB, METRIC, ALGORITHM, ANIME, NEIGHBORS, USER_THRESHOLD, ANIME_THRESHOLD, RECOMMENDATION_AMOUNT, AUTO = handle_arguments()
+def auto_mode():
+    data_spread: [27306186, 54612373, -1]
+    metric_spread: ["cosine", "mahalanobis", "euclidean"]
+    algorithm_spread: ['auto', 'ball_tree', 'kd_tree', 'brute']
+    neighbor_spread: [5, "sqrt", "half", "log", "n-1"]
+    user_threshold_spread: [0, 500, 1000]
+    anime_threshold_spread: [0, 200, 500]
 
-    RATING_DATA, ANIME_CONTACT_DATA = get_data(DATA_LIMT, DB)
+
+def preprocess_model_predict(data_limit, db, debug, user_threshold, anime_threshold, metric, algorithm, neighbors, seed, anime, recommendation_amount):
+    RATING_DATA, ANIME_CONTACT_DATA, ROWS_NUMBER = get_data(data_limit, db)
     PIVOT_TABLE = preprocessing(
-        RATING_DATA, ANIME_CONTACT_DATA, DEBUG, USER_THRESHOLD, ANIME_THRESHOLD)
-    MODEL = create_model(PIVOT_TABLE, METRIC, ALGORITHM, NEIGHBORS)
-    predict(MODEL, PIVOT_TABLE, SEED, ANIME, RECOMMENDATION_AMOUNT)
+        RATING_DATA, ANIME_CONTACT_DATA, debug, user_threshold, anime_threshold)
+    MODEL = create_model(PIVOT_TABLE, ROWS_NUMBER,
+                         metric, algorithm, neighbors)
+    predict(MODEL, PIVOT_TABLE, seed, anime, recommendation_amount)
+
+
+if __name__ == "__main__":
+    SEED, DEBUG, DATA_LIMIT, DB, METRIC, ALGORITHM, ANIME, NEIGHBORS, USER_THRESHOLD, ANIME_THRESHOLD, RECOMMENDATION_AMOUNT, AUTO = handle_arguments()
+    if not AUTO:
+        preprocess_model_predict(DATA_LIMIT, DB, DEBUG, USER_THRESHOLD, ANIME_THRESHOLD,
+                                 METRIC, ALGORITHM, NEIGHBORS, SEED, ANIME, RECOMMENDATION_AMOUNT)
+    if AUTO:
+        auto_mode()
