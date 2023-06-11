@@ -20,23 +20,33 @@ We decided to use collaborative filtering to develop our model, It makes persona
 We represent anime data-set as embedding vector \\ 
 We use K-nearest neighbors model and decided to test it out with different metrics, neighbors and algorithms \\ 
 \subsubsection{Algorithms}
-We decided to test our model with 3 algorithms:
+We decided to test our model with 2  algorithms:
 \begin{enumerate}
-  \item Ball Tree
-  \item KD Tree 
   \item Brute
+  \item Auto
 \end{enumerate}
+Ball Tree and KD Tree do not work on sparse input (as is the case with our input) so we decided to omit them
 
 \subsubsection{Neighbor number}
 We decided to test our model with 5 different neighbor amount:
 \begin{enumerate}
-  \item 5
-  \item square root of available data
-  \item half of available data
-  \item logarithm of available data
-  \item n-1 neighbors 
+  \item 5 - Popular starting point for small-medium datasets
+  \item square root of available data - Usually helps to balance between underfitting and overfitting
+  \item half of available data - Usually usefull for checking overall trend than specific nuances 
+  \item logarithm of available data - Used for very large datasets
+  \item n-1 neighbors - Usually leads to overgeneralization as we use all instances excepct one for prediciton
 \end{enumerate}
 
+\subsubsection{Metrics}
+For brute algorithm we tested it will all possible metrics:
+\begin{enumerate}
+  \item Cityblock
+  \item Cosine
+  \item Euclidean
+  \item l1
+  \item l2
+  \item Manhattan 
+\end{enumerate}
 
 \section{Intermediate results}
 \subsection{Results}

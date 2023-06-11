@@ -299,6 +299,7 @@ def handle_arguments():
 def auto_mode(data_limit=-1, seed=42, anime="RANDOM"):
     print("Started auto mode")
     algorithm_spread = ['auto', 'brute']
+    metric_spread = ['manhattan', 'euclidean', 'cosine']
     neighbor_spread = [5, "sqrt", "half", "log", "n-1"]
     # No reason to access and waste computational power every time we run the simulation
     starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
@@ -310,7 +311,7 @@ def auto_mode(data_limit=-1, seed=42, anime="RANDOM"):
     for algorithm in algorithm_spread:
         possibleMetrics = []
         if algorithm != 'auto':
-            possibleMetrics = sorted(VALID_METRICS_SPARSE[algorithm])
+            possibleMetrics = metric_spread
         print("testing for algorithm: ", algorithm, possibleMetrics)
         if possibleMetrics == []:
             possibleMetrics = [""]
