@@ -4,6 +4,7 @@ recomends anime based on another anime entered by user
 """
 import math
 import argparse
+import shutil
 import os
 import datetime
 import pandas as pd
@@ -170,7 +171,7 @@ def preprocessing(rating_data, anime_contact_data,
     return pivot_table
 
 
-def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendation_number=6, auto=False):
+def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendation_number=6, auto=False, debug = False):
     """
     This will choose a random anime name and our prediction_model will predict similar anime.
     """
@@ -182,17 +183,24 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
     else:
         query = pivot_table.loc[anime].values.reshape(1, -1)
         chosen_anime_name = anime
-
     distance, suggestions = prediction_model.kneighbors(
-        query, n_neighbors=recommendation_number)
-    for i in range(0, len(distance.flatten())):
-        if i == 0 and not auto:
+        query)
+    if debug:
+        print("prediction model, distance: ", distance)
+    for i in range(0, 4):
+        if i == 0 and not auto and not debug:
             print(f"Recommendations for {chosen_anime_name}:\n")
-        elif not auto:
+        elif not auto and not debug:
             print(
                 f"""{i}: {pivot_table.index[suggestions.flatten()[i]]},
                 with distance of {distance.flatten()[i]}:"""
             )
+    average_distance = np.mean(distance.flatten())
+    closest_anime_name = pivot_table.index[suggestions.flatten()[1]]
+    closest_anime_distance = distance.flatten()[1]
+    average_minus_closest_distance = closest_anime_distance - average_distance
+    print(f"Average distance: {average_distance}, average_minus_closest_distance: {average_minus_closest_distance}")
+    return f"{chosen_anime_name}_{closest_anime_name}_{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
 
 
 def calculate_neighbors(rows_number, neighbors=5):
@@ -212,7 +220,7 @@ def create_model(pivot_table, rows_number, metric="cosine", algorithm="brute", n
     """
     Creates model based on neaarest neighbor for anime prediction
     """
-    neighbors_number = calculate_neighbors(rows_number, neighbors)
+    neighbors_number = calculate_neighbors(pivot_table.shape[0], neighbors)
     pivot_table_matrix = csr_matrix(pivot_table.values)
     model = NearestNeighbors(n_neighbors=neighbors_number,
                              metric=metric, algorithm=algorithm)
@@ -280,48 +288,30 @@ def handle_arguments():
     # Access the values of the arguments
     return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold, args.recommendation_amount, args.auto
 
-
-def simulate_different_data_size():
-    data_spread: [27306186, 54612373, -1]
-    for data_size in data_spread:
-        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
-            gpu=True)
-        preprocess_model_predict(
-            starting_rating_data, starting_anime_contact_data, starting_rows_number, data_limit=data_size)
-
-
-def simulate_different_thresholds(rating_data, anime_contact_data):
-    for user_threshold in user_threshold_spread:
-        print("automode, user_threshold_spread")
-        PIVOT_TABLE = preprocessing(
-            rating_data, anime_contact_data, user_threshold)
-        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                 starting_rows_number, user_threshold=user_threshold)
-    for anime_threshold in anime_threshold_spread:
-        print("automode, anime_threshold_spread")
-        PIVOT_TABLE = preprocessing(
-            rating_data, anime_contact_data, anime_threshold)
-        preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                 starting_rows_number, anime_threshold=anime_threshold)
-
-
-def auto_mode():
+def auto_mode(data_limit = -1, seed = 42, anime="RANDOM"):
     print("Started auto mode")
-    metric_spread = ["cosine", "euclidean"]
     algorithm_spread = ['ball_tree', 'kd_tree', 'brute']
     neighbor_spread = [5, "sqrt", "half", "log", "n-1"]
     # No reason to access and waste computational power every time we run the simulation
-    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(limit_data=500000)
+    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(limit_data=data_limit)
     original_pivot_table = preprocessing(
         starting_rating_data, starting_anime_contact_data)
+    if os.path.exists('test_results'):
+        shutil.rmtree('test_results')
     for algorithm in algorithm_spread:
-        for metric in sorted(VALID_METRICS_SPARSE[algorithm]):
+        print("testing for algorithm: ", algorithm)
+        possibleMetrics = sorted(VALID_METRICS_SPARSE[algorithm])
+        for metric in possibleMetrics:
+            print("testing for algorithm, metric: ", algorithm, metric)
             for neighbor_amount in neighbor_spread:
+                print("testing for algorithm, metric, neighbor_amount: ", algorithm, metric, neighbor_amount)
                 preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                starting_rows_number, original_pivot_table,  neighbors=neighbor_amount, algorithm=algorithm, metric=metric)
+                                starting_rows_number, original_pivot_table, seed=seed, anime=anime,  neighbors=neighbor_amount, algorithm=algorithm, metric=metric)
 
-def write_test_results(title):
+def write_test_results(title, result = ""):
     # Create directory if it doesn't already exist
+
+    
     if not os.path.exists('test_results'):
         os.makedirs('test_results')
 
@@ -331,14 +321,15 @@ def write_test_results(title):
     
     # Create and write to the file
     with open(os.path.join('test_results', filename), 'a') as file:
-        file.write(f'Test results for {title} at {timestamp}\n')
+        file.write(result)
 
 def preprocess_model_predict(rating_data, anime_contact_data, rows_number, pivot_table, data_limit=-1, db="database", debug=False, user_threshold=500, anime_threshold=200, metric="cosine", algorithm="brute", neighbors=5, seed=42, anime="RANDOM", recommendation_amount=5):
     MODEL = create_model(pivot_table, rows_number,
                          metric, algorithm, neighbors)
+    result = ""
     if MODEL != "Error!":
-        predict(MODEL, pivot_table, seed, anime, recommendation_amount)
-    write_test_results(f"dl:{rows_number}_s:{seed}_m:{metric}_a:{algorithm}_ut:{user_threshold}_at:{anime_threshold}_n:{neighbors}")
+        result = predict(MODEL, pivot_table, seed, anime, recommendation_amount)
+    write_test_results(f"dl:{rows_number}_s:{seed}_m:{metric}_a:{algorithm}_ut:{user_threshold}_at:{anime_threshold}_n:{neighbors}", result)
 
 
 if __name__ == "__main__":
@@ -349,4 +340,4 @@ if __name__ == "__main__":
                                  DATA_LIMIT, DB, DEBUG, USER_THRESHOLD, ANIME_THRESHOLD,
                                  METRIC, ALGORITHM, NEIGHBORS, SEED, ANIME, RECOMMENDATION_AMOUNT)
     if AUTO:
-        auto_mode()
+        auto_mode(DATA_LIMIT, SEED, ANIME)
