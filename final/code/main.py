@@ -157,8 +157,8 @@ def preprocessing(rating_data, anime_contact_data,
         rating_data, "anime_id", anime_threshold)
     rating_data = combine_name_and_ratings(rating_data)
 
-    rating_data = rating_data.drop(columns="rating_x")
-    rating_data = rating_data.rename(columns={"rating_y": "rating"})
+    rating_data = rating_data.drop(columns="rating_y")
+    rating_data = rating_data.rename(columns={"rating_x": "rating"})
     if debug and not auto:
         print(rating_data)
         get_data_info(rating_data, True)
@@ -171,7 +171,7 @@ def preprocessing(rating_data, anime_contact_data,
     return pivot_table
 
 
-def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendation_number=6, auto=False, debug = False):
+def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendation_number=6, auto=False, debug=False):
     """
     This will choose a random anime name and our prediction_model will predict similar anime.
     """
@@ -187,7 +187,7 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
         query)
     if debug:
         print("prediction model, distance: ", distance)
-    for i in range(0, 4):
+    for i in range(recommendation_number):
         if i == 0 and not auto and not debug:
             print(f"Recommendations for {chosen_anime_name}:\n")
         elif not auto and not debug:
@@ -199,8 +199,11 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
     closest_anime_name = pivot_table.index[suggestions.flatten()[1]]
     closest_anime_distance = distance.flatten()[1]
     average_minus_closest_distance = closest_anime_distance - average_distance
-    print(f"Average distance: {average_distance}, average_minus_closest_distance: {average_minus_closest_distance}")
-    return f"{chosen_anime_name}_{closest_anime_name}_{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
+    print(
+        f"Average distance: {average_distance}, average_minus_closest_distance: {average_minus_closest_distance}")
+
+    return chosen_anime, suggestions.flatten()[1:recommendation_number+1], distance.flatten()[1:recommendation_number+1]
+    # return f"{chosen_anime_name}_{closest_anime_name}_{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
 
 
 def calculate_neighbors(rows_number, neighbors=5):
@@ -224,9 +227,10 @@ def create_model(pivot_table, rows_number, metric="cosine", algorithm="brute", n
     pivot_table_matrix = csr_matrix(pivot_table.values)
     if algorithm == "brute":
         model = NearestNeighbors(n_neighbors=neighbors_number,
-                                metric=metric, algorithm=algorithm)
+                                 metric=metric, algorithm=algorithm)
     else:
-        model = NearestNeighbors(n_neighbors=neighbors_number, algorithm=algorithm)                         
+        model = NearestNeighbors(
+            n_neighbors=neighbors_number, algorithm=algorithm)
     try:
         model.fit(pivot_table_matrix)
     except:
@@ -291,12 +295,14 @@ def handle_arguments():
     # Access the values of the arguments
     return args.seed, args.debug, args.data_limit, args.database, args.metric, args.algorithm, args.anime, args.neighbors, args.user_threshold, args.anime_threshold, args.recommendation_amount, args.auto
 
-def auto_mode(data_limit = -1, seed = 42, anime="RANDOM"):
+
+def auto_mode(data_limit=-1, seed=42, anime="RANDOM"):
     print("Started auto mode")
     algorithm_spread = ['auto', 'ball_tree', 'kd_tree', 'brute']
     neighbor_spread = [5, "sqrt", "half", "log", "n-1"]
     # No reason to access and waste computational power every time we run the simulation
-    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(limit_data=data_limit)
+    starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
+        limit_data=data_limit)
     original_pivot_table = preprocessing(
         starting_rating_data, starting_anime_contact_data)
     if os.path.exists('test_results'):
@@ -311,40 +317,67 @@ def auto_mode(data_limit = -1, seed = 42, anime="RANDOM"):
         for metric in possibleMetrics:
             print("testing for algorithm, metric: ", algorithm, metric)
             for neighbor_amount in neighbor_spread:
-                print("testing for algorithm, metric, neighbor_amount: ", algorithm, metric, neighbor_amount)
+                print("testing for algorithm, metric, neighbor_amount: ",
+                      algorithm, metric, neighbor_amount)
                 preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                starting_rows_number, original_pivot_table, seed=seed, anime=anime,  neighbors=neighbor_amount, algorithm=algorithm, metric=metric)
+                                         starting_rows_number, original_pivot_table, seed=seed, anime=anime,  neighbors=neighbor_amount, algorithm=algorithm, metric=metric)
 
-def write_test_results(title, result = ""):
+
+def write_test_results(title, result=""):
     # Create directory if it doesn't already exist
 
-    
     if not os.path.exists('test_results'):
         os.makedirs('test_results')
 
     # Generate timestamped filename
-    timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S') # e.g., 20230611235959
+    timestamp = datetime.datetime.now().strftime(
+        '%Y%m%d%H%M%S')  # e.g., 20230611235959
     filename = f"{title}_{timestamp}.txt"
-    
+
     # Create and write to the file
     with open(os.path.join('test_results', filename), 'a') as file:
         file.write(result)
+
+
+def calculate_precision(predictions, threshold=8):
+    ratings = [anime[anime > 0].mean() for anime in predictions]
+    precision = [1 if r >= threshold else 0 for r in ratings]
+    return np.mean(precision)
+
 
 def preprocess_model_predict(rating_data, anime_contact_data, rows_number, pivot_table, data_limit=-1, db="database", debug=False, user_threshold=500, anime_threshold=200, metric="cosine", algorithm="brute", neighbors=5, seed=42, anime="RANDOM", recommendation_amount=5):
     MODEL = create_model(pivot_table, rows_number,
                          metric, algorithm, neighbors)
     result = ""
     if MODEL != "Error!":
-        result = predict(MODEL, pivot_table, seed, anime, recommendation_amount)
-    write_test_results(f"dl:{rows_number}_s:{seed}_m:{metric}_a:{algorithm}_ut:{user_threshold}_at:{anime_threshold}_n:{neighbors}", result)
+        chosen_anime, suggestions, distance = predict(MODEL, pivot_table, seed,
+                                                      anime, recommendation_amount)
+
+        chosen_anime_name = pivot_table.index[chosen_anime]
+        # average_distance = np.mean(distance)
+        # closest_anime_name = pivot_table.index[suggestions[1]]
+        # closest_anime_distance = distance[1]
+        # average_minus_closest_distance = closest_anime_distance - average_distance
+        precision = calculate_precision(
+            [pivot_table.iloc[s] for s in suggestions])
+
+        result = f"{chosen_anime_name}:\n"
+        for i in range(len(suggestions)):
+            result += f"{pivot_table.index[suggestions[i]]}; Distance: {distance[i]}\n"
+        result += f"Precision: {precision*100}%"
+        # result = f"{chosen_anime_name}_{closest_anime_name}_{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
+    write_test_results(
+        f"dl={rows_number}&s={seed}&m={metric}&a={algorithm}&ut={user_threshold}&at={anime_threshold}&n={neighbors}", result)
 
 
 if __name__ == "__main__":
     SEED, DEBUG, DATA_LIMIT, DB, METRIC, ALGORITHM, ANIME, NEIGHBORS, USER_THRESHOLD, ANIME_THRESHOLD, RECOMMENDATION_AMOUNT, AUTO = handle_arguments()
     if not AUTO:
         starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+        pivot_table = preprocessing(
+            starting_rating_data, starting_anime_contact_data, USER_THRESHOLD, ANIME_THRESHOLD)
         preprocess_model_predict(starting_rating_data, starting_anime_contact_data, starting_rows_number,
-                                 DATA_LIMIT, DB, DEBUG, USER_THRESHOLD, ANIME_THRESHOLD,
-                                 METRIC, ALGORITHM, NEIGHBORS, SEED, ANIME, RECOMMENDATION_AMOUNT)
+                                 pivot_table, data_limit=DATA_LIMIT, db=DB, debug=DEBUG, user_threshold=USER_THRESHOLD, anime_threshold=ANIME_THRESHOLD,
+                                 metric=METRIC, algorithm=ALGORITHM, neighbors=NEIGHBORS, seed=SEED, anime=ANIME, recommendation_amount=RECOMMENDATION_AMOUNT)
     if AUTO:
         auto_mode(DATA_LIMIT, SEED, ANIME)
