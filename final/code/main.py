@@ -187,7 +187,7 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
         query)
     if debug:
         print("prediction model, distance: ", distance)
-    for i in range(recommendation_number):
+    for i in range(0, 1):
         if i == 0 and not auto and not debug:
             print(f"Recommendations for {chosen_anime_name}:\n")
         elif not auto and not debug:
@@ -315,12 +315,13 @@ def auto_mode(data_limit=-1, seed=42, anime="RANDOM"):
         if possibleMetrics == []:
             possibleMetrics = [""]
         for metric in possibleMetrics:
-            print("testing for algorithm, metric: ", algorithm, metric)
-            for neighbor_amount in neighbor_spread:
-                print("testing for algorithm, metric, neighbor_amount: ",
-                      algorithm, metric, neighbor_amount)
-                preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
-                                         starting_rows_number, original_pivot_table, seed=seed, anime=anime,  neighbors=neighbor_amount, algorithm=algorithm, metric=metric)
+            if metric != 'precomputed':
+                print("testing for algorithm, metric: ", algorithm, metric)
+                for neighbor_amount in neighbor_spread:
+                    print("testing for algorithm, metric, neighbor_amount: ",
+                          algorithm, metric, neighbor_amount)
+                    preprocess_model_predict(starting_rating_data, starting_anime_contact_data,
+                                             starting_rows_number, original_pivot_table, seed=seed, anime=anime,  neighbors=neighbor_amount, algorithm=algorithm, metric=metric)
 
 
 def write_test_results(title, result=""):
