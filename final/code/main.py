@@ -187,10 +187,10 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
         query)
     if debug:
         print("prediction model, distance: ", distance)
-    for i in range(0, 1):
-        if i == 0 and not auto and not debug:
+    for i in range(0, 2):
+        if i == 0:
             print(f"Recommendations for {chosen_anime_name}:\n")
-        elif not auto and not debug:
+        else:
             print(
                 f"""{i}: {pivot_table.index[suggestions.flatten()[i]]},
                 with distance of {distance.flatten()[i]}:"""
@@ -198,11 +198,11 @@ def predict(prediction_model, pivot_table, seed=42, anime="RANDOM", recommendati
     average_distance = np.mean(distance.flatten())
     closest_anime_name = pivot_table.index[suggestions.flatten()[1]]
     closest_anime_distance = distance.flatten()[1]
-    average_minus_closest_distance = closest_anime_distance - average_distance
+    average_minus_closest_distance = average_distance - closest_anime_distance
     print(
         f"Average distance: {average_distance}, average_minus_closest_distance: {average_minus_closest_distance}")
 
-    return chosen_anime, suggestions.flatten()[1:recommendation_number+1], distance.flatten()[1:recommendation_number+1]
+    return chosen_anime, suggestions.flatten()[1:recommendation_number+1], distance.flatten()[1:recommendation_number+1], f"{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
     # return f"{chosen_anime_name}_{closest_anime_name}_{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
 
 
@@ -298,7 +298,7 @@ def handle_arguments():
 
 def auto_mode(data_limit=-1, seed=42, anime="RANDOM"):
     print("Started auto mode")
-    algorithm_spread = ['auto', 'ball_tree', 'kd_tree', 'brute']
+    algorithm_spread = ['auto', 'brute']
     neighbor_spread = [5, "sqrt", "half", "log", "n-1"]
     # No reason to access and waste computational power every time we run the simulation
     starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
@@ -351,8 +351,8 @@ def preprocess_model_predict(rating_data, anime_contact_data, rows_number, pivot
                          metric, algorithm, neighbors)
     result = ""
     if MODEL != "Error!":
-        chosen_anime, suggestions, distance = predict(MODEL, pivot_table, seed,
-                                                      anime, recommendation_amount)
+        chosen_anime, suggestions, distance, distance_data = predict(MODEL, pivot_table, seed,
+                                                                     anime, recommendation_amount)
 
         chosen_anime_name = pivot_table.index[chosen_anime]
         # average_distance = np.mean(distance)
@@ -365,7 +365,8 @@ def preprocess_model_predict(rating_data, anime_contact_data, rows_number, pivot
         result = f"{chosen_anime_name}:\n"
         for i in range(len(suggestions)):
             result += f"{pivot_table.index[suggestions[i]]}; Distance: {distance[i]}\n"
-        result += f"Precision: {precision*100}%"
+        result += f"Precision: {precision*100}%\n"
+        result += "Smallest distance, average distance, Average - Smallest distance: " + distance_data
         # result = f"{chosen_anime_name}_{closest_anime_name}_{closest_anime_distance}_{average_distance}_{average_minus_closest_distance}"
     write_test_results(
         f"dl={rows_number}&s={seed}&m={metric}&a={algorithm}&ut={user_threshold}&at={anime_threshold}&n={neighbors}", result)
@@ -374,7 +375,9 @@ def preprocess_model_predict(rating_data, anime_contact_data, rows_number, pivot
 if __name__ == "__main__":
     SEED, DEBUG, DATA_LIMIT, DB, METRIC, ALGORITHM, ANIME, NEIGHBORS, USER_THRESHOLD, ANIME_THRESHOLD, RECOMMENDATION_AMOUNT, AUTO = handle_arguments()
     if not AUTO:
-        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data()
+        print("Entered not auto mode")
+        starting_rating_data, starting_anime_contact_data, starting_rows_number = get_data(
+            limit_data=DATA_LIMIT, data_folder_path=DB)
         pivot_table = preprocessing(
             starting_rating_data, starting_anime_contact_data, USER_THRESHOLD, ANIME_THRESHOLD)
         preprocess_model_predict(starting_rating_data, starting_anime_contact_data, starting_rows_number,
