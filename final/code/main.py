@@ -263,7 +263,7 @@ def handle_arguments():
     parser.add_argument('--metric', '-m',
                         help='Specify metric for NearestNeighbor learner',
                         required=False, default="cosine", choices=allowed_metric)
-    allowed_algorithms = ['auto', 'ball_tree', 'kd_tree', 'brute']
+    allowed_algorithms = ['auto', 'brute']
     parser.add_argument('--algorithm', '-a',
                         help='Specify algorithm for Nearest Neighbor learner',
                         required=False, default="brute", choices=allowed_algorithms)
