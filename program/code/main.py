@@ -329,7 +329,7 @@ def translate_column(latex_column):
     """
     Translate insides of a single latex tabular column to html
     """
-    hline_string_literal = "hline"
+    hline_string_literal = "\\hline"
     replaced_hline = latex_column.replace(hline_string_literal, "<hr>")
     replaced_newline = replaced_hline.replace("\newline", "<br>")
     return replaced_newline
@@ -340,12 +340,12 @@ def handle_line_strings(line_string,
     """
     Converts lines untill there are no more lines
     """
-    current_style = column_style[column_number - 1]
+    current_style = column_style[column_number]
     if current_style == line_string:
         while current_style == line_string:
             return_string += line_string
             column_number += 1
-            current_style = column_style[column_number - 1]
+            current_style = column_style[column_number]
     return return_string, column_number
 
 
@@ -498,7 +498,7 @@ def handle_table_whole(html_string, data, table_start, table_end):
 
     parameters_start_index = data.find(
         "{", table_start + len(tabular_begin_string))
-    parameters_end_index = data.find(" }", parameters_start_index)
+    parameters_end_index = data.find("}", parameters_start_index)
     parameters_string = data[parameters_start_index: parameters_end_index + 1]
     parameters_array = tabular_required_parameters(parameters_string)
     inside_table = data[parameters_end_index + 1: table_end]
