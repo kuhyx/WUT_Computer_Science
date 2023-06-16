@@ -1,0 +1,281 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+
+\title{EARIN Preliminary Project \\ 
+19 - Anime Recomender}
+\author{Jakub Kliszko, Krzysztof Rudnicki }
+\date{\today}
+
+\begin{document}
+\maketitle
+
+The goal of this project is to develop a model for anime recommendation, which takes an anime name as an input and recommends a list of related anime's based on this name.  \\ 
+
+
+\section{Algorithm description and examples}
+
+We will be using the collaborative filtering approach to develop our model. \\ 
+Collaborative filtering is a popular method for making personalized recommendations based on the preferences of other users with similar tastes. In this approach, the recommendation system analyzes a large data-set of user-item ratings to identify patterns and similarities between users and anime's, and uses this information to make recommendations to new users.
+
+We will represent users and anime's data-sets as embedding vectors. Embeddings provide a way to transform high-dimensional data into a lower-dimensional space while preserving relevant relationships.
+
+We have decided to use and test multiple metrics such as
+\begin{itemize} 
+    \item Cosine similarity
+    \item Mahalanobis Distance
+    \item Euclidean Distance
+\end{itemize}
+together with K-nearest neighbors algorithm. \\ 
+
+\subsection{Embedding users and anime}
+In order to embed users and anime we must choose which features of the user/anime are the most important for our model \\ 
+For the user we are restricted to what database offers, database pretty much only offers us what ratings the user gave to an anime, we will compare the performance of our algorithm when:
+\begin{itemize} 
+\item Given ratings of the user for all anime that they gave rating to (no matter the watching status)
+\item Given ratings of the user for all anime that they have \emph{completed}
+\end{itemize}
+
+For anime we will use data: 
+\begin{itemize}
+    \item User score 
+    \item Popularity (this includes popularity itself, number of members and favourites)
+    \item Controversy (Whether the anime gets a lot of 1s and 10s or just 6s)
+\end{itemize}
+
+We have decided to use two different methods to combine data and compare the results \\ 
+First method is dot product which gives a single number after multiplying two vectors \\ 
+The second is concatenation which returns a new vector combining first and second vector \\ 
+As an input for all our metrics (like cosine similarity) we will use vectors of anime and users
+
+
+\subsection{Metrics}
+%\emph{Cosine similarity} is a metric used to compute the similarity between two users based on their ratings or preferences for anime. In our case, we will use cosine similarity to compute the similarity between each pair of users in our data-set based on their anime ratings. This will result in a similarity matrix, where each entry (i,j) represents the cosine similarity between users i and j.
+\paragraph{Cosine similarity} is a measure used to calculate the similarity between two vectors representing items or users. It evaluates the cosine of the angle between the two vectors, indicating their directional similarity. In our use case, cosine similarity can help identify items or users with similar preferences or characteristics by comparing their embedding vectors. Higher cosine similarity values (closer to 1) indicate a stronger similarity between the vectors, suggesting that the items or users are more likely to have similar features or preferences.
+\paragraph{Mahalanobis distance} is a metric that takes into account the correlations between variables when measuring the distance between two vectors. In our recommendation system, we can leverage Mahalanobis distance to quantify the dissimilarity between the embedding vectors of items or users. By considering the correlations within the embedding dimensions, Mahalanobis distance provides a more accurate measure of dissimilarity. It helps identify items or users that are dissimilar based on their characteristics or preferences, accounting for the relationships between different features.
+
+\paragraph{Euclidean distance} is a widely used metric to calculate the straight-line distance between two points in a multi-dimensional space. In our use case, we can apply Euclidean distance to measure the dissimilarity between the embedding vectors of items or users. By comparing the corresponding dimensions of the vectors and calculating the square root of the sum of squared differences, Euclidean distance provides a simple and intuitive measure of dissimilarity. It helps identify items or users that are relatively far apart in terms of their characteristics or preferences, based on the geometric distance in the embedding space.
+
+%\subsubsection{Cosine similarity input}
+%TUTAJ MA BYĆ INNY TEKST A NIE KNN 
+
+\paragraph{KNN} is a machine learning algorithm that we will use to find the K most similar users to a target user in the similarity matrix. The K most similar users will be our nearest neighbors, and we will use their ratings to generate recommendations for the target user. The number of nearest neighbors (K) that we choose will depend on the performance of our recommendation system on the validation set. We will experiment with different values of K and different weighting schemes for the ratings of the nearest neighbors to optimize the performance of our recommendation system.  \\
+
+%\paragraph{Euclidean distance} measures distance between two points in a straight line. It is used to measure similarity between points. Points that are closer to each other are considered to be similar. We can use it for finding nearest neighbors and clusters. 
+
+%\paragraph{Mahalonobis distance} again measures distance between two points but this time it takes into consideration how different elements of data-set relate to each other. This should be an advantage over Euclidean distance which assumes that all inputs are independent of each other. 
+\subsection{Data used for recommendation}
+In addition to users and their rating for anime, we will also use measures of:
+\begin{itemize}
+\item Controversy - Anime with lots of ’1’ and ’10 might have the exact same rating as anime with mostly ’6’ but it is much more
+controversial (hit or miss) and it can be a good recommendation even though its rating might seem low
+\item Combined data about popularity - Number of favorites, number of members which are in the group for fans of a given anime and overall popularity on the site
+\item Ranked - How good the anime is in  comparison with other anime's on the site 
+\end{itemize}
+
+
+
+
+%Collaborative filtering is a technique that recommends items based on the preferences of similar users or items. \\ 
+%In our case, we will use the item-based collaborative filtering approach where we will recommend anime's based on their similarity to the input anime. \\ 
+%Our model will use the cosine similarity metric to measure the similarity between anime's. \\
+%We will also use a neighborhood-based approach to find the most similar anime's. \\
+%Specifically, we will use the K-nearest neighbors (KNN) algorithm to identify the most similar anime's to the input anime.
+
+\section{Selection and description of the data-sets}
+The quality and size of the dataset may greatly affect the performance of the collaborative filtering algorithm. This is why we decided to choose a dataset that was newer and bigger than the one provided in the task.
+We will be using the Anime Recommendations Database from Kaggle \href{https://www.kaggle.com/datasets/hernan4444/anime-recommendation-database-2020}{LINK}. The data-set contains information about over 17,000 anime's and over 300,000 users. \\ 
+\subsection{Why this data set}
+There are multiple reasons to use this specific data set over different ones available on Kaggle (including the one proposed in task description) \\ 
+\begin{itemize}
+\item It is considered to have 100 \% usability by Kaggle
+\begin{itemize}
+\item It is tagged, has subtitle, description and cover image
+\item It has a source, is public and was updated recently (2020)
+\item It has the most permissive (CC0) license, good file format, and all files and columns are described
+\end{itemize}
+\item It is one of the biggest anime databases on kaggle (605 MB)
+\item It has over 60 code examples of use
+\end{itemize}
+\subsection{Data-set description}
+
+The data-set contains: 
+\begin{itemize}
+    \item The anime list per user (dropped, complete, plan to watch, currently watching and on hold)
+    \item Ratings given by users to the anime's that they has watched completely.
+    \item Information about anime (exactly 35 columns!), most importantly: 
+    \begin{itemize}
+        \item Name
+        \item User score 
+        \item Popularity
+        \item Members
+        \item Favourites
+        \item Number of each particular score (from 1 to 10)
+    \end{itemize}
+    \item HTML files containing reviews, synopsis, staff info etc.
+\end{itemize}
+There are 5 csv files in total and one HTML folder 
+\subsection{anime.csv}
+It contains information about all anime scraped \\ 
+In total it contains \textbf{35} columns \\ 
+Information's that might be in our opinion use-full and are not contained within rest of the files are:
+Information's that might be use full for our algorithm:
+\begin{itemize}
+\item Number of episodes - Some users might prefer shorter/longer anime's
+\item When it was aired - Some users might prefer older/newer anime styled
+\item When it was premiered - Same as above
+\item Studios - Some users might favourite specific Studios style
+\item Duration  - Some users might prefer anime's with shorter single episode length
+\item Ranked - Anime that might not be a hit with a certain user but is still considered to be very good can still be a good recommendation
+\item Popularity - Anime that might not be a hit with a certain user but is very popular can still be a good recommendation
+\item Members - Same as above
+\item Favorites - Same as above
+\item Number of exact amount of scores from 1 to 10 - This can tell how "controversial" the anime is, anime with lots of '1' and '10 might have the exact same rating as anime with mostly '6' but it is much more controversial (hit or miss)
+\end{itemize}
+
+In formations that might be use-full to display:
+\begin{itemize}
+\item Type - Usually whether it is a series (TV or OVA) or movie
+\item Number of episodes - How much time does it take to watch it
+\item When it was aired - Start of anime being shown and end of it
+\item When it was premiered - When the anime started
+\item Studios - What studio produced it
+\item Duration - How much time does it take to watch single episode
+\item Ranked - How good it is in relation to all other anime's on my anime list
+\end{itemize}
+\subsection{anime\_with\_synopsis.csv}
+CSV file containing anime info for humans \\ 
+It contains 5 columns:
+\begin{itemize}
+    \item (key) mal\_id - used to identify the anime
+    \item name - either English or R\=omaji version of the title 
+    \item score - average anime score
+    \item genres - list of genres associated with this anime
+    \item synopsis - description of anime
+\end{itemize}
+This file will be use-full for displaying the recommendation to user with additional info
+\subsection{animelist.csv}
+This file contains information about all users anime lists, no matter their watching status \\ 
+In total it contains over 105 million rows \\ 
+There are over 60 million ratings given by users (compared with over 55 for only completed series)
+It contains 5 columns:
+\begin{itemize}
+    \item (key) user\_id - random (but persistent through database) user id 
+    \item (key) anime\_id - used to identify the anime 
+    \item rating - what score this user set for this anime (zero is set if user did not set any score)
+    \item watching\_status - state ID for this anime in the anime list of the user (see \ref{watchingStatus} watching\_status.csv)
+    \item watched\_episodes - how many episodes have been watched by the user
+\end{itemize}
+This file can be potentially use full especially to determine what users with similar interest are planning to watch 
+\subsection{rating\_complete.csv}
+This file contains information about all ratings given to animes by users who selected watching\_status 2 option (complete) \\ 
+In total it contains over 55 million ratings \\ 
+It contains 3 columns:
+\begin{itemize}
+    \item (key) user\_id - random (but persistent through database) user id 
+    \item (key) anime\_id - used to identify the anime 
+    \item rating - what score this user set for this anime (1-10 scale)
+\end{itemize}
+This is probably the most important file regarding our project
+\subsection{watching\_status.csv}
+\label{watchingStatus}
+\begin{figure}[h]
+\caption{Entire contents of watching\_status.csv file}
+\centering
+\begin{tabular}{| c | c |}
+\hline
+status & description \\ 
+\hline
+1 & Currently Watching \\
+\hline
+2 & Completed \\
+\hline
+3 & On Hold \\
+\hline
+4 & Dropped \\
+\hline
+6 & Plan to Watch \\
+\hline
+\end{tabular}
+\end{figure}
+
+Watching status file is used to relate numerical id of watching status to actual textual description of this status \\ 
+Status number 5 is missing, possibly referring to "re-watching" status? \\ 
+Meaning of particular descriptions:
+\begin{itemize}
+    \item Currently Watching - Actively keeping up with the series
+    \item Completed - Watched the entire series/film
+    \item On Hold - Stopped watching it but possibly wanting to return to it
+    \item Dropped - Stopped watching it and decided not to return it 
+    \item Plan to Watch  - Not watched it yet but plan to
+\end{itemize}
+For most purposes we will be only interested in status 2 (completed) which tells us that the user checked the anime as already watched \\ 
+Plan to watch is also interesting since it can be used to recommend anime based on what similar users are interested in
+\subsection{HTML folder}
+HTML folder contains HTML scraped info about specific anime's, we will ignore this folder as parsing HTML is a much bigger challenge and outside of the scope of our project
+\subsection{Summary}
+There are two most important files, for program inner workings: rating\_complete.csv and anime\_with\_synopsis.csv for showing the recommended anime to user
+
+\section{General plan of tests/experiments}
+
+To evaluate and compare the performance of our collaborative filtering model with different parameter configurations, we will use grid search and 5-fold cross-validation.
+
+Grid search will allow us to systematically test different combinations of hyperparameters, such as the number of nearest neighbors in KNN and the regularization strength in the matrix factorization algorithm, to find the best combination that maximizes the model's performance.
+
+Cross-validation will help us to estimate the model's generalization performance and reduce the risk of overfitting to the training data.
+% Notka dla nas: Hyperparameters: Parameters that are set before training a machine learning model and cannot be learned from the data. Examples of hyperparameters include the learning rate, the number of hidden layers in a neural network, and the regularization strength.
+% Notka dla nas: Overfitting is a common problem in machine learning where a model is trained too well on the training data and performs poorly on the testing or validation data. In other words, the model learns the patterns and noise in the training data to such a degree that it loses the ability to generalize and predict accurately on new data.
+
+To measure the quality of our model's recommendations, we will use precision, recall, and F1-score metrics. Precision measures the proportion of relevant items among the recommended items, recall measures the proportion of relevant items that are recommended, and F1-score is the harmonic mean of precision and recall, providing a balanced measure of the model's performance. We will compute these metrics on the test set and report the average scores across the 5-fold cross-validation.
+
+%Our main goal is to evaluate the performance of the recommendation model. We will perform a 5-fold cross-validation to estimate the generalization performance of the model. We will also use precision, recall, and F1-score metrics to evaluate the model's performance. We will experiment with different values of K (number of neighbors) to find the optimal value.
+
+\section{Methods of result visualization}
+
+For the visualization, we chose three methods:
+\begin{itemize}
+\item Heatmaps: They are useful for visualizing the similarity between users or animes based on their ratings. They will allow us to identify clusters of similar users or animes and explore how their preferences are related to one another.
+
+% https://rpubs.com/jeknov/movieRec
+\begin{figure}
+\centering
+    \caption{An exemplary heatmap}
+    \label{fig:heatmap}
+\end{figure}
+
+\item Histograms: They will be used to visualize the distribution of ratings and identifying any biases or patterns in the data. They can help us identify whether the ratings are normally distributed or skewed.
+
+\begin{figure}
+\centering
+    \caption{An exemplary histogram}
+    \label{fig:precission-recall}
+\end{figure}
+
+\item Precision-recall curves: They show the tradeoff between precision and recall at different thresholds, allowing us to identify the optimal threshold for making recommendations. By visualizing the performance of the algorithm in this way, we can identify areas for improvement and generate new hypotheses for increasing the accuracy of the recommendations.
+\end{itemize}
+
+\begin{figure}
+\centering
+    \caption{An exemplary precision-recall graph}
+    \label{fig:histogram}
+\end{figure}
+
+\section{Definition of quality measures that will be used}
+In order to evaluate the quality of our recommendation system, we will use a combination of precision, recall, F1 score, and MAP. Precision measures the proportion of relevant items among the recommended items, while recall measures the proportion of relevant items that were actually recommended. F1 score is the harmonic mean of precision and recall, providing a balanced measure of the system's performance.
+
+MAP is calculated by taking the average of the average precision (AP) for each user. AP is calculated as the mean of the precision values obtained at each relevant item position in the ranked list of recommended items.
+
+To calculate MAP, we need to define a threshold for relevance, which can be either binary (relevant or not relevant) or graded (assigning a relevance score to each anime). In our case, we will use a binary threshold, where an anime is considered relevant if has been rated 8 or higher. We will also calculate MAP for different values of K (number of recommended items), as the quality of the recommendations may vary depending on the number of items displayed to the user.
+
+%Quality Measures:
+
+%We will use the following quality measures to evaluate the performance of the model:
+
+%    Precision: the ratio of true positive predictions to the total number of predicted positives.
+%    Recall: the ratio of true positive predictions to the total number of actual positives.
+%    F1-score: the harmonic mean of precision and recall.
+
+%We will also use the mean average precision (MAP) as an additional quality measure to evaluate the model's performance.
+
+
+\end{document}

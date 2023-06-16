@@ -1,0 +1,39 @@
+Parameters:
+    - datalimit (usable between 500k and max) [max = 109,224,747 ]
+    - seed (very important make sure it stays the same through all testing [maybe just 42?])
+    - metric (either cosine, mahalanobis or euclidean as in preliminary report)
+    - NN algorithm (either auto, ball_tree, kd_tree, brute)
+    - neighbors - number of nearest neigbors 
+    - User threshold - minimal numbers of votes for user to be included in data
+    - Anime threshold - same for anime
+
+
+These are 6 parameters that influence program behaviour and 1 parameter for seed
+Probably would do simulations for 3 variants of each parameters (excluding seed), rest will be default
+
+so in total 6 * 3 = 18 simulations
+
+Default values:
+Datalimit: all of data
+Seed: 42
+Metric: cosine
+NN algorithm: brute
+Neighbors: 5
+User threshold: 500
+Anime threshold: 200
+
+Neighbors number count:
+k = 3-5: default starting points for small-medium dataset
+k = sqrt(n): rule of thumb, n is number of instances in dataset (balanced between underfitting and overfitting)
+l = n / 2: look at half of dataset for each prediction 
+k = log(n): for very large datasets
+k = n - 1: Use all data except one, will probably overgenarlize the model
+
+
+Values spread:
+Datalimit: [27306186, 54612373, 109224747] (max on the right, then halved and halved)
+Metric: ["cosine", "mahalanobis", "euclidean"]
+NN algorithm: ['auto', 'ball_tree', 'kd_tree', 'brute']
+neighbors: [5, sqrt(n), n / 2, log(n), n - 1] 
+User threshold: [0, 500, 1000]
+Anime threshold: [0, 200, 500]

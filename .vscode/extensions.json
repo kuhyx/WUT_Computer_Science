@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "recommendations": [
 <<<<<<< HEAD
         "ms-python.python",
@@ -13,3 +14,7 @@
 >>>>>>> lab7/main
     ]
 }
+=======
+  "recommendations": ["james-yu.latex-workshop"]
+}
+>>>>>>> project/main
