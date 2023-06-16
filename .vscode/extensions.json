@@ -1,5 +1,6 @@
 {
     "recommendations": [
+<<<<<<< HEAD
         "ms-python.python",
         "ms-python.pylint",
         "mikoz.black-py",
@@ -7,5 +8,8 @@
         "kisstkondoros.vscode-gutter-preview",
         "streetsidesoftware.code-spell-checker",
         "wesbos.theme-cobalt2"
+=======
+        "rebornix.prolog"
+>>>>>>> lab7/main
     ]
 }
