@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Why}{3}{0}{1}
+\beamer@sectionintoc {2}{How}{12}{0}{2}
+\beamer@sectionintoc {3}{Summary}{22}{0}{3}
+\beamer@sectionintoc {4}{References}{23}{0}{4}
