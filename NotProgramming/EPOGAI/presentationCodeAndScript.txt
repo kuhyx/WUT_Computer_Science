@@ -1,0 +1,143 @@
+# I will be talking about ethicality of using things "created" by AI
+Using AI "creations" ethics
+
+# Thats my research question 
+Question:
+     Is using AI creations ethical?
+
+# The original way I wanted to address it and the most popular one is by talking about ai intentions, whether AI has intention to do something or not
+Intensions
+
+# So basically we try to answer the question whether this is AI
+@dontknow.jpg
+
+# Or this
+@know.jpg
+
+# The way I want to approach it is by saying that it does not matter and sideline all complicated aspects of intentionality
+Argument:
+     It does not matter
+
+#  because AI is a tool 
+AI is a tool
+
+# And that is nothing new we already have tools that make creating art easier like
+Examples of tools that
+make creating art easier
+
+# Graphical tablet which can be a substition for pretty much any tool 
+@tablet.jpg
+
+# Software that provides artists with ability to do stuff like undo changes, copy changes, work in layers easily and so on
+@photoshop.jpg
+
+# Or a simple brush which provides the artists with more control over applying paint when compared with bare hands
+@brush.jpg
+
+# But we don't care about "intensions" of those tools do we?
+Do we argue whether
+a brush has intention
+to create something?
+
+# Now, someone can argue that those tools require skill and work to operate
+skill issue
+
+# but so does AI
+AI creations NEED human input
+
+# Here are some of the steps needed to create AI art from scratch
+Steps necessary to create AI art:
+⚫ Collect Data
+⚫ Preprocess Data 
+⚫ Train AI model
+⚫ Refine AI model 
+⚫ Iterate
+⚫ Provide inputs (not stupid)
+
+# Now someone can argue that most of those steps are already done
+ready-made AI
+
+# But so are AI tools, artists usually buy tools created by someone else, on the photo we have a 19th century brush maker 
+@brushmaker.jpg
+
+# This extends not only to artists but to pretty much any profession (coders, copywriters etc...)
+# So a sensible objection to using AI to create things would be that this takes over human jobs
+What about
+(insert your profession here)?
+
+# And this is nothing 
+This is nothing new
+
+# Automatization happened over and over in human history and will happen again
+Automatization happens
+
+# Here are some examples of jobs that were mostly taken by machine 
+Jobs that are either
+dead or dying
+
+# Like a loom weavers who were replaced by weaving machines
+@weaver.jpg
+
+# Switchboard operators replaced by automatic telephone switchboards
+@switchboard.jpeg
+
+# If you ever got a call about solar panels you know that telemarketers are also slowly being replaced
+@telemarketer.webp
+
+# Another issue with AI creations is that it uses human creations
+AI uses human work
+
+# And same can be said about humans
+So are humans
+
+# Here is a quote I stole
+@steal.webp
+
+# Here is a meme I stole 
+@stealCode.webp
+
+# Now someone can argue that AI is inferior to humans so it cannot use human creations like humans 
+AI != humans
+
+# And I would argue that the actual beings that collect data for AI are humans themselves who choose data for AI
+AI creators (human) 
+use human work
+
+# Another argument against AI is that ai creations are not perfect and can lead to mistakes
+AI errors
+
+# Here is an example of autocorrect choosing wrong word to send
+# Among many explanation for that one of the possible ones is that autocorrect does not understand context of the text
+@dexter.webp
+
+# And I would say that it is our responsiblity to understand technological limitations and use them sensibly 
+Bad workman always
+blames his tools
+
+# Another argument against AI creations is that it is unoriginal since it uses already existing data to create things
+Unoriginality
+
+# First of all originality is hard to define
+elusive originality definition
+
+# Second of all humans can also be unoriginal
+Humans can be unoriginal too
+
+# Like here
+@unoriginal.png
+
+# And I would say that it is not always a bad thing to be unoriginal
+Is it always bad?
+
+# Certainly in emergency situations we want people to follow simple instructions ensuring their survival
+@book.jpg
+
+# Or when we design a website and want users to understand what they need to do by using uniform design that they are familiar with
+@material.png
+
+# So I would say that AI intentions do not really matter in this case, AI is just a tool like any other tool and it is fine to use AI creations
+AI intentions do not matter 
+AI is a tool
+Using AI "creations" is fine
+
+questions
