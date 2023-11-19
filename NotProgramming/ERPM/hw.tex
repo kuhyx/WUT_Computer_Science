@@ -1,0 +1,118 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+
+\title{Robot Programming Methods}
+\author{Krzysztof Rudnicki, 307585}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\chapter{System Controller Design}
+\section{System Initialization and Configuration}
+\begin{itemize}
+    \item \textbf{Initialization:} On receiving the START command, initialize the system, calibrating the manipulator's position and ensuring the Kinect sensor is operational.
+    \item \textbf{Configuration:} Load predefined settings for object size, shapes (triangle, square, circle), and corresponding mold types.
+\end{itemize}
+
+\section{Sensor Integration}
+\begin{itemize}
+    \item \textbf{Kinect Sensor:} Use the Kinect sensor to continuously monitor the conveyor. Implement image processing algorithms to detect the presence and shape of objects on the conveyor.
+    \item \textbf{Encoders:} Integrate feedback from the encoders on the electric motors to precisely control the position and movement of the manipulator.
+\end{itemize}
+
+\section{Object Detection and Classification}
+\begin{itemize}
+    \item \textbf{Image Processing:} Process the images from the Kinect sensor to identify object shapes and positions. Use shape detection algorithms to classify objects as triangles, squares, or circles.
+    \item \textbf{Localization:} Calculate the position of each detected object relative to the manipulator’s base coordinate system.
+\end{itemize}
+
+\section{Motion Control}
+\begin{itemize}
+    \item \textbf{Path Planning:} For each detected object, plan a trajectory for the manipulator to pick the object from the conveyor and place it into the corresponding mold.
+    \item \textbf{Manipulator Control:} Use the encoder feedback to control the 6 DOF manipulator, ensuring precise movement. Implement inverse kinematics algorithms for accurate positioning.
+    \item \textbf{Gripper Control:} Control the suction gripper to pick and release objects, synchronizing its operation with the manipulator's movements.
+\end{itemize}
+
+\section{Mold Handling}
+\begin{itemize}
+    \item \textbf{Mold Matching:} Match each detected object with the corresponding mold type (triangle, square, circle).
+    \item \textbf{Insertion Sequence:} Control the manipulator to place each object into the designated mold. Ensure molds are replaced as soon as an object is inserted.
+\end{itemize}
+
+\section{System Monitoring and Feedback}
+\begin{itemize}
+    \item \textbf{Real-time Monitoring:} Continuously monitor the conveyor and feeder status, adjusting the manipulator's operation accordingly.
+    \item \textbf{Error Handling:} Implement error detection and handling mechanisms for scenarios like misaligned objects, system malfunctions, or unexpected interruptions.
+\end{itemize}
+
+\section{System Termination}
+\begin{itemize}
+    \item \textbf{Stop Command:} On receiving the STOP command, safely terminate the system's operation. Ensure the manipulator is returned to a safe position and all active processes are halted.
+\end{itemize}
+
+\section{User Interface and Communication}
+\begin{itemize}
+    \item \textbf{Status Indicators:} Provide real-time feedback on system status, including current operation, detected objects, and any errors or warnings.
+    \item \textbf{Command Interface:} Implement a communication interface for receiving START and STOP commands and potentially for manual override or system diagnostics.
+\end{itemize}
+
+\section{Software and Hardware Integration}
+\begin{itemize}
+    \item \textbf{Software Framework:} Choose an appropriate software framework that supports real-time control, image processing, and communication with all hardware components.
+    \item \textbf{Hardware Compatibility:} Ensure all software components are compatible with the hardware, especially the Kinect sensor, the encoders, and the electric motors of the manipulator.
+\end{itemize}
+
+\section{Testing and Calibration}
+\begin{itemize}
+    \item \textbf{Simulation Testing:} Before deploying, simulate the system's operation to identify and rectify potential issues.
+    \item \textbf{Calibration:} Regularly calibrate the system to ensure accuracy, particularly the Kinect sensor and the manipulator’s positioning.
+\end{itemize}
+
+\chapter{System Structure in Terms of Agents}
+\section{Agents and Their Internal Structure}
+
+\subsection{Sensing Agent}
+\begin{itemize}
+    \item \textbf{Internal Structure:} Consists of a Kinect sensor and encoders.
+    \item \textbf{Sampling Rate:} 60 Hz for Kinect, 100 Hz for encoders.
+\end{itemize}
+
+\subsection{Manipulator Agent}
+\begin{itemize}
+    \item \textbf{Internal Structure:} 6 DOF robotic arm with electric motors and a suction gripper.
+    \item \textbf{Sampling Rate:} 10-100 Hz, depending on motion complexity.
+\end{itemize}
+
+\subsection{Control Agent}
+\begin{itemize}
+    \item \textbf{Internal Structure:} Central processing unit integrating inputs and controlling the manipulator.
+    \item \textbf{Sampling Rate:} Up to 100 Hz for real-time responsiveness.
+\end{itemize}
+
+\section{General Behavior of Virtual Effectors and Receptors}
+\begin{itemize}
+    \item \textbf{Virtual Effectors:} Execute actions based on processed data.
+    \item \textbf{Virtual Receptors:} Receive and process sensory inputs.
+\end{itemize}
+
+\section{Data Structures within the Control Subsystem}
+\begin{itemize}
+    \item \textbf{Buffers for Sensory Data:} Storage for real-time sensor data.
+    \item \textbf{Command Queue:} Buffer for storing control commands.
+    \item \textbf{State Information:} Data structure for storing the current state.
+\end{itemize}
+
+\section{Transition Functions and Terminal Conditions}
+\begin{itemize}
+    \item \textbf{Transition Function:} \( T(s, a) = s' \) where \( s \) is the current state, \( a \) is the action, and \( s' \) is the new state.
+    \item \textbf{Terminal Conditions:} Conditions under which a state transition occurs.
+\end{itemize}
+
+\section{Structure of the FSM of the Control Subsystem}
+\begin{itemize}
+    \item \textbf{FSM Graph:} Nodes represent behaviors and arcs represent transitions.
+    \item \textbf{Nodes:} Idle, Detecting Objects, Moving to Object, Picking Object, Moving to Mold, Placing Object, Returning to Initial Position.
+    \item \textbf{Transitions:} Defined by predicates representing initial conditions.
+\end{itemize}
+\end{document}
