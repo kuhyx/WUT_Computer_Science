@@ -1,0 +1,19 @@
+data; 
+ 
+set Wyjscie := t; 
+set Wezly := 1, 2, 3, 4, 5, 6, A, B, C, D, E, F; 
+set StartWezly := s, 1, 2, 3, 4, 5, 6, A, B, C, D, E, F; 
+set WyjscieWezly := t, 1, 2, 3, 4, 5, 6, A, B, C, D, E, F; 
+set StartWyjscieWezly := s, t, 1, 2, 3, 4, 5, 6, A, B, C, D, E, F; 
+set Projekty := 1, 2, 3, 4, 5, 6; 
+set Zespoly := A, B, C, D, E, F; 
+ 
+param c := 
+A 1 1000 A 2 1000 A 3 2 A 4 10 A 5 1000 A 6 20
+B 1 13 B 2 4 B 3 1000 B 4 1000 B 5 10 B 6 1000 
+C 1 1000 C 2 2 C 3 1000 C 4 5 C 5 1000 C 6 6 
+D 1 14 D 2 1000 D 3 10 D 4 1000 D 5 1000 D 6 16 
+E 1 18 E 2 3 E 3 1000 E 4 1000 E 5 17 E 6 1000 
+F 1 1000 F 2 1000 F 3 13 F 4 15 F 5 12 F 6 1000; 
+ 
+end; 
