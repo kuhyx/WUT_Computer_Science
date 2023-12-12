@@ -1,0 +1,29 @@
+\documentclass[12pt]{scrartcl}
+\usepackage[polish]{babel}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\author{Krzysztof Rudnicki, 307585}
+\title{ZBOP esej \\ Organizacja systemów produkcyjnych}
+\subtitle{ze względu na sposób spłenienia zapotrzebowania}
+\date{\today}
+\newcommand\charcount{
+    \immediate\write18{texcount esej.tex | grep "Words in text: " | cut -d: -f2 > esej.sum}
+    \input{esej.sum}
+}
+\begin{document}
+	\maketitle
+	Słowa:
+	\[ 600 < \charcount < 800 \]
+	\section{make-to-stock}
+		\paragraph{Definicja} W tym podejściu, produkty są tworzone bazując na prognozach popytu. Firmy tworzą prognozę popytu dla danego produktu, wytwarzają na podstawie tej prognozy produkt, następnie przechowują go aż do momentu jego sprzedania
+		\paragraph{Zalety} Dzięki temu podejściu wszystkie produkty są od razu dostępne dla klientów, czas ich dostarczenia i sprzedaży jest znacznie krótszy co prowadzi do większego zadowolenia klientów. Pozwala to również na operowanie w niszach gdzie natychmiastowa dostępność towaru jest kluczowa
+		\paragraph{Wady} Największym ryzykiem jest źle stworzona prognoza popytu, może to prowadzić albo do zaniżenia popytu, co powoduje brak produktu dla chcących go zakupić klientów, lub w gorszym przypadku zawyżeniu popytu, co powoduje że nadmiarowe produkty muszą być magazynowe za dodatkową opłatą, dodatkowo jeśli produktu mogą zostać przeterminowane (tak jak żywność lub produkty medyczne), prowadzi to do zmarnowania produktów i kosztów związanych z ich wytworzeniem.
+		\paragraph{Użycie} Aby uniknąć ryzyka złego wyliczenia modelu, model make-to-stock używa się zazwyczaj dla standardowych produktów z łatwym do przewidzenia popytem. Takimi produktami są na przykład dobra użytkowe dla klientów detalicznych.
+		
+	\section{make-to-order}
+		\paragraph{Definicja} W modelu MTO, produkcja rozpoczyna się dopiero po otrzymaniu zamówienia. 
+		\paragraph{Zalety} MTO jest bardziej skupione na kliencie, pozwala na modyfikację produktu pod indywidualne wymogi kupującego, minimalizuje również ryzyko nadwyżki produktów w magazynie co prowadzi do zmneijszonych kosztów magazynowania. 
+		\paragraph{Wady} Największą wadą jest czas oczekiwania na produktu z MTO, produkt musi być najpierw zamówiony, potem stworzony co w zależności od typu produktu znacząco wydłuża proces dostarczenia go do klienta. Dla klientów wymagających natychmiastowej dostępności produktu jest to nie akceptowalne. Ten model wymaga również bardziej elastycznego systemu produkcji, takiego który jest w stanie dostosować się do różnej liczby zamówionych produktów.
+		\paragraph{Użycie} MTO używa się w produktach modyfikowanych specjalnie pod potrzeby klienta oraz w produktach nie wymagających natychmiastowej dostępności, przykładem jest produkcja specjalistycznego oprogramowania dla klientów
+
+\end{document}
