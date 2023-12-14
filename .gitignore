@@ -304,4 +304,6 @@ TSWLatexianTemp*
 ### EGUI bin
 bin
 *.4og
-.tmp
+*.tmp
+*.4ot
+*.4o*
