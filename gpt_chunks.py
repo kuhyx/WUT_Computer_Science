@@ -790,9 +790,28 @@ def chunk_sentences(input_file, output):
 
 
 # Usage
-FILE_PATH = "test_goldStandard/student/STSint.testinput.answers-students.sent1.txt"
-OUTPUT_PATH = "output.txt"
+# Define your input and output file paths
+input_files = [
+    "test_goldStandard/student/STSint.testinput.answers-students.sent1.txt",
+    "test_goldStandard/student/STSint.testinput.answers-students.sent2.txt",
+    "test_goldStandard/images/STSint.testinput.images.sent1.txt",
+    "test_goldStandard/images/STSint.testinput.images.sent2.txt",
+    "test_goldStandard/headlines/STSint.testinput.headlines.sent1.txt",
+    "test_goldStandard/headlines/STSint.testinput.headlines.sent2.txt"
+]
+
+output_files = [
+    "test_goldStandard/student/students-chunks-gpt-one.txt",
+    "test_goldStandard/student/students-chunks-gpt-two.txt",
+    "test_goldStandard/images/images-chunks-gpt-one.txt",
+    "test_goldStandard/images/images-chunks-gpt-two.txt",
+    "test_goldStandard/headlines/headlines-chunks-gpt-one.txt",
+    "test_goldStandard/headlines/headlines-chunks-gpt-two.txt"
+]
+
 # Change me to os.environ['API_KEY']
 client = OpenAI(api_key=os.environ['API_KEY'])
 
-chunk_sentences(FILE_PATH, OUTPUT_PATH)
+for input_path, output_path in zip(input_files, output_files):
+    chunk_sentences(input_path, output_path)
+    print("FINISHED GPT CHUNKS FOR FILE: ", input_path)
