@@ -3,7 +3,7 @@ import numpy as np
 from lxml import etree
 
 
-def load_sentences(senteance1_path: str, sentance2_path: str) -> pd.dataframe:
+def load_sentences(senteance1_path: str, sentance2_path: str) -> pd.DataFrame:
   """
   Loads the sentences from the given paths and outputs in a 2 columns dataframe
   """
@@ -34,7 +34,7 @@ def chunk2list(chunks: str) -> list:
   return split
 
 
-def load_chunked(chunked_path1: str, chunked_path2: str) -> pd.dataframe:
+def load_chunked(chunked_path1: str, chunked_path2: str) -> pd.DataFrame:
   """
   Loads chunked sentances in [ chunk1 ] [ chunk2 ] format into dataframe with lists of chunks
   """
@@ -65,12 +65,12 @@ def return_characteers(cell: str) -> str:
   """
   converts the alignment data to restore the <==> and & tokens
   """
-    cell = cell.replace('ARROWS_PLACEHOLDER', '<==>')
-    cell = cell.replace('AMPERSAND_PLACEHOLDER', '&')
-    return cell
+  cell = cell.replace('ARROWS_PLACEHOLDER', '<==>')
+  cell = cell.replace('AMPERSAND_PLACEHOLDER', '&')
+  return cell
 
 
-def load_alignment(alignment_path: str) -> pd.dataframe:
+def load_alignment(alignment_path: str) -> pd.DataFrame:
   """
   Loads the alignment file. Parses only the <alignment> tag and puts the data into a dataframe
   """
@@ -82,7 +82,7 @@ def load_alignment(alignment_path: str) -> pd.dataframe:
   # it also needs a root wrapped to function properly 
   modified_content = f'<root>{modified_content}</root>'
 
-  modified_file_path = 'test_goldstandard/fixedarrows.wa'
+  modified_file_path = 'temp.wa'
   with open(modified_file_path, 'w') as modified_file:
     modified_file.write(modified_content)
 
@@ -116,7 +116,7 @@ def test_XML():
   # test out the format
   print(alignments_data[0]["alignment_text"])
 
-def generate_train_test_split(x: pd.dataframe, y: pd.dataframe) -> train, validate, test: pd.dataframe:
+def generate_train_test_split(x: pd.DataFrame, y: pd.DataFrame):
   """
   Generates a train, validate, test split of the given dataframes in a 60% 20% 20% ratio
   """
@@ -124,6 +124,4 @@ def generate_train_test_split(x: pd.dataframe, y: pd.dataframe) -> train, valida
   train, validate, test = np.split(data.sample(frac=1, random_state=42), [int(.6*len(data)), int(.8*len(data))])
 
   return train, validate, test
-
-
 

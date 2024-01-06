@@ -24,7 +24,7 @@ def process_sentence(sentence, chunked_sentences):
   return chunked_sentences
 
 
-def chunk_sentences(file_path, output_path, api_key):
+def chunk_sentences(file_path, output_path):
   # Read the sentences from the file
   with open(file_path, 'r') as file:
     sentences = file.readlines()
@@ -39,9 +39,9 @@ def chunk_sentences(file_path, output_path, api_key):
 
 
 # Usage
-file_path = 'STSint.testinput.answers-students.sent1.txt'
-output_path = 'chunks_one.txt'
-api_key = os.environ['API_KEY']
-client = OpenAI(api_key=os.environ['API_KEY'])
+file_path = 'test_goldStandard/headlines/STSint.testinput.headlines.sent2.txt'
+output_path = 'chunks_gpt_headlines_two.txt'
+# Change me to os.environ['API_KEY']
+client = OpenAI(api_key='REDACTED_OPENAI_API_KEY')
 
-chunk_sentences(file_path, output_path, api_key)
+chunk_sentences(file_path, output_path)
