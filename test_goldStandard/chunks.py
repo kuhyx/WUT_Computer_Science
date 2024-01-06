@@ -8,14 +8,14 @@ def sentence_loop(sentences):
     return chunked_sentences
 
 def process_sentence(sentence, chunked_sentences):
-    sentence = "Divide this sentence into chunks as in iSTS, Render those chunks in a form [chunk 1] [chunk 2] ... for every sentence: " + sentence
     response = client.chat.completions.create(
         messages=[{
             "role": "user",
-            "content": sentence,
+            "content": "Please divide the following sentence into iSTS chunks. Format the response as: [[chunk 1]] [[chunk 2]] ... Ensure each chunk is enclosed in double square brackets and separated by a space. If you cannot correctly chunkify the sentence, return an error message in the format: 'ERROR: Cannot chunkify sentence: <sentence>'. Here is the sentence: " + sentence,
         }],
         model="gpt-3.5-turbo",
     )
+
     chunked_sentence = response.choices[0].message.content
     print("chunked_sentence: ", chunked_sentence)
     chunked_sentences.append(chunked_sentence)
