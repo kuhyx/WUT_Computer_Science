@@ -1,30 +1,3 @@
-import processing
-import pandas as pd
-
-# paths to students andsewrs database
-studentAnswers1_path = "test_goldStandard/student/STSint.testinput.answers-students.sent1.txt"
-studentAnswers2_path = "test_goldStandard/student/STSint.testinput.answers-students.sent2.txt"
-studentAnsewrs_chunked_path1 = "test_goldStandard/student/STSint.testinput.answers-students.sent1.chunk.txt"
-studentAnsewrs_chunked_path2 = "test_goldStandard/student/STSint.testinput.answers-students.sent2.chunk.txt"
-studentsAnsewrs_alignment_path = "test_goldStandard/student/STSint.testinput.answers-students.wa"
-
-# load data
-studentAnserws = processing.load_sentences(studentAnswers1_path, studentAnswers1_path)
-goldstandard_chunked = processing.load_chunked(studentAnsewrs_chunked_path1, studentAnsewrs_chunked_path2)
-goldstandard_alignment = processing.load_alignment(studentsAnsewrs_alignment_path)
-
-# get a nice anwser-student table
-data = pd.merge(goldstandard_chunked, goldstandard_alignment, left_index=True, right_index=True)
-print(data)
-
-# generate a few examples
-for i in range(1, 10):
-    print(processing.generate_alignment_format(data, i))
-    print("correct anwser for this is: ")
-    print(data["alignment_text"][i])
-
-# best prompt so far
-prompt = """
 Given the input (pairs of sentences divided into chunks) align the corresponding chunks. The chunks are based on those used in the CoNLL 2000 chunking task (Abney 1991, Tjong et al. 2000), with some adaptations.
 
 the steps required fot this are as follows:
@@ -93,5 +66,15 @@ if there are multiple chunks in relation with each other, seperate them with spa
 or 
 2 3 <==> 1 2 // type // score / comment 
 
-provide the answer for final chunk relations as a plain text list of relations. 
-"""
+provide the answer for final chunk relations as a plain text list of relations.
+
+seq1:
+1) both bulbs a and c
+2) still
+3) have a closed path
+
+seq2:
+1) Bulbs A and C
+2) are
+3) still
+4) in closed paths

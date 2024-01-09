@@ -1,0 +1,2678 @@
+<sentence id="1" status="">
+<alignment>
+bulbs A and C <==> 2 // EQUI // 5
+5 <==> 4 // SIMI // 4
+3 <==> 3 // EQUI // 5
+2 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="2" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // OPPO // 5
+1 <==> 3 // REL // 3</alignment>
+</sentence>
+<sentence id="3" status="">
+<alignment>
+1 <==> 1 // EQUI // 4
+is separated <==> 2 // EQUI // 5
+4 <==> 3 // EQUI // 5
+2 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="4" status="">
+<alignment>
+3 <==> The // SIMI // 3
+4 <==> 3 // SIMI // 3
+2 <==> 1 // OPPO // 4
+1 <==> 2 // REL // 1</alignment>
+</sentence>
+<sentence id="5" status="">
+<alignment>
+switch <==> switch and the bulb // SIMI // 3
+4 <==> 1 // SIMI // 3
+2 <==> 3 // SIMI // 3
+3 <==> 3 // EQUI // 5
+5 <==> 0 // NOALI // NOALI
+1 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="6" status="">
+<alignment>
+2 <==> 2 // REL // 1
+4 <==> 3 // EQUI // 5
+3 <==> 0 // NOALI // 0
+1 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="7" status="">
+<alignment>
+battery <==> 5 // EQUI // 5
+5 <==> 5 // EQUI // 5
+1 <==> 2 // SIMI // 4
+3 <==> 4 // REL // 1
+4 <==> 1 3 // NOALI // 0</alignment>
+</sentence>
+<sentence id="8" status="">
+<alignment>
+3 <==> 5 // SIMI // 2
+5 <==> 5 // EQUI // 5
+1 <==> 1 // EQUI // 5
+2 <==> 4 // REL // 1
+4 <==> 1 3 // REL // 0</alignment>
+</sentence>
+<sentence id="9" status="">
+<alignment>
+battery <==> 3 // EQUI // 5
+3 <==> 1 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 4 // SIMI // 4</alignment>
+</sentence>
+<sentence id="10" status="">
+<alignment>
+2 <==> 3 // REL // 1
+3 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="11" status="">
+<alignment>
+2 <==> 2 // NOALI // 0
+3 <==> 3 // OPPO // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="12" status="">
+<alignment>
+2 <==> 2 // REL // 1
+3 <==> 1 // REL // 1
+4 <==> 0 // NOALI // NOALI
+1 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="13" status="">
+<alignment>
+3 <==> 6 // REL // 1
+4 <==> 4 // EQUI // 5
+1 <==> 5 // REL // 1
+1 <==> 2 // REL // 1
+1 <==> 9 // NO9LI // 0
+1 <==> 7 // NO9LI // 0
+1 <==> 1 // REL // 2
+2 <==> 2 // REL // 1</alignment>
+</sentence>
+<sentence id="14" status="">
+<alignment>
+2 <==> Terminlas // SPE1 // 3
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 4</alignment>
+</sentence>
+<sentence id="15" status="">
+<alignment>
+2 <==> 2 // NOALI // 0
+1 <==> 3 // REL // 1
+3 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="16" status="">
+<alignment>
+3 <==> 1 // REL // 2
+4 <==> 2 // OPPO // 3
+2 <==> 3 // REL // 3
+1 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="17" status="">
+<alignment>
+2 <==> Bulb A // EQUI // 5
+1 <==> 3 // REL // 0
+3 <==> 2 6 1 // REL // 0
+5 <==> 0 // NOALI // 0 // 1 // NOALI // 0 // 3 // NOALI // 0 // 3 // NOALI // 0 // 2 // NOALI // 0
+6 <==> 0 // NOALI // 0 // 1 // NOALI // 0</alignment>
+</sentence>
+<sentence id="18" status="">
+<alignment>
+4 <==> 1 // EQUI // 4
+3 <==> 2 // EQUI // 5
+1 <==> 2 // REL // 2</alignment>
+</sentence>
+<sentence id="19" status="">
+<alignment>
+2 <==> 2 // NOALI // 0
+3 <==> 3 // EQUI // 5
+1 <==> 1 // OPPO // 5</alignment>
+</sentence>
+<sentence id="20" status="">
+<alignment>
+3 <==> 2 // REL // 1
+2 <==> 3 // EQUI // 4
+1 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="21" status="">
+<alignment>
+3 <==> 4 // NOALI // 0
+1 <==> 3 // OPPO // 5
+2 <==> 5 // NOALI // 0
+0 <==> 6 // NOALI // 0
+0 <==> 2 // NOALI // 0
+0 <==> 1 // NOALI // 0</alignment>
+</sentence>
+<sentence id="22" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="23" status="">
+<alignment>
+1 <==> 3 // SIMI // 3
+5 <==> 5 // EQUI // 5
+4 <==> 4 // EQUI // 5
+3 <==> 2 // REL // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="24" status="">
+<alignment>
+[2] <==> [2] // EQUI // 5
+[3] <==> [6] // SIMI // 4
+[1] <==> [1] // SIMI // 4
+[ 1 ] <==> [2] // REL // 1</alignment>
+</sentence>
+<sentence id="25" status="">
+<alignment>
+2 <==> 2 // NOALI // 0
+3 <==> 3 // OPPO // 5
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="26" status="">
+<alignment>
+terminal <==> 2 // REL // 1
+only one <==> 4 // REL // 1
+3 <==> 3 // OPPO // 5
+2 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="27" status="">
+<alignment>
+1. 3 <==> 4 // SIMI // 2
+2. 4 <==> 4 // EQUI // 5
+3. 2 <==> closed path // SIMI // 4
+4. 1 <==> 2 // REL // 3
+5. 4 <==> 5 // NOALI // 0
+6. 3 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="28" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+2 <==> 2 // SIMI // 4
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="29" status="">
+<alignment>
+1 <==> 3 // SIMI // 3
+3 <==> 4 // EQUI // 5
+in different closed paths <==> 1 // REL // 4
+0 <==> 2 // NOALI // 0</alignment>
+</sentence>
+<sentence id="30" status="">
+<alignment>
+5 <==> 2 // SIMI // 4
+10 <==> 10 // EQUI // 5
+7 <==> in 11s own path // REL // 2
+11 <==> 0 // NOALI // 6 <==> 0 // NOALI // 1 <==> 0 // NOALI // 8 <==> 0 // NOALI // 3 <==> 0 // NOALI // 4 <==> 0 // NOALI // 2 <==> 0 // NOALI //</alignment>
+</sentence>
+<sentence id="31" status="">
+<alignment>
+3 <==> 3 // NOALI // 0
+2 <==> 5 // OPPO // 5
+1 <==> 1 // NOALI // 0
+1 <==> w3h the battery // NOALI // 0
+2 <==> 4 // NOALI // 0</alignment>
+</sentence>
+<sentence id="32" status="">
+<alignment>
+3 <==> 5 // REL // 1
+2 <==> 4 3 // REL // 1
+1 <==> 2 6 1 // REL // 1</alignment>
+</sentence>
+<sentence id="33" status="">
+<alignment>
+2 <==> 3 // EQUI // 5
+6 <==> 6 // EQUI // 5
+5 <==> 5 // EQUI // 5
+3 <==> 2 // REL // 3
+4 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="34" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+6 <==> 6 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 2 // REL // 2
+1 <==> 2 // REL // 1</alignment>
+</sentence>
+<sentence id="35" status="">
+<alignment>
+3 <==> Terminal 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+1 <==> to the positive terminal // REL // 3</alignment>
+</sentence>
+<sentence id="36" status="">
+<alignment>
+bulb A <==> 4 // EQUI // 5
+switch Z <==> switch Z // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 6 // REL // 2
+5 <==> 0 // NOALI // 3 <==> 0 // NOALI // with the battery and // NOALI //</alignment>
+</sentence>
+<sentence id="37" status="">
+<alignment>
+3 <==> 3 and the positive terminal // EQUI // 4
+2 <==> 2 // EQUI // 5
+1 <==> the positive terminal // REL // 3</alignment>
+</sentence>
+<sentence id="38" status="">
+<alignment>
+3 <==> 3 and the positive terminal // EQUI // 5
+2 <==> 2 // EQUI // 5
+1 <==> the positive terminal // REL // 3</alignment>
+</sentence>
+<sentence id="39" status="">
+<alignment>
+2 <==> 0 // NOALI // 0
+4 <==> 3 // SIMI // 3
+5 <==> 0 // NOALI // 0
+1 <==> 1 // SIMI // 4
+3 <==> 0 // NOALI // 0
+6 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="40" status="">
+<alignment>
+2 <==> 3 // SIMI // 4
+2 <==> 5 3 3 // NOALI // 0
+1 <==> 1 // OPPO // 5
+1 <==> 2 6 // NOALI // 0
+6 <==> 5 // NOALI // 0</alignment>
+</sentence>
+<sentence id="41" status="">
+<alignment>
+1 <==> A 4 voltage // SIMI // 3
+8 <==> 2 // EQUI // 5
+4 <==> A 4 voltage // EQUI // 5
+6 <==> 3 // SIMI // 3
+3 <==> 0 // NOALI // 5 <==> 4 // EQUI // 5
+2 <==> 0 // NOALI //</alignment>
+</sentence>
+<sentence id="42" status="">
+<alignment>
+4 <==> 4 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 2 // SIMI // 3
+7 <==> 6 // REL // 2
+6 <==> 3 // REL // 1
+8 <==> 1 // REL // 1
+5 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="43" status="">
+<alignment>
+terminal <==> 1 // REL // 1
+a <==> are // REL // 1
+not connected <==> connected // OPPO // 5
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="44" status="">
+<alignment>
+3 <==> 1 // REL // 1
+1 <==> 1 // REL // 1
+3 <==> 2 // NOALI
+1 <==> 2 // NOALI
+2 <==> 1 // NOALI
+4 <==> 1 // NOALI</alignment>
+</sentence>
+<sentence id="45" status="">
+<alignment>
+positive terminal <==> Terminal 5 // EQUI // 3
+is not separated <==> 2 // EQUI // 4
+4 <==> 3 // SIMI // 3</alignment>
+</sentence>
+<sentence id="46" status="">
+<alignment>
+5 <==> 3 // SIMI // 3
+6 <==> 0 // NOALI // 4 <==> 4 // SIMI // 3
+1 <==> 7 // SIMI // 4
+2 <==> 1 // REL // 1
+7 <==> are // SIMI // 4
+3 <==> by 3 // SIMI // 5</alignment>
+</sentence>
+<sentence id="47" status="">
+<alignment>
+2 <==> 2 // REL // 2
+3 <==> the gap // REL // 3
+1 <==> 3 // SIMI // 4
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="48" status="">
+<alignment>
+4 <==> 1 // REL // 2
+1 <==> 0 // NOALI // 0
+5 <==> 2 // REL // 1
+3 <==> 3 // EQUI // 5
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="49" status="">
+<alignment>
+2 <==> 5 // REL // 2
+3 <==> 6 // REL // 1
+1 <==> 1 // EQUI // 5
+1 <==> 4 1 3 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="50" status="">
+<alignment>
+switch <==> switch // EQUI // 5
+3 <==> 3 // EQUI // 5
+3 <==> 3 and 5 bulb // REL // 1
+switch <==> 3 and 5 bulb // REL // 1
+6 <==> 3 // REL // 1
+5 <==> 5 // EQUI // 5
+1 <==> in 5 same path // REL // 3
+2 <==> 3 and 5 bulb // REL // 3</alignment>
+</sentence>
+<sentence id="51" status="">
+<alignment>
+2 <==> 2 // EQUI // 3 3 <==> 3 // EQUI // 5 1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="52" status="">
+<alignment>
+3 <==> 2 // SIMI // 2
+4 <==> 1 // OPPO // 4
+2 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="53" status="">
+<alignment>
+[ 2 ] <==> [ 3 ] // SIMI // 3
+[ 2 ] <==> [ 2 ] // REL // 1
+[ 2 ] <==> [ 1 ] // REL // 1
+[ 1 ] <==> [ 4 ] // REL // 1
+[ 1 ] <==> [ 2 ] // REL // 1
+[ 1 ] <==> [ 1 ] // NOALI // 0</alignment>
+</sentence>
+<sentence id="54" status="">
+<alignment>
+4 <==> 3 // SIMI // 3
+3 <==> 4 // OPPO // 5
+1 <==> 1 // SIMI // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="55" status="">
+<alignment>
+1 <==> 2 // NOALI // 0
+1 <==> 1 // REL // 2
+The battery <==> 1 // NOALI // 0</alignment>
+</sentence>
+<sentence id="56" status="">
+<alignment>
+2 <==> 2 // REL // 1
+2 <==> 3 // REL // 1
+2 <==> 1 // REL // 1
+2 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="57" status="">
+<alignment>
+[ 2 ] <==> [ 7 ] // REL // 1
+[ 4 ] <==> [ 4 ] // REL // 1
+[ 3 ] <==> [ 3 ] // EQUI // 5
+[ 1 ] <==> [ in 1 ] // SIMI // 4
+[ 1 ] <==> [ 2 ] // REL // 1
+[ 1 ] <==> [ 6 ] // REL // 1
+[ 1 ] <==> 0 // NOALI // 0
+[ 1 ] <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="58" status="">
+<alignment>
+2 <==> 4 // SIMI // 3
+1 <==> 5 3 2 // EQUI // 5
+3 <==> 1 // REL // 2 2 <==> 3 // NOALI // 0</alignment>
+</sentence>
+<sentence id="59" status="">
+<alignment>
+positive terminal <==> Terminal 6 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="60" status="">
+<alignment>
+positive terminal <==> Terminal 6 // SIMI // 3
+3 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="61" status="">
+<alignment>
+3 <==> 4 // SIMI // 3
+4 <==> no gap // REL // 2
+2 <==> connected // SIMI // 4
+1 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="62" status="">
+<alignment>
+3 <==> 1 // EQUI // 3
+is connected <==> 2 // EQUI // 5
+1 <==> the positive terminal // EQUI // 4</alignment>
+</sentence>
+<sentence id="63" status="">
+<alignment>
+4 <==> 4 // EQUI // 5
+2 <==> 2 and 3 // REL // 0
+5 <==> 3 // SIMI // 3
+2 <==> 2 // EQUI // 5
+6 <==> 0 // 3 <==> 2 and 3 // REL // 0</alignment>
+</sentence>
+<sentence id="64" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 4</alignment>
+</sentence>
+<sentence id="65" status="">
+<alignment>
+1 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 4 // EQUI // 5
+2 <==> 2 // SIMI // 4
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="66" status="">
+<alignment>
+positive battery terminal <==> Terminal 6 // SIMI // 3
+was not separated <==> 2 // SIMI // 4
+4 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="67" status="">
+<alignment>
+[5] <==> [2] // SIMI // 3
+[5] <==> [1] // REL // 1
+[4] <==> [2] // REL // 1
+[3] <==> [1] // REL // 1
+[3] <==> [6] // REL // 1
+[2] <==> [2] // REL // 1
+[2] <==> [1] // REL // 1
+[6] <==> [1] // REL // 1</alignment>
+</sentence>
+<sentence id="68" status="">
+<alignment>
+4 <==> 3 // SIMI // 3
+3 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="69" status="">
+<alignment>
+positive terminal <==> Terminal 4 // EQUI // 5
+3 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="70" status="">
+<alignment>
+7 <==> 5 // SIMI // 3
+8 <==> 2 // EQUI // 5
+3 <==> 4 // REL // 1
+1 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="71" status="">
+<alignment>
+4 <==> 8 // EQUI // 5
+3 <==> 2 // OPPO // 5
+1 <==> 0 // NOALI // 0
+2 <==> 3 // EQUI // 5 6 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="72" status="">
+<alignment>
+4 <==> 2 // REL // 2
+2 <==> 0 // NOALI // 0
+3 <==> 3 // EQUI // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="73" status="">
+<alignment>
+3 <==> 0 // NOALI // 0
+1 <==> 3 // SIMI // 3
+1 <==> the negative battery terminal // NOALI // 0
+2 <==> 2 // REL // 2</alignment>
+</sentence>
+<sentence id="74" status="">
+<alignment>
+1 <==> 5 // SIMI // 3
+4 <==> 6 // SIMI // 4
+3 <==> 4 // SIMI // 3
+5 <==> 2 // REL // 1
+2 <==> 1 // SIMI // 3</alignment>
+</sentence>
+<sentence id="75" status="">
+<alignment>
+2 <==> 1 // SIMI // 3
+2 <==> 1 // REL // 2
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="76" status="">
+<alignment>
+positive battery terminal <==> Terminal 6 // EQUI // 3
+3 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="77" status="">
+<alignment>
+2 <==> 4 // EQUI // 5
+3 <==> 6 // EQUI // 5
+1 <==> 1 2 // SIMI // 4</alignment>
+</sentence>
+<sentence id="78" status="">
+<alignment>
+4 <==> Terminal 4 // NOALI // 0
+3 <==> 1 // SIMI // 4
+2 <==> 2 // EQUI // 5
+1 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="79" status="">
+<alignment>
+2 <==> 2 // SIMI // 3
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="80" status="">
+<alignment>
+6 <==> 3 6 // SIMI // 3
+6 <==> 6 // EQUI // 5
+6 <==> 4 // NOALI // 0
+6 <==> 8 // NOALI // 0
+6 <==> 2 // NOALI // 0
+the nearest burnt out bulb <==> 2 // SIMI // 4
+the nearest burnt out bulb <==> 5 // SIMI // 3
+the nearest burnt out bulb <==> 1 7 // NOALI // 0
+3 <==> 3 // NOALI // 0
+3 <==> 4 // NOALI // 0
+3 <==> 9 // NOALI // 0
+3 <==> 8 // NOALI // 0
+3 <==> 2 // NOALI // 0</alignment>
+</sentence>
+<sentence id="81" status="">
+<alignment>
+8 <==> 4 // REL // 1
+5 <==> 6 // REL // 1
+7 <==> 7 // EQUI // 5
+a battery 9 a bulb <==> the bulb 9 a battery // EQUI // 5
+2 <==> 3 // REL // 2
+9 <==> 0 // NOALI
+3 <==> a 6 path // REL // 3
+4 <==> 0 // NOALI
+6 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="82" status="">
+<alignment>
+3 <==> 2 // SIMI // 3
+2 <==> 1 // REL // 1
+4 <==> 3 // REL // 1
+1 <==> - // NOALI // -</alignment>
+</sentence>
+<sentence id="83" status="">
+<alignment>
+7 => 2 // SIMI // 3
+4 => NOALI // NOALI // 0
+8 => 8 // EQUI // 5
+3 => NO CLOSED PATH // REL // 3
+6 => NOALI // NOALI // 0
+the circuit => NO CLOSED PATH // REL // 3
+8 => 8 // EQUI // 5
+2 => NOALI // NOALI // 0
+5 => NO CLOSED PATH // EQUI // 5</alignment>
+</sentence>
+<sentence id="84" status="">
+<alignment>
+1 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+2 <==> t2 terminal // REL // 3</alignment>
+</sentence>
+<sentence id="85" status="">
+<alignment>
+2 <==> 2 // SIMI // 2
+4 <==> 0 // NOALI // 0
+didn't cause <==> 3 // SIMI // 2
+3 <==> in 4s own path // REL // 3</alignment>
+</sentence>
+<sentence id="86" status="">
+<alignment>
+2 <==> 2 // REL // 1
+2 <==> 5 // REL // 1
+2 <==> 4 // REL // 2
+2 <==> 1 // REL // 3
+3 <==> 2 // EQUI // 5
+3 <==> 5 // EQUI // 5
+3 <==> 4 // REL // 2
+3 <==> terminals 1 and 6 // REL // 2
+5 <==> 2 // REL // 1
+5 <==> 5 // EQUI // 5
+5 <==> 4 // REL // 2
+5 <==> terminals 1 and 6 // REL // 2
+4 <==> 2 // REL // 1
+4 <==> 5 // REL // 1
+4 <==> 4 // EQUI // 5
+4 <==> terminals 1 and 6 // REL // 4
+1 <==> 2 // REL // 3
+1 <==> 5 // REL // 3
+1 <==> 4 // REL // 4
+1 <==> terminals 1 and 6 // SPE1 // 4</alignment>
+</sentence>
+<sentence id="87" status="">
+<alignment>
+4 <==> 0 // NOALI // 0
+3 <==> 2 // SIMI // 4
+5 <==> 6 // EQUI // 5
+1 <==> 1 // SIMI // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="88" status="">
+<alignment>
+2 <==> 3 // EQUI // 5
+3 <==> 5 // SIMI // 4
+5 <==> 0 // NOALI // 0
+4 <==> 2 // SIMI // 3
+6 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+7 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+6 <==> 0 // NOALI // 0
+2 <==> 4 // SIMI // 3</alignment>
+</sentence>
+<sentence id="89" status="">
+<alignment>
+positive battery terminal <==> Terminal 4 // REL // 1
+separated <==> 3 // NOALI // 0
+4 <==> 2 // REL // 1</alignment>
+</sentence>
+<sentence id="90" status="">
+<alignment>
+2 <==> the electrical state // REL // 2
+2 <==> a battery // REL // 1
+2 <==> 4 // REL // 1
+2 <==> 1 // REL // 1
+2 <==> 3 // REL // 1
+4 <==> 6 // REL // 1
+4 <==> 2 // REL // 1 4 <==> 4 // REL // 2 4 <==> 1 // REL // 1 4 <==> 3 // REL // 1
+3 <==> a battery // REL // 1
+3 <==> 2 // REL // 1
+3 <==> 4 // REL // 1
+3 <==> 1 // REL // 1
+3 <==> 3 // REL // 4</alignment>
+</sentence>
+<sentence id="91" status="">
+<alignment>
+[2] <==> [2] // EQUI // 5
+[3] <==> [3] // EQUI // 5
+[1] <==> [1] // EQUI // 5</alignment>
+</sentence>
+<sentence id="92" status="">
+<alignment>
+1 <==> 3 // SIMI // 3
+3 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+4 <==> c4taining // REL // 2
+0 <==> 4 // NOALI // 0
+0 <==> 6 // NOALI // 0
+0 <==> 5 // NOALI // 0
+0 <==> 2 // NOALI // 0</alignment>
+</sentence>
+<sentence id="93" status="">
+<alignment>
+3 <==> 1 // NOALI // 0
+2 <==> the damaged bulb and the other bulb // REL // 3
+4 <==> 2 // REL // 2
+1 <==> 3 // REL // 4</alignment>
+</sentence>
+<sentence id="94" status="">
+<alignment>
+4 <==> 4 // EQUI // 5
+6 <==> 6 // EQUI // 5
+5 <==> 5 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // SIMI // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="95" status="">
+<alignment>
+6 <==> 2 // SIMI // 2
+3 <==> 0 // NOALI // 1 <==> 0 // NOALI // 2 <==> 0 // NOALI // 5 <==> 0 // NOALI // 4 <==> 0 // NOALI // 2 <==> 0 // NOALI // 3 <==> 0 // NOALI // 1 <==> 0 // NOALI //</alignment>
+</sentence>
+<sentence id="96" status="">
+<alignment>
+2 <==> 1 // REL // 1
+4 <==> 2 // REL // 1
+1 <==> 0 // NOALI
+3 <==> 1 // EQUI // 4
+5 <==> 0 // NOALI
+6 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="97" status="">
+<alignment>
+3 <==> the // REL // 1
+2 <==> 1 // EQUI // 4
+a gap <==> separated by a gap // REL // 3
+1 <==> 2 // REL // 2</alignment>
+</sentence>
+<sentence id="98" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 3 // REL // 1
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="99" status="">
+<alignment>
+5 <==> 1 // SIMI // 3
+7 <==> 7 // EQUI // 5
+2 <==> 0 // NOALI // 0
+8 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="100" status="">
+<alignment>
+Terminal 3 <==> Terminal 3 // EQUI // 5
+and the positive terminal <==> and the positive terminal // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="101" status="">
+<alignment>
+positive battery terminal <==> 1 // SIMI // 3
+was not separated <==> 2 // EQUI // 5
+4 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="102" status="">
+<alignment>
+[3] <==> [3] // EQUI // 5
+[2] <==> [2] // EQUI // 5
+[to the negative] <==> [to the negative] // EQUI // 5
+[terminal] <==> [battery terminal] // SIMI // 4</alignment>
+</sentence>
+<sentence id="103" status="">
+<alignment>
+terminal <==> 1 // SIMI // 3
+3 <==> 2 // NOALI // 0
+2 <==> 2 // OPPO // 2
+1 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="104" status="">
+<alignment>
+the positive terminal <==> Terminal 2 // SIMI // 4
+terminal 2 <==> positive terminal // SIMI // 4
+2 <==> 2 // EQUI // 5
+3 <==> 3 // REL // 3</alignment>
+</sentence>
+<sentence id="105" status="">
+<alignment>
+3 <==> 3 // REL // 1
+2 <==> 2 // REL // 1
+1 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="106" status="">
+<alignment>
+gap <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+4 <==> 3 // EQUI // 5 3 <==> 0 // NOALI // 0
+between the positive battery terminal and terminal 4 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="107" status="">
+<alignment>
+positive battery <==> positive terminal // SIMI // 3 2 <==> 2 // EQUI // 5 terminal one <==> Terminal 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="108" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+6 <==> 5 // SIMI // 3
+5 <==> 5 // EQUI // 5
+4 <==> 2 // REL // 2
+1 <==> 1 // REL // 1
+2 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="109" status="">
+<alignment>
+[1] <==> [1] // REL // 2
+[1] <==> [2] // REL // 1
+[2] <==> [2] // EQUI // 5
+[2] <==> [3] // REL // 1</alignment>
+</sentence>
+<sentence id="110" status="">
+<alignment>
+5 <==> no chunk // NOALI // 0
+2 <==> 1 // EQUI // 5
+6 <==> are // EQUI // 5
+4 <==> no chunk // NOALI // 0
+3 <==> 3 // EQUI // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="111" status="">
+<alignment>
+the positive battery terminal <==> Terminal 4 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="112" status="">
+<alignment>
+terminal 1 <==> Terminals 1 // EQUI // 5
+terminal 2 <==> Terminals 2 // EQUI // 5
+on the same side <==> connected // REL // 3</alignment>
+</sentence>
+<sentence id="113" status="">
+<alignment>
+2 <==> are 2 // EQUI // 5
+1 <==> to the positive terminal // SIMI // 4
+[ 1 ] <==> [ no relation ] // NOALI // 0</alignment>
+</sentence>
+<sentence id="114" status="">
+<alignment>
+2 <==> 5 // SIMI // 3
+5 <==> 5 // EQUI // 5
+1 <==> 1 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 1 3 // REL // 2</alignment>
+</sentence>
+<sentence id="115" status="">
+<alignment>
+4 <==> 4 // REL // 3 3 <==> 4 // EQUI // 5 1 <==> 5 // OPPO // 5 2 <==> 1 // SIMI // 4 2 <==> 3 // REL // 3 0 <==> 2 // NOALI // 0</alignment>
+</sentence>
+<sentence id="116" status="">
+<alignment>
+difference <==> a gap // REL // 3
+electrical states <==> 1 // REL // 3
+in <==> 2 // REL // 2
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="117" status="">
+<alignment>
+3 <==> Terminal 6 // EQUI // 5
+2 <==> 2 // EQUI // 5
+to positive 3 of the battery <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="118" status="">
+<alignment>
+3 <==> 3 and the positive terminal // SIMI // 3
+is separated <==> 2 // EQUI // 5
+1 <==> 3 // REL // 2</alignment>
+</sentence>
+<sentence id="119" status="">
+<alignment>
+3 <==> 2 // EQUI // 5
+1 <==> 3 // EQUI // 5
+2 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="120" status="">
+<alignment>
+3 <==> 1 // SIMI // 3
+2 <==> 2 // OPPO // 5
+1 <==> 3 // NOALI</alignment>
+</sentence>
+<sentence id="121" status="">
+<alignment>
+3 <==> 6 // EQUI // 5
+4 <==> 8 // EQUI // 5
+2 <==> 5 // SIMI // 3
+1 <==> 0 // NO9LI // 0</alignment>
+</sentence>
+<sentence id="122" status="">
+<alignment>
+[4] [3] <==> [4] [6] [3] // SIMI // 2
+[2] <==> [2] // SIMI // 2
+[1] <==> [5] [1] // REL // 1</alignment>
+</sentence>
+<sentence id="123" status="">
+<alignment>
+1 <==> a 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="124" status="">
+<alignment>
+2 <==> 2 // SIMI // 3
+1 <==> 3 // NOALI // 0
+1 <==> 1 // REL // 1
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="125" status="">
+<alignment>
+3 <==> 0 // NOALI // 0
+2 <==> 2 // EQUI // 5
+1 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0
+6 <==> 4 // REL // 2
+2 <==> 2 // EQUI // 5
+4 <==> 6 // REL // 2
+1 <==> 0 // NOALI // 0
+at 2 <==> at 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="126" status="">
+<alignment>
+3 <==> 3 and the positive terminal // EQUI // 4
+2 <==> 2 // EQUI // 5
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="127" status="">
+<alignment>
+3 <==> Terminal 1 // EQUI // 5
+2 <==> 2 // OPPO // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="128" status="">
+<alignment>
+2 <==> 2 // NOALI // 0
+4 <==> 3 // SIMI // 3
+3 <==> 0 // NOALI
+1 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="129" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="130" status="">
+<alignment>
+3 <==> 1 // REL // 2
+4 <==> 0 // NOALI // 0
+1 <==> 2 // REL // 2</alignment>
+</sentence>
+<sentence id="131" status="">
+<alignment>
+3 <==> Terminal 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+1 <==> the positive terminal // REL // 3</alignment>
+</sentence>
+<sentence id="132" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 4
+4 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="133" status="">
+<alignment>
+3 <==> 1 // SIMI // 3
+2 <==> 2 // EQUI // 5
+to positive terminal of the battery <==> to the positive terminal // SIMI // 4</alignment>
+</sentence>
+<sentence id="134" status="">
+<alignment>
+6 <==> 4 // REL // 1
+4 <==> 1 // SIMI // 3
+3 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0
+7 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+1 <==> 3 // SIMI // 3</alignment>
+</sentence>
+<sentence id="135" status="">
+<alignment>
+1 <==> Terminal 2 and the 1 // REL // 1
+1 <==> 1 // EQUI // 5
+separated <==> 2 // EQUI // 5
+separated <==> 3 // REL // 1
+2 <==> Terminal 2 and the 1 // REL // 2</alignment>
+</sentence>
+<sentence id="136" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+1 <==> 4 not // SIMI // 4
+3 <==> 0 // NOALI // 0
+4 <==> 4 // EQUI // 5</alignment>
+</sentence>
+<sentence id="137" status="">
+<alignment>
+3 <==> 2 // REL // 2
+2 <==> 1 // OPPO // 5
+4 <==> by 4 // EQUI // 5
+1 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="138" status="">
+<alignment>
+7 => 4 // SIMI // 3
+6 => 5 // EQUI // 5
+8 => 3 // SIMI // 2
+2 => 2 // REL // 1
+1 => NOALI // NOALI // NOALI
+4 => 4 // EQUI // 5
+3 => NOALI // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="139" status="">
+<alignment>
+4 <==> 2 // EQUI // 5
+3 <==> 4 // SIMI // 4
+1 <==> 1 // SIMI // 3
+2 <==> 2 // EQUI // 5
+6 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="140" status="">
+<alignment>
+3 <==> no alignment // NOALI // 0 1 <==> 2 // REL // 4 4 <==> 3 // EQUI // 5 2 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="141" status="">
+<alignment>
+3 <==> 2 // REL // 1
+4 <==> 0 // NOALI // NOALI
+5 <==> 0 // NOALI // NOALI
+2 <==> 2 // EQUI // 4
+1 <==> 9 // EQUI // 5
+6 <==> 6 // REL // 1
+2 <==> 3 // REL // 1
+5 <==> 0 // NOALI // NOALI
+3 <==> 0 // NOALI // NOALI
+4 <==> 4 // EQUI // 5
+2 <==> 2 // EQUI // 4
+1 <==> 0 // NOALI // NOALI
+6 <==> 6 // REL // 1
+7 <==> 0 // NOALI // NOALI
+9 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="142" status="">
+<alignment>
+7 <==> 1 // REL // 1
+4 <==> terminals // REL // 1
+8 <==> are // EQUI // 4
+5 <==> not connected // REL // 2
+2 <==> 0 // NOALI // NOALI
+4 <==> 0 // NOALI // NOALI
+3 <==> 0 // NOALI // NOALI
+1 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="143" status="">
+<alignment>
+1 <==> 5 // EQUI // 3
+1 <==> 2 // SIMI // 2
+1 <==> 2 // SIMI // 2
+3 <==> 3 // OPPO // 4
+2 <==> 2 // EQUI // 5
+8 <==> 3 // SIMI // 1</alignment>
+</sentence>
+<sentence id="144" status="">
+<alignment>
+gap <==> 2 // REL // 3
+2 <==> 2 // REL // 3
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="145" status="">
+<alignment>
+7 <==> 4 // SIMI // 4
+1 <==> 5 and 6 // EQUI // 5
+3 <==> 3 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="146" status="">
+<alignment>
+3 <==> 3 // NOALI // 0
+4 <==> 4 connected // SIMI // 3
+2 <==> 1 // REL // 2
+1 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="147" status="">
+<alignment>
+3 <==> 2 // SIMI // 4
+4 <==> 5 // SIMI // 3
+2 <==> a bulb // REL // 1
+1 <==> 3 // EQUI // 5
+7 <==> - // NOALI // 1 <==> 1 // EQUI // 5
+6 <==> - // NOALI //</alignment>
+</sentence>
+<sentence id="148" status="">
+<alignment>
+bulb terminal <==> 2 // SIMI // 3
+battery terminal <==> 2 // SIMI // 3
+4 <==> 4 // EQUI // 5
+1 <==> 1 // REL // 2
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="149" status="">
+<alignment>
+3 <==> 2 // REL // 2
+2 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="150" status="">
+<alignment>
+[3] <==> [3] // EQUI // 5
+[4] <==> [4] // EQUI // 5
+[1] <==> [2] // SIMI // 4
+[2] <==> [2] // SIMI // 3
+[2] <==> [with the battery and 3] // REL // 2</alignment>
+</sentence>
+<sentence id="151" status="">
+<alignment>
+2 <==> 4 // NOALI // 0
+3 <==> 6 // SIMI // 4
+1 <==> 1 // SIMI // 4
+1 <==> 2 // NOALI // 0</alignment>
+</sentence>
+<sentence id="152" status="">
+<alignment>
+4 <==> 4 // SIMI // 3
+3 <==> 4 // NOALI // 0
+5 <==> 5 // EQUI // 5
+2 <==> 3 // NOALI // 0
+1 <==> 1 // NOALI // 0</alignment>
+</sentence>
+<sentence id="153" status="">
+<alignment>
+[2] <==> [2] // EQUI // 5
+[4] <==> [6] // EQUI // 5
+[3] <==> [3] // EQUI // 5
+[1] <==> [3 1 1] // SIMI // 3</alignment>
+</sentence>
+<sentence id="154" status="">
+<alignment>
+5 <==> 5 // EQUI // 5
+4 <==> terminals 1 2 and 3 // NOALI // 0
+6 <==> 3 // REL // 2
+5 <==> 1 // REL // 1
+3 <==> 0 // 0
+1 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="155" status="">
+<alignment>
+[3] <==> [3] // EQUI // 5
+[5] <==> [5] // EQUI // 5
+[4] <==> [4] // EQUI // 5
+[1] <==> [3 1] // SIMI // 4
+[2] <==> [2] // EQUI // 5</alignment>
+</sentence>
+<sentence id="156" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+and light bulb <==> 0 // NOALI // 0
+2 <==> 3 // REL // 2
+3 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="157" status="">
+<alignment>
+[3] <==> [A 3 C] // SIMI // 3
+[1] <==> [3] // NOALI // 0
+[2] <==> [1] // SIMI // 4</alignment>
+</sentence>
+<sentence id="158" status="">
+<alignment>
+2 <==> 2 // REL // 2
+3 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="159" status="">
+<alignment>
+7 <==> 5 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 4 // EQUI // 5
+6 <==> neither // REL // 1
+3 <==> B nor C // EQUI // 5
+1 <==> 6 // REL // 1
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="160" status="">
+<alignment>
+1. 3 <==> 3 and the positive terminal // SIMI // 4
+2. 2 <==> 2 // SIMI // 3
+3. 1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="161" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // REL // 3
+3 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="162" status="">
+<alignment>
+2 <==> 3 // REL // 1
+4 <==> 1 // REL // 1
+3 <==> 2 // REL // 1
+5 <==> between 2s // REL // 1</alignment>
+</sentence>
+<sentence id="163" status="">
+<alignment>
+3 <==> 2 // EQUI // 5
+2 <==> 3 // SIMI // 4
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="164" status="">
+<alignment>
+3 <==> 1 // REL // 2
+2 <==> not connected // OPPO // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="165" status="">
+<alignment>
+[ 3 ] <==> [ ] // NOALI // 0
+[ 4 ] <==> [ 4 ] // EQUI // 5
+[ 5 ] <==> [ 5 ] // EQUI // 5
+[ 2 ] <==> [ 2 ] // SIMI // 4
+[ 1 ] <==> [ 1 ] // EQUI // 5</alignment>
+</sentence>
+<sentence id="166" status="">
+<alignment>
+7 <==> 7 // EQUI // 5
+4 <==> 1 // REL // 1
+5 <==> 6 // REL // 1
+6 <==> 2 // REL // 1
+2 <==> 2 // EQUI // 5
+1 <==> 5 // REL // 2
+4 <==> 3 // REL // 4</alignment>
+</sentence>
+<sentence id="167" status="">
+<alignment>
+3 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 4
+2 <==> 0 // NOALI // 0
+7 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="168" status="">
+<alignment>
+4 <==> 2 // NOALI // 0
+3 <==> 4 // EQUI // 5
+2 <==> 3 // REL // 2
+1 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="169" status="">
+<alignment>
+2 <==> 2 // REL // 1
+3 <==> 1 // REL // 1
+4 <==> not // OPPO // 5
+1 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="170" status="">
+<alignment>
+3 <==> 1 // SIMI // 3
+1 <==> 2 // REL // 1
+4 <==> 3 // REL // 1
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="171" status="">
+<alignment>
+3 <==> 1 // SIMI // 3
+the positive batter terminal <==> 1 // SIMI // 4
+and terminal 6 <==> 1 // EQUI // 5
+2 <==> 2 // SIMI // 4</alignment>
+</sentence>
+<sentence id="172" status="">
+<alignment>
+3 <==> 2 // REL // 1
+the circuit <==> 2 // REL // 1
+2 <==> 1 // OPPO // 5</alignment>
+</sentence>
+<sentence id="173" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+on <==> in // EQUI // 5
+6 <==> 0 // NOALI // 0
+closed paths <==> closed paths // EQUI // 5
+1 <==> 1 // EQUI // 5 4 <==> 4 // EQUI // 5</alignment>
+</sentence>
+<sentence id="174" status="">
+<alignment>
+3 <==> a bulb // EQUI // 5
+2 <==> 1 // EQUI // 5
+7 <==> 7 // EQUI // 5
+1 <==> 3 // REL // 3
+6 <==> 6 // EQUI // 5
+2 <==> 1 // REL // 2
+3 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="175" status="">
+<alignment>
+2 <==> 2 // REL // 3
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 4</alignment>
+</sentence>
+<sentence id="176" status="">
+<alignment>
+Bulb a <==> Switch Y // REL // 2
+and <==> and // EQUI // 5
+switch Y <==> bulb A // REL // 2
+3 <==> 3 // EQUI // 5
+in the same <==> in the same // EQUI // 5
+path <==> closed path // REL // 3</alignment>
+</sentence>
+<sentence id="177" status="">
+<alignment>
+chemical reaction <==> chemical reaction // EQUI // 5
+4 <==> 5 // NOALI // 0
+7 <==> 6 // NOALI // 0
+2 <==> 6 electrical states // SIMI // 4
+1 <==> 3 // REL // 1
+6 <==> 6 // EQUI // 5
+5 <==> 4 // REL // 1</alignment>
+</sentence>
+<sentence id="178" status="">
+<alignment>
+2 <==> 2 // SIMI // 4
+2 <==> the positive terminal of the battery // REL // 3
+3 <==> 3 // EQUI // 5
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="179" status="">
+<alignment>
+2 <==> Switch Y and 3 // SIMI // 3
+1 <==> 3 // OPPO // 4
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="180" status="">
+<alignment>
+bulb <==> 9 // REL // 1
+bulb <==> 3 // REL // 1
+bulb <==> 4 // REL // 1
+bulb <==> 5 // REL // 1
+bulb <==> 1 // REL // 1
+bulb <==> 2 // REL // 1
+c <==> 8 // REL // 1
+c <==> 6 // REL // 1
+c <==> 1 // REL // 1
+c <==> 3 // REL // 1</alignment>
+</sentence>
+<sentence id="181" status="">
+<alignment>
+4 <==> 4 // EQUI // 5
+the battery <==> the battery // EQUI // 5
+3 <==> 3 // REL // 0
+2 <==> 1 // SIMI // 4
+0 <==> 2 // NOALI // 0</alignment>
+</sentence>
+<sentence id="182" status="">
+<alignment>
+1 <==> 2 // SIMI // 3 2 <==> 3 // EQUI // 5
+3 <==> 5 // NOALI // 4 <==> 1 // REL // 2
+5 <==> 5 // NOALI //</alignment>
+</sentence>
+<sentence id="183" status="">
+<alignment>
+3 <==> 2 // EQUI // 4
+4 <==> 3 // EQUI // 3
+2 <==> 1 // OPPO // 5
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="184" status="">
+<alignment>
+electrical state <==> nonzero voltage // SIMI // 3
+interferred <==> 4 // REL // 2
+3 <==> 5 // REL // 1
+a nonzero voltage <==> 3 // REL // 1
+4 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="185" status="">
+<alignment>
+3 <==> No alignment // NOALI // 0
+1 <==> 2 // SIMI // 3
+1 <==> 4 // NOALI // 0
+1 <==> 3 // NOALI // 0
+1 <==> 2 // NOALI // 0
+4 <==> 3 // SIMI // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="186" status="">
+<alignment>
+4 <==> 3 // SIMI // 3
+3 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+9 <==> 0 // NOALI // 0
+8 <==> 4 // SIMI // 3
+6 <==> 5 // SIMI // 3
+7 <==> 7 // EQUI // 5
+2 <==> 1 7 // REL // 4
+1 <==> 2 // REL // 1</alignment>
+</sentence>
+<sentence id="187" status="">
+<alignment>
+6 <==> 6 // EQUI // 5
+7 <==> 2 // REL // 1
+3 <==> 4 // EQUI // 5
+1 <==> 3 // REL // 3
+2 <==> 1 // SIMI // 4
+4 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="188" status="">
+<alignment>
+4 <==> 3 // REL // 3
+are contained <==> 4 // OPPO // 5
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="189" status="">
+<alignment>
+2 <==> 2 // REL // 0
+4 <==> 3 // EQUI // 5
+3 <==> 1 // REL // 1
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="190" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="191" status="">
+<alignment>
+1 <==> 2 // EQUI // 5
+3 <==> 3 // REL // 1
+2 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="192" status="">
+<alignment>
+switch Z <==> Z // EQUI // 5
+2 <==> 1 // SIMI // 4
+1 <==> 3 // REL // 2
+4 <==> 0 // NOALI // 6 <==> 0 // NOALI // 3 <==> 3 // EQUI // 5
+1 <==> 0 // NOALI // 5 <==> 0 // NOALI // 2 <==> Z // REL // 2</alignment>
+</sentence>
+<sentence id="193" status="">
+<alignment>
+the bulb terminal <==> the negative battery terminal // EQUI // 5
+2 <==> 4 // SIMI // 3
+3 <==> 2 // OPPO // 5</alignment>
+</sentence>
+<sentence id="194" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 2 // SIMI // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="195" status="">
+<alignment>
+4 <==> 4 // SIMI // 4
+2 <==> 1 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 2 // SIMI // 4</alignment>
+</sentence>
+<sentence id="196" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+3 <==> 2 // OPPO // 5
+1 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="197" status="">
+<alignment>
+3 <==> 9 // EQUI // 5
+4 <==> 8 // EQUI // 5
+2 <==> 5 // SIMI // 4
+5 <==> 2 // REL // 3
+1 <==> 4 // EQUI // 5
+6 <==> 0 // NO9LI</alignment>
+</sentence>
+<sentence id="198" status="">
+<alignment>
+3 <==> 4 // SIMI // 2
+2 <==> 3 // REL // 1
+1 <==> w3h the battery // REL // 1
+8 <==> 6 // SIMI // 3
+9 <==> 1 // REL // 1
+7 <==> 5 // SIMI // 2</alignment>
+</sentence>
+<sentence id="199" status="">
+<alignment>
+6 <==> Terminal 6 // EQUI // 5
+terminal <==> Terminal 6 // EQUI // 5
+connected <==> connected // EQUI // 5
+1 <==> to the positive terminal // REL // 2</alignment>
+</sentence>
+<sentence id="200" status="">
+<alignment>
+batteries terminals <==> no closed paths // REL // 2
+2 <==> has // NOALI // 0
+2 <==> no closed paths // REL // 2
+2 <==> no closed paths // REL // 3</alignment>
+</sentence>
+<sentence id="201" status="">
+<alignment>
+2 <==> 2 // NOALI // 0
+8 <==> 0 // NOALI // 0
+3 <==> 4 // SIMI // 3
+9 <==> 0 // NOALI // 0
+1 <==> 5 // EQUI // 5
+7 <==> 0 // NOALI // 0
+4 <==> 3 // SIMI // 4
+3 <==> 4 // SIMI // 3
+9 <==> 0 // NOALI // 0
+6 <==> 6 // EQUI // 5</alignment>
+</sentence>
+<sentence id="202" status="">
+<alignment>
+[ 4 ] <==> [ 3 ] // SIMI // 3
+[ 2 ] <==> [ 5 ] // EQUI // 5
+[ 3 ] <==> [ - ] // NOALI // 0
+[ 5 ] <==> [ - ] // NOALI // 0
+[ 1 ] <==> [ 1 ] // REL // 4
+[ - ] <==> [ 6 ] // NOALI // 0
+[ - ] <==> [ 4 ] // NOALI // 0
+[ - ] <==> [ 2 ] // NOALI // 0</alignment>
+</sentence>
+<sentence id="203" status="">
+<alignment>
+3 <==> noalig // no alignment // 0
+2 <==> 5 // equi // 5
+1 <==> 2 // equi // 5
+4 <==> noalig // no alignment // 0
+5 <==> noalig // no alignment // 0
+1 <==> 1 // equi // 5
+3 <==> noalig // no alignment // 0
+2 <==> 2 // equi // 5</alignment>
+</sentence>
+<sentence id="204" status="">
+<alignment>
+4 <==> 3 // SIMI // 4
+2 <==> 1 // SIMI // 4
+5 <==> 4 // REL // 0
+3 <==> 0 // NOALI // NOALI
+6 <==> 0 // NOALI // NOALI
+1 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="205" status="">
+<alignment>
+2 <==> 1 // REL // 1
+4 <==> 2 // EQUI // 3
+3 <==> 3 // EQUI // 5
+1 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="206" status="">
+<alignment>
+path <==> path // EQUI // 5
+bulb <==> bulb // EQUI // 5
+3 <==> 5 // REL // 3
+for the <==> 6 // REL // 2
+closed <==> 2 // REL // 1
+the <==> the // EQUI // 5
+has to be <==> 0 // NOALI // 0
+7 <==> 0 // NOALI // 0
+switch <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="207" status="">
+<alignment>
+gap <==> gap // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+3 <==> 3 // EQUI // 5
+7 <==> 0 // NOALI // 0
+5 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+1 <==> 0 // NOALI // 0
+2 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="208" status="">
+<alignment>
+Difference <==> the gap // EQUI // 5
+Positive and negative end on the battery <==> 1 // REL // 3
+3 <==> separated // NOALI // 0
+Is <==> are // EQUI // 5</alignment>
+</sentence>
+<sentence id="209" status="">
+<alignment>
+2 <==> 1 // SIMI // 3
+2 <==> 1 // NOALI // 0
+3 <==> 2 // NOALI // 0
+3 <==> 3 // NOALI // 0</alignment>
+</sentence>
+<sentence id="210" status="">
+<alignment>
+1 <==> 3 // SIMI // 4
+4 <==> 2 // REL // 2
+2 <==> 1 // SIMI // 4
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="211" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 0 // NOALI // 3 <==> 3 // EQUI // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="212" status="">
+<alignment>
+terminal <==> 2 // SIMI // 4
+3 <==> 2 // SIMI // 3
+2 <==> 1 // OPPO // 5
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="213" status="">
+<alignment>
+terminals <==> 3 // SIMI // 4
+4 <==> 2 // SIMI // 3
+1 <==> - // NOALI // 0
+3 <==> - // NOALI // 0</alignment>
+</sentence>
+<sentence id="214" status="">
+<alignment>
+5 <==> 2 // REL // 3
+4 <==> 2 // REL // 3
+1 <==> 3 // REL // 4
+3 <==> in the same // REL // 3
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="215" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+2 <==> from 1 // REL // 3
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="216" status="">
+<alignment>
+4 <==> 3 // SIMI // 3
+2 <==> no gap // REL // 2
+6 <==> 6 // EQUI // 5
+5 <==> 0 // NOALI // 3 <==> 0 // NOALI // 1 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="217" status="">
+<alignment>
+2 <==> 3 // REL // 1
+3 <==> 2 // REL // 1
+1 <==> a gap // SIMI // 4
+1 <==> 1 // REL // 2
+// NOALI // 0</alignment>
+</sentence>
+<sentence id="218" status="">
+<alignment>
+3 <==> 2 // SIMI // 3
+2 <==> 3 // EQUI // 5
+1 <==> to the positive battery 3 // REL // 4</alignment>
+</sentence>
+<sentence id="219" status="">
+<alignment>
+[ 3 ] <==> [ 3 ] // EQUI // 5
+[ 2 ] <==> [ 2 ] // EQUI // 5
+[ 1 ] <==> [ 1 ] // REL // 3</alignment>
+</sentence>
+<sentence id="220" status="">
+<alignment>
+1 <==> 2 // SIMI // 4
+2 <==> 5 // SIMI // 3
+3 <==> 0 // NOALI 7 <==> 0 // NOALI 1 <==> 0 // NOALI 6 <==> 0 // NOALI 2 <==> 1 // SIMI // 4
+3 <==> 0 // NOALI 5 <==> 0 // NOALI 4 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="221" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // SIMI // 4
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="222" status="">
+<alignment>
+terminal <==> Terminal 6 // SIMI // 4
+3 <==> 2 // EQUI // 5
+1 <==> the positive terminal // EQUI // 5
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="223" status="">
+<alignment>
+3 <==> 7 // SIMI // 2
+4 <==> A 7 B // SIMI // 4
+6 <==> 6 // EQUI // 5
+2 <==> 1 // REL // 3
+7 <==> 5 // SIMI // 2
+5 <==> 0 // NOALI // 0
+6 <==> 2 // REL // 1
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="224" status="">
+<alignment>
+4 <==> Terminal 5 // REL // 5
+3 <==> 2 // SIMI // 4
+1 <==> the positive terminal // EQUI // 5
+2 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="225" status="">
+<alignment>
+3 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+2 <==> 1 // SIMI // 3
+2 <==> 3 // NOALI 5 <==> 5 // EQUI // 5
+2 <==> 2 // NOALI</alignment>
+</sentence>
+<sentence id="226" status="">
+<alignment>
+2 <==> 1 // REL // 1
+1 <==> positive terminal // SIMI // 3
+5 <==> 2 // EQUI // 4
+3 <==> 0 // NOALI // 0
+4 <==> the 4 // EQUI // 5</alignment>
+</sentence>
+<sentence id="227" status="">
+<alignment>
+2 <==> 7 // REL // 1
+4 <==> 4 // REL // 1
+3 <==> 3 // OPPO // 5
+1 <==> 1 // SIMI // 4
+0 <==> 2 // NOALI // 0
+0 <==> 5 // NOALI // 0</alignment>
+</sentence>
+<sentence id="228" status="">
+<alignment>
+1 <==> 3 // SIMI // 3
+2 <==> 2 // SIMI // 4
+8 <==> 4 // OPPO // 3
+6 <==> 5 // REL // 2
+3 <==> 4 // SIMI // 2
+7 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="229" status="">
+<alignment>
+3 <==> 1 // REL // 4
+4 <==> 5 // EQUI // 5
+2 <==> 0 // NOALI // 0
+5 <==> 5 // EQUI // 5
+1 <==> 1 // SIMI // 4
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="230" status="">
+<alignment>
+3 <==> 2 // REL // 2
+2 <==> 1 // OPPO // 4 1 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="231" status="">
+<alignment>
+3 <==> 2 // SIMI // 3
+2 <==> 3 // EQUI // 5
+1 <==> to the negative battery 3 // REL // 2</alignment>
+</sentence>
+<sentence id="232" status="">
+<alignment>
+Bulb A <==> A // EQUI // 5
+Bulb C <==> C // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="233" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="234" status="">
+<alignment>
+1 <==> 1 // REL // 3
+3 <==> 3 // EQUI // 5
+2 <==> 2 // REL // 4</alignment>
+</sentence>
+<sentence id="235" status="">
+<alignment>
+1 <==> an in3 circuit // SIMI // 4
+2 <==> 3 // EQUI // 3
+3 <==> in3 // REL // 2</alignment>
+</sentence>
+<sentence id="236" status="">
+<alignment>
+3 <==> 2 // NOALI // 0
+4 <==> 3 // SIMI // 4
+1 <==> 1s // EQUI // 5
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="237" status="">
+<alignment>
+battery <==> 5 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 6 // REL // 3
+0 <==> 4 // NOALI // 0
+0 <==> 1 // NOALI // 0
+0 <==> 3 // NOALI // 0</alignment>
+</sentence>
+<sentence id="238" status="">
+<alignment>
+4 <==> 5 // REL // 1
+5 <==> 6 // REL // 1
+3 <==> 2 // REL // 1
+2 <==> 1 // SIMI // 4
+1 <==> 3 // REL // 3</alignment>
+</sentence>
+<sentence id="239" status="">
+<alignment>
+1. 2 <==> 1 // EQUI // 3
+2. 3 <==> are 3 // EQUI // 5
+3. 1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="240" status="">
+<alignment>
+2 <==> 3 // EQUI // 5
+4 <==> 6 // EQUI // 4
+3 <==> 3 // EQUI // 5
+5 <==> in // REL // 2
+1 <==> 1 // REL // 3
+7 <==> 5 // EQUI // 4
+8 <==> 2 // REL // 2</alignment>
+</sentence>
+<sentence id="241" status="">
+<alignment>
+4 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+2 <==> 1 // SIMI // 4
+3 <==> 3 // EQUI // 5
+1 <==> 4 // SIMI // 3</alignment>
+</sentence>
+<sentence id="242" status="">
+<alignment>
+2 <==> 1 // REL // 3
+1 <==> 1 // EQUI // 5
+3 <==> 4 // REL // 1</alignment>
+</sentence>
+<sentence id="243" status="">
+<alignment>
+2 <==> 4 2 // SIMI // 3
+the terminal <==> 3 // EQUI // 5
+5 <==> 2 // SIMI // 3
+3 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="244" status="">
+<alignment>
+5 <==> 2 // REL // 0
+7 <==> 7 // EQUI // 5
+2 <==> 0 // NOALI // 0
+6 <==> 0 // NOALI // 0
+3 <==> 4 // REL // 0
+7 <==> 7 // EQUI // 5
+1 <==> 1 // EQUI // 5
+4 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="245" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+3 <==> 6 // SIMI // 3
+on a closed circuit path <==> 1 // REL // 1
+on a closed circuit path <==> 2 // REL // 1
+0 <==> 5 // NOALI // 0
+0 <==> 3 // NOALI // 0</alignment>
+</sentence>
+<sentence id="246" status="">
+<alignment>
+2 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // OPPO // 4
+3 <==> 3 // EQUI // 5</alignment>
+</sentence>
+<sentence id="247" status="">
+<alignment>
+battery <==> 5 // SIMI // 3
+4 <==> 1 // SIMI // 4
+9 <==> 6 // REL // 2
+5 <==> 4 // REL // 1
+7 <==> 3 // REL // 1
+11 <==> 2, positive terminal, negative terminal // REL // 2</alignment>
+</sentence>
+<sentence id="248" status="">
+<alignment>
+Terminal 3 <==> Terminal 3 // EQUI // 5
+positive terminal <==> the positive terminal // EQUI // 5
+2 <==> the 2 // EQUI // 5
+1 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="249" status="">
+<alignment>
+5 <==> 0 // NOALI // 0 3 <==> 3 // EQUI // 5 4 <==> 4 // EQUI // 5 1 <==> 1 // EQUI // 5 2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="250" status="">
+<alignment>
+1 <==> 1 // REL // 1
+2 <==> 0 // NOALI // 0
+2 <==> 3 // SIMI // 3</alignment>
+</sentence>
+<sentence id="251" status="">
+<alignment>
+2 <==> 0 // NOALI // 0
+3 <==> 3 // EQUI // 5
+4 <==> 4 not // OPPO // 5
+1 <==> 1 // OPPO // 5</alignment>
+</sentence>
+<sentence id="252" status="">
+<alignment>
+3 <==> the path 4 2 // REL // 2
+4 <==> 0 // NOALI // 2 <==> 0 // NOALI // 1 <==> 2 // REL // 3</alignment>
+</sentence>
+<sentence id="253" status="">
+<alignment>
+5 <==> 3 // REL // 2
+4 <==> 5 // SIMI // 3
+3 <==> 4 // SIMI // 3
+2 <==> 1 // EQUI // 5
+1 <==> 2 // REL // 2</alignment>
+</sentence>
+<sentence id="254" status="">
+<alignment>
+terminal <==> 1 // SIMI // 3
+a terminal <==> 0 // NOALI // 0
+2 <==> 2 // EQUI // 5
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="255" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+5 <==> 0 // NOALI // 0
+4 <==> 4 // EQUI // 5
+6 <==> 6 // EQUI // 5 1 <==> 2 // REL // 3
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="256" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // SIMI // 4</alignment>
+</sentence>
+<sentence id="257" status="">
+<alignment>
+battery <==> 2 // EQUI // 5
+4 1 <==> 1 // EQUI // 5
+4 <==> 4 // EQUI // 5
+0 <==> 6 // NOALI // 0
+0 <==> 4 // NOALI // 0
+0 <==> 5 // NOALI // 0</alignment>
+</sentence>
+<sentence id="258" status="">
+<alignment>
+[ 2 ] <==> [ 2 ] // SIMI // 4
+[ 3 ] <==> [ 3 ] // SIMI // 4
+[ 1 ] <==> [ 5 ] [ 1 ] // EQUI // 5
+[ 4 ] <==> 0 // NOALI // 0
+[ 6 ] <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="259" status="">
+<alignment>
+1 <==> 2 // SIMI // 3
+3 <==> 3 // EQUI // 5
+4 <==> 1 // REL // 2
+2 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="260" status="">
+<alignment>
+positive battery terminal <==> positive terminal // SIMI // 4
+Terminal 5 <==> Terminal 5 // EQUI // 5</alignment>
+</sentence>
+<sentence id="261" status="">
+<alignment>
+2 <==> 2 // SIMI // 3
+3 <==> not connected // EQUI // 5
+1 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="262" status="">
+<alignment>
+[4] <==> [4] // EQUI // 5
+[3] <==> [3] // EQUI // 5
+[1] <==> [3] // REL // 2
+[6] <==> [4] // REL // 2
+[2] <==> [5] // OPPO // 5
+[5] <==> [6 7] // REL // 1</alignment>
+</sentence>
+<sentence id="263" status="">
+<alignment>
+5 4 <==> 2 // SIMI // 3
+5 4 <==> 1 // NOALI // 0
+5 4 <==> 0 // NOALI // 0
+5 4 <==> 0 // NOALI // 0
+5 4 <==> 0 // NOALI // 0
+2 <==> 4 // SIMI // 3
+2 <==> 3 // NOALI // 0
+2 <==> 1 // NOALI // 0
+2 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="264" status="">
+<alignment>
+3 <==> 2 // SIMI // 3
+2 <==> 0 // NOALI // 0
+5 <==> 5 // EQUI // 5
+4 <==> 0 // NOALI // 0
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="265" status="">
+<alignment>
+4 <==> 1 // REL // 1
+3 <==> 1 // SIMI // 3
+2 <==> 2 // SIMI // 4
+1 <==> 3 // REL // 2</alignment>
+</sentence>
+<sentence id="266" status="">
+<alignment>
+4 <==> 0 // NOALI // 0
+7 <==> not // OPPO // 5
+1 <==> 1 // REL // 2
+6 <==> 0 // NOALI // 0
+3 <==> 2 // EQUI // 5
+5 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="267" status="">
+<alignment>
+light bulb <==> 4 // EQUI // 3
+2 <==> 1 // EQUI // 4
+connected <==> 3 // SIMI // 2
+1 <==> 2 // REL // 1
+3 <==> 6 3 // SIMI // 3
+1 <==> 2 // REL // 1
+1 <==> 4 // REL // 1</alignment>
+</sentence>
+<sentence id="268" status="">
+<alignment>
+1 <==> 2 // REL // 2 2 <==> in 4 state // REL // 2 6 <==> 3 // REL // 2 4 <==> in 4 state // SIMI // 4 3 <==> 0 // NOALI // 0 5 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="269" status="">
+<alignment>
+2 <==> 3 // SIMI // 4
+3 <==> 4 // EQUI // 5
+1 <==> 1 // SIMI // 3</alignment>
+</sentence>
+<sentence id="270" status="">
+<alignment>
+[2] <==> [3] // SIMI // 3
+[3] <==> [3] // EQUI // 5
+[1] <==> [1] // EQUI // 5
+0 <==> [4] // NOALI // 0
+0 <==> [6] // NOALI // 0
+0 <==> [3] // NOALI // 0
+0 <==> [5] // NOALI // 0</alignment>
+</sentence>
+<sentence id="271" status="">
+<alignment>
+3 <==> 1 // EQUI // 3
+2 <==> 2 // OPPO // 4
+1 <==> 3 // REL // 2</alignment>
+</sentence>
+<sentence id="272" status="">
+<alignment>
+6 <==> There // SIMI // 2
+3 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+4 <==> 4 // EQUI // 5
+7 <==> 7 // EQUI // 5
+5 <==> 5 // EQUI // 5
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="273" status="">
+<alignment>
+[ 5 ] <==> [ 4 ] // SIMI // 4
+[ 7 ] <==> [ 7 ] // EQUI // 5
+[ 1 ] <==> [ 5 ] [ 3 ] [ 2 ] // SIMI // 3
+[ 2 ] <==> [ 2 and switch Z ] // REL // 2
+[ 6 ] <==> 0 // NOALI // 0
+[ 4 ] <==> [ switch Z ] // EQUI // 5
+[ 3 ] <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="274" status="">
+<alignment>
+3 <==> 3 // SIMI // 3
+4 <==> 4 // EQUI // 5
+1 <==> 4 // REL // 1
+2 <==> 1 2 // SIMI // 4</alignment>
+</sentence>
+<sentence id="275" status="">
+<alignment>
+4 <==> 0 // alignment type // score 0
+2 <==> 2 // SIMI // score 4
+3 <==> 3 // EQUI // score 5
+1 <==> 1 // SIMI // score 4</alignment>
+</sentence>
+<sentence id="276" status="">
+<alignment>
+2 <==> 2 // EQUI // 2
+1 <==> 1 // EQUI // 5
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="277" status="">
+<alignment>
+3 <==> 2 // SIMI // 4
+2 <==> are 2 // EQUI // 5
+1 <==> to the positive battery 3 // SIMI // 4</alignment>
+</sentence>
+<sentence id="278" status="">
+<alignment>
+3 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="279" status="">
+<alignment>
+2 <==> 2 // SIMI // 4
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="280" status="">
+<alignment>
+3 <==> 1 // SIMI // 3
+2 <==> 2 // OPPO // 5
+to positive terminal <==> 0 // 0
+4 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="281" status="">
+<alignment>
+terminal 1 <==> 2 // SIMI // 3
+are connected <==> not connected // OPPO // 5
+3 <==> the negative battery terminal // REL // 2</alignment>
+</sentence>
+<sentence id="282" status="">
+<alignment>
+[2] <==> [battery and switch Z] // REL // 3
+[4] <==> [4] // EQUI // 5
+[1] <==> [5] // REL // 2
+[5] <==> [3] // REL // 1
+[3] <==> [4] // EQUI // 5
+[2] <==> [1] // REL // 3</alignment>
+</sentence>
+<sentence id="283" status="">
+<alignment>
+2 <==> 1 // SIMI // 2
+1 <==> 3 // SIMI // 2
+3 <==> 5 // NOALI // 0
+3 <==> 2 // REL // 1</alignment>
+</sentence>
+<sentence id="284" status="">
+<alignment>
+3 <==> 3 // EQUI // 0
+2 <==> 2 // EQUI // 5
+4 <==> 0 // NOALI // 0
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="285" status="">
+<alignment>
+3 <==> 5 // EQUI // 5
+4 <==> 7 // EQUI // 5
+2 <==> 2 // EQUI // 5
+1 <==> 1 2 // REL // 3
+8 <==> 0 // NOALI // 0
+6 3 <==> 6 // EQUI // 5
+4 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="286" status="">
+<alignment>
+terminal <==> 2 // SIMI // 4
+terminal <==> positive battery terminal // REL // 2
+connected <==> separated // OPPO // 5
+a bulb <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="287" status="">
+<alignment>
+the positive battery terminal <==> Terminal 4 // SIMI // 4
+has no gaps <==> not separated by the gap // OPPO // 4
+from terminal 4 <==> Terminal 4 // EQUI // 5</alignment>
+</sentence>
+<sentence id="288" status="">
+<alignment>
+3 <==> 4 // EQUI // 5
+2 <==> 1 // SIMI // 4
+4 <==> 4 // EQUI // 5
+1 <==> 2 // SIMI // 3</alignment>
+</sentence>
+<sentence id="289" status="">
+<alignment>
+2 <==> 0 // NOALI // 0 1 <==> 1 // EQUI // 5
+4 <==> 4 not // OPPO // 3
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="290" status="">
+<alignment>
+[ 4 ] <==> [ 4 ] // EQUI // 5
+[ 5 ] <==> [ 5 ] // NOALI // 0
+[ 3 ] <==> [ 3 ] // SIMI // 4
+[ 1 ] <==> [ 6 ] // SIMI // 3
+[ 2 ] <==> [ 1 ] // REL // 2</alignment>
+</sentence>
+<sentence id="291" status="">
+<alignment>
+3 <==> 2 // SIMI // 3
+1 <==> 3 // EQUI // 5
+4 <==> 1 // SIMI // 4
+2 <==> 0 // NOALI</alignment>
+</sentence>
+<sentence id="292" status="">
+<alignment>
+4 <==> 4 // EQUI // 5
+3 <==> 3 // EQUI // 5
+1 <==> 1 // REL // 3
+2 <==> 2 // EQUI // 5
+3 <==> 3 // REL // 3
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="293" status="">
+<alignment>
+3 <==> 1 // SIMI // 3
+1 <==> 2 // EQUI // 5
+to terminal 4 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="294" status="">
+<alignment>
+2 <==> 0 // NOALI // NOALI 3 <==> 3 // OPPO // 5 1 <==> 1 // REL // 3 5 <==> 0 // NOALI // NOALI 4 <==> 4 // EQUI // 5</alignment>
+</sentence>
+<sentence id="295" status="">
+<alignment>
+1 <==> 1 // EQUI // 4
+3 <==> 3 // REL // 1
+2 <==> 1 // REL // 2
+1 <==> 2 // NOALI // 0
+3 <==> 3 // REL // 1
+2 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="296" status="">
+<alignment>
+switch <==> switch // EQUI // 5
+4 <==> 6 // REL // 1
+2 <==> 2 // SIMI // 4
+1 <==> 1 // NOALI // 0
+3 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5</alignment>
+</sentence>
+<sentence id="297" status="">
+<alignment>
+4 <==> 2 // SIMI // 4
+positive and negative terminal <==> 1 // SIMI // 4
+positive and negative terminal <==> the positive terminal // SIMI // 3
+3 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="298" status="">
+<alignment>
+3 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 5 // REL // 0
+1 <==> 4 // REL // 0
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="299" status="">
+<alignment>
+5==> 4 // SIMI // 3
+3==> 2 // SIMI // 4
+4==> 3 // EQUI // 5
+1==> NOALI // NOALI // 0
+6==> Z // EQUI // 5
+2==> NOALI // NOALI // 0</alignment>
+</sentence>
+<sentence id="300" status="">
+<alignment>
+sw8ch <==> the sw8ch // EQUI // 5
+bulb <==> 6 // EQUI // 5
+6 <==> the bulb // EQUI // 5
+the bulb <==> the bulb // EQUI // 5
+8 <==> the sw8ch // REL // 1
+1 <==> the sw8ch and the bulb // EQUI // 5
+7 <==> contained // REL // 3
+3 <==> 2 // SIMI // 4
+9 <==> 4 // REL // 2
+4 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="301" status="">
+<alignment>
+positive battery terminal <==> the positive terminal // EQUI // 5
+not connected <==> 2 // OPPO // 5
+0 <==> 3 // NOALI // 0</alignment>
+</sentence>
+<sentence id="302" status="">
+<alignment>
+2 <==> 3 // EQUI // 5
+6 <==> 6 // EQUI // 5
+4 <==> 4 // EQUI // 5
+3 <==> 2 // SIMI // 4
+5 <==> with // REL // 1
+1 <==> the battery // SIMI // 4</alignment>
+</sentence>
+<sentence id="303" status="">
+<alignment>
+2 <==> 2 // EQUI // 5
+4 <==> 3 // REL // 0
+3 <==> 1 // REL // 0
+5 <==> 1 // REL // 0
+on their own completed circuits <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="304" status="">
+<alignment>
+bulb B <==> 2 // REL // 2
+damage <==> damaged // EQUI // 4
+left <==> 3 // REL // 1
+6 <==> 6 // EQUI // 5
+3 <==> from the pos8ive battery terminal // REL // 1
+7 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+8 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="305" status="">
+<alignment>
+2 <==> 2s // SIMI // 4
+3 <==> 2 // EQUI // 5
+1 <==> 3 // REL // 3</alignment>
+</sentence>
+<sentence id="306" status="">
+<alignment>
+terminal <==> 2 // SIMI // 3
+terminal <==> another terminal // REL // 2
+connected <==> connected // EQUI // 5
+1 <==> 1 // REL // 2
+3 <==> 0 // 0</alignment>
+</sentence>
+<sentence id="307" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+1 <==> 3 2 // REL // 2
+2 <==> switch Y // REL // 1
+2 <==> switch Y // REL // 1</alignment>
+</sentence>
+<sentence id="308" status="">
+<alignment>
+5 <==> 5 // EQUI // 5
+7 <==> 7 // EQUI // 5
+2 <==> 3 // SIMI // 4
+3 <==> 2 A C Z // REL // 3
+6 <==> 0 // NOALI // 0
+4 <==> 0 // NOALI // 0
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="309" status="">
+<alignment>
+1 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+2 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="310" status="">
+<alignment>
+4 <==> 2 // REL // 1
+7 <==> 7 // EQUI // 5
+2 <==> 1 // REL // 2
+6 <==> 0 // NOALI
+3 <==> 2 // EQUI // 5
+1 <==> 7 // EQUI // 3
+5 <==> 1 // REL // 1</alignment>
+</sentence>
+<sentence id="311" status="">
+<alignment>
+4 => 1 // REL // 2
+3 => Terminal 1 // EQUI // 5
+is separated => 2 // EQUI // 5
+1 => 3 // REL // 3</alignment>
+</sentence>
+<sentence id="312" status="">
+<alignment>
+3 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="313" status="">
+<alignment>
+3 <==> 0 // NOALI // 0
+4 <==> 3 // EQUI // 5
+5 <==> 5 // EQUI // 5
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="314" status="">
+<alignment>
+positive terminal <==> positive terminal // EQUI // 5
+connected <==> separated // REL // 0
+3 <==> 3 // REL // 0</alignment>
+</sentence>
+<sentence id="315" status="">
+<alignment>
+2 <==> 0 //NOALI//0 bulb a is in a closed path <==> Bulbs A and C are still in closed paths //REL//2
+bulb c is in a closed path <==> Bulbs A and C are still in closed paths //REL//2</alignment>
+</sentence>
+<sentence id="316" status="">
+<alignment>
+1 <==> 1 // SIMI // 3
+1 <==> separated // REL // 1
+3 <==> are // REL // 1
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="317" status="">
+<alignment>
+chemical <==> 2 // EQUI // 5
+battery <==> 5 // EQUI // 5
+2 <==> 3 // REL // 2
+1 <==> 6 // REL // 1
+1 <==> 2 // REL // 1
+1 <==> 4 // REL // 1</alignment>
+</sentence>
+<sentence id="318" status="">
+<alignment>
+[ 1 ] <==> [ 1 ] // EQUI // 5
+[ 3 ] <==> [ 3 ] // EQUI // 5
+[ 2 ] <==> [ 2 ] // EQUI // 4</alignment>
+</sentence>
+<sentence id="319" status="">
+<alignment>
+bulb a <==> A // EQUI // 5
+bulb c <==> C // EQUI // 5
+3 <==> 3 // EQUI // 5
+2 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="320" status="">
+<alignment>
+1 <==> 1 // REL // 1
+1 <==> 2 // REL // 1
+1 <==> 3 // REL // 1</alignment>
+</sentence>
+<sentence id="321" status="">
+<alignment>
+The <==> The // EQUI // 5
+other bulb <==> 1 // EQUI // 5
+2 <==> 2 // REL // 0
+bulb <==> damaged bulb // REL // 0
+damaged bulb <==> damaged bulb // EQUI // 5
+other bulb <==> 1 // EQUI // 5
+2 <==> 2 // REL // 0</alignment>
+</sentence>
+<sentence id="322" status="">
+<alignment>
+2 <==> 3 // REL // 2
+3 <==> 3 // EQUI // 5
+5 <==> 6 // REL // 2
+4 <==> 3 // REL // 3
+1 <==> 2 5 1 // REL // 2</alignment>
+</sentence>
+<sentence id="323" status="">
+<alignment>
+[If] <==> [4] // SIMI // 4
+[2] <==> [2 and the bulb] // REL // 1
+[6 4] <==> [3] // REL // 1
+[3] <==> [2] // SIMI // 3
+[1] <==> [NOALI] // NOALI // 0</alignment>
+</sentence>
+<sentence id="324" status="">
+<alignment>
+3 <==> Terminals 3 // EQUI // 5
+connected <==> connected // EQUI // 5
+1 <==> 1 // REL // 3</alignment>
+</sentence>
+<sentence id="325" status="">
+<alignment>
+1 <==> no alignment // NOALI // 0
+3 <==> 2 // REL // 1
+4 <==> 4 // SIMI // 3
+5 <==> no alignment // NOALI // 0
+2 <==> 1 // REL // 2</alignment>
+</sentence>
+<sentence id="326" status="">
+<alignment>
+3 <==> Terminals 3 // EQUI // 5
+2 <==> 2 // EQUI // 5
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="327" status="">
+<alignment>
+3 <==> 4 // EQUI // 5
+6 <==> 6 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 1 // REL // 3
+1 <==> 1 // REL // 3
+2 <==> 2 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 <==> 3 // REL // 3
+3 <==> 9 // REL // 3
+6 <==> 6 // EQUI // 5</alignment>
+</sentence>
+<sentence id="328" status="">
+<alignment>
+2 <==> 2 // SIMI // 4
+3 <==> 3 // EQUI // 5
+4 <==> 0 // NOALI // 0
+1 <==> 1 // EQUI // 5</alignment>
+</sentence>
+<sentence id="329" status="">
+<alignment>
+3 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+1 <==> 1 // SIMI // 4
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="330" status="">
+<alignment>
+11 <==> 7 // EQUI // 5
+5 <==> 5 // EQUI // 5
+1 <==> 1 // REL // 2
+3 <==> 2 // REL // 3
+9 <==> 6 // NOALI // 8 <==> 0 // 10 <==> 0 // 4 <==> 5 // REL // 4
+7 <==> 7 // EQUI // 5</alignment>
+</sentence>
+<sentence id="331" status="">
+<alignment>
+[ 2 ] <==> [ 3 ] // REL // 2
+[ 2 ] <==> [ 3 ] // REL // 2
+[ 2 ] <==> [ 2 ] // REL // 1
+[ 5 ] <==> [ 4 ] // REL // 1
+[ 5 ] <==> [ 3 ] // REL // 1
+[ 5 ] <==> [ 1 ] // REL // 1
+[ 5 ] <==> [ 2 ] // REL // 1
+[ 5 ] <==> [ 4 ] // REL // 1
+[ 5 ] <==> [ not affect ] // REL // 1 [ 3 ] <==> [ 3 ] // REL // 1
+[ 3 ] <==> [ 4 ] // REL // 1
+[ 3 ] <==> [ 1 ] // REL // 1
+[ 3 ] <==> [ 2 ] // REL // 1
+[ 3 ] <==> [ 4 ] // REL // 1
+[ 3 ] <==> [ not affect ] // REL // 1
+[ 1 ] <==> [ 3 ] // REL // 2
+[ 1 ] <==> [ 4 ] // REL // 2
+[ 1 ] <==> [ 1 ] // REL // 2
+[ 1 ] <==> [ 2 ] // REL // 2
+[ 1 ] <==> [ 4 ] // REL // 2</alignment>
+</sentence>
+<sentence id="332" status="">
+<alignment>
+not separated <==> 2 // EQUI // 5
+2 <==> 3 // EQUI // 5
+1 <==> 0 // NOALI // NOALI</alignment>
+</sentence>
+<sentence id="333" status="">
+<alignment>
+[ 3 ] <==> [ 3 ] // SIMI // 3
+[ 1 ] <==> [ 1 ] // SIMI // 5
+[ 2 ] <==> [ 2 ] // EQUI // 5</alignment>
+</sentence>
+<sentence id="334" status="">
+<alignment>
+2 <==> 2 // SIMI // 3
+3 <==> 0 // NOALI // 0
+6 <==> 6 // EQUI // 5
+4 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="335" status="">
+<alignment>
+Bulb A and bulb B <==> 4 // EQUI // 5
+6 <==> 6 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 1 // REL // 3
+3 <==> 1 // SIMI // 4
+2 <==> 2 // EQUI // 5
+8 <==> 9 3 // REL // 1</alignment>
+</sentence>
+<sentence id="336" status="">
+<alignment>
+2 <==> 2 // SIMI // 3
+3 <==> 3 // EQUI // 5
+1 <==> 1 // SIMI // 4
+4 <==> 0 // NO5LI // 5 <==> 0 // NO5LI //</alignment>
+</sentence>
+<sentence id="337" status="">
+<alignment>
+1 <==> 1 // SIMI // 3
+2 <==> 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+8 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0
+6 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0
+7 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="338" status="">
+<alignment>
+2 <==> 2 // SIMI // 3
+1 <==> 1 // SIMI // 4</alignment>
+</sentence>
+<sentence id="339" status="">
+<alignment>
+17 <==> 2 // REL // 1
+8 <==> 15 // REL // 1
+1 <==> 0 // NOAL17 // 0
+9 <==> 0 // NOAL17 // 0
+12 <==> 0 // NOAL17 // 0
+13 <==> 0 // NOAL17 // 0
+15 <==> 0 // NOAL17 // 0
+2 <==> 0 // NOAL17 // 0
+14 <==> 0 // NOAL17 // 0
+5 <==> 0 // NOAL17 // 0
+10 <==> 0 // NOAL17 // 0
+6 <==> 0 // NOAL17 // 0
+7 <==> 0 // NOAL17 // 0
+3 <==> 0 // NOAL17 // 0
+15 <==> 0 // NOAL17 // 0
+4 <==> 0 // NOAL17 // 0
+11 <==> 0 // NOAL17 // 0</alignment>
+</sentence>
+<sentence id="340" status="">
+<alignment>
+3 <==> 0 // NOALI // 0
+5 <==> 0 // NOALI // 0
+6 <==> 0 // NOALI // 0
+4 <==> 2 3 // REL // 4
+1 <==> 1 // SIMI // 3
+2 <==> 0 // NOALI // 0</alignment>
+</sentence>
+<sentence id="341" status="">
+<alignment>
+3 <==> 4 // EQUI // 5
+6 <==> 6 // EQUI // 5
+5 <==> 5 // EQUI // 5
+4 <==> 1 // REL // 3
+2 <==> 2 // REL // 3
+1 <==> 2 // REL // 4
+8 <==> 8 // EQUI // 5
+9 <==> 3 // REL // 2</alignment>
+</sentence>
+<sentence id="342" status="">
+<alignment>
+4 <==> 4 // SIMI // 3
+1 <==> 1 // EQUI // 5
+3 <==> 3 // EQUI // 5
+2 <==> 2 // EQUI // 5</alignment>
+</sentence>
+<sentence id="343" status="">
+<alignment>
+bulb c <==> 1 2 // SIMI // 3
+switch z <==> 1 2 // SIMI // 3
+3 <==> 6 // EQUI // 5
+1 <==> 3 // REL // 2</alignment>
+</sentence>
+<sentence id="344" status="">
+<alignment>
+3 <==> 4 // NOALI // 0
+4 <==> 2 // SIMI // 3
+5 <==> 3 // SIMI // 3
+1 <==> 1 // OPPO // 5
+2 <==> 5 // SIMI // 3</alignment>
+</sentence>

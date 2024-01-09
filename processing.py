@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from lxml import etree
+import re
 
 
 def load_sentences(senteance1_path: str, sentance2_path: str) -> pd.DataFrame:
@@ -31,6 +32,9 @@ def chunk2list(chunks: str) -> list:
   chunks = chunks.replace(']', '')
   chunks = chunks.replace('   ', '|')
   split = chunks.split('|')
+
+  split = [re.sub(r'^\s+|\s+$', '', s) for s in split] # remove spaces at the beggining and end of chunks
+  split = [re.sub(r'[^\w\s]', '', s) for s in split] # remove punctuation
   return split
 
 
@@ -125,7 +129,7 @@ def generate_train_test_split(x: pd.DataFrame, y: pd.DataFrame):
 
   return train, validate, test
 
-def generate_alignment_format(dataFrame, id):
+def generate_alignment_format(dataFrame:pd.DataFrame, id:int) -> str:
   output = "seq1:\n"
   chunks1 = dataFrame["chunked_sentance1"][id]
   for i, chunk in enumerate(chunks1):
@@ -134,4 +138,16 @@ def generate_alignment_format(dataFrame, id):
   chunks2 = dataFrame["chunked_sentance2"][id]
   for i, chunk in enumerate(chunks2):
     output = output + str(i+1) + ") " + str(chunk) + "\n"
+  return output
+
+def get_chunks_as_text(data:pd.DataFrame) -> str:
+  output = []
+  for index, row in data.iterrows():
+    chunks = ""
+    for chunk in row["chunked_sentance1"]:
+      chunks = chunks + "[ " + chunk  + " ] "
+    chunks = chunks + "\n"
+    for chunk in row["chunked_sentance2"]:
+      chunks = chunks + "[ " + chunk  + " ] "
+    output.append(chunks)
   return output

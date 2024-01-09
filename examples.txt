@@ -1,0 +1,176 @@
+seq1:
+1)  terminal 1 and the positive terminal
+2) are connected.
+
+seq2:
+1)  Terminal 1 and the positive terminal
+2) are separated
+3) by the gap
+
+correct anwser for this is:
+
+7 8 <==> 7 8 // OPPO // 4 // are connected. <==> are separated
+0 <==> 9 10 11 // NOALI // NIL // -not aligned- <==> by the gap
+1 2 3 4 5 6 <==> 1 2 3 4 5 6 // EQUI // 5 // terminal 1 and the positive terminal <==> Terminal 1 and the positive terminal
+
+seq1:
+1)  positive battery
+2) is seperated
+3) by a gap
+4) from terminal 2
+
+seq2:
+1)  Terminal 2 and the positive terminal
+2) are separated
+3) by the gap
+
+correct anwser for this is:
+
+1 2 8 9 10 <==> 1 2 3 4 5 6 // EQUI // 5 // positive battery from terminal 2 <==> Terminal 2 and the positive terminal
+5 6 7 <==> 9 10 11 // EQUI // 5 // by a gap <==> by the gap
+3 4 <==> 7 8 // EQUI // 5 // is seperated <==> are separated
+
+seq1:
+1)  There
+2) is
+3) no difference
+4) between the two terminals.
+
+seq2:
+1)  The terminals
+2) are
+3) in the same state.
+
+correct anwser for this is:
+
+1 <==> 0 // NOALI // NIL // There <==> -not aligned-
+3 4 <==> 4 5 6 7 // SIMI // 3 // no difference <==> in the same state.
+2 <==> 3 // EQUI // 5 // is <==> are
+5 6 7 8 <==> 1 2 // SPE1 // 4 // between the two terminals. <==> The terminals
+
+seq1:
+1)  the switch
+2) has to be contained
+3) in the same path
+4) as
+5) the bulb and the battery
+
+seq2:
+1)  The switch and the bulb
+2) have to be
+3) in the same path
+
+correct anwser for this is:
+
+7 8 9 10 <==> 9 10 11 12 // EQUI // 5 // in the same path <==> in the same path
+3 4 5 6 <==> 6 7 8 // EQUI // 5 // has to be contained <==> have to be
+1 2 12 13 14 15 16 <==> 1 2 3 4 5 // SPE2 // 4 // the switch the bulb and the battery <==> The switch and the bulb
+11 <==> 0 // NOALI // NIL // as <==> -not aligned-
+
+seq1:
+1)  there
+2) is
+3) a gap
+4) in terminal 1
+
+seq2:
+1)  Terminals 1 and 2
+2) are
+3) in the same electrical state
+
+correct anwser for this is:
+
+5 6 7 <==> 1 2 3 4 // SPE1 // 4 // in terminal 1 <==> Terminals 1 and 2
+1 <==> 0 // NOALI // NIL // there <==> -not aligned-
+3 4 <==> 6 7 8 9 10 // REL // 2 // a gap <==> in the same electrical state
+2 <==> 5 // SIMI // 3 // is <==> are
+
+seq1:
+1)  The battery
+2) uses
+3) the chemical reation
+4) to create
+5) voltage
+
+seq2:
+1)  A battery
+2) uses
+3) a chemical reaction
+4) to maintain
+5) different electrical states
+6) at the terminals
+
+correct anwser for this is:
+
+3 <==> 3 // EQUI // 5 // uses <==> uses
+7 8 <==> 7 8 // SIMI // 2 // to create <==> to maintain
+4 5 6 <==> 4 5 6 // EQUI // 5 // the chemical reation <==> a chemical reaction
+9 <==> 9 10 11 // REL // 3 // voltage <==> different electrical states
+0 <==> 12 13 14 // NOALI // NIL // -not aligned- <==> at the terminals
+1 2 <==> 1 2 // EQUI // 5 // The battery <==> A battery
+
+seq1:
+1)  a batter
+2) uses
+3) a chemical reaction
+4) to create
+5) voltage
+
+seq2:
+1)  A battery
+2) uses
+3) a chemical reaction
+4) to maintain
+5) different electrical states
+6) at the terminals
+
+correct anwser for this is:
+
+3 <==> 3 // EQUI // 5 // uses <==> uses
+7 8 <==> 7 8 // SIMI // 2 // to create <==> to maintain
+9 <==> 9 10 11 // REL // 3 // voltage <==> different electrical states
+4 5 6 <==> 4 5 6 // EQUI // 5 // a chemical reaction <==> a chemical reaction
+1 2 <==> 1 2 // EQUI // 5 // a batter <==> A battery
+0 <==> 12 13 14 // NOALI // NIL // -not aligned- <==> at the terminals
+
+seq1:
+1)  the battery
+2) alone
+3) is
+4) in a closed path
+
+seq2:
+1)  The battery
+2) is contained
+3) in a path
+4) which
+5) does not contain any other components
+
+correct anwser for this is:
+
+1 2 <==> 1 2 // EQUI // 5 // the battery <==> The battery
+4 <==> 3 4 // EQUI // 5 // is <==> is contained
+5 6 7 8 <==> 5 6 7 // EQUI // 5 // in a closed path <==> in a path
+3 <==> 9 10 11 12 13 14 // EQUI // 5 // alone <==> does not contain any other components
+5 6 7 8 <==> 8 // EQUI // 5 // in a closed path <==> which
+
+seq1:
+1)  Because
+2) there
+3) is
+4) a gap
+5) in the circuit.
+
+seq2:
+1)  there
+2) is
+3) a gap
+4) in the circuit
+
+correct anwser for this is:
+
+2 <==> 1 // EQUI // 5 // there <==> there
+4 5 <==> 3 4 // EQUI // 5 // a gap <==> a gap
+1 <==> 0 // NOALI // NIL // Because <==> -not aligned-
+6 7 8 <==> 5 6 7 // EQUI // 5 // in the circuit. <==> in the circuit
+3 <==> 2 // EQUI // 5 // is <==> is
