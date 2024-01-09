@@ -11,13 +11,13 @@ def load_sentences(senteance1_path: str, sentance2_path: str) -> pd.DataFrame:
                           dtype=str,
                           delimiter="}",
                           header=None)
-  sentance1.columns = ["headlines_sentance1"]
+  sentance1.columns = ["sentance1"]
 
   sentance2 = pd.read_csv(sentance2_path,
                           dtype=str,
                           delimiter="}",
                           header=None)
-  sentance2.columns = ["headlines_sentance2"]
+  sentance2.columns = ["sentance2"]
 
   sentances = pd.concat([sentance1, sentance2], axis=1)
   return sentances
@@ -42,21 +42,21 @@ def load_chunked(chunked_path1: str, chunked_path2: str) -> pd.DataFrame:
                                   dtype=str,
                                   delimiter="}",
                                   header=None)
-  chunked_sentance1.columns = ["headlines_chunked_sentance1"]
+  chunked_sentance1.columns = ["chunked_sentance1"]
 
   chunked_sentance2 = pd.read_csv(chunked_path2,
                                   dtype=str,
                                   delimiter="}",
                                   header=None)
-  chunked_sentance2.columns = ["headlines_chunked_sentance2"]
+  chunked_sentance2.columns = ["chunked_sentance2"]
 
   headlines_chunked = pd.concat([chunked_sentance1, chunked_sentance2], axis=1)
 
   # convert chunks from str to list
-  headlines_chunked['headlines_chunked_sentance1'] = headlines_chunked[
-      'headlines_chunked_sentance1'].apply(chunk2list)
-  headlines_chunked['headlines_chunked_sentance2'] = headlines_chunked[
-      'headlines_chunked_sentance2'].apply(chunk2list)
+  headlines_chunked['chunked_sentance1'] = headlines_chunked[
+      'chunked_sentance1'].apply(chunk2list)
+  headlines_chunked['chunked_sentance2'] = headlines_chunked[
+      'chunked_sentance2'].apply(chunk2list)
 
   return headlines_chunked
 
@@ -125,3 +125,13 @@ def generate_train_test_split(x: pd.DataFrame, y: pd.DataFrame):
 
   return train, validate, test
 
+def generate_alignment_format(dataFrame, id):
+  output = "seq1:\n"
+  chunks1 = dataFrame["chunked_sentance1"][id]
+  for i, chunk in enumerate(chunks1):
+    output = output + str(i+1) + ") " + str(chunk) + "\n"
+  output = output + "\nseq2:\n"
+  chunks2 = dataFrame["chunked_sentance2"][id]
+  for i, chunk in enumerate(chunks2):
+    output = output + str(i+1) + ") " + str(chunk) + "\n"
+  return output
