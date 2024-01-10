@@ -1,0 +1,92 @@
+<sentence id="40" status="">
+<alignment>
+0 1 <==> 0 1 // SIMI // 4 // Chinese shares <==> Japanese shares 
+3 <==> 3 // EQUI // 5 // Tuesday <==> Tuesday 
+2 <==> 2 // EQUI // 5 // higher <==> higher 
+2 3 <==> 4 // NOALI // NIL // higher Tuesday <==> -not aligned- 
+1 <==> 1 // EQUI // 5 // close <==> close
+</alignment>
+</sentence>
+
+<sentence id="275" status="">
+<alignment>
+0 <==> 4 5 6 // NOALI // NIL // -not aligned- <==> was at Shiite place of worship 
+3 4 <==> 3 4 // EQUI // 5 // 77 <==> 77 
+1 2 <==> 1 2 // EQUI // 5 // killed <==> killed 
+5 6 7 <==> 5 6 // REL // 2 // in Iraq mosque bombing <==> at the mosque
+</alignment>
+</sentence>
+
+<sentence id="56" status="">
+<alignment>
+1 2 <==> 0 // NOALI // NIL // on Iraq Funeral <==> -not aligned- 
+0 <==> 1 // NOALI // NIL // -not aligned- <==> Owner 
+2 <==> 3 // NOALI // NIL // Kill <==> -not aligned- 
+3 <==> 3 // EQUI // 5 // 92 <==> 92 
+4 5 <==> 2 4 // EQUI // 5 // Other Attacks <==> Other Deadly Attacks 
+0 <==> 5 6 // NOALI // NIL // Assault <==> -not aligned-
+</alignment>
+</sentence>
+
+<sentence id="290" status="">
+<alignment>
+0 1 2 <==> 0 1 2 // EQUI // 5 // Los Angeles airport worker <==> Los Angeles airport worker 
+3 <==> 3 // EQUI // 5 // charged <==> charged 
+4 5 6 <==> 4 5 6 // EQUI // 5 // with making 911 threats <==> with making 911 threats
+</alignment>
+</sentence>
+
+<sentence id="298" status="">
+<alignment>
+1 2 3 <==> 0 1 // SIMI // 4 // Bangladesh factory owners <==> Singapore cruise operators 
+5 6 <==> 3 // NOALI // NIL // as death toll <==> -not aligned- 
+2 <==> 2 // EQUI // 5 // arrested <==> arrested 
+3 <==> 4 // NOALI // NIL // nears <==> -not aligned- 
+4 <==> 5 // EQUI // 5 // 350 <==> 350
+</alignment>
+</sentence>
+
+<sentence id="1" status="">
+<alignment>
+[0] [1] <==> [0] [1] // EQUI // 5 // China's Peace Ark <==> China's Peace Ark
+[3] [4] <==> [3] [4] // EQUI // 5 // for the Philippines <==> for the Philippines
+[5] <==> [5] // EQUI // 5 // Thursday <==> Thursday
+[2] <==> [2] // EQUI // 5 // departs <==> departs
+</alignment>
+</sentence>
+
+<sentence id="233" status="">
+<alignment>
+[ Fire in Russian psychiatric hospital ] <==> [ Fire in Russian psychiatric hospital ] // EQUI // 5
+[ kills ] <==> [ kills ] // EQUI // 5
+[ 38 ] <==> [ 38 ] // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="338" status="">
+<alignment>
+2 <==> 0 // NOALI // NIL // face specter <==> -not aligned- 
+3 <==> 0 1 2 // REL // 1 // of collapse <==> shows signs of tension 
+0 <==> 2 // NOALI // NIL // Syria opposition unity <==> -not aligned- 
+1 <==> 1 // EQUI // 5 // take <==> take
+</alignment>
+</sentence>
+
+<sentence id="102" status="">
+<alignment>
+1 <==> 1 // EQUI // 5 // rise <==> rise 
+2 <==> 2 // EQUI // 5 // in Israeli air strikes <==> in Israeli air strikes 
+3 4 <==> 3 4 // EQUI // 5 // on Gaza <==> on Gaza 
+0 <==> 0 // EQUI // 5 // Deaths <==> Deaths
+</alignment>
+</sentence>
+
+<sentence id="10" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5 // to execute <==> to execute 
+3 <==> 3 // EQUI // 5 // Palestinian captives <==> Palestinian captives 
+0 <==> 0 // EQUI // 5 // Israeli calls <==> Israeli calls 
+4 5 <==> 4 5 // EQUI // 5 // instead of releasing them <==> instead of releasing them
+</alignment>
+</sentence>
+

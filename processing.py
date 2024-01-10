@@ -120,14 +120,15 @@ def test_XML():
   # test out the format
   print(alignments_data[0]["alignment_text"])
 
-def generate_train_test_split(x: pd.DataFrame, y: pd.DataFrame):
+def generate_train_test_split(xy: pd.DataFrame):
   """
   Generates a train, validate, test split of the given dataframes in a 60% 20% 20% ratio
   """
-  data = pd.merge(x, y, left_index=True, right_index=True)
-  train, validate, test = np.split(data.sample(frac=1, random_state=42), [int(.6*len(data)), int(.8*len(data))])
+  #data = pd.merge(x, y, left_index=True, right_index=True)
+  data = xy
+  train, test = np.split(data.sample(frac=1, random_state=42), [int(.03*len(data))])
 
-  return train, validate, test
+  return train, test
 
 def generate_alignment_format(dataFrame:pd.DataFrame, id:int) -> str:
   output = "seq1:\n"
@@ -150,4 +151,4 @@ def get_chunks_as_text(data:pd.DataFrame) -> str:
     for chunk in row["chunked_sentance2"]:
       chunks = chunks + "[ " + chunk  + " ] "
     output.append(chunks)
-  return output
+  return output, data.index

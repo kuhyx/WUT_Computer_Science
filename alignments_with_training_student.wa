@@ -1,0 +1,45 @@
+<sentence id="320" status="">
+<alignment>
+1 <==> 0 // NOALI // NIL // Bulb terminals 3 and 4 <==> -not aligned- 
+2 3 <==> 1 2 3 // REL // 3 // Terminal 1 and the positive terminal <==> Terminal 1 and the positive terminal 
+4 <==> 4 // EQUI // 5 // are separated <==> are separated 
+0 <==> 5 // NOALI // NIL // -not aligned- <==> by the gap
+</alignment>
+</sentence>
+
+<sentence id="261" status="">
+<alignment>
+1 <==> 3 4 // REL // 3 // the the bulb terminal <==> the terminals 
+5 <==> 1 // NOALI // NIL // disconnected <==> -not aligned- 
+0 <==> 2 // NOALI // NIL // -not aligned- <==> are not connected
+</alignment>
+</sentence>
+
+<sentence id="115" status="">
+<alignment>
+1 <==> 0 // NOALI // NIL // Because <==> -not aligned-
+4 <==> 5 // EQUI // 5 // The bulb <==> The bulb
+3 <==> 2 // EQUI // 5 // does not have <==> is not
+6 7 <==> 8 9 // EQUI // 5 // in the closed path <==> in the closed path containing
+2 <==> 1 // EQUI // 5 // a closed path <==> closed path
+0 <==> 3 // NOALI // NIL // -not aligned- <==> the battery
+</alignment>
+</sentence>
+
+<sentence id="221" status="">
+<alignment>
+1 2 3 4 <==> 2 3 4 5 // EQUI // 5 // Bulbs B and C <==> B and C 
+5 6 <==> 7 8 // EQUI // 5 // are contained <==> are 
+7 8 9 10 <==> 6 7 8 9 // EQUI // 5 // on the same path <==> in the same path with the battery
+</alignment>
+</sentence>
+
+<sentence id="311" status="">
+<alignment>
+1 <==> 0 // NOALI // NIL // Because <==> -not aligned- 
+4 <==> 6 7 8 // EQUI // 5 // from the positive battery terminal <==> by the gap 
+2 3 <==> 1 2 3 // EQUI // 5 // is seperated <==> are separated 
+0 <==> 4 // NOALI // NIL // -not aligned- <==> Terminal 1
+</alignment>
+</sentence>
+

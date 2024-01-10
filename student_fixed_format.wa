@@ -1,4 +1,4 @@
-<sentence id="1" status="">
+<sentence id="2" status="">
 <alignment>
 2 3 4 5 <==> 1 2 3 4 // EQUI // 5
 7 <==> 5 // SIMI // 4
@@ -7,7 +7,7 @@
 </alignment>
 </sentence>
 
-<sentence id="2" status="">
+<sentence id="3" status="">
 <alignment>
 1 2 3 4 5 6 <==> 1 2 3 4 5 6 // EQUI // 5
 7 8 <==> 7 8 // OPPO // 5
@@ -15,36 +15,33 @@
 </alignment>
 </sentence>
 
-<sentence id="3" status="">
+<sentence id="4" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 // EQUI // 4
-is separated <==> 7 8 // EQUI // 5
 5 6 7 <==> 9 10 11 // EQUI // 5
-8 9 10 <==> 0 // NOALI // NOALI
+8 9 10 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="4" status="">
+<sentence id="5" status="">
 <alignment>
-1 <==> The // SIMI // 3
 2 <==> 3 // SIMI // 3
 3 4 <==> 4 5 6 7 // OPPO // 4
 5 6 7 8 <==> 1 2 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="5" status="">
+<sentence id="6" status="">
 <alignment>
-switch <==> switch and the bulb // SIMI // 3
 1 2 <==> 1 2 3 4 5 // SIMI // 3
 3 4 5 6 <==> 6 7 8 // SIMI // 3
 7 8 9 10 <==> 9 10 11 12 // EQUI // 5
-11 <==> 0 // NOALI // NOALI
-12 13 14 15 16 <==> 0 // NOALI // NOALI
+11 <==> 0 // NOALI // 0
+12 13 14 15 16 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="6" status="">
+<sentence id="7" status="">
 <alignment>
 1 <==> 1 2 3 4 // REL // 1
 2 <==> 5 // EQUI // 5
@@ -53,9 +50,8 @@ switch <==> switch and the bulb // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="7" status="">
+<sentence id="8" status="">
 <alignment>
-battery <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
 4 5 6 <==> 4 5 6 // SIMI // 4
 7 8 <==> 7 8 // REL // 1
@@ -63,7 +59,7 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="8" status="">
+<sentence id="9" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 2
 3 <==> 3 // EQUI // 5
@@ -73,16 +69,14 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="9" status="">
+<sentence id="10" status="">
 <alignment>
-battery <==> 1 2 // EQUI // 5
 3 <==> 9 10 11 12 13 14 // EQUI // 5
-4 <==> is // EQUI // 5
 5 6 7 8 <==> 5 6 7 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="10" status="">
+<sentence id="11" status="">
 <alignment>
 1 <==> 1 // REL // 1
 2 <==> 1 // EQUI // 5
@@ -92,7 +86,7 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="11" status="">
+<sentence id="12" status="">
 <alignment>
 1 2 3 4 <==> 1 2 // NOALI // 0
 5 6 <==> 3 // OPPO // 5
@@ -100,37 +94,33 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="12" status="">
+<sentence id="13" status="">
 <alignment>
 1 <==> 5 6 // REL // 1
 2 <==> 1 2 3 4 // REL // 1
-3 <==> 0 // NOALI // NOALI
-4 5 6 <==> 0 // NOALI // NOALI
+3 <==> 0 // NOALI // 0
+4 5 6 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="13" status="">
+<sentence id="14" status="">
 <alignment>
 1 2 <==> 1 // REL // 1
 3 <==> 2 // EQUI // 5
 4 5 6 7 <==> 3 4 // REL // 1
 4 5 6 7 <==> 5 // REL // 1
 4 5 6 7 <==> 6 // NOALI // 0
-4 5 6 7 <==> 6 nd // NOALI // 0
-4 5 6 7 <==> 6 different p6 th // REL // 2
 8 9 10 <==> 5 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="14" status="">
+<sentence id="15" status="">
 <alignment>
-Terminals 4 5 and 6 <==> Terminlas // SPE1 // 3
 4 5 <==> 6 7 // EQUI // 5
-to the positive battery terminal <==> to the positive terminal // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="15" status="">
+<sentence id="16" status="">
 <alignment>
 1 2 <==> 1 // NOALI // 0
 3 4 <==> 2 // REL // 1
@@ -138,7 +128,7 @@ to the positive battery terminal <==> to the positive terminal // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="16" status="">
+<sentence id="17" status="">
 <alignment>
 1 <==> 1 2 3 4 5 6 // REL // 2
 2 <==> 7 8 9 // OPPO // 3
@@ -147,30 +137,25 @@ to the positive battery terminal <==> to the positive terminal // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="17" status="">
+<sentence id="18" status="">
 <alignment>
 1 2 <==> 2 3 // EQUI // 5
 3 <==> 4 5 // REL // 0
 4 5 <==> 6 7 8 9 10 11 12 13 14 // REL // 0
-If <==> 0 // NOALI // 0
-0 <==> created // NOALI // 0
 0 <==> 4 5 // NOALI // 0
-0 <==> a gap // NOALI // 0
 0 <==> 6 7 8 9 // NOALI // 0
-is <==> 0 // NOALI // 0
 0 <==> 11 12 13 14 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="18" status="">
+<sentence id="19" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 // EQUI // 4
 3 4 <==> 7 8 // EQUI // 5
-5 6 7 8 <==> of the battery // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="19" status="">
+<sentence id="20" status="">
 <alignment>
 1 2 <==> 1 2 // NOALI // 0
 3 <==> 3 // EQUI // 5
@@ -178,7 +163,7 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="20" status="">
+<sentence id="21" status="">
 <alignment>
 1 2 <==> 1 2 // REL // 1
 3 4 5 <==> 5 6 // EQUI // 4
@@ -186,7 +171,7 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="21" status="">
+<sentence id="22" status="">
 <alignment>
 1 2 <==> 1 2 // NOALI // 0
 3 4 5 <==> 3 4 // OPPO // 5
@@ -197,7 +182,7 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="22" status="">
+<sentence id="23" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 <==> 2 // EQUI // 5
@@ -206,7 +191,7 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="23" status="">
+<sentence id="24" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 // SIMI // 3
 6 <==> 5 // EQUI // 5
@@ -216,7 +201,7 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="24" status="">
+<sentence id="25" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // SIMI // 4
@@ -225,7 +210,7 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="25" status="">
+<sentence id="26" status="">
 <alignment>
 1 2 3 4 <==> 1 2 // NOALI // 0
 5 6 <==> 3 // OPPO // 5
@@ -233,59 +218,51 @@ is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="26" status="">
+<sentence id="27" status="">
 <alignment>
-terminal <==> 1 2 // REL // 1
-only one <==> 3 4 // REL // 1
 4 5 <==> 5 6 // OPPO // 5
 6 7 8 <==> 7 8 9 10 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="27" status="">
-<alignment>
-1. 1 <==> 1 2 // SIMI // 2
-2. 2 <==> 3 // EQUI // 5
-3. 3 4 <==> closed path // SIMI // 4
-4. 5 6 7 <==> 11 12 13 // REL // 3
-5. Bulb A <==> 4 // NOALI // 0
-6. contained <==> 6 7 8 9 10 // REL // 2
-</alignment>
-</sentence>
-
 <sentence id="28" status="">
 <alignment>
-1 2 <==> the gap // EQUI // 5
-3 <==> 7 8 // SIMI // 4
-4 5 6 7 8 9 10 <==> 1 2 3 4 5 6 // SIMI // 4
+1 <==> 1 2 // SIMI // 2
+2 <==> 3 // EQUI // 5
+5 6 7 <==> 11 12 13 // REL // 3
 </alignment>
 </sentence>
 
 <sentence id="29" status="">
 <alignment>
-1 2 3 4 5 6 7 <==> 1 2 3 // SIMI // 3
-8 9 <==> 4 // EQUI // 5
-in different closed paths <==> 5 6 7 // REL // 4
-0 <==> 8 9 10 // NOALI // 0
+3 <==> 7 8 // SIMI // 4
+4 5 6 7 8 9 10 <==> 1 2 3 4 5 6 // SIMI // 4
 </alignment>
 </sentence>
 
 <sentence id="30" status="">
 <alignment>
-2 3 <==> 1 2 // SIMI // 4
-4 <==> 3 // EQUI // 5
-5 <==> 4 5 6 7 // REL // 2
-6 <==> 0 // NOALI // 
-7 <==> 0 // NOALI // 
-8 9 10 <==> 0 // NOALI // 
-11 <==> 0 // NOALI // 
-12 <==> 0 // NOALI // 
-4 blocked <==> 0 // NOALI // 
-15 16 17 <==> 0 // NOALI // 
+1 2 3 4 5 6 7 <==> 1 2 3 // SIMI // 3
+8 9 <==> 4 // EQUI // 5
+0 <==> 8 9 10 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="31" status="">
+<alignment>
+2 3 <==> 1 2 // SIMI // 4
+4 <==> 3 // EQUI // 5
+5 <==> 4 5 6 7 // REL // 2
+6 <==> 0 // NOALI // 0 
+7 <==> 0 // NOALI // 0 
+8 9 10 <==> 0 // NOALI // 0 
+11 <==> 0 // NOALI // 0 
+12 <==> 0 // NOALI // 0 
+15 16 17 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="32" status="">
 <alignment>
 1 <==> 1 2 // NOALI // 0
 2 3 <==> 3 // OPPO // 5
@@ -295,7 +272,7 @@ in different closed paths <==> 5 6 7 // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="32" status="">
+<sentence id="33" status="">
 <alignment>
 1 <==> 1 // REL // 1
 2 3 <==> 2 3 4 5 // REL // 1
@@ -303,7 +280,7 @@ in different closed paths <==> 5 6 7 // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="33" status="">
+<sentence id="34" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 // EQUI // 5
 5 <==> 5 // EQUI // 5
@@ -313,7 +290,7 @@ in different closed paths <==> 5 6 7 // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="34" status="">
+<sentence id="35" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 // EQUI // 5
 5 <==> 5 // EQUI // 5
@@ -323,43 +300,34 @@ in different closed paths <==> 5 6 7 // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="35" status="">
-<alignment>
-1 2 <==> Terminal 1 // EQUI // 5
-3 4 5 <==> 7 8 9 // EQUI // 5
-6 7 8 9 10 <==> to the positive terminal // REL // 3
-</alignment>
-</sentence>
-
 <sentence id="36" status="">
 <alignment>
-bulb A <==> 1 2 // EQUI // 5
-switch Z <==> switch Z // EQUI // 5
-7 8 9 10 <==> 6 7 8 9 // EQUI // 5
-6 <==> 3 // REL // 2
-still <==> 0 // NOALI // 
-contained <==> 0 // NOALI // 
-0 <==> with the battery and // NOALI // 
+3 4 5 <==> 7 8 9 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="37" status="">
 <alignment>
-1 2 <==> 1 2 3 4 5 6 // EQUI // 4
-3 4 <==> 7 8 // EQUI // 5
-5 6 7 8 9 <==> the positive terminal // REL // 3
+7 8 9 10 <==> 6 7 8 9 // EQUI // 5
+6 <==> 3 // REL // 2
 </alignment>
 </sentence>
 
 <sentence id="38" status="">
 <alignment>
-1 2 <==> 1 2 3 4 5 6 // EQUI // 5
+1 2 <==> 1 2 3 4 5 6 // EQUI // 4
 3 4 <==> 7 8 // EQUI // 5
-5 6 7 8 9 <==> the positive terminal // REL // 3
 </alignment>
 </sentence>
 
 <sentence id="39" status="">
+<alignment>
+1 2 <==> 1 2 3 4 5 6 // EQUI // 5
+3 4 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="40" status="">
 <alignment>
 1 2 3 <==> 0 // NOALI // 0
 4 <==> 2 // SIMI // 3
@@ -370,7 +338,7 @@ contained <==> 0 // NOALI //
 </alignment>
 </sentence>
 
-<sentence id="40" status="">
+<sentence id="41" status="">
 <alignment>
 2 3 4 5 <==> 2 3 // SIMI // 4
 2 3 4 5 <==> 1 2 3 4 5 // NOALI // 0
@@ -380,19 +348,19 @@ contained <==> 0 // NOALI //
 </alignment>
 </sentence>
 
-<sentence id="41" status="">
+<sentence id="42" status="">
 <alignment>
 2 3 4 <==> 1 2 3 // SIMI // 3
 5 <==> 4 // EQUI // 5
 6 <==> 1 2 3 // EQUI // 5
 7 <==> 6 // SIMI // 3
-8 9 <==> 0 // NOALI // 
+8 9 <==> 0 // NOALI // 0 
 10 11 <==> 8 9 // EQUI // 5
-12 13 14 <==> 0 // NOALI // 
+12 13 14 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="42" status="">
+<sentence id="43" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 4 <==> 3 4 // EQUI // 5
@@ -405,16 +373,13 @@ contained <==> 0 // NOALI //
 </alignment>
 </sentence>
 
-<sentence id="43" status="">
+<sentence id="44" status="">
 <alignment>
-terminal <==> 1 2 3 4 // REL // 1
-a <==> are // REL // 1
-not connected <==> connected // OPPO // 5
 6 7 8 9 10 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="44" status="">
+<sentence id="45" status="">
 <alignment>
 3 4 <==> 1 2 3 4 // REL // 1
 5 6 7 <==> 1 2 3 4 // REL // 1
@@ -425,68 +390,57 @@ not connected <==> connected // OPPO // 5
 </alignment>
 </sentence>
 
-<sentence id="45" status="">
-<alignment>
-positive terminal <==> Terminal 5 // EQUI // 3
-is not separated <==> 7 8 9 // EQUI // 4
-7 8 9 <==> 10 11 12 // SIMI // 3
-</alignment>
-</sentence>
-
 <sentence id="46" status="">
 <alignment>
-1 <==> 1 // SIMI // 3
-2 <==> 0 // NOALI // 
-3 <==> 3 // SIMI // 3
-4 <==> 4 // SIMI // 4
-5 <==> 5 6 // REL // 1
-6 <==> are // SIMI // 4
-7 8 <==> 9 10 11 // SIMI // 5
+7 8 9 <==> 10 11 12 // SIMI // 3
 </alignment>
 </sentence>
 
 <sentence id="47" status="">
 <alignment>
-1 2 3 <==> 7 8 // REL // 2
-4 <==> the gap // REL // 3
-5 6 7 <==> 9 10 11 // SIMI // 4
-Terminal 2 and the positive terminal <==> 0 // NOALI // 0
+1 <==> 1 // SIMI // 3
+2 <==> 0 // NOALI // 0 
+3 <==> 3 // SIMI // 3
+4 <==> 4 // SIMI // 4
+5 <==> 5 6 // REL // 1
+7 8 <==> 9 10 11 // SIMI // 5
 </alignment>
 </sentence>
 
 <sentence id="48" status="">
 <alignment>
-1 <==> 1 2 3 4 5 6 // REL // 2
-2 3 4 <==> 0 // NOALI // 0
-5 <==> 7 8 // REL // 1
-6 7 <==> a voltage // EQUI // 5
-8 9 10 <==> 0 // NOALI // 0
+1 2 3 <==> 7 8 // REL // 2
+5 6 7 <==> 9 10 11 // SIMI // 4
 </alignment>
 </sentence>
 
 <sentence id="49" status="">
 <alignment>
-1 <==> 1 2 // REL // 2
-2 <==> 3 // REL // 1
-3 4 5 <==> 4 5 6 // EQUI // 5
-3 4 5 <==> 7 8 9 10 11 12 13 14 // NOALI // NOALI
+1 <==> 1 2 3 4 5 6 // REL // 2
+2 3 4 <==> 0 // NOALI // 0
+5 <==> 7 8 // REL // 1
+8 9 10 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="50" status="">
 <alignment>
-switch <==> switch // EQUI // 5
-2 3 <==> the switch // EQUI // 5
-2 3 <==> 2 3 4 5 6 // REL // 1
-switch <==> 2 3 4 5 6 // REL // 1
-4 <==> 7 8 // REL // 1
-5 <==> the // EQUI // 5
-6 7 8 9 <==> 9 10 11 12 // REL // 3
-with 5 bulb <==> 2 3 4 5 6 // REL // 3
+1 <==> 1 2 // REL // 2
+2 <==> 3 // REL // 1
+3 4 5 <==> 4 5 6 // EQUI // 5
+3 4 5 <==> 7 8 9 10 11 12 13 14 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="51" status="">
+<alignment>
+2 3 <==> 2 3 4 5 6 // REL // 1
+4 <==> 7 8 // REL // 1
+6 7 8 9 <==> 9 10 11 12 // REL // 3
+</alignment>
+</sentence>
+
+<sentence id="52" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // EQUI // 3 
 5 <==> 4 // EQUI // 5 
@@ -494,7 +448,7 @@ with 5 bulb <==> 2 3 4 5 6 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="52" status="">
+<sentence id="53" status="">
 <alignment>
 1 <==> 1 2 // SIMI // 2
 2 <==> 3 4 5 // OPPO // 4
@@ -503,9 +457,9 @@ with 5 bulb <==> 2 3 4 5 6 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="53" status="">
+<sentence id="54" status="">
 <alignment>
- 1 2 <==> 1 // SIMI // 3
+1 2 <==> 1 // SIMI // 3
  1 2 <==> 3 4 // REL // 1
  1 2 <==> 5 6 7 // REL // 1
  3 4 5 <==> 2 // REL // 1
@@ -514,7 +468,7 @@ with 5 bulb <==> 2 3 4 5 6 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="54" status="">
+<sentence id="55" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // SIMI // 3
 5 6 <==> 4 5 // OPPO // 5
@@ -523,15 +477,14 @@ with 5 bulb <==> 2 3 4 5 6 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="55" status="">
+<sentence id="56" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 // NOALI // 0
 1 2 3 4 5 <==> 4 5 6 7 // REL // 2
-The battery <==> 4 5 6 7 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="56" status="">
+<sentence id="57" status="">
 <alignment>
 1 2 <==> 7 8 // REL // 1
 1 2 <==> 9 10 11 // REL // 1
@@ -543,9 +496,9 @@ The battery <==> 4 5 6 7 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="57" status="">
+<sentence id="58" status="">
 <alignment>
- 1 <==> 1 // REL // 1
+1 <==> 1 // REL // 1
  2 <==> 2 3 // REL // 1
  3 <==> 11 // EQUI // 5
  4 5 6 <==> 12 13 14 15 // SIMI // 4
@@ -556,7 +509,7 @@ The battery <==> 4 5 6 7 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="58" status="">
+<sentence id="59" status="">
 <alignment>
 3 <==> 4 // SIMI // 3
 4 5 6 <==> 5 6 7 8 9 10 // EQUI // 5
@@ -565,49 +518,41 @@ The battery <==> 4 5 6 7 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="59" status="">
-<alignment>
-positive terminal <==> Terminal 6 // EQUI // 5
-7 8 <==> 7 8 // EQUI // 5
-</alignment>
-</sentence>
-
 <sentence id="60" status="">
 <alignment>
-positive terminal <==> Terminal 6 // SIMI // 3
-4 5 <==> 7 8 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="61" status="">
 <alignment>
-1 <==> there // SIMI // 3
-2 <==> no gap // REL // 2
-3 4 5 <==> connected // SIMI // 4
-6 7 8 <==> 5 6 7 8 9 // REL // 2
+4 5 <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="62" status="">
 <alignment>
-1 2 <==> 1 2 3 4 5 6 // EQUI // 3
-is connected <==> 7 8 // EQUI // 5
-5 6 7 8 <==> the positive terminal // EQUI // 4
+6 7 8 <==> 5 6 7 8 9 // REL // 2
 </alignment>
 </sentence>
 
 <sentence id="63" status="">
 <alignment>
+1 2 <==> 1 2 3 4 5 6 // EQUI // 3
+</alignment>
+</sentence>
+
+<sentence id="64" status="">
+<alignment>
 1 <==> 1 // EQUI // 5
 2 3 <==> 2 3 4 5 6 // REL // 0
 4 <==> 7 8 // SIMI // 3
-in the same path <==> 9 10 11 12 // EQUI // 5
 9 <==> 0 // // 0
 10 11 <==> 2 3 4 5 6 // REL // 0
 </alignment>
 </sentence>
 
-<sentence id="64" status="">
+<sentence id="65" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // EQUI // 5
 5 <==> 4 // EQUI // 5
@@ -615,7 +560,7 @@ in the same path <==> 9 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="65" status="">
+<sentence id="66" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 // EQUI // 5
 6 <==> 5 // EQUI // 5
@@ -625,28 +570,13 @@ in the same path <==> 9 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="66" status="">
+<sentence id="67" status="">
 <alignment>
-positive battery terminal <==> Terminal 6 // SIMI // 3
-was not separated <==> 7 8 9 // SIMI // 4
 8 9 10 <==> 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="67" status="">
-<alignment>
-If <==> A GAP // SIMI // 3
-If <==> WIL BE CREATED // REL // 1
-bulb A <==> 6 7 8 9 // REL // 1
-burns out <==> WIL BE CREATED // REL // 1
-burns out <==> 10 // REL // 1
-neither B nor C <==> A GAP // REL // 1
-neither B nor C <==> WIL BE CREATED // REL // 1
-is <==> WIL BE CREATED // REL // 1
-</alignment>
-</sentence>
-
-<sentence id="68" status="">
+<sentence id="69" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // SIMI // 3
 5 6 <==> 4 // EQUI // 5
@@ -655,35 +585,22 @@ is <==> WIL BE CREATED // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="69" status="">
+<sentence id="70" status="">
 <alignment>
-positive terminal <==> Terminal 4 // EQUI // 5
 4 5 <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="70" status="">
-<alignment>
-If <==> 5 // SIMI // 3
-C <==> 3 4 // EQUI // 5
-A and B <==> 10 // REL // 1
-in a closed path <==> 0 // 0 // 0
-</alignment>
-</sentence>
-
-<sentence id="71" status="">
+<sentence id="72" status="">
 <alignment>
 1 2 <==> 2 // EQUI // 5
 3 4 5 <==> 4 // OPPO // 5
 6 7 8 9 10 <==> 0 // NOALI // 0
-11 12 13 14 15 <==> 5 6 7 // EQUI // 5 
-If <==> 0 // NOALI // 0
-still <==> 0 // NOALI // 0
-in a closed path <==> 0 // NOALI // 0
+11 12 13 14 15 <==> 5 6 7 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="72" status="">
+<sentence id="73" status="">
 <alignment>
 1 <==> 1 2 3 4 5 // REL // 2
 2 3 4 <==> 0 // NOALI // 0
@@ -692,16 +609,15 @@ in a closed path <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="73" status="">
+<sentence id="74" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
 2 3 4 5 6 7 8 <==> 1 2 // SIMI // 3
-2 3 4 5 6 7 8 <==> the negative battery terminal // NOALI // 0
 9 10 11 12 13 <==> 3 4 // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="74" status="">
+<sentence id="75" status="">
 <alignment>
 1 <==> 1 2 // SIMI // 3
 2 <==> 3 // SIMI // 4
@@ -711,7 +627,7 @@ in a closed path <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="75" status="">
+<sentence id="76" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 // SIMI // 3
 1 2 <==> 7 8 9 // REL // 2
@@ -719,14 +635,13 @@ in a closed path <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="76" status="">
+<sentence id="77" status="">
 <alignment>
-positive battery terminal <==> Terminal 6 // EQUI // 3
 5 6 <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="77" status="">
+<sentence id="78" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
@@ -734,16 +649,15 @@ positive battery terminal <==> Terminal 6 // EQUI // 3
 </alignment>
 </sentence>
 
-<sentence id="78" status="">
+<sentence id="79" status="">
 <alignment>
-1 <==> Terminal 4 // NOALI // 0
 2 3 <==> 1 2 3 4 5 6 7 // SIMI // 4
 4 5 <==> 8 9 10 11 12 13 // EQUI // 5
 6 7 8 9 <==> 0 // 0 // 0
 </alignment>
 </sentence>
 
-<sentence id="79" status="">
+<sentence id="80" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 3
 3 <==> 3 // EQUI // 5
@@ -751,16 +665,8 @@ positive battery terminal <==> Terminal 6 // EQUI // 3
 </alignment>
 </sentence>
 
-<sentence id="80" status="">
+<sentence id="81" status="">
 <alignment>
-voltage <==> 1 2 // SIMI // 3
-voltage <==> 2 // EQUI // 5
-voltage <==> 3 // NOALI // 0
-voltage <==> 11 12 // NOALI // 0
-voltage <==> 13 14 15 // NOALI // 0
-the nearest burnt out bulb <==> 13 14 15 // SIMI // 4
-the nearest burnt out bulb <==> 4 5 // SIMI // 3
-the nearest burnt out bulb <==> 7 8 9 10 // NOALI // 0
 3 <==> 1 // NOALI // 0
 3 <==> 3 // NOALI // 0
 3 <==> 6 // NOALI // 0
@@ -769,12 +675,11 @@ the nearest burnt out bulb <==> 7 8 9 10 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="81" status="">
+<sentence id="82" status="">
 <alignment>
 1 <==> 1 // REL // 1
 2 <==> 2 // REL // 1
 3 <==> 7 // EQUI // 5
-a battery 13 a bulb <==> 8 9 10 11 12 // EQUI // 5
 9 10 11 12 <==> 6 // REL // 2
 13 <==> 0 // NOALI // 0
 14 15 <==> 3 4 5 // REL // 3
@@ -783,30 +688,29 @@ a battery 13 a bulb <==> 8 9 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="82" status="">
+<sentence id="83" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 3 <==> 3 4 5 // REL // 1
 4 <==> 2 // REL // 1
-5 6 7 8 <==> - // NOALI // -
+5 6 7 8 <==> 0 // NOALI // -
 </alignment>
 </sentence>
 
-<sentence id="83" status="">
+<sentence id="84" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 3 <==> 0 // NOALI // 0
 4 <==> 2 // EQUI // 5
 5 <==> 3 4 5 // REL // 3
 6 <==> 0 // NOALI // 0
-the circuit <==> 3 4 5 // REL // 3
 4 <==> 2 // EQUI // 5
 10 11 <==> 0 // NOALI // 0
 12 <==> 3 4 5 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="84" status="">
+<sentence id="85" status="">
 <alignment>
 1 2 3 4 5 6 7 <==> 1 2 3 4 5 // EQUI // 5
 8 9 <==> 6 7 // EQUI // 5
@@ -814,41 +718,35 @@ the circuit <==> 3 4 5 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="85" status="">
+<sentence id="86" status="">
 <alignment>
 1 <==> 1 2 // SIMI // 2
 2 <==> 0 // NOALI // 0
-didn't cause <==> 3 // SIMI // 2
 5 6 <==> 4 5 6 7 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="86" status="">
+<sentence id="87" status="">
 <alignment>
 1 <==> 1 // REL // 1
 1 <==> 2 // REL // 1
 1 <==> 3 4 // REL // 2
-1 <==> between terminal 1 and terminal 6 // REL // 3
 2 <==> 1 // EQUI // 5
 2 <==> 2 // EQUI // 5
 2 <==> 3 4 // REL // 2
-2 <==> terminals 1 and 6 // REL // 2
 3 <==> 1 // REL // 1
 3 <==> 2 // EQUI // 5
 3 <==> 3 4 // REL // 2
-3 <==> terminals 1 and 6 // REL // 2
 4 5 <==> 1 // REL // 1
 4 5 <==> 2 // REL // 1
 4 5 <==> 3 4 // EQUI // 5
-4 5 <==> terminals 1 and 6 // REL // 4
 6 7 8 9 10 11 <==> 1 // REL // 3
 6 7 8 9 10 11 <==> 2 // REL // 3
 6 7 8 9 10 11 <==> 3 4 // REL // 4
-6 7 8 9 10 11 <==> terminals 1 and 6 // SPE1 // 4
 </alignment>
 </sentence>
 
-<sentence id="87" status="">
+<sentence id="88" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
 2 3 4 5 <==> 1 2 3 4 5 // SIMI // 4
@@ -858,7 +756,7 @@ didn't cause <==> 3 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="88" status="">
+<sentence id="89" status="">
 <alignment>
 1 2 <==> 12 13 // EQUI // 5
 3 <==> 14 // SIMI // 4
@@ -866,24 +764,17 @@ didn't cause <==> 3 // SIMI // 2
 5 6 <==> 8 9 10 11 // SIMI // 3
 7 <==> 0 // NOALI // 0
 8 9 10 <==> 0 // NOALI // 0
-If <==> 0 // NOALI // 0
-a bulb and a switch <==> 0 // NOALI // 0
-are <==> 0 // NOALI // 0
-in the same path <==> the path // SIMI // 3
-</alignment>
-</sentence>
-
-<sentence id="89" status="">
-<alignment>
-positive battery terminal <==> Terminal 4 // REL // 1
-separated <==> 8 // NOALI // 0
-7 8 9 <==> 9 10 11 12 13 // REL // 1
 </alignment>
 </sentence>
 
 <sentence id="90" status="">
 <alignment>
-1 2 3 <==> the electrical state // REL // 2
+7 8 9 <==> 9 10 11 12 13 // REL // 1
+</alignment>
+</sentence>
+
+<sentence id="91" status="">
+<alignment>
 1 2 3 <==> 1 2 // REL // 1
 1 2 3 <==> 7 8 // REL // 1
 1 2 3 <==> 9 10 11 // REL // 1
@@ -901,7 +792,7 @@ separated <==> 8 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="91" status="">
+<sentence id="92" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
 6 7 <==> 6 7 // EQUI // 5
@@ -909,7 +800,7 @@ separated <==> 8 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="92" status="">
+<sentence id="93" status="">
 <alignment>
 1 2 <==> 3 4 // SIMI // 3
 3 <==> 0 // NOALI // 0
@@ -922,7 +813,7 @@ separated <==> 8 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="93" status="">
+<sentence id="94" status="">
 <alignment>
 1 <==> 1 2 3 4 5 6 7 // NOALI // 0
 2 3 <==> 1 2 3 4 5 6 7 // REL // 3
@@ -931,7 +822,7 @@ separated <==> 8 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="94" status="">
+<sentence id="95" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
@@ -942,21 +833,18 @@ separated <==> 8 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="95" status="">
+<sentence id="96" status="">
 <alignment>
 1 <==> 1 2 3 // SIMI // 2
-2 3 <==> 0 // NOALI // 
-4 5 <==> 0 // NOALI // 
-6 7 <==> 0 // NOALI // 
-8 <==> 0 // NOALI // 
-9 <==> 0 // NOALI // 
-A and C <==> 0 // NOALI // 
-are <==> 0 // NOALI // 
-in the same closed path <==> 0 // NOALI // 
+2 3 <==> 0 // NOALI // 0 
+4 5 <==> 0 // NOALI // 0 
+6 7 <==> 0 // NOALI // 0 
+8 <==> 0 // NOALI // 0 
+9 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="96" status="">
+<sentence id="97" status="">
 <alignment>
 2 3 4 <==> 1 2 3 // REL // 1
 5 6 <==> 4 5 6 // REL // 1
@@ -967,24 +855,21 @@ in the same closed path <==> 0 // NOALI //
 </alignment>
 </sentence>
 
-<sentence id="97" status="">
+<sentence id="98" status="">
 <alignment>
-1 <==> the // REL // 1
 2 3 4 <==> 3 4 5 6 7 // EQUI // 4
-a gap <==> separated by a gap // REL // 3
 5 6 7 8 9 <==> 1 2 // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="98" status="">
+<sentence id="99" status="">
 <alignment>
 1 2 3 <==> 3 4 5 // EQUI // 5
 4 5 <==> 2 // REL // 1
-there <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="99" status="">
+<sentence id="100" status="">
 <alignment>
 2 3 <==> 3 // SIMI // 3
 4 5 <==> 4 5 // EQUI // 5
@@ -996,50 +881,40 @@ there <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="100" status="">
-<alignment>
-Terminal 3 <==> Terminal 3 // EQUI // 5
-and the positive terminal <==> and the positive terminal // EQUI // 5
-7 8 9 <==> 7 8 9 // EQUI // 5
-</alignment>
-</sentence>
-
 <sentence id="101" status="">
 <alignment>
-positive battery terminal <==> 1 2 3 4 5 6 // SIMI // 3
-was not separated <==> 7 8 9 // EQUI // 5
-8 9 10 <==> 10 11 12 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="102" status="">
 <alignment>
-1 2 <==> 1 2 // EQUI // 5
-3 4 <==> 3 4 // EQUI // 5
-to the negative <==> to the negative // EQUI // 5
-terminal <==> battery terminal // SIMI // 4
+8 9 10 <==> 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="103" status="">
 <alignment>
-terminal <==> 1 2 3 4 // SIMI // 3
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="104" status="">
+<alignment>
 1 2 <==> 5 6 // NOALI // 0
 3 4 5 <==> 5 6 // OPPO // 2
 6 7 8 9 10 <==> 0 // 0 // 0
 </alignment>
 </sentence>
 
-<sentence id="104" status="">
+<sentence id="105" status="">
 <alignment>
-the positive terminal <==> Terminal 2 // SIMI // 4
-terminal 2 <==> positive terminal // SIMI // 4
-are separated <==> 7 8 // EQUI // 5
 9 10 11 <==> 9 10 11 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="105" status="">
+<sentence id="106" status="">
 <alignment>
 1 <==> 1 2 // REL // 1
 2 3 4 <==> 3 4 // REL // 1
@@ -1047,25 +922,21 @@ are separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="106" status="">
+<sentence id="107" status="">
 <alignment>
-gap <==> 0 // NOALI // 0
 1 <==> 0 // NOALI // 0
 2 <==> 8 // EQUI // 5 
 3 4 <==> 0 // NOALI // 0
-between the positive battery terminal and terminal 4 <==> 1 2 3 4 5 6 7 // SIMI // 4
-</alignment>
-</sentence>
-
-<sentence id="107" status="">
-<alignment>
-positive battery <==> positive terminal // SIMI // 3 
-4 5 6 <==> 7 8 9 // EQUI // 5 
-terminal one <==> Terminal 1 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="108" status="">
+<alignment>
+4 5 6 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="109" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 // EQUI // 5
 5 <==> 5 // SIMI // 3
@@ -1076,50 +947,33 @@ terminal one <==> Terminal 1 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="109" status="">
+<sentence id="110" status="">
 <alignment>
 1 2 3 <==> 1 2 3 4 5 6 // REL // 2
 1 2 3 <==> 7 8 // REL // 1
-are separated <==> 7 8 // EQUI // 5
-are separated <==> 9 10 11 // REL // 1
-</alignment>
-</sentence>
-
-<sentence id="110" status="">
-<alignment>
-1 <==> no chunk // NOALI // 0
-2 3 <==> 1 2 3 4 // EQUI // 5
-4 <==> are // EQUI // 5
-5 <==> no chunk // NOALI // 0
-6 <==> connected // EQUI // 5
-7 8 9 <==> 1 2 3 4 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="111" status="">
 <alignment>
-the positive battery terminal <==> Terminal 4 // EQUI // 5
-8 9 <==> 7 8 // EQUI // 5
+2 3 <==> 1 2 3 4 // EQUI // 5
+7 8 9 <==> 1 2 3 4 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="112" status="">
 <alignment>
-terminal 1 <==> Terminals 1 // EQUI // 5
-terminal 2 <==> Terminals 2 // EQUI // 5
-on the same side <==> connected // REL // 3
-</alignment>
-</sentence>
-
-<sentence id="113" status="">
-<alignment>
-1 2 <==> 7 8 9 // EQUI // 5
-3 4 5 <==> to the positive terminal // SIMI // 4
- Terminal 2 and the positive terminal <==> no relation // NOALI // 0
+8 9 <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="114" status="">
+<alignment>
+1 2 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="115" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 3
 3 <==> 3 // EQUI // 5
@@ -1129,7 +983,7 @@ on the same side <==> connected // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="115" status="">
+<sentence id="116" status="">
 <alignment>
 1 <==> 1 2 // REL // 3 
 2 3 <==> 1 2 // EQUI // 5 
@@ -1140,32 +994,26 @@ on the same side <==> connected // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="116" status="">
-<alignment>
-difference <==> a gap // REL // 3
-electrical states <==> 1 2 // REL // 3
-in <==> 3 4 // REL // 2
-1 <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
 <sentence id="117" status="">
 <alignment>
-1 <==> Terminal 6 // EQUI // 5
-2 3 <==> 7 8 // EQUI // 5
-to positive 1 of the battery <==> to postive terminal of the battery // EQUI // 5
+1 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="118" status="">
 <alignment>
-1 2 <==> 1 2 3 4 5 6 // SIMI // 3
-is separated <==> 7 8 // EQUI // 5
-5 6 7 8 <==> 9 10 11 // REL // 2
+2 3 <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="119" status="">
+<alignment>
+1 2 <==> 1 2 3 4 5 6 // SIMI // 3
+5 6 7 8 <==> 9 10 11 // REL // 2
+</alignment>
+</sentence>
+
+<sentence id="120" status="">
 <alignment>
 1 <==> 1 2 // EQUI // 5
 2 3 4 <==> 5 6 // EQUI // 5
@@ -1173,7 +1021,7 @@ is separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="120" status="">
+<sentence id="121" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 // SIMI // 3
 3 4 <==> 7 8 // OPPO // 5
@@ -1181,7 +1029,7 @@ is separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="121" status="">
+<sentence id="122" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 <==> 2 // EQUI // 5
@@ -1190,7 +1038,7 @@ is separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="122" status="">
+<sentence id="123" status="">
 <alignment>
 1 2 3 <==> 1 2 3 4 // SIMI // 2
 4 5 <==> 5 // SIMI // 2
@@ -1198,7 +1046,7 @@ is separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="123" status="">
+<sentence id="124" status="">
 <alignment>
 1 2 <==> 1 2 3 // EQUI // 5
 3 <==> 4 // EQUI // 5
@@ -1206,7 +1054,7 @@ is separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="124" status="">
+<sentence id="125" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 3 4 5 6 7 <==> 2 // NOALI // 0
@@ -1215,21 +1063,14 @@ is separated <==> 7 8 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="125" status="">
+<sentence id="126" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
-2 3 <==> the terminals // EQUI // 5
 4 5 6 <==> 0 // NOALI // 0
-A battery <==> 0 // NOALI // 0
-uses <==> 7 8 // REL // 2
-a chemical reaction <==> 4 5 6 // EQUI // 5
-to maintain <==> 3 // REL // 2
-different electrical states <==> 0 // NOALI // 0
-at 2 3 <==> 12 13 14 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="126" status="">
+<sentence id="127" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 // EQUI // 4
 3 4 <==> 7 8 // EQUI // 5
@@ -1237,15 +1078,13 @@ at 2 3 <==> 12 13 14 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="127" status="">
+<sentence id="128" status="">
 <alignment>
-1 2 <==> Terminal 1 // EQUI // 5
 3 4 <==> 7 8 // OPPO // 5
-5 6 7 8 <==> to the positive terminal // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="128" status="">
+<sentence id="129" status="">
 <alignment>
 1 <==> 1 2 3 4 // NOALI // 0
 2 <==> 5 // SIMI // 3
@@ -1254,7 +1093,7 @@ at 2 3 <==> 12 13 14 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="129" status="">
+<sentence id="130" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // EQUI // 5
 5 6 <==> 4 // EQUI // 5
@@ -1263,40 +1102,35 @@ at 2 3 <==> 12 13 14 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="130" status="">
+<sentence id="131" status="">
 <alignment>
 1 <==> 1 2 3 4 5 // REL // 2
 2 <==> 0 // NOALI // 0
-3 4 5 6 <==> to the battery // REL // 2
-</alignment>
-</sentence>
-
-<sentence id="131" status="">
-<alignment>
-1 2 <==> Terminal 1 // EQUI // 5
-3 4 5 <==> 7 8 9 // EQUI // 5
-6 7 8 9 10 <==> the positive terminal // REL // 3
 </alignment>
 </sentence>
 
 <sentence id="132" status="">
 <alignment>
-1 2 <==> 1 2 // EQUI // 5
-3 4 <==> 5 6 // EQUI // 5
-in a closed path <==> in a closed bath // REL // 4
-9 <==> 0 // NOALI // NOALI
+3 4 5 <==> 7 8 9 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="133" status="">
 <alignment>
-1 2 <==> 1 2 3 4 5 6 // SIMI // 3
-3 4 <==> 7 8 // EQUI // 5
-to positive terminal of the battery <==> to the positive terminal // SIMI // 4
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 5 6 // EQUI // 5
+9 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="134" status="">
+<alignment>
+1 2 <==> 1 2 3 4 5 6 // SIMI // 3
+3 4 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="135" status="">
 <alignment>
 1 <==> 1 // REL // 1
 2 3 4 <==> 6 7 8 9 10 // SIMI // 3
@@ -1308,26 +1142,22 @@ to positive terminal of the battery <==> to the positive terminal // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="135" status="">
+<sentence id="136" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 // REL // 1
-1 2 <==> positive terminal // EQUI // 5
-separated <==> 7 8 // EQUI // 5
-separated <==> 9 10 11 // REL // 1
 5 6 7 <==> 1 2 3 4 5 6 // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="136" status="">
+<sentence id="137" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 4 5 <==> 5 6 // SIMI // 4
 6 7 <==> 0 // NOALI // 0
-8 <==> is // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="137" status="">
+<sentence id="138" status="">
 <alignment>
 1 <==> 1 2 // REL // 2
 2 3 <==> 3 4 5 // OPPO // 5
@@ -1336,91 +1166,71 @@ separated <==> 9 10 11 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="138" status="">
-<alignment>
-1 <==> 1 // SIMI // 3
-2 3 <==> the bulb // EQUI // 5
-4 <==> 7 8 // SIMI // 2
-5 6 7 8 <==> 9 10 11 12 // REL // 1
-9 10 11 12 13 14 <==> 0 // NOALI // NOALI
-15 16 <==> the switch // EQUI // 5
-17 18 <==> 0 // NOALI // NOALI
-</alignment>
-</sentence>
-
 <sentence id="139" status="">
 <alignment>
-1 2 3 4 <==> 1 2 3 4 5 // EQUI // 5
-5 6 <==> 8 // SIMI // 4
-7 8 9 10 <==> 9 10 11 12 13 // SIMI // 3
-11 12 13 <==> 14 15 16 // EQUI // 5
-were <==> 0 // NOALI // 0
-still <==> 0 // NOALI // 0
+1 <==> 1 // SIMI // 3
+4 <==> 7 8 // SIMI // 2
+5 6 7 8 <==> 9 10 11 12 // REL // 1
+9 10 11 12 13 14 <==> 0 // NOALI // 0
+17 18 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="140" status="">
 <alignment>
-1 <==> no alignment // NOALI // 0 
+1 2 3 4 <==> 1 2 3 4 5 // EQUI // 5
+5 6 <==> 8 // SIMI // 4
+7 8 9 10 <==> 9 10 11 12 13 // SIMI // 3
+11 12 13 <==> 14 15 16 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="141" status="">
+<alignment>
 2 3 <==> 1 2 // REL // 4 
 4 <==> 3 // EQUI // 5 
 5 6 7 <==> 4 5 6 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="141" status="">
+<sentence id="142" status="">
 <alignment>
 1 <==> 1 // REL // 1
-2 <==> 0 // NOALI // NOALI
-3 <==> 0 // NOALI // NOALI
+2 <==> 0 // NOALI // 0
+3 <==> 0 // NOALI // 0
 4 <==> 6 // EQUI // 4
 5 6 <==> 13 14 // EQUI // 5
 7 <==> 10 // REL // 1
-Measuring <==> you // REL // 1
-voltage <==> 0 // NOALI // NOALI
-indicates <==> 0 // NOALI // NOALI
-the place <==> 4 5 // EQUI // 5
 4 <==> 6 // EQUI // 4
-the electrical state <==> 0 // NOALI // NOALI
-changes <==> is // REL // 1
-due to <==> 0 // NOALI // NOALI
-a gap <==> the gap // EQUI // 5
-</alignment>
-</sentence>
-
-<sentence id="142" status="">
-<alignment>
-1 <==> 1 2 3 // REL // 1
-2 <==> terminals // REL // 1
-3 <==> are // EQUI // 4
-4 5 <==> not connected // REL // 2
-6 7 8 <==> 0 // NOALI // NOALI
-2 <==> 0 // NOALI // NOALI
-10 11 <==> 0 // NOALI // NOALI
-12 13 14 15 <==> 0 // NOALI // NOALI
 </alignment>
 </sentence>
 
 <sentence id="143" status="">
 <alignment>
-1 2 3 4 5 6 7 8 <==> 6 7 8 // EQUI // 3
-1 2 3 4 5 6 7 8 <==> in a 2 losed path // SIMI // 2
-1 2 3 4 5 6 7 8 <==> 15 16 17 // SIMI // 2
-9 <==> 3 4 // OPPO // 4
-10 11 12 13 <==> in a 2 losed path // EQUI // 5
-C <==> 3 4 // SIMI // 1
+1 <==> 1 2 3 // REL // 1
+6 7 8 <==> 0 // NOALI // 0
+2 <==> 0 // NOALI // 0
+10 11 <==> 0 // NOALI // 0
+12 13 14 15 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="144" status="">
 <alignment>
-gap <==> 3 4 // REL // 3
+1 2 3 4 5 6 7 8 <==> 6 7 8 // EQUI // 3
+1 2 3 4 5 6 7 8 <==> 15 16 17 // SIMI // 2
+9 <==> 3 4 // OPPO // 4
+</alignment>
+</sentence>
+
+<sentence id="145" status="">
+<alignment>
 4 5 <==> 3 4 // REL // 3
 2 <==> 1 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="145" status="">
+<sentence id="146" status="">
 <alignment>
 1 <==> 1 // SIMI // 4
 2 3 4 5 <==> 2 3 4 5 6 // EQUI // 5
@@ -1429,7 +1239,7 @@ gap <==> 3 4 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="146" status="">
+<sentence id="147" status="">
 <alignment>
 1 <==> 1 2 // NOALI // 0
 2 <==> 3 4 // SIMI // 3
@@ -1438,29 +1248,23 @@ gap <==> 3 4 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="147" status="">
+<sentence id="148" status="">
 <alignment>
 1 2 <==> 8 9 10 11 // SIMI // 4
 3 <==> 14 // SIMI // 3
-4 5 <==> a bulb // REL // 1
 6 7 8 <==> 12 13 // EQUI // 5
-If <==> - // NOALI // 
-a bulb and a switch <==> 2 3 4 5 6 // EQUI // 5
-are <==> - // NOALI // 
 </alignment>
 </sentence>
 
-<sentence id="148" status="">
+<sentence id="149" status="">
 <alignment>
-bulb terminal <==> 1 2 // SIMI // 3
-battery terminal <==> 1 2 // SIMI // 3
 8 <==> 3 // EQUI // 5
 9 10 11 12 13 14 15 16 <==> 4 5 6 7 // REL // 2
 1 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="149" status="">
+<sentence id="150" status="">
 <alignment>
 1 <==> 1 2 // REL // 2
 2 3 <==> 1 2 // EQUI // 5
@@ -1469,9 +1273,8 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="150" status="">
+<sentence id="151" status="">
 <alignment>
-1 2 <==> switch x // EQUI // 5
 3 <==> 3 // EQUI // 5
 4 5 6 7 <==> 6 7 8 9 // SIMI // 4
 8 9 10 <==> 6 7 8 9 // SIMI // 3
@@ -1479,7 +1282,7 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="151" status="">
+<sentence id="152" status="">
 <alignment>
 1 <==> 1 2 // NOALI // 0
 2 <==> 3 // SIMI // 4
@@ -1488,7 +1291,7 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="152" status="">
+<sentence id="153" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 3 <==> 1 // NOALI // 0
@@ -1498,7 +1301,7 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="153" status="">
+<sentence id="154" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
@@ -1507,9 +1310,8 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="154" status="">
+<sentence id="155" status="">
 <alignment>
-4 5 <==> a gap // EQUI // 5
 2 <==> 1 2 3 4 5 // NOALI // 0
 3 <==> 6 7 // REL // 2
 4 5 <==> 8 9 10 11 12 // REL // 1
@@ -1518,7 +1320,7 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="155" status="">
+<sentence id="156" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
@@ -1528,16 +1330,14 @@ battery terminal <==> 1 2 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="156" status="">
+<sentence id="157" status="">
 <alignment>
-The battery <==> 1 2 // EQUI // 5
-and light bulb <==> 0 // NOALI // 0
 6 7 8 <==> 5 6 // REL // 2
 9 10 11 12 <==> 7 8 9 10 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="157" status="">
+<sentence id="158" status="">
 <alignment>
 1 <==> 1 2 3 // SIMI // 3
 2 3 <==> 4 // NOALI // 0
@@ -1545,7 +1345,7 @@ and light bulb <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="158" status="">
+<sentence id="159" status="">
 <alignment>
 1 <==> 1 2 // REL // 2
 2 3 <==> 1 2 // EQUI // 5
@@ -1554,45 +1354,41 @@ and light bulb <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="159" status="">
+<sentence id="160" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 3 <==> 2 3 // EQUI // 5
 4 5 <==> 4 5 // EQUI // 5
-6 <==> neither // REL // 1
-7 8 9 10 <==> B nor C // EQUI // 5
 11 12 13 14 <==> 10 // REL // 1
 15 16 17 18 <==> 11 12 13 14 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="160" status="">
-<alignment>
-1. 1 2 <==> 1 2 3 4 5 6 // SIMI // 4
-2. 3 4 5 <==> 7 8 9 // SIMI // 3
-3. 6 7 8 9 <==> to the positive terminal // EQUI // 5
-</alignment>
-</sentence>
-
 <sentence id="161" status="">
 <alignment>
-2 3 <==> 1 2 // EQUI // 5
-4 5 <==> 5 6 // EQUI // 5
-6 7 8 9 <==> 7 8 9 10 // REL // 3
-1 <==> 0 // NOALI // NOALI
+1 2 <==> 1 2 3 4 5 6 // SIMI // 4
+3 4 5 <==> 7 8 9 // SIMI // 3
 </alignment>
 </sentence>
 
 <sentence id="162" status="">
 <alignment>
+2 3 <==> 1 2 // EQUI // 5
+4 5 <==> 5 6 // EQUI // 5
+6 7 8 9 <==> 7 8 9 10 // REL // 3
+1 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="163" status="">
+<alignment>
 1 2 <==> 1 // REL // 1
-3 <==> is not working // REL // 1
 4 5 <==> 2 3 4 // REL // 1
 6 <==> 5 6 7 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="163" status="">
+<sentence id="164" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 3 <==> 2 // SIMI // 4
@@ -1600,17 +1396,15 @@ and light bulb <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="164" status="">
+<sentence id="165" status="">
 <alignment>
 1 <==> 1 2 3 4 // REL // 2
-2 3 <==> not connected // OPPO // 5
-to 1 6 <==> to terminal 6 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="165" status="">
+<sentence id="166" status="">
 <alignment>
- 1 <==> // NOALI // 0
+1 <==> // NOALI // 0
  2 3 <==> 1 2 // EQUI // 5
  4 <==> 3 // EQUI // 5
  5 6 7 8 <==> 6 7 8 9 // SIMI // 4
@@ -1618,7 +1412,7 @@ to 1 6 <==> to terminal 6 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="166" status="">
+<sentence id="167" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 3 <==> 2 3 4 5 6 // REL // 1
@@ -1626,24 +1420,19 @@ to 1 6 <==> to terminal 6 // EQUI // 5
 6 <==> 8 9 10 11 // REL // 1
 7 8 <==> 12 13 // EQUI // 5
 9 10 11 <==> 14 // REL // 2
-the bulb <==> the bbulb // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="167" status="">
+<sentence id="168" status="">
 <alignment>
 1 2 3 4 <==> 6 7 8 9 // EQUI // 5
 5 <==> 10 // EQUI // 5
 6 7 8 9 <==> 12 13 14 15 // EQUI // 4
 10 11 12 <==> 0 // NOALI // 0
-If <==> 0 // NOALI // 0
-bulb A <==> 0 // NOALI // 0
-burns out <==> 0 // NOALI // 0
-still <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="168" status="">
+<sentence id="169" status="">
 <alignment>
 1 <==> 1 2 3 4 5 // NOALI // 0
 2 3 4 <==> 13 14 15 // EQUI // 5
@@ -1652,16 +1441,15 @@ still <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="169" status="">
+<sentence id="170" status="">
 <alignment>
 1 <==> 1 2 // REL // 1
 2 <==> 7 8 9 10 // REL // 1
-3 <==> not // OPPO // 5
 4 5 6 <==> 0 // 0 // 0
 </alignment>
 </sentence>
 
-<sentence id="170" status="">
+<sentence id="171" status="">
 <alignment>
 1 2 <==> 1 2 3 4 5 6 7 // SIMI // 3
 3 4 5 6 <==> 8 9 10 // REL // 1
@@ -1670,133 +1458,93 @@ still <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="171" status="">
-<alignment>
-1 <==> 1 2 3 4 5 6 // SIMI // 3
-the positive batter terminal <==> 1 2 3 4 5 6 // SIMI // 4
-and terminal 6 <==> 1 2 3 4 5 6 // EQUI // 5
-9 10 <==> 7 8 // SIMI // 4
-</alignment>
-</sentence>
-
 <sentence id="172" status="">
 <alignment>
-1 <==> 1 2 // REL // 1
-the circuit <==> 1 2 // REL // 1
-5 6 <==> 3 4 5 // OPPO // 5
+1 <==> 1 2 3 4 5 6 // SIMI // 3
+9 10 <==> 7 8 // SIMI // 4
 </alignment>
 </sentence>
 
 <sentence id="173" status="">
 <alignment>
-1 2 3 4 <==> 1 2 3 4 // EQUI // 5
-5 <==> 5 // EQUI // 5
-on <==> in // EQUI // 5
-7 <==> 0 // NOALI // 0
-closed paths <==> closed paths // EQUI // 5
-11 12 13 <==> 10 11 12 // EQUI // 5 
-6 <==> 6 // EQUI // 5
+1 <==> 1 2 // REL // 1
+5 6 <==> 3 4 5 // OPPO // 5
 </alignment>
 </sentence>
 
 <sentence id="174" status="">
 <alignment>
-1 2 <==> a bulb // EQUI // 5
-3 4 <==> in an closed circuit // EQUI // 5
-If <==> 1 // EQUI // 5
-a bulb and a switch <==> 12 13 // REL // 3
-are <==> 7 // EQUI // 5
-in the same path <==> in an closed circuit // REL // 2
-the switch <==> 12 13 // EQUI // 5
-affects <==> 14 // EQUI // 5
-1 2 <==> 15 16 // EQUI // 5
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+7 <==> 0 // NOALI // 0
+11 12 13 <==> 10 11 12 // EQUI // 5 
+6 <==> 6 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="175" status="">
 <alignment>
-1 <==> 1 2 3 // REL // 3
-2 <==> 4 // EQUI // 5
-ON 1 SAME PATH <==> 5 6 7 8 // REL // 4
+1 2 <==> 15 16 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="176" status="">
 <alignment>
-Bulb a <==> Switch Y // REL // 2
-and <==> and // EQUI // 5
-switch Y <==> bulb A // REL // 2
-6 7 <==> 6 7 // EQUI // 5
-in the same <==> in the same // EQUI // 5
-path <==> closed path // REL // 3
+1 <==> 1 2 3 // REL // 3
+2 <==> 4 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="177" status="">
 <alignment>
-chemical reaction <==> chemical reaction // EQUI // 5
-4 5 6 <==> 1 2 // NOALI // 0
-7 <==> 3 // NOALI // 0
-8 9 10 <==> 9 10 11 // SIMI // 4
-11 12 13 14 15 16 <==> 12 13 14 // REL // 1
-17 <==> different // EQUI // 5
-18 19 20 <==> 7 8 // REL // 1
+6 7 <==> 6 7 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="178" status="">
 <alignment>
-2 3 4 5 6 <==> 1 2 3 4 5 // SIMI // 4
-2 3 4 5 6 <==> the positive terminal of the battery // REL // 3
-7 8 <==> 6 7 // EQUI // 5
-9 10 11 12 13 14 15 <==> 8 9 10 11 12 // SIMI // 4
+4 5 6 <==> 1 2 // NOALI // 0
+7 <==> 3 // NOALI // 0
+8 9 10 <==> 9 10 11 // SIMI // 4
+11 12 13 14 15 16 <==> 12 13 14 // REL // 1
+18 19 20 <==> 7 8 // REL // 1
 </alignment>
 </sentence>
 
 <sentence id="179" status="">
 <alignment>
-1 2 <==> 1 2 3 4 5 // SIMI // 3
-3 4 5 <==> 6 7 // OPPO // 4
-6 7 <==> bulb A // EQUI // 5
+2 3 4 5 6 <==> 1 2 3 4 5 // SIMI // 4
+7 8 <==> 6 7 // EQUI // 5
+9 10 11 12 13 14 15 <==> 8 9 10 11 12 // SIMI // 4
 </alignment>
 </sentence>
 
 <sentence id="180" status="">
 <alignment>
-bulb <==> 2 // REL // 1
-bulb <==> 3 4 // REL // 1
-bulb <==> 6 7 8 // REL // 1
-bulb <==> 10 // REL // 1
-bulb <==> in a 2 losed path // REL // 1
-bulb <==> 15 16 17 // REL // 1
-c <==> 1 // REL // 1
-c <==> 5 // REL // 1
-c <==> 2 reates // REL // 1
-c <==> a gap // REL // 1
+1 2 <==> 1 2 3 4 5 // SIMI // 3
+3 4 5 <==> 6 7 // OPPO // 4
 </alignment>
 </sentence>
 
-<sentence id="181" status="">
+<sentence id="182" status="">
 <alignment>
-Bulb C <==> 1 2 // EQUI // 5
-the battery <==> the battery // EQUI // 5
 6 7 8 <==> 3 4 5 // REL // 0
 9 10 11 12 <==> 6 7 8 9 // SIMI // 4
 0 <==> 10 11 12 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="182" status="">
+<sentence id="183" status="">
 <alignment>
 1 2 3 <==> 1 2 // SIMI // 3 
 4 <==> 3 // EQUI // 5
-5 <==> 0 // NOALI // 
+5 <==> 0 // NOALI // 0 
 6 <==> 4 5 6 7 // REL // 2
-7 <==> 0 // NOALI // 
+7 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="183" status="">
+<sentence id="184" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 4
 3 4 <==> 3 // EQUI // 3
@@ -1805,19 +1553,14 @@ the battery <==> the battery // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="184" status="">
+<sentence id="185" status="">
 <alignment>
-electrical state <==> nonzero voltage // SIMI // 3
-interferred <==> 4 // REL // 2
 6 <==> 5 // REL // 1
-a nonzero voltage <==> 6 7 // REL // 1
-means <==> 8 9 10 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="185" status="">
+<sentence id="186" status="">
 <alignment>
-1 <==> No alignment // NOALI // 0
 2 3 4 5 6 <==> 1 2 // SIMI // 3
 2 3 4 5 6 <==> 3 4 // NOALI // 0
 2 3 4 5 6 <==> 5 6 // NOALI // 0
@@ -1827,7 +1570,7 @@ means <==> 8 9 10 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="186" status="">
+<sentence id="187" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 3 <==> 1 // EQUI // 5
@@ -1841,27 +1584,22 @@ means <==> 8 9 10 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="187" status="">
-<alignment>
-If <==> 1 // EQUI // 5
-C <==> 3 4 // REL // 1
-2 3 4 5 <==> 6 7 8 // EQUI // 5
-6 7 8 <==> 9 10 // REL // 3
-9 10 11 12 <==> in a 2 losed path // SIMI // 4
-1 <==> 0 // NOALI // NOALI
-</alignment>
-</sentence>
-
 <sentence id="188" status="">
 <alignment>
-1 2 3 4 <==> 1 2 3 // REL // 3
-are contained <==> 4 5 // OPPO // 5
-in the same path <==> 6 7 8 9 // EQUI // 5
-12 13 14 <==> 10 11 12 // EQUI // 5
+2 3 4 5 <==> 6 7 8 // EQUI // 5
+6 7 8 <==> 9 10 // REL // 3
+1 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="189" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 // REL // 3
+12 13 14 <==> 10 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="190" status="">
 <alignment>
 1 <==> 1 2 3 4 // REL // 0
 2 <==> 5 // EQUI // 5
@@ -1870,7 +1608,7 @@ in the same path <==> 6 7 8 9 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="190" status="">
+<sentence id="191" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
@@ -1879,7 +1617,7 @@ in the same path <==> 6 7 8 9 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="191" status="">
+<sentence id="192" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 // EQUI // 5
 6 <==> 4 // REL // 1
@@ -1887,29 +1625,21 @@ in the same path <==> 6 7 8 9 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="192" status="">
+<sentence id="193" status="">
 <alignment>
-1 2 <==> Z // EQUI // 5
 3 4 <==> 5 // SIMI // 4
 5 6 7 8 <==> 3 4 // REL // 2
-there <==> 0 // NOALI // 
-is <==> 0 // NOALI // 
-a path <==> 3 4 // EQUI // 5
-containing <==> 0 // NOALI // 
-both <==> 0 // NOALI // 
-Z and C <==> Z // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="193" status="">
+<sentence id="194" status="">
 <alignment>
-the bulb terminal <==> the negative battery terminal // EQUI // 5
 9 10 <==> 2 // SIMI // 3
 11 12 13 <==> 3 4 // OPPO // 5
 </alignment>
 </sentence>
 
-<sentence id="194" status="">
+<sentence id="195" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 // EQUI // 5
 5 <==> 5 // EQUI // 5
@@ -1919,7 +1649,7 @@ the bulb terminal <==> the negative battery terminal // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="195" status="">
+<sentence id="196" status="">
 <alignment>
 1 <==> 1 // SIMI // 4
 2 3 4 <==> 2 3 4 5 6 // EQUI // 5
@@ -1928,7 +1658,7 @@ the bulb terminal <==> the negative battery terminal // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="196" status="">
+<sentence id="197" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 <==> 2 // EQUI // 5
@@ -1937,47 +1667,25 @@ the bulb terminal <==> the negative battery terminal // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="197" status="">
+<sentence id="198" status="">
 <alignment>
 1 2 <==> 6 // EQUI // 5
 3 4 <==> 2 // EQUI // 5
 5 6 7 8 <==> 3 4 // SIMI // 4
 9 <==> 5 // REL // 3
-10 11 12 13 14 <==> B 6 nd C // EQUI // 5
 15 <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
-<sentence id="198" status="">
-<alignment>
-1 <==> 6 7 8 // SIMI // 2
-2 <==> 3 4 // REL // 1
-3 4 5 6 <==> 15 16 17 // REL // 1
-If <==> 5 // SIMI // 3
-C <==> in a 2 losed path // REL // 1
-are <==> 10 // SIMI // 2
 </alignment>
 </sentence>
 
 <sentence id="199" status="">
 <alignment>
-6 <==> Terminal 6 // EQUI // 5
-terminal <==> Terminal 6 // EQUI // 5
-connected <==> connected // EQUI // 5
-5 6 7 <==> to the positive terminal // REL // 2
+1 <==> 6 7 8 // SIMI // 2
+2 <==> 3 4 // REL // 1
+3 4 5 6 <==> 15 16 17 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="200" status="">
-<alignment>
-batteries terminals <==> no closed paths // REL // 2
-4 5 6 <==> has // NOALI // 0
-4 5 6 <==> no closed paths // REL // 2
-Circuit 4 <==> no closed paths // REL // 3
-</alignment>
-</sentence>
-
-<sentence id="201" status="">
+<sentence id="202" status="">
 <alignment>
 1 <==> 1 // NOALI // 0
 2 <==> 0 // NOALI // 0
@@ -1992,9 +1700,9 @@ Circuit 4 <==> no closed paths // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="202" status="">
+<sentence id="203" status="">
 <alignment>
- 1 <==> 1 // SIMI // 3
+1 <==> 1 // SIMI // 3
  2 <==> 4 5 // EQUI // 5
  3 <==> - // NOALI // 0
  4 <==> - // NOALI // 0
@@ -2005,31 +1713,25 @@ Circuit 4 <==> no closed paths // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="203" status="">
-<alignment>
-1 2 <==> noalig // no alignment // 0
-3 4 <==> 2 // equi // 5
-5 6 7 <==> 7 8 // equi // 5
-there <==> noalig // no alignment // 0
-is <==> noalig // no alignment // 0
-no closed path <==> 3 4 5 // equi // 5
-containing <==> noalig // no alignment // 0
-the battery <==> 7 8 // equi // 5
-</alignment>
-</sentence>
-
 <sentence id="204" status="">
 <alignment>
-1 2 <==> 3 4 // SIMI // 4
-3 4 5 <==> 5 6 7 // SIMI // 4
-6 <==> 2 // REL // 0
-7 8 <==> 0 // NOALI // NOALI
-9 10 <==> 0 // NOALI // NOALI
-11 12 13 <==> 0 // NOALI // NOALI
+3 4 <==> 2 // equi // 5
+5 6 7 <==> 7 8 // equi // 5
 </alignment>
 </sentence>
 
 <sentence id="205" status="">
+<alignment>
+1 2 <==> 3 4 // SIMI // 4
+3 4 5 <==> 5 6 7 // SIMI // 4
+6 <==> 2 // REL // 0
+7 8 <==> 0 // NOALI // 0
+9 10 <==> 0 // NOALI // 0
+11 12 13 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="206" status="">
 <alignment>
 1 <==> 1 2 3 4 5 6 // REL // 1
 2 <==> 7 8 // EQUI // 3
@@ -2038,23 +1740,14 @@ the battery <==> 7 8 // equi // 5
 </alignment>
 </sentence>
 
-<sentence id="206" status="">
+<sentence id="207" status="">
 <alignment>
-path <==> path // EQUI // 5
-bulb <==> bulb // EQUI // 5
 10 11 12 <==> 14 // REL // 3
-for the <==> 7 // REL // 2
-closed <==> 8 9 10 11 // REL // 1
-the <==> the // EQUI // 5
-has to be <==> 0 // NOALI // 0
-If <==> 0 // NOALI // 0
-switch <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="207" status="">
+<sentence id="208" status="">
 <alignment>
-gap <==> gap // EQUI // 5
 1 <==> 1 // EQUI // 5
 2 <==> 2 // EQUI // 5
 3 4 <==> 3 4 // EQUI // 5
@@ -2066,25 +1759,15 @@ gap <==> gap // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="208" status="">
+<sentence id="210" status="">
 <alignment>
-Difference <==> the gap // EQUI // 5
-Positive and negative end on the battery <==> 1 2 3 4 5 6 // REL // 3
-1 <==> separated // NOALI // 0
-2 <==> are // EQUI // 5
-</alignment>
-</sentence>
-
-<sentence id="209" status="">
-<alignment>
-1 <==> a short circuit // SIMI // 3
 1 <==> 3 4 5 // NOALI // 0
 2 <==> 1 // NOALI // 0
 2 <==> 2 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="210" status="">
+<sentence id="211" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 5 // SIMI // 4
 6 <==> 6 7 8 // REL // 2
@@ -2093,76 +1776,64 @@ Positive and negative end on the battery <==> 1 2 3 4 5 6 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="211" status="">
+<sentence id="212" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
-6 <==> are // EQUI // 5
-7 <==> 0 // NOALI // 
-8 <==> connected // EQUI // 5
+7 <==> 0 // NOALI // 0 
 9 10 11 12 13 <==> 8 9 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="212" status="">
+<sentence id="213" status="">
 <alignment>
-terminal <==> 1 2 // SIMI // 4
 1 2 <==> 1 2 // SIMI // 3
 3 4 <==> 3 4 5 // OPPO // 5
 5 6 7 8 9 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="213" status="">
-<alignment>
-terminals <==> 1 2 // SIMI // 4
-4 <==> 3 4 // SIMI // 3
-5 6 7 8 <==> - // NOALI // 0
-1 <==> - // NOALI // 0
-</alignment>
-</sentence>
-
 <sentence id="214" status="">
 <alignment>
-1 <==> 1 2 3 4 5 // REL // 3
-2 3 <==> 1 2 3 4 5 // REL // 3
-4 5 <==> 6 7 // REL // 4
-6 7 8 <==> in the same // REL // 3
-9 10 <==> closed path // EQUI // 5
+4 <==> 3 4 // SIMI // 3
+5 6 7 8 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="215" status="">
 <alignment>
-1 2 3 4 <==> the negative battery terminal // EQUI // 5
-is separated <==> 3 4 // EQUI // 5
-7 8 9 <==> 5 6 7 // EQUI // 5
-10 11 12 <==> 8 9 10 11 12 // REL // 3
-terminal 6 <==> 1 2 // EQUI // 5
+1 <==> 1 2 3 4 5 // REL // 3
+2 3 <==> 1 2 3 4 5 // REL // 3
+4 5 <==> 6 7 // REL // 4
 </alignment>
 </sentence>
 
 <sentence id="216" status="">
 <alignment>
-1 <==> 1 // SIMI // 3
-2 3 4 <==> no gap // REL // 2
-5 <==> is // EQUI // 5
-6 <==> 0 // NOALI // 
-7 <==> 0 // NOALI // 
-8 9 10 11 12 13 <==> 5 6 7 // REL // 2
+7 8 9 <==> 5 6 7 // EQUI // 5
+10 11 12 <==> 8 9 10 11 12 // REL // 3
 </alignment>
 </sentence>
 
 <sentence id="217" status="">
 <alignment>
+1 <==> 1 // SIMI // 3
+6 <==> 0 // NOALI // 0 
+7 <==> 0 // NOALI // 0 
+8 9 10 11 12 13 <==> 5 6 7 // REL // 2
+</alignment>
+</sentence>
+
+<sentence id="218" status="">
+<alignment>
 1 <==> 1 2 // REL // 1
 2 <==> 3 4 // REL // 1
-3 4 5 <==> a gap // SIMI // 4
 3 4 5 <==> 8 9 10 11 12 // REL // 2
 0 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="218" status="">
+<sentence id="219" status="">
 <alignment>
 1 <==> 1 2 3 4 5 // SIMI // 3
 2 3 <==> 6 7 // EQUI // 5
@@ -2170,30 +1841,23 @@ terminal 6 <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="219" status="">
+<sentence id="220" status="">
 <alignment>
- 1 2 <==> 1 2 // EQUI // 5
+1 2 <==> 1 2 // EQUI // 5
  3 4 <==> 3 4 // EQUI // 5
  5 6 7 8 9 <==> 5 6 7 8 9 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="220" status="">
+<sentence id="221" status="">
 <alignment>
 1 2 <==> 8 9 10 11 // SIMI // 4
 3 4 <==> 14 // SIMI // 3
 5 <==> 0 // NOALI // 0
-If <==> 0 // NOALI // 0
-a bulb and a switch <==> 0 // NOALI // 0
-are <==> 0 // NOALI // 0
-in the same path <==> The path // SIMI // 4
-the switch <==> 0 // NOALI // 0
-affects <==> 0 // NOALI // 0
-the bulb <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="221" status="">
+<sentence id="222" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // EQUI // 5
 5 6 <==> 4 // EQUI // 5
@@ -2202,59 +1866,49 @@ the bulb <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="222" status="">
-<alignment>
-terminal <==> Terminal 6 // SIMI // 4
-3 4 <==> 7 8 // EQUI // 5
-5 6 7 8 <==> the positive terminal // EQUI // 5
-9 10 11 <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
 <sentence id="223" status="">
 <alignment>
-1 <==> 1 // SIMI // 2
-2 3 4 <==> 6 7 8 // SIMI // 4
-5 <==> 9 // EQUI // 5
-6 7 <==> in a 2 losed path // REL // 3
-8 <==> 5 // SIMI // 2
-a 8 c <==> 0 // NOALI // 0
-5 <==> 3 4 // REL // 1
-13 14 <==> 0 // NOALI // 0
+3 4 <==> 7 8 // EQUI // 5
+9 10 11 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="224" status="">
 <alignment>
-1 2 <==> Terminal 5 // REL // 5
-3 4 <==> 7 8 // SIMI // 4
-5 6 7 8 <==> the positive terminal // EQUI // 5
-9 10 11 <==> 0 // NOALI // NOALI
+1 <==> 1 // SIMI // 2
+2 3 4 <==> 6 7 8 // SIMI // 4
+5 <==> 9 // EQUI // 5
+8 <==> 5 // SIMI // 2
+5 <==> 3 4 // REL // 1
+13 14 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="225" status="">
 <alignment>
-1 2 <==> 1 2 // EQUI // 5
-is not <==> 3 4 // EQUI // 5
-6 7 8 <==> 5 6 7 8 // SIMI // 3
-6 7 8 <==> 9 // NOALI // 0
-is not <==> 3 4 // EQUI // 5
-6 7 8 <==> 10 11 // NOALI // 0
+3 4 <==> 7 8 // SIMI // 4
+9 10 11 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="226" status="">
 <alignment>
-1 <==> 1 2 3 4 5 6 // REL // 1
-2 3 <==> positive terminal // SIMI // 3
-4 <==> 7 8 // EQUI // 4
-5 <==> 0 // NOALI // 0
-6 <==> the gap // EQUI // 5
+1 2 <==> 1 2 // EQUI // 5
+6 7 8 <==> 5 6 7 8 // SIMI // 3
+6 7 8 <==> 9 // NOALI // 0
+6 7 8 <==> 10 11 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="227" status="">
+<alignment>
+1 <==> 1 2 3 4 5 6 // REL // 1
+4 <==> 7 8 // EQUI // 4
+5 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="228" status="">
 <alignment>
 1 <==> 1 // REL // 1
 2 <==> 2 3 // REL // 1
@@ -2265,29 +1919,23 @@ is not <==> 3 4 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="228" status="">
+<sentence id="229" status="">
 <alignment>
-1 2 <==> connected // SIMI // 3
 4 5 6 <==> 16 17 18 // SIMI // 4
-If <==> 10 11 // OPPO // 3
-bulb A <==> 6 7 8 // REL // 2
-burns out <==> 10 11 // SIMI // 2
-are <==> 12 13 14 15 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="229" status="">
+<sentence id="230" status="">
 <alignment>
 1 2 3 <==> 3 4 5 // REL // 4
 4 <==> 2 // EQUI // 5
 5 6 <==> 0 // NOALI // 0
 7 <==> 2 // EQUI // 5
 8 9 10 11 <==> 3 4 5 // SIMI // 4
-there <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="230" status="">
+<sentence id="231" status="">
 <alignment>
 1 2 <==> 1 2 // REL // 2
 3 4 5 <==> 4 5 6 // OPPO // 4 
@@ -2295,7 +1943,7 @@ there <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="231" status="">
+<sentence id="232" status="">
 <alignment>
 1 <==> 1 2 3 4 5 // SIMI // 3
 2 3 <==> 6 7 // EQUI // 5
@@ -2303,16 +1951,14 @@ there <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="232" status="">
+<sentence id="233" status="">
 <alignment>
-Bulb A <==> A // EQUI // 5
-Bulb C <==> C // EQUI // 5
 6 7 8 <==> 4 5 // EQUI // 5
 9 10 11 12 13 <==> 6 7 8 9 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="233" status="">
+<sentence id="234" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 // EQUI // 5
 5 6 <==> 4 5 // EQUI // 5
@@ -2320,23 +1966,21 @@ Bulb C <==> C // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="234" status="">
+<sentence id="235" status="">
 <alignment>
 1 2 3 4 <==> 2 3 4 5 6 // REL // 3
-5 <==> are // EQUI // 5
 6 7 8 <==> 9 10 11 12 // REL // 4
 </alignment>
 </sentence>
 
-<sentence id="235" status="">
+<sentence id="236" status="">
 <alignment>
 1 2 3 4 5 <==> 3 4 5 // SIMI // 4
 6 7 8 <==> 2 // EQUI // 3
-9 <==> incomplete // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="236" status="">
+<sentence id="237" status="">
 <alignment>
 1 <==> 1 2 // NOALI // 0
 2 <==> 3 // SIMI // 4
@@ -2345,10 +1989,8 @@ Bulb C <==> C // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="237" status="">
+<sentence id="238" status="">
 <alignment>
-battery <==> 1 2 // EQUI // 5
-a chemical reaction <==> 4 5 6 // EQUI // 5
 3 <==> 3 // REL // 3
 0 <==> 7 8 // NOALI // 0
 0 <==> 9 10 11 // NOALI // 0
@@ -2356,7 +1998,7 @@ a chemical reaction <==> 4 5 6 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="238" status="">
+<sentence id="239" status="">
 <alignment>
 1 <==> 1 2 // REL // 1
 2 <==> 3 // REL // 1
@@ -2366,27 +2008,23 @@ a chemical reaction <==> 4 5 6 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="239" status="">
-<alignment>
-1. 1 2 <==> 1 2 3 4 // EQUI // 3
-2. 3 <==> 5 6 // EQUI // 5
-3. 4 5 6 <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
 <sentence id="240" status="">
 <alignment>
-1 2 3 4 <==> 6 7 8 // EQUI // 5
-5 <==> 9 // EQUI // 4
-6 <==> 10 // EQUI // 5
-7 <==> in // REL // 2
-8 9 10 11 <==> in a 2 losed path // REL // 3
-If <==> 5 // EQUI // 4
-C <==> 3 4 // REL // 2
+1 2 <==> 1 2 3 4 // EQUI // 3
+3 <==> 5 6 // EQUI // 5
+4 5 6 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="241" status="">
+<alignment>
+1 2 3 4 <==> 6 7 8 // EQUI // 5
+5 <==> 9 // EQUI // 4
+6 <==> 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="242" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // EQUI // 5
@@ -2396,24 +2034,21 @@ C <==> 3 4 // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="242" status="">
+<sentence id="243" status="">
 <alignment>
 1 2 <==> 5 6 7 8 // REL // 3
 3 4 5 <==> 9 10 11 // EQUI // 5
-B and C <==> 4 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="243" status="">
+<sentence id="244" status="">
 <alignment>
-10 11 <==> the batterys electrical state // SIMI // 3
-the terminal <==> 1 2 // EQUI // 5
 7 <==> 3 4 // SIMI // 3
 4 5 6 <==> 5 6 7 8 9 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="244" status="">
+<sentence id="245" status="">
 <alignment>
 1 2 <==> 1 2 // REL // 0
 3 4 <==> 5 6 // EQUI // 5
@@ -2426,18 +2061,16 @@ the terminal <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="245" status="">
+<sentence id="246" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 <==> 3 // SIMI // 3
-on a closed circuit path <==> 6 7 8 9 10 // REL // 1
-on a closed circuit path <==> 11 12 13 // REL // 1
 0 <==> 4 // NOALI // 0
 0 <==> 5 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="246" status="">
+<sentence id="247" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 // EQUI // 5
 6 7 <==> 4 // EQUI // 5
@@ -2446,28 +2079,22 @@ on a closed circuit path <==> 11 12 13 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="247" status="">
+<sentence id="248" status="">
 <alignment>
-battery <==> 1 2 // SIMI // 3
 5 6 <==> 9 10 11 // SIMI // 4
 4 <==> 3 // REL // 2
 7 <==> 7 8 // REL // 1
 8 <==> 12 13 14 // REL // 1
-9 <==> 4 5 6 , positive terminal, negative terminal // REL // 2
-</alignment>
-</sentence>
-
-<sentence id="248" status="">
-<alignment>
-Terminal 3 <==> Terminal 3 // EQUI // 5
-positive terminal <==> the positive terminal // EQUI // 5
-1 <==> the gap // EQUI // 5
-2 3 4 5 6 <==> 0 // NOALI // 0
-are separated <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="249" status="">
+<alignment>
+2 3 4 5 6 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="250" status="">
 <alignment>
 1 <==> 0 // NOALI // 0 
 2 3 4 5 <==> 1 2 3 // EQUI // 5 
@@ -2477,15 +2104,14 @@ are separated <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="250" status="">
+<sentence id="251" status="">
 <alignment>
 1 2 3 4 <==> 8 9 10 11 12 // REL // 1
 5 6 7 <==> 0 // NOALI // 0
-Terminals 1 2 and 3 <==> 6 7 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="251" status="">
+<sentence id="252" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
 2 3 <==> 1 2 // EQUI // 5
@@ -2494,16 +2120,15 @@ Terminals 1 2 and 3 <==> 6 7 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="252" status="">
+<sentence id="253" status="">
 <alignment>
-1 <==> the path is not // REL // 2
-2 <==> 0 // NOALI // 
-3 <==> 0 // NOALI // 
+2 <==> 0 // NOALI // 0 
+3 <==> 0 // NOALI // 0 
 4 5 6 <==> 5 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="253" status="">
+<sentence id="254" status="">
 <alignment>
 1 <==> 1 2 // REL // 2
 2 3 <==> 3 // SIMI // 3
@@ -2513,16 +2138,15 @@ Terminals 1 2 and 3 <==> 6 7 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="254" status="">
+<sentence id="255" status="">
 <alignment>
-terminal <==> 1 2 3 4 // SIMI // 3
 1 2 <==> 0 // NOALI // 0
 3 4 5 <==> 5 6 7 // EQUI // 5
 6 7 8 9 10 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="255" status="">
+<sentence id="256" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 // EQUI // 5
 5 <==> 0 // NOALI // 0
@@ -2533,17 +2157,15 @@ terminal <==> 1 2 3 4 // SIMI // 3
 </alignment>
 </sentence>
 
-<sentence id="256" status="">
+<sentence id="257" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 // EQUI // 5
-are separated <==> 5 6 // EQUI // 5
 8 9 10 <==> 7 8 9 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="257" status="">
+<sentence id="258" status="">
 <alignment>
-battery <==> 1 2 // EQUI // 5
 4 5 6 7 8 <==> 5 6 7 8 // EQUI // 5
 4 <==> 12 // EQUI // 5
 0 <==> 11 // NOALI // 0
@@ -2552,17 +2174,15 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="258" status="">
+<sentence id="259" status="">
 <alignment>
- 1 2 <==> 3 4 5 // SIMI // 4
+1 2 <==> 3 4 5 // SIMI // 4
  3 <==> 6 // SIMI // 4
  4 5 6 7 8 <==> 7 8 9 10 11 12 // EQUI // 5
- there <==> 0 // NOALI // 0
- is <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="259" status="">
+<sentence id="260" status="">
 <alignment>
 1 2 3 4 <==> 1 2 // SIMI // 3
 5 <==> 3 // EQUI // 5
@@ -2571,22 +2191,14 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="260" status="">
-<alignment>
-positive battery terminal <==> positive terminal // SIMI // 4
-Terminal 5 <==> Terminal 5 // EQUI // 5
-</alignment>
-</sentence>
-
-<sentence id="261" status="">
+<sentence id="262" status="">
 <alignment>
 1 2 3 4 <==> 1 2 // SIMI // 3
-5 <==> not connected // EQUI // 5
 6 7 8 9 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="262" status="">
+<sentence id="263" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 4 <==> 3 4 // EQUI // 5
@@ -2597,34 +2209,26 @@ Terminal 5 <==> Terminal 5 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="263" status="">
+<sentence id="264" status="">
 <alignment>
 1 2 3 4 <==> 1 2 // SIMI // 3
 1 2 3 4 <==> 4 5 6 7 // NOALI // 0
 1 2 3 4 <==> 0 // NOALI // 0
 1 2 3 4 <==> 0 // NOALI // 0
 1 2 3 4 <==> 0 // NOALI // 0
-the battery <==> the two ends // SIMI // 3
-the battery <==> 3 // NOALI // 0
-the battery <==> 4 5 6 7 // NOALI // 0
-the battery <==> 0 // NOALI // 0
-the battery <==> 0 // NOALI // 0
-is <==> 0 // NOALI // 0
-in an open path <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="264" status="">
+<sentence id="265" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 3 <==> 0 // NOALI // 0
 4 <==> 2 // EQUI // 5
 5 <==> 0 // NOALI // 0
-the circuit 4 no longer complete <==> 3 4 5 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="265" status="">
+<sentence id="266" status="">
 <alignment>
 1 <==> 1 2 3 4 5 6 7 // REL // 1
 2 3 <==> 1 2 3 4 5 6 7 // SIMI // 3
@@ -2633,23 +2237,19 @@ the circuit 4 no longer complete <==> 3 4 5 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="266" status="">
+<sentence id="267" status="">
 <alignment>
 1 2 <==> 0 // NOALI // 0
-3 <==> not // OPPO // 5
 4 5 6 7 <==> 7 8 9 10 // REL // 2
 8 <==> 0 // NOALI // 0
 9 10 <==> 1 2 // EQUI // 5
-ex3 ts <==> 0 // NOALI // 0
 12 13 14 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="267" status="">
+<sentence id="268" status="">
 <alignment>
-light bulb <==> 1 2 // EQUI // 3
 1 2 3 <==> 6 7 8 9 10 // EQUI // 4
-connected <==> 5 // SIMI // 2
 6 7 8 9 <==> 11 12 13 // REL // 1
 4 5 <==> 3 5 // SIMI // 3
 6 7 8 9 <==> 11 12 13 // REL // 1
@@ -2657,7 +2257,7 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="268" status="">
+<sentence id="269" status="">
 <alignment>
 1 2 3 <==> 1 2 // REL // 2 
 4 5 6 <==> 4 5 6 7 // REL // 2 
@@ -2668,7 +2268,7 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="269" status="">
+<sentence id="270" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 // SIMI // 4
 6 7 <==> 4 // EQUI // 5
@@ -2676,7 +2276,7 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="270" status="">
+<sentence id="271" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 3
 3 <==> 12 // EQUI // 5
@@ -2688,7 +2288,7 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="271" status="">
+<sentence id="272" status="">
 <alignment>
 1 2 <==> 1 2 3 4 // EQUI // 3
 3 4 <==> 5 6 // OPPO // 4
@@ -2696,7 +2296,7 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="272" status="">
+<sentence id="273" status="">
 <alignment>
 1 <==> 1 // SIMI // 2
 2 3 <==> 0 // NOALI // 0
@@ -2708,19 +2308,17 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="273" status="">
+<sentence id="274" status="">
 <alignment>
- 1 2 <==> 1 2 // SIMI // 4
+1 2 <==> 1 2 // SIMI // 4
  3 <==> 3 // EQUI // 5
  4 5 6 7 <==> 4 5 6 7 8 9 // SIMI // 3
  8 9 10 <==> 10 11 12 13 14 15 // REL // 2
  11 <==> 0 // NOALI // 0
- 12 13 <==> switch Z // EQUI // 5
- 3 closed <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="274" status="">
+<sentence id="275" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 3
 3 <==> 3 // EQUI // 5
@@ -2729,24 +2327,23 @@ connected <==> 5 // SIMI // 2
 </alignment>
 </sentence>
 
-<sentence id="275" status="">
-<alignment>
-1 <==> 0 // alignment type // score 0
-2 3 <==> 1 2 3 4 5 // SIMI // score 4
-4 5 <==> 6 7 // EQUI // score 5
-6 7 8 9 10 11 12 <==> 8 9 10 11 12 // SIMI // score 4
-</alignment>
-</sentence>
-
 <sentence id="276" status="">
 <alignment>
-1 2 <==> 3 4 // EQUI // 2
-3 4 5 6 <==> 5 6 7 8 // EQUI // 5
-Bulb C <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
+2 3 <==> 1 2 3 4 5 // SIMI // 4
+4 5 <==> 6 7 // EQUI // 5
+6 7 8 9 10 11 12 <==> 8 9 10 11 12 // SIMI // 4
 </alignment>
 </sentence>
 
 <sentence id="277" status="">
+<alignment>
+1 2 <==> 3 4 // EQUI // 2
+3 4 5 6 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="278" status="">
 <alignment>
 1 <==> 1 2 3 4 5 // SIMI // 4
 2 <==> 6 7 // EQUI // 5
@@ -2754,19 +2351,16 @@ Bulb C <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="278" status="">
+<sentence id="279" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
 2 <==> 0 // NOALI // 0
 3 <==> 0 // NOALI // 0
 4 5 6 7 8 <==> 0 // NOALI // 0
-Terminal 1 and the positive terminal <==> 0 // NOALI // 0
-are separated <==> 0 // NOALI // 0
-by the gap <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="279" status="">
+<sentence id="280" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 // SIMI // 4
 5 <==> 5 // EQUI // 5
@@ -2774,35 +2368,24 @@ by the gap <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="280" status="">
+<sentence id="281" status="">
 <alignment>
 1 2 <==> 1 2 3 4 // SIMI // 3
 3 4 <==> 5 6 7 // OPPO // 5
-to positive terminal <==> 0 // 0 // 0
 8 9 <==> 0 // 0 // 0
 </alignment>
 </sentence>
 
-<sentence id="281" status="">
+<sentence id="283" status="">
 <alignment>
-terminal 1 <==> 1 2 // SIMI // 3
-are connected <==> not connected // OPPO // 5
-1 2 <==> the negative battery terminal // REL // 2
-</alignment>
-</sentence>
-
-<sentence id="282" status="">
-<alignment>
-1 2 <==> battery and switch Z // REL // 3
 3 <==> 3 // EQUI // 5
 4 5 6 7 <==> 4 // REL // 2
 8 <==> 5 // REL // 1
 9 10 <==> 1 2 // EQUI // 5
-in a closed path <==> in the same path // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="283" status="">
+<sentence id="284" status="">
 <alignment>
 1 <==> 11 12 13 14 // SIMI // 2
 2 3 <==> 4 5 // SIMI // 2
@@ -2811,7 +2394,7 @@ in a closed path <==> in the same path // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="284" status="">
+<sentence id="285" status="">
 <alignment>
 1 <==> 3 // EQUI // 0
 2 3 <==> 1 2 // EQUI // 5
@@ -2820,56 +2403,33 @@ in a closed path <==> in the same path // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="285" status="">
+<sentence id="286" status="">
 <alignment>
 1 2 3 4 <==> 6 7 8 // EQUI // 5
 5 <==> 9 // EQUI // 5
-6 7 <==> separate paths // EQUI // 5
 8 9 10 11 <==> 12 13 14 15 16 17 18 // REL // 3
-If <==> 0 // NOALI // 0
-bulb A burns out <==> 2 3 // EQUI // 5
-no longer <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
-<sentence id="286" status="">
-<alignment>
-terminal <==> 1 2 3 4 5 // SIMI // 4
-terminal <==> positive battery terminal // REL // 2
-connected <==> separated // OPPO // 5
-a bulb <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
-<sentence id="287" status="">
-<alignment>
-the positive battery terminal <==> Terminal 4 // SIMI // 4
-has no gaps <==> not separated by the gap // OPPO // 4
-from terminal 4 <==> Terminal 4 // EQUI // 5
-</alignment>
-</sentence>
-
-<sentence id="288" status="">
-<alignment>
-1 <==> 1 // EQUI // 5
-2 3 4 5 <==> 2 3 4 5 6 // SIMI // 4
-6 <==> are // EQUI // 5
-7 8 9 10 <==> 9 10 11 12 // SIMI // 3
 </alignment>
 </sentence>
 
 <sentence id="289" status="">
 <alignment>
-1 <==> 0 // NOALI // 0 
-2 3 <==> 1 2 // EQUI // 5
-4 <==> is not // OPPO // 3
-5 <==> 0 // NOALI // 0
+1 <==> 1 // EQUI // 5
+2 3 4 5 <==> 2 3 4 5 6 // SIMI // 4
+7 8 9 10 <==> 9 10 11 12 // SIMI // 3
 </alignment>
 </sentence>
 
 <sentence id="290" status="">
 <alignment>
- 1 2 <==> 2 3 // EQUI // 5
+1 <==> 0 // NOALI // 0 
+2 3 <==> 1 2 // EQUI // 5
+5 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="291" status="">
+<alignment>
+1 2 <==> 2 3 // EQUI // 5
  3 <==> 1 // NOALI // 0
  4 5 <==> 4 5 // SIMI // 4
  6 7 <==> 10 // SIMI // 3
@@ -2877,7 +2437,7 @@ from terminal 4 <==> Terminal 4 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="291" status="">
+<sentence id="292" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 3
 3 4 <==> 3 // EQUI // 5
@@ -2886,7 +2446,7 @@ from terminal 4 <==> Terminal 4 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="292" status="">
+<sentence id="293" status="">
 <alignment>
 1 2 <==> 1 2 // EQUI // 5
 3 4 <==> 3 5 // EQUI // 5
@@ -2897,25 +2457,24 @@ from terminal 4 <==> Terminal 4 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="293" status="">
+<sentence id="294" status="">
 <alignment>
 1 2 <==> 1 2 3 4 // SIMI // 3
 3 4 <==> 5 6 // EQUI // 5
-to terminal 4 <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
-<sentence id="294" status="">
-<alignment>
-1 2 3 4 <==> 0 // NOALI // NOALI 
-5 6 <==> 3 // OPPO // 5 
-7 8 9 10 <==> 4 5 6 7 // REL // 3 
-11 <==> 0 // NOALI // NOALI 
-12 13 <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="295" status="">
+<alignment>
+1 2 3 4 <==> 0 // NOALI // 0 
+5 6 <==> 3 // OPPO // 5 
+7 8 9 10 <==> 4 5 6 7 // REL // 3 
+11 <==> 0 // NOALI // 0 
+12 13 <==> 1 2 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="296" status="">
 <alignment>
 1 2 <==> 3 4 5 // EQUI // 4
 3 4 <==> 2 // REL // 1
@@ -2926,9 +2485,8 @@ to terminal 4 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="296" status="">
+<sentence id="297" status="">
 <alignment>
-switch <==> switch // EQUI // 5
 3 <==> 7 // REL // 1
 4 5 6 7 <==> 8 9 10 11 // SIMI // 4
 8 9 10 11 12 13 <==> 2 3 4 5 6 // NOALI // 0
@@ -2937,87 +2495,56 @@ switch <==> switch // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="297" status="">
-<alignment>
-1 <==> the difference // SIMI // 4
-positive and negative terminal <==> 1 2 3 4 5 6 // SIMI // 4
-positive and negative terminal <==> the positive terminal // SIMI // 3
-11 12 13 <==> 0 // NOALI // 0
-</alignment>
-</sentence>
-
 <sentence id="298" status="">
 <alignment>
-1 2 3 4 <==> 1 2 3 4 5 // EQUI // 5
-5 <==> 6 // EQUI // 5
-6 7 8 9 <==> 7 // REL // 0
-6 7 8 9 <==> 8 // REL // 0
-in the same closed path <==> 9 10 11 12 13 // EQUI // 5
-10 11 12 <==> 14 15 16 // EQUI // 5
+11 12 13 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="299" status="">
 <alignment>
-ca <==> 1 // SIMI // 3
-complet <==> 5 // SIMI // 4
-the pat <==> 3 4 // EQUI // 5
-by havin <==> NOALI // NOALI // 0
- <==> Z // EQUI // 5
-be close <==> NOALI // NOALI // 0
-</alignment>
-</sentence>
-
-<sentence id="300" status="">
-<alignment>
-sw7 ch <==> the switch // EQUI // 5
-bulb <==> a bulb // EQUI // 5
-5 6 <==> the bulb // EQUI // 5
-the bulb <==> the bulb // EQUI // 5
-7 <==> the switch // REL // 1
-the bulb and the sw7 ch <==> 2 3 4 5 6 // EQUI // 5
-13 <==> contained // REL // 3
-14 15 16 <==> 9 10 11 12 // SIMI // 4
-17 <==> 1 // REL // 2
-18 19 <==> 0 // NOALI // NOALI
+1 2 3 4 <==> 1 2 3 4 5 // EQUI // 5
+5 <==> 6 // EQUI // 5
+6 7 8 9 <==> 7 // REL // 0
+6 7 8 9 <==> 8 // REL // 0
+10 11 12 <==> 14 15 16 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="301" status="">
 <alignment>
-positive battery terminal <==> the positive terminal // EQUI // 5
-not connected <==> 2 3 4 // OPPO // 5
-0 <==> 1 // NOALI // 0
+14 15 16 <==> 9 10 11 12 // SIMI // 4
+17 <==> 1 // REL // 2
+18 19 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="302" status="">
 <alignment>
-1 2 3 4 5 <==> 1 2 3 4 // EQUI // 5
-6 <==> 5 // EQUI // 5
-7 <==> 6 // EQUI // 5
-8 9 10 11 <==> 7 8 9 // SIMI // 4
-12 <==> with // REL // 1
-13 14 15 <==> the battery // SIMI // 4
+0 <==> 1 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="303" status="">
 <alignment>
-1 2 3 4 <==> 1 2 3 4 // EQUI // 5
-5 <==> 5 // REL // 0
-6 <==> 6 7 8 9 // REL // 0
-7 <==> 6 7 8 9 // REL // 0
-on their own completed circuits <==> 0 // NOALI // 0
+1 2 3 4 5 <==> 1 2 3 4 // EQUI // 5
+6 <==> 5 // EQUI // 5
+7 <==> 6 // EQUI // 5
+8 9 10 11 <==> 7 8 9 // SIMI // 4
 </alignment>
 </sentence>
 
 <sentence id="304" status="">
 <alignment>
-bulb B <==> 1 2 3 4 5 // REL // 2
-damage <==> damaged // EQUI // 4
-left <==> 6 7 // REL // 1
-7 8 <==> a gap // EQUI // 5
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // REL // 0
+6 <==> 6 7 8 9 // REL // 0
+7 <==> 6 7 8 9 // REL // 0
+</alignment>
+</sentence>
+
+<sentence id="305" status="">
+<alignment>
 9 10 11 <==> 8 9 10 11 12 // REL // 1
 12 <==> 0 // NOALI // 0
 13 14 <==> 0 // NOALI // 0
@@ -3026,7 +2553,7 @@ left <==> 6 7 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="305" status="">
+<sentence id="306" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 4
 3 4 <==> 3 4 // EQUI // 5
@@ -3034,38 +2561,31 @@ left <==> 6 7 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="306" status="">
+<sentence id="307" status="">
 <alignment>
-terminal <==> 1 2 3 4 5 // SIMI // 3
-terminal <==> another terminal // REL // 2
-connected <==> connected // EQUI // 5
 5 6 7 <==> 8 9 10 11 12 // REL // 2
 1 2 <==> 0 // 0 // 0
 </alignment>
 </sentence>
 
-<sentence id="307" status="">
+<sentence id="308" status="">
 <alignment>
-1 2 <==> bulb A // EQUI // 5
 3 4 <==> 3 4 5 // REL // 2
-5 6 7 <==> switch Y // REL // 1
-5 6 7 <==> switch Y // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="308" status="">
+<sentence id="309" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 <==> 2 // EQUI // 5
 3 4 5 <==> 3 4 // SIMI // 4
-6 7 8 <==> 5 A C Z // REL // 3
 9 <==> 0 // NOALI // 0
 10 <==> 0 // NOALI // 0
 11 12 13 14 15 <==> 6 7 8 9 10 11 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="309" status="">
+<sentence id="310" status="">
 <alignment>
 1 2 3 4 5 6 7 <==> 1 2 3 4 5 // EQUI // 5
 8 9 <==> 6 7 // EQUI // 5
@@ -3073,37 +2593,31 @@ connected <==> connected // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="310" status="">
+<sentence id="311" status="">
 <alignment>
 1 2 <==> 1 2 // REL // 1
 3 4 <==> 5 6 // EQUI // 5
 5 6 7 <==> 7 8 9 10 // REL // 2
 8 <==> 0 // NOALI // 0
 9 10 <==> 1 2 // EQUI // 5
-3 4 connected <==> 5 6 // EQUI // 3
 14 15 <==> 7 8 9 10 // REL // 1
-</alignment>
-</sentence>
-
-<sentence id="311" status="">
-<alignment>
-1 <==> 1 2 3 4 5 6 // REL // 2
-2 3 <==> Terminal 1 // EQUI // 5
-is separated <==> 7 8 // EQUI // 5
-6 7 8 9 10 <==> 9 10 11 // REL // 3
 </alignment>
 </sentence>
 
 <sentence id="312" status="">
 <alignment>
-A and C <==> bulb a and bulb c // EQUI // 5
-are <==> 4 // EQUI // 5
-8 9 10 <==> 5 6 7 // EQUI // 5
-with the battery <==> 8 9 10 // EQUI // 5
+1 <==> 1 2 3 4 5 6 // REL // 2
+6 7 8 9 10 <==> 9 10 11 // REL // 3
 </alignment>
 </sentence>
 
 <sentence id="313" status="">
+<alignment>
+8 9 10 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="314" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
 2 3 <==> 1 2 // EQUI // 5
@@ -3113,35 +2627,27 @@ with the battery <==> 8 9 10 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="314" status="">
-<alignment>
-positive terminal <==> positive terminal // EQUI // 5
-connected <==> separated // REL // 0
-6 7 8 <==> 9 10 11 // REL // 0
-</alignment>
-</sentence>
-
 <sentence id="315" status="">
 <alignment>
-1 <==> 0 // NOALI // 0 
-bulb a is in a closed path <==> Bulbs A and C are still in closed paths // REL // 2
-bulb c is in a closed path <==> Bulbs A and C are still in closed paths // REL // 2
+6 7 8 <==> 9 10 11 // REL // 0
 </alignment>
 </sentence>
 
 <sentence id="316" status="">
 <alignment>
-1 2 3 <==> 1 2 3 4 5 6 // SIMI // 3
-1 2 3 <==> separated // REL // 1
-4 <==> are // REL // 1
-5 6 <==> 0 // NOALI // 0
+1 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
 <sentence id="317" status="">
 <alignment>
-chemical <==> 4 5 6 // EQUI // 5
-battery <==> 1 2 // EQUI // 5
+1 2 3 <==> 1 2 3 4 5 6 // SIMI // 3
+5 6 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="318" status="">
+<alignment>
 5 6 7 <==> 12 13 14 // REL // 2
 1 2 3 4 <==> 3 // REL // 1
 1 2 3 4 <==> 4 5 6 // REL // 1
@@ -3149,24 +2655,22 @@ battery <==> 1 2 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="318" status="">
+<sentence id="319" status="">
 <alignment>
- 1 2 <==> 1 2 3 4 5 // EQUI // 5
+1 2 <==> 1 2 3 4 5 // EQUI // 5
  3 4 5 <==> 6 // EQUI // 5
  6 7 8 <==> 7 8 9 10 // EQUI // 4
 </alignment>
 </sentence>
 
-<sentence id="319" status="">
+<sentence id="320" status="">
 <alignment>
-bulb a <==> A // EQUI // 5
-bulb c <==> C // EQUI // 5
 6 7 <==> 4 // EQUI // 5
 8 9 <==> 5 6 7 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="320" status="">
+<sentence id="321" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 4 5 6 // REL // 1
 1 2 3 4 5 <==> 7 8 // REL // 1
@@ -3174,19 +2678,14 @@ bulb c <==> C // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="321" status="">
+<sentence id="322" status="">
 <alignment>
-The <==> The // EQUI // 5
-other bulb <==> the other bulb // EQUI // 5
 4 5 6 <==> 8 9 10 // REL // 0
-bulb <==> damaged bulb // REL // 0
-damaged bulb <==> damaged bulb // EQUI // 5
-other bulb <==> the other bulb // EQUI // 5
 4 5 6 <==> 8 9 10 // REL // 0
 </alignment>
 </sentence>
 
-<sentence id="322" status="">
+<sentence id="323" status="">
 <alignment>
 1 <==> 1 // REL // 2
 2 <==> 1 // EQUI // 5
@@ -3196,7 +2695,7 @@ other bulb <==> the other bulb // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="323" status="">
+<sentence id="324" status="">
 <alignment>
 1 <==> 1 // SIMI // 4
 2 3 <==> 2 3 4 5 6 // REL // 1
@@ -3206,25 +2705,22 @@ other bulb <==> the other bulb // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="324" status="">
+<sentence id="325" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 5 // EQUI // 5
-connected <==> connected // EQUI // 5
 7 8 9 10 <==> 8 9 10 11 12 // REL // 3
 </alignment>
 </sentence>
 
-<sentence id="325" status="">
+<sentence id="326" status="">
 <alignment>
-1 2 3 <==> no alignment // NOALI // 0
 4 5 6 <==> 3 4 // REL // 1
 7 <==> 2 // SIMI // 3
-8 9 <==> no alignment // NOALI // 0
 10 11 12 <==> 5 6 7 // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="326" status="">
+<sentence id="327" status="">
 <alignment>
 1 2 3 4 <==> 1 2 3 4 5 // EQUI // 5
 5 6 7 <==> 6 7 8 // EQUI // 5
@@ -3232,22 +2728,16 @@ connected <==> connected // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="327" status="">
+<sentence id="328" status="">
 <alignment>
 1 2 3 4 <==> 6 7 8 // EQUI // 5
 5 <==> 9 // EQUI // 5
 6 <==> 10 // EQUI // 5
-7 <==> in a 2 losed path // REL // 3
-8 9 10 11 <==> in a 2 losed path // REL // 3
 12 13 14 <==> 15 16 17 // EQUI // 5
-If <==> 1 // EQUI // 5
-C <==> 3 4 // REL // 3
-burns out <==> 2 // REL // 3
-then <==> 5 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="328" status="">
+<sentence id="329" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 // SIMI // 4
 6 <==> 4 // EQUI // 5
@@ -3256,7 +2746,7 @@ then <==> 5 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="329" status="">
+<sentence id="330" status="">
 <alignment>
 1 2 3 <==> 1 2 3 // EQUI // 5
 4 <==> 4 // EQUI // 5
@@ -3265,13 +2755,13 @@ then <==> 5 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="330" status="">
+<sentence id="331" status="">
 <alignment>
 1 <==> 1 // EQUI // 5
 2 3 <==> 12 13 // EQUI // 5
 6 7 8 <==> 2 3 4 5 6 // REL // 2
 9 10 <==> 8 9 10 11 // REL // 3
-11 <==> 7 // NOALI // 
+11 <==> 7 // NOALI // 0 
 14 <==> 0 // // 0
 15 <==> 0 // // 0
 16 17 <==> 14 // REL // 4
@@ -3279,48 +2769,39 @@ then <==> 5 // EQUI // 5
 </alignment>
 </sentence>
 
-<sentence id="331" status="">
+<sentence id="332" status="">
 <alignment>
- 2 3 <==> 1 2 3 // REL // 2
- 2 3 <==> of the bulb // REL // 2
+2 3 <==> 1 2 3 // REL // 2
  2 3 <==> 10 11 12 // REL // 1
  1 <==> 4 5 // REL // 1
  1 <==> 1 2 3 // REL // 1
  1 <==> 6 7 8 9 // REL // 1
  1 <==> 10 11 12 // REL // 1
- 1 <==> each other // REL // 1
- 1 <==> not affect // REL // 1 
  4 5 6 <==> 1 2 3 // REL // 1
  4 5 6 <==> 4 5 // REL // 1
  4 5 6 <==> 6 7 8 9 // REL // 1
  4 5 6 <==> 10 11 12 // REL // 1
- 4 5 6 <==> each other // REL // 1
- 4 5 6 <==> not affect // REL // 1
  7 8 9 <==> 1 2 3 // REL // 2
  7 8 9 <==> 4 5 // REL // 2
  7 8 9 <==> 6 7 8 9 // REL // 2
  7 8 9 <==> 10 11 12 // REL // 2
- 7 8 9 <==> each other // REL // 2
-</alignment>
-</sentence>
-
-<sentence id="332" status="">
-<alignment>
-not separated <==> 7 8 9 // EQUI // 5
-3 4 5 <==> 10 11 12 // EQUI // 5
-Terminal 6 and the positive terminal <==> 0 // NOALI // NOALI
 </alignment>
 </sentence>
 
 <sentence id="333" status="">
 <alignment>
- 1 <==> 9 10 11 // SIMI // 3
- 2 3 4 5 6 7 <==> 1 2 3 4 5 6 // SIMI // 5
- are separated <==> 7 8 // EQUI // 5
+3 4 5 <==> 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="334" status="">
+<alignment>
+1 <==> 9 10 11 // SIMI // 3
+ 2 3 4 5 6 7 <==> 1 2 3 4 5 6 // SIMI // 5
+</alignment>
+</sentence>
+
+<sentence id="335" status="">
 <alignment>
 1 <==> 1 // SIMI // 3
 2 <==> 0 // NOALI // 0
@@ -3331,29 +2812,26 @@ Terminal 6 and the positive terminal <==> 0 // NOALI // NOALI
 </alignment>
 </sentence>
 
-<sentence id="335" status="">
+<sentence id="336" status="">
 <alignment>
 1 2 3 4 5 <==> 6 7 8 // EQUI // 5
 6 <==> 9 // EQUI // 5
 7 <==> 10 // EQUI // 5
-8 <==> in a 2 losed path // REL // 3
-9 10 11 <==> in a 2 losed path // SIMI // 4
 12 13 14 <==> 15 16 17 // EQUI // 5
-If <==> 2 3 4 // REL // 1
-</alignment>
-</sentence>
-
-<sentence id="336" status="">
-<alignment>
-1 2 3 <==> 1 2 // SIMI // 3
-4 5 <==> 3 // EQUI // 5
-6 7 8 9 <==> 4 5 6 7 // SIMI // 4
-10 <==> 0 // NOALI // 
-11 <==> 0 // NOALI // 
 </alignment>
 </sentence>
 
 <sentence id="337" status="">
+<alignment>
+1 2 3 <==> 1 2 // SIMI // 3
+4 5 <==> 3 // EQUI // 5
+6 7 8 9 <==> 4 5 6 7 // SIMI // 4
+10 <==> 0 // NOALI // 0 
+11 <==> 0 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="338" status="">
 <alignment>
 1 2 <==> 1 2 // SIMI // 3
 3 4 <==> 3 4 // EQUI // 5
@@ -3366,36 +2844,30 @@ If <==> 2 3 4 // REL // 1
 </alignment>
 </sentence>
 
-<sentence id="338" status="">
+<sentence id="339" status="">
 <alignment>
 1 2 3 4 5 <==> 1 2 3 // SIMI // 3
 7 8 9 10 <==> 5 6 7 8 9 // SIMI // 4
 </alignment>
 </sentence>
 
-<sentence id="339" status="">
+<sentence id="340" status="">
 <alignment>
 1 <==> 1 // REL // 1
-th1 nk <==> 2 // REL // 1
 3 4 5 <==> 0 // NOALI // 0
 6 <==> 0 // NOALI // 0
 7 <==> 0 // NOALI // 0
-th1 s <==> 0 // NOALI // 0
-1 s <==> 0 // NOALI // 0
 10 <==> 0 // NOALI // 0
 11 <==> 0 // NOALI // 0
 12 <==> 0 // NOALI // 0
 13 <==> 0 // NOALI // 0
 14 <==> 0 // NOALI // 0
 15 <==> 0 // NOALI // 0
-someth1 ng <==> 0 // NOALI // 0
-1 s <==> 0 // NOALI // 0
-ser1 ously <==> 0 // NOALI // 0
 19 <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="340" status="">
+<sentence id="341" status="">
 <alignment>
 1 <==> 0 // NOALI // 0
 2 <==> 0 // NOALI // 0
@@ -3406,38 +2878,32 @@ ser1 ously <==> 0 // NOALI // 0
 </alignment>
 </sentence>
 
-<sentence id="341" status="">
+<sentence id="342" status="">
 <alignment>
 1 2 3 4 <==> 6 7 8 // EQUI // 5
 5 <==> 9 // EQUI // 5
 6 <==> 10 // EQUI // 5
-7 <==> in a 2 losed path // REL // 3
 8 9 10 11 <==> 15 16 17 // REL // 3
 12 13 14 <==> 15 16 17 // REL // 4
-If <==> 1 // EQUI // 5
-C <==> 3 4 // REL // 2
-</alignment>
-</sentence>
-
-<sentence id="342" status="">
-<alignment>
-1 <==> 1 // SIMI // 3
-2 3 4 5 6 <==> 2 3 4 5 6 // EQUI // 5
-7 <==> are // EQUI // 5
-8 9 10 11 <==> 9 10 11 12 // EQUI // 5
 </alignment>
 </sentence>
 
 <sentence id="343" status="">
 <alignment>
-bulb c <==> 5 7 8 9 // SIMI // 3
-switch z <==> 5 7 8 9 // SIMI // 3
+1 <==> 1 // SIMI // 3
+2 3 4 5 6 <==> 2 3 4 5 6 // EQUI // 5
+8 9 10 11 <==> 9 10 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="344" status="">
+<alignment>
 6 <==> 2 // EQUI // 5
 7 8 9 10 11 <==> 3 4 // REL // 2
 </alignment>
 </sentence>
 
-<sentence id="344" status="">
+<sentence id="345" status="">
 <alignment>
 1 2 <==> 1 2 // NOALI // 0
 3 <==> 9 10 11 // SIMI // 3
