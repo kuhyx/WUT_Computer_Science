@@ -3,18 +3,21 @@ import processing
 import re
 import copy
 
-# output file name 
-file_path = "headlines_fixed_format.wa"
+# input file name 
+file_path = "alignments_unformatted_headlines.txt"
 
-# paths to students andsewrs database
-#chunked_path1 = "test_goldStandard/student/STSint.testinput.answers-students.sent1.chunk.txt"
-#chunked_path2 = "test_goldStandard/student/STSint.testinput.answers-students.sent2.chunk.txt"
-#alignment_path = "test_goldStandard/student/STSint.testinput.answers-students.wa"
+# output file path
+output_file_path = "headlines_fixed_format.wa"
 
 # paths to headlines database
 chunked_path1 = "test_goldStandard/headlines/STSint.testinput.headlines.sent1.chunk.txt"
 chunked_path2 = "test_goldStandard/headlines/STSint.testinput.headlines.sent1.chunk.txt"
 alignment_path = "test_goldStandard/headlines/STSint.testinput.headlines.wa"
+
+# paths to students andsewrs database
+#chunked_path1 = "test_goldStandard/student/STSint.testinput.answers-students.sent1.chunk.txt"
+#chunked_path2 = "test_goldStandard/student/STSint.testinput.answers-students.sent2.chunk.txt"
+#alignment_path = "test_goldStandard/student/STSint.testinput.answers-students.wa"
 
 # load data
 goldstandard_chunked = processing.load_chunked(chunked_path1, chunked_path2)
@@ -22,8 +25,6 @@ goldstandard_alignment = processing.load_alignment(alignment_path)
 
 # get a nice  table
 data = pd.merge(goldstandard_chunked, goldstandard_alignment, left_index=True, right_index=True)
-
-file_path = "alignments_unformatted_headlines.txt"
 
 # open generated alignments
 with open(file_path, 'r') as file:
@@ -141,7 +142,7 @@ for n, r in enumerate(responses):
 print("rejected indexes:")
 print(rejected_indexes)
 
-with open(file_path, 'w') as file:
+with open(output_file_path, 'w') as file:
     for i, r in zip(indexes, responses_final):
         file.write("<sentence id=\"" + str(i+1) + "\" status=\"\">\n")
         file.write("<alignment>\n")
