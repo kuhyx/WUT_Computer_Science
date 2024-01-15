@@ -303,4 +303,9 @@ TSWLatexianTemp*
 
 ### EGUI bin
 bin
+*.4og
+*.tmp
+*.4ot
+*.4o*
+
 ERPM-2023.pdf
