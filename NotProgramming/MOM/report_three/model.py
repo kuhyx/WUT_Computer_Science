@@ -67,11 +67,10 @@ cost_results = []
 satisfaction_results = []
 
 # Varying alpha and beta
-for alpha in range(10):
+for alpha in range(0, 11):
     beta = 10 - alpha + sys.float_info.epsilon
     alpha /= 10.0
     beta /= 10.0
-
     # Update objective function
     model.objective = alpha * cost_distribution - beta * satisfaction_component
 
@@ -93,4 +92,53 @@ plt.plot(cost_results, satisfaction_results, marker='o')
 plt.xlabel('Total Cost')
 plt.ylabel('Customer Satisfaction')
 plt.title('Trade-off between Cost and Customer Satisfaction')
-plt.show()
+#plt.show()
+
+if not cost_results or not satisfaction_results:
+    raise ValueError("cost_results and/or satisfaction_results are empty")
+
+# Function to identify non-dominated points
+def is_non_dominated(costs, sats, current_index):
+    for i, (c, s) in enumerate(zip(costs, sats)):
+        if i != current_index and c <= costs[current_index] and s >= sats[current_index]:
+            return False
+    return True
+
+# Identify Non-Dominated Points
+non_dominated = [(c, s) for i, (c, s) in enumerate(zip(cost_results, satisfaction_results)) if is_non_dominated(cost_results, satisfaction_results, i)]
+
+# Ensure non_dominated is not empty
+if not non_dominated:
+    print("No non-dominated points found. Check the model and data.")
+if non_dominated:
+    # Extract and plot the non-dominated points
+    cost, satisfaction = zip(*non_dominated)
+    plt.scatter(cost, satisfaction, color='r')
+    plt.xlabel('Total Cost')
+    plt.ylabel('Customer Satisfaction')
+    plt.title('Pareto Front')
+    plt.grid(True)
+    plt.show()
+
+# Pseudo-code, assuming model setup as previously discussed
+scenarios = [(1.0, sys.float_info.epsilon), (0.8, 0.2), (0.5, 0.5), (0.2, 0.8), (sys.float_info.epsilon, 1.0)]
+results = []
+
+for alpha, beta in scenarios:
+    # Update objective function
+    model.objective = alpha * cost_distribution - beta * satisfaction_component
+
+    # Solve the model
+    model.solve()
+
+    # Record the results
+    total_cost = pulp.value(cost_distribution)
+    total_satisfaction = pulp.value(satisfaction_component)
+    results.append((alpha, beta, total_cost, total_satisfaction))
+
+# Output results for the report
+for idx, (alpha, beta, cost, satisfaction) in enumerate(results):
+    print(f"Step {idx+1}:")
+    print(f"  Weights - Cost: {alpha}, Satisfaction: {beta}")
+    print(f"  Total Cost: {cost}, Customer Satisfaction: {satisfaction}\n")
+
