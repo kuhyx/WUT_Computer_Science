@@ -1,0 +1,18 @@
+set ORIG;
+set DEST;
+
+param LINKS{ORIG, DEST} default 0;
+
+for {i in ORIG, j in DEST} printf "LINKS[%s,%s] = %g \n",i,j,LINKS[i,j];
+
+data;
+
+set ORIG := GARY CLEV PITT;
+set DEST := FRA DET LAN WIN STL FRE LAF;
+
+
+param LINKS : FRA DET LAN WIN STL FRE LAF :=
+     GARY   1 2 3 4 5 6 .
+     CLEV   . 2 . 4 . 6 .
+     PITT   1 2 3 4 5 6 7;
+end;

@@ -1,0 +1,14 @@
+data;
+
+   set Procesory := ProcA ProcB ProcC;
+   set Zadania := z1 z2 z3 z4 z5 z6;
+   #set ZadaniaSpec := z3 z5;
+
+   # Define 2D array time[Procesory, Zadania]
+   param time :=
+   ProcA z1 5   ProcA z2 7   ProcA z3 9   ProcA z4 2   ProcA z5 4   ProcA z6 1
+   ProcB z1 3   ProcB z2 6   ProcB z3 1   ProcB z4 8   ProcB z5 2   ProcB z6 3
+   ProcC z1 4   ProcC z2 5   ProcC z3 6   ProcC z4 7   ProcC z5 3   ProcC z6 2
+   ;
+
+end;

@@ -34,7 +34,7 @@ subject to
      sum {l in Ladowarki} k[s, l] = y[s];
   # Ladowanie danego samochodu na danej ladowarce moze rozpoczac sie tylko po zakonczeniu poprzedniego ladowania.
   Ogr_3{i in Samochody, j in Samochody, l in Ladowarki: i != j}:
-     u[i] + 24 * (1 - v[i, j]) >= (u[j] + D[j, l]) - 48 * (2 - k[j, l] - k[i, l]);
+     u[i] + 24 * (1 - v[i, j]) >= (u[j] + D[j, l] - 2 * 24 * (2 = k[j, l] - k[i, l]);
   Ogr_4{i in Samochody, j in Samochody, l in Ladowarki: i != j}: 
     v[i, j] + v[j, i] >= k[i, l] + k[j, l] - 1;  
   # Samochod realizujacy dostawe musi ukonczyc ladowanie przed godzina odjazdu

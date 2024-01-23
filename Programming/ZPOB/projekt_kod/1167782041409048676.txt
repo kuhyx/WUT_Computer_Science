@@ -1,0 +1,8 @@
+param Pracownik{Procesory, Zadania} >=0;
+param Pracownik :    ProcA    ProcB    ProcC:=
+        z1    2    1    2
+        z2    2    1    2
+        z3    2    2    3
+        z4    1    2    2
+        z5    1    2    1
+        z6    2    1    2;
