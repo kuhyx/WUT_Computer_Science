@@ -1,0 +1,40 @@
+data;
+
+set Samochody := s1, s2, s3, s4, s5;
+
+set Ladowarki := l1, l2, l3;
+
+param E{s in Samochody, l in Ladowarki};
+param D{s in Samochody, l in Ladowarki};
+param O{s in Samochody};
+param Z{s in Samochody};
+
+param E :=
+s1 l1 0 s1 l2 0 s1 l3 0
+s2 l1 0 s2 l2 0 s2 l3 0
+s3 l1 0 s3 l2 0 s3 l3 0
+s4 l1 0 s4 l2 0 s4 l3 0
+s5 l1 2 s5 l2 2 s5 l3 2;
+
+param D :=
+s1 l1 4 s1 l2 4 s1 l3 8
+s2 l1 1 s2 l2 1 s2 l3 2
+s3 l1 5 s3 l2 5 s3 l3 10
+s4 l1 3 s4 l2 3 s4 l3 6
+s5 l1 6 s5 l2 6 s5 l3 12;
+
+param O :=
+s1 8
+s2 5
+s3 6
+s4 4
+s5 9;
+
+param Z :=
+s1 100
+s2 10
+s3 200
+s4 20
+s5 330;
+
+end;

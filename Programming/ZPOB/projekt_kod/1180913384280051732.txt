@@ -1,0 +1,43 @@
+# 1. Zbiory
+set Samochody; 
+set Ladowarki; 
+
+# 2. Parametery 
+# Najwczesniejszy mozliwy czas rozpoczecia ladowania samochodu s na ladowarce l
+param E{s in Samochody, l in Ladowarki}; 
+#  Czas ladowania samochodu s na ladowarce l
+param D{s in Samochody, l in Ladowarki}; 
+#  Czas odjazdu samochodu s
+param O{s in Samochody}; 
+#  Zysk z realizacji kursu przez samochód s
+param Z{s in Samochody}; 
+ 
+# Zmienna decyzyjna
+# zmienna okreslajaca godzine rozpoczecia ladowania samochodu s na ladowarce l 
+var u{s in Samochody, l in Ladowarki}, >= 0 and <= 24; 
+# zmienna binarna okreslajaca czy kurs zostanie wykonany 
+var y{s in Samochody}, binary; 
+#  zmienna binarna okreslajaca czy samochód i jest ladowany po samochodzie j na ladowarce l
+var v{i in Samochody, j in Samochody, l in Ladowarki}, binary; 
+#  zmienna binarna okreslajaca czy samochód s jest ladowany jako pierwszy na ladowarce l
+var p{s in Samochody, l in Ladowarki}, binary;  
+#  zmienna binarna okreslajacy czy samochód s jest ladowany na ladowarce l
+var k{s in Samochody, l in Ladowarki}, binary; 
+ 
+# Funkcja celu
+maximize Q: sum {s in Samochody} y[s]*Z[s]; 
+ 
+# Ograniczenia
+subject to 
+  # Samochód nie moze rozpoczac swojego ladownia przed najwczesniejszym mozliwym czasie ladowania.
+  Ogr_1{s in Samochody, l in Ladowarki}: 
+    u[s,l] >= E[s, l]; 
+  # Samochód moze byc ladowany maksymalnie na jednej ladowarce  
+  Ogr_2{s in Samochody, l in Ladowarki}: 
+    sum {l in Ladowarki} k[s, l] == y[s]
+  Ogr_3{n in Budynki}: 
+    sum {i in Budynki} f[n,i] <= sum {j in BudynkiNaStart} f[j,n]; 
+ 
+solve; 
+display {i in Budynki, j in Budynki: f[i,j] > 0}: f[i,j]; 
+display: Q;

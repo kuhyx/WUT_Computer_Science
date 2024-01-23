@@ -1,0 +1,47 @@
+# Model szeregowania zadaï¿½ podzielnych na m procesorach rï¿½wnolegï¿½ych
+# Faza I
+#======================================================================
+
+set Procesory;
+set Zadania;
+#set ZadaniaSpec;
+#======================================================================
+param Czas_wyk{Procesory, Zadania} >= 0;
+
+    # Wymiar tabeli i kolumna z ktÃ³rej bÄ™dziemy czytaÄ‡ wartoÅ›ci
+   table T_Czas_wyk    IN "CSV" "Czas_wyk.csv":
+      [Procesor, Zadanie], Czas_wyk~Czas_wyk; 
+
+#======================================================================
+var Tmax >= 0;
+
+var t{Procesory, Zadania}>=0;
+#======================================================================
+
+minimize FC_Czas_obslugi:
+                    Tmax;
+
+#======================================================================
+subject to
+
+    Ogr_Praca_procesora{l in Procesory}:
+        sum {i in Zadania} t[l,i]<=Tmax;
+        
+    Ogr_Obsluga_zadania{i in Zadania}:# i not in ZadaniaSpec}:
+        sum{l in Procesory} t[l,i]<=Tmax;
+        
+    Ogr_Rozdzial_zadan{i in Zadania}:#i not in ZadaniaSpec}:
+        sum{l in Procesory} (t[l,i]/Czas_wyk[l,i])=1;
+
+    
+solve;
+    #printf ";;;;%s;%s\n", 'Data', time2str(gmtime()+2*3600,'%F %H:%M') >> "FazaIout.csv";
+    #printf ";;%s;%3.1f", 'Tmin', Tmax  >> "FazaIout.csv";
+
+    printf "Procesor,Zadanie,t" >> "FazaIout.csv";
+    for {l in Procesory, i in Zadania} {
+        printf "\n%s,%s,%3.1f", l, i, round(t[l,i],3)>> "FazaIout.csv";
+    }
+    display{l in Procesory, i in Zadania: t[l,i]>0}: l, i, round(t[l,i],3);
+#======================================================================
+end;

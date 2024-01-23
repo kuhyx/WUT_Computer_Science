@@ -1,0 +1,198 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\title{Modelowanie Matematyczne, Projekt 3, Dane nr 1.6}
+\author{Krzysztof Rudnicki, 307585}
+\setcounter{section}{-1}
+\begin{document}
+\maketitle 
+\section{Wstęp} 
+2 Fabryki, F1, F2 \\ 
+4 Magazyny, M1, M2, M3, M4 \\ 
+6 Klientów, K1, K2, K3, K4, K5, K6 \\ 
+\paragraph{Koszty dystrybucji towaru}
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | c | c |  }
+        \hline
+     zaopatruje & F1 & F2 & M1 & M2 & M3 & M4  \\ 
+     \hline
+     Magazyny &  &  &  &  &  &   \\ 
+     \hline
+     M1 & 0.3 & - &  &  &  &   \\ 
+     \hline
+     M2 & 0.5 & 0.4 &  &  &  &   \\ 
+     \hline
+     M3 & 1.2 & 0.5 &  &  &  &   \\ 
+     \hline
+     M4 & 0.8 & 0.3 &  &  &  &   \\ 
+     \hline
+     Klientów &  &  & &  &  & \\ 
+     \hline
+     K1 & 1.2 & 1.8 & - & 1.4 & - & -    \\ 
+     \hline
+     K2 & - & - & 1.2 & 0.3 & 1.3 & -  \\ 
+     \hline
+     K3 & 1.2 & - & 0.2 & 1.8 & 2.0 & 0.4  \\ 
+     \hline
+     K4 & 2.0 & - & 1.7 & 1.3 & - & 2.0  \\ 
+     \hline
+     K5 & - & - & - & 0.5 & 0.3 & 0.5  \\ 
+     \hline
+     K6 & 1.1 & - & 2.0 & - & 1.4 & 1.5  \\ 
+     \hline
+    \end{tabular}
+    \end{center}
+\section{Model Dwukryterialny}
+\paragraph{Zbiory}
+\begin{itemize}
+    \item $i, k \in F$ - Fabryki 
+    \item $i, l \in M$ - Magazyny 
+    \item $j \in K$ - Klienci
+\end{itemize}
+\paragraph{Parametery}
+\begin{itemize}
+    \item $C_{i, j}$ - Koszty transportu dóbr z punktów $i$ (fabryka lub magazyn) do klienta $j$
+    \item $C_{k, l}$ - Koszty transportu dóbr z fabryki $i$ do magazynu $k$ 
+    \item $P_{i, j}$ - Binarnie określa czy preferencja klienta zostąła spełniona (1) czy nie (0)
+    \item $S_j$ - Poziom satysfakcji klienta $j$
+    \item $D_j$ - Zapotrzebowanie klienta $j$
+\end{itemize}
+\paragraph{Zmienne decyzyjne}
+\begin{itemize}
+    \item $x_{i,j}$ - Liczba dóbr (w tys. ton) przetransportowana z punktu $i$ (fabryka lub magazyn) do klienta $j$
+    \item $y_{k, l}$ - Liczba dóbr (w tys. ton) przetransportowana z fabryki $k$ do magazynu $l$
+\end{itemize} 
+\paragraph{Funkcja celu}
+\begin{enumerate}
+    \item Minimalizacja kosztów dystrybucji \\ 
+    \[ Min(\sum_{i, j} C_{i, j} * x_{i, j} + \sum{i, k} C_{i, k} * y_{i, k}) \]
+    \item Maksymalizacja satysfakcja klienta \\ 
+    W celu maksymalizacji satysfakcji klienta policzymy ile z dostaw do klientów odbyło się z preferencyjnych źródeł \\
+    \[ Max(\sum_{j} S_j * P_{i,j} * x_{i, j}) \] 
+\end{enumerate}
+\paragraph{Ograniczenia}
+Miesięczne możliwości produkcyjne fabryk
+\begin{equation}
+    \sum_j x_{F1, j} + \sum_k y_{F1, k} \leq 150
+\end{equation}
+\begin{equation}
+    \sum_j x_{F2, j} + \sum_k y_{F2, k} \leq 200
+\end{equation}
+Miesięczna ilośc obsługiwanego towaru przez magazyny 
+\begin{equation}
+    \sum_j x_{M1, j} \leq 70
+\end{equation}
+\begin{equation}
+    \sum_j x_{M2, j} \leq 50
+\end{equation}
+\begin{equation}
+    \sum_j x_{M3, j} \leq 100
+\end{equation}
+\begin{equation}
+    \sum_j x_{M4, j} \leq 40
+\end{equation}
+Spełnienie preferencji klienta 
+\begin{equation}
+    \sum_i x_{i, j} = D_j
+\end{equation}
+Wartości niezerowe 
+\begin{equation}
+    x_{i, j}, y_{i, k} \geq 0
+\end{equation}
+
+\section{Implementacja}
+Do implementacji użyty został python z biblioteką pulp \href{https://coin-or.github.io/pulp/index.html}{https://coin-or.github.io/pulp/index.html} \\ 
+Dzięki temu wykorzystujemy zarówno łatwość pythona jak i możliwości używania różnych solverów (CBC, GLPK, CPLEX, Gurobi...) przez pulpa \\ 
+\begin{lstlisting}[language=Python, caption={Import bilbioteki pulp}]
+    import pulp
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Iniicjalizacja modelu}]
+    model = pulp.LpProblem("Optimal_Distribution", pulp.LpMinimize)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Zmienne decyzyjne}]
+    x =
+    pulp.LpVariable.dicts("x",
+    [(i, j) for i in punkty for j in klienci],
+    lowBound=0,
+    cat='Integer')
+    y 
+     pulp.LpVariable.dicts("y",
+     [(i, k) for i in fabryki for k in magazyny],
+     lowBound=0,
+     cat='Integer')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Funkcje celu}]
+    # Objective function components
+    koszt_dystrybucji =
+    pulp.lpSum(
+        [cost[i][j] * x[(i, j)] for i in punkty for j in klienci]
+        )
+    koszt_magazynowania =
+    pulp.lpSum(
+        [cost[i][k] * y[(i, k)] for i in fabryki for k in magazyny]
+        )
+
+    # Define objective
+    model += 
+    alpha
+    * (koszt_dystrybucji + koszt_magazynowania)
+    - beta * poziom_satysfakcji    
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Ograniczenia}]
+for i in fabryki:
+    model +=
+        pulp.lpSum([x[(i, j)] for j in klienci]
+        + [y[(i, k)] for k in magazyny])
+        <= mozliwosci_fabryki[i]
+for k in magazyny:
+    model +=
+    pulp.lpSum([x[(k, j)] for j in klienci])
+    <= mozliwosci_magazynu[k]
+for j in klienci:
+    model +=
+    pulp.lpSum([x[(i, j)] for i in punkty]) == wymagania_klienta[j]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Rozwiązanie problemu}]
+    model.solve()
+\end{lstlisting}
+\
+
+\begin{lstlisting}[language=Python, caption={Przedstawienie wyników}]
+for v in model.variables():
+    print(v.name, "=", v.varValue)
+\end{lstlisting}
+
+\section{Rozwiązanie efektywne}
+Aby zdefiniować rozwiązanie efektywne sprawdzamy sumaryczy obu funkcji celu dla wartości $\alpha$ i $beta$ od 1 do 10 \\ 
+w tym celu napisany został kod który modyfikuje wartości $\alpha$ i $\beta$ w pętli 
+
+\begin{lstlisting}[language=Python, caption={Wyznaczanie alpha i beta}]
+
+# Varying alpha and beta
+for alpha in range(0, 11):
+    beta = 10 - alpha
+    alpha /= 10.0
+    beta /= 10.0
+
+    # Update objective function
+    model.objective = alpha * cost_distribution - beta * satisfaction_component
+
+    # Solve the model
+    model.solve()
+
+    # Record the results
+    total_cost = value(cost_distribution)
+    total_satisfaction = value(satisfaction_component)
+    cost_results.append(total_cost)
+    satisfaction_results.append(total_satisfaction)
+\end{lstlisting}
+
+    \end{document}

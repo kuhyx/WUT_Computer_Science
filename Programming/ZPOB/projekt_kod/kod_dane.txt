@@ -1,0 +1,26 @@
+    Przeszukać:
+        1. Leon [x] -> znazłem naszego gitlaba xdd 
+            https://gitlab-stud.elka.pw.edu.pl/wsienkie/zbop_2023z_ladowarki_elektryczne.git
+        2. Google Drive [x]
+        3. Teams [x]
+        4. Discord 
+        
+Discord archiwa:
+https://discord.com/channels/@me/1158794290080788600/1180913384280051732 [pierwszy kod projektowy]
+https://discord.com/channels/@me/1158794290080788600/1180913901228003368 [pierwsze dane]
+
+
+Model matematyczny I (podstawowy)
+    Kod:
+
+    Dane:
+
+Model rozszerzony 
+    Kod:
+    
+    Dane:
+
+Model 2-fazowy
+    Kod:
+    
+    Dane:
