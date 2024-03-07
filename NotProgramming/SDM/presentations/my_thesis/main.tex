@@ -81,10 +81,19 @@
 }
 
 \begin{frame}
-  \frametitle{Wybrane silniki}
+  \frametitle{Wybrane silniki - start}
   \begin{center}    
   \includegraphics[width=0.8\paperwidth, height=0.8\paperheight]{usedEngines.pdf}
 \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Wybrane silniki}
+  \begin{itemize}
+    \item Wyeliminowanie nie generycznych - Ren'Py, RPGMaker
+    \item Wybór najpopularniejszych - Unity, Unreal 
+    % Prawie 25k i ponad 7.5k
+  \end{itemize}
 \end{frame}
 
 \begin{frame} 
@@ -131,7 +140,7 @@
           \end{frame}
           }
 
-          \frametitle{Nvida nsight}
+          \frametitle{Nvidia nsight}
           {
             \setbeamercolor{footline}{fg=white}
             \usebackgroundtemplate{
@@ -140,22 +149,176 @@
             \begin{frame}
             \end{frame}
             }
+          
+
+          \begin{frame}
+          \frametitle{Nsight - Analiza FPS}
+          \center
+          \includegraphics[width=1\textwidth]{fps_overview.png}
+          % Ile klatek pokazaliśmy na ile
+          % ile trwała średnio klatka
+          % Ile trwała najkrótsza klatka
+          % Ile trwała najdłuższa klatka
+          % Przeciętne klatki na sekundę dla pokazanego wycinka
+          % Tyle lub mniej czasu trwało 99% klatek
+          \end{frame}
+
+          \begin{frame}
+            \frametitle{Nsight - Analiza FPS}
+            \center
+            \includegraphics[width=1\textwidth]{stutter_row.png}
+            % Wykrywanie "zawieszek"
+            % Wykrywamy klatki których długość 
+            % jest znacznie dłuższa od długości mediany pobliskich 19 klatek
+            % zawieszka musi być dłuższa niż 4 milisekundy
+            \end{frame}
+
+            \begin{frame}
+              \frametitle{Nsight - Analiza FPS}
+              \center
+                \includegraphics[width=1\textwidth]{dx12_frame_health.png}
+                % Możemy sprawdzić jaka klatka miała zawieszkę
+                % I jaka metoda w api tę zawieszkę spowodowała 
+                \end{frame}
         
-    \section{Podsumowanie}
-\begin{frame}
-    Thesis is about creating a game engine specialized in match-three multiplatform games using OpenGL
-    \frametitle{Summary}
-    \end{frame}
+        \begin{frame}
+          \frametitle{Nsight - Zużycie VRAM}
+          \center
+            \includegraphics[width=1\textwidth]{memory_utilization.png}
+            % Zielony -> ile pamięci mamy dostępnej
+            % Pomarańczowy -> ile pamięci zużyliśmy 
+            \end{frame}
+
+            \begin{frame}
+              \frametitle{Nsight - Zużycie VRAM}
+              \center
+                \includegraphics[width=1\textwidth]{memory_utilization_gpu_vram.png}
+                % VidMm Device Suspension -> okresy czasku kiedy przetransferowano
+                % Jeden duży zasób pamięci
+                % Demoted Memory -> w GPU mamy local memory (szybsze) i global memory
+                % (wolniejsze) to może nam mówić o "wyciekach" pamięci
+                % źle zooptymalizowanej pamięci itd.
+                % Allokacja pamięci -> zielone aplikacja, szare -> system
+                \end{frame}
+
+      \begin{frame}
+        \frametitle{Nsight - Zużycie VRAM}
+        \center
+          \includegraphics[width=1\textwidth]{memory_utilization_resource_migrations.png}
+          % W kolejności co najwięcej zużyło zasobów
+          % Konkretnie ile i kiedy
+          \end{frame}
+
+          \begin{frame}
+            \frametitle{Nsight - Zużycie VRAM}
+            \center
+              \includegraphics[width=1\textwidth]{memory_utilization_memory_transfer.png}
+              % W kolejności co najwięcej zużyło zasobów
+              % Konkretnie ile i kiedy
+              \end{frame}
+
+        \begin{frame}
+        \frametitle{Jak porównywać?}
+        \begin{itemize}
+          \item Stworzenie gry na obu
+          \item Porównywanie istniejących gier 
+          \item Porównanie samych edytorów 
+        \end{itemize} 
+        \end{frame}
+
+        {
+          \setbeamercolor{footline}{fg=white}
+          \usebackgroundtemplate{
+            \includegraphics[width=\paperwidth, height=\paperheight]
+            {maxresdefault (1).jpg}}
+          \begin{frame}
+          \end{frame}
+          }
+
+        \begin{frame}
+          \frametitle{Wybór gatunku} 
+          FPS: 
+            \begin{itemize}
+              \item Wystarczająco skomplikowany
+              \item Grafika
+              \item Fizyka
+              \item Klasyczny benchmark 
+              % Wolfenstein, Doom, Quake, Crysis
+            \end{itemize}
+        \end{frame}
+        \begin{frame}
+          \frametitle{Problem}
+          Inklinacja Silnika \\ 
+          \begin{itemize} 
+          \item $ \frac{2478}{39713} \approx 6\%  $ gier Unity to FPS \\ 
+          \item  $ \frac{1765}{11158} \approx 15\% $ gier Unreal to FPS \\ 
+          \end{itemize}
+        Źródło: steamdb.info
+        \end{frame}
+
+        \begin{frame}
+          \frametitle{Wybór gatunku} 
+          Bullet hell: 
+            \begin{itemize}
+              \item Wystarczająco skomplikowany 
+              \item Grafika
+              \item Czas jest ważny 
+              % W Bullet hell czas jest ważny, gra musi być płynna
+            \end{itemize}
+        \end{frame}
+
+        {
+          \setbeamercolor{footline}{fg=white}
+          \usebackgroundtemplate{
+            \includegraphics[width=\paperwidth, height=\paperheight]
+            {maxresdefault.jpg}}
+          \begin{frame}
+          \end{frame}
+          }
+        \begin{frame}
+          \frametitle{Wyzwania}
+          \begin{itemize}
+            \item Sprzęt 
+            % Ten sam, jeden i ten sam komputer użyty w procesie kreacji obu
+            \item Umiejętności 
+            % Nie mam 
+            \item Podobne wersje silnika 
+            % Użyje ostatniego LTS
+            \item Inklinacja Silnika \\ (3\% Unity, 2.4\% Unreal) 
+            % ??? Ch 
+            % 1577 FPS UNITY, 271 FPS UNREAL
+            % 39713 Total Unity, 11158 Total Unreal (proporcjonalnie 2 razy więcej :<)
+          \end{itemize}  
+        \end{frame}  
+
+      \begin{frame} 
+        \frametitle{Ocena łatwości użycia}
+        \begin{itemize}
+          \item Dokumentacja
+          \item Intuicyjność
+          \item Materiały 
+          \item Zasoby (Assety)  
+          \item Dostępne funkcje
+        \end{itemize}
+      \end{frame}
+
+
+
+      \begin{frame} 
+        \frametitle{Po stworzeniu}
+        Przejść obie gry, monitorując używając Nvidia Nsight i porównać wyniki
+      \end{frame}
+
 
     \section{Źródła}
 \begin{frame}
+  \frametitle{Źródła}
     \begin{itemize}
-        \item \href{https://docs.gl/}{https://docs.gl/}
-    \item \href{https://learnopengl.com/}{https://learnopengl.com/}
-    \item \href{https://www.youtube.com/c/gameengineseries}{The Cherno}
+        \item \href{https://steamdb.info/}{https://steamdb.info/}
+    \item \href{https://docs.nvidia.com/nsight-systems}{https://docs.nvidia.com/nsight-systems}
+    \item An Overview Study of Game Engines, Faizi Noor Ahmad 
     \item Game Engine Architecture, Jason Gregory
     \end{itemize}
-    \frametitle{References/sources}
     \end{frame}
 
 \end{document}
