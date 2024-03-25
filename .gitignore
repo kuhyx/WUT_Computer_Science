@@ -309,3 +309,7 @@ bin
 *.4o*
 
 ERPM-2023.pdf
+
+slides
+.slides
+./.slides
