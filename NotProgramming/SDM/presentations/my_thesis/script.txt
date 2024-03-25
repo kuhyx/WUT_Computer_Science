@@ -1,0 +1,15 @@
+Dzień dobry państwu, nazywam się Krzysztof Rudnicki i chciałbym opowiedzieć o mojej pracy magisterskiej pod promotorstwem Pana doktora Michała Chwesiuka, o tytule Porównanie wydajnośći i możliwości współczesnych silników gier komputerowych
+
+Jeżeli pojawią się jakieś pytania to można je jak najbardziej zadawać w trakcie
+
+Plan prezentacji wygląda następująco, najpierw omówię krótko co 
+rozumiem pod pojęciem silnika do gier, 
+jakie są współczesne silniki do gier,
+które z nich będę porównywał, 
+czym są możliwości i wydajności tych silników
+i jak zamierzam je porównywać
+
+Chciałbym aby po tej prezentacji wiedzieli Państwo więcej o tym jak można 
+porównywać silniki graficzne niż przed nią 
+
+
