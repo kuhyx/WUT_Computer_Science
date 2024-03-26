@@ -1,0 +1,96 @@
+5.1
+    1.  p = 31, q = 37
+    2. Tak
+    3. n = p * q = 31 * 37 = 1147
+    4. Pollard rho:
+        1080: 2 * 540
+        1147: 31 * 37
+
+    5. phi(n) = 30 * 36 = 1080
+    6. e = 29
+    NWD(1080, 29) = 1
+    7. Odwrotność w grupie modulo n:
+        Baza: 29
+        Moduł: 1080
+        d = 149
+
+Klucz publiczny: e = 29, n = 1147
+Klucz prywatny: d = 149, n = 1147
+
+5.2
+    1. fraza - DYZIO, litera - C
+    2. 68, 89, 90, 73, 79, C -> 67
+    3. PTAKI LATAJA KLUCZEM
+    4. KPWEB FWPWCW EFQDVZG
+    5. e = ?, n = ?
+    6. Potęgowanie w grupie modulo n, 
+    Podstawa: (klucz sesyjny [i], wykładnik: e, moduł: n)
+    e = 29, n = 1147
+    klucz sesyjny: 68, 89, 90, 73, 79, _67_
+    956, 240, 1033, 110, 1034, _25_
+
+    Przed zakodowaniem: DYZIO, C
+    Po zakodowaniu:     68, 89,  90,    73,  79     67
+    Po zaszyfrowaniu:   956,240, 1033,  110, 1034, _25_
+
+    Wiadomość przed: PTAKI LATAJA KLUCZEM
+    Wiadomość po: KPWEB FWPWCW EFQDVZG
+
+5.3 
+    1. 956, 240, 1033, 110, 1034, _25_
+    d = 149, n = 1147
+    Potęgowanie w grupie modulo n:
+        Podstawa = klucz sesyjny zaszyfrowany [i]
+        Wykładnik = d 
+        Moduł = n 
+    68, 89, 90, 73, 79, _67_
+    2. Odkodować klucz sesyjny: (z tabelki):
+    DYZIO, C 
+    3. Odszyfrowana wiadomość: PTAKI LATAJA KLUCZEM
+
+5.4 
+    e = 29
+    phi(n) = 30 * 36 = 1080
+    1.  n = 1147, p = 31, q = 37, phi(n) = 30 * 36 = 1080
+        m: 68, 89, 90, 73, 79, C -> 67
+        c: 956, 240, 1033, 110, 1034, _25_
+    2. Logarytm dyskretny, Shanks
+        a = c   956, 240, 1033, 110, 1034, _25_
+        y = m   68, 89, 90, 73, 79, C -> 67
+        n = n = 1147
+        ds = log_{956}68 (mod 1147) = 29 (bruteforce git)
+        ds = log_{240}89 (mod 1147) = 113 (bruteforce bad)
+        ds = log_{1033}90 (mod 1147) = 14 (bruteforce git)
+        ds = log_{110}73 (mod 1147) = 29 (bruteforce git)
+        ds = log_{1034}79 (mod 1147) = ??? (nie znaleziono algorytmu)
+        ds = log_{25}67 (mod 1147) = 23 (bruteforce git)
+    3. e * ds = 1(mod phi(n))
+        29 * 29(mod 1080) = 841 
+        (29 * 113)(mod 1080) = 37
+    4. Dwie wartości -> Logarytm dyskretny, Log n (po prawej)
+
+    Wyniki faktoryzacji liczby n: 
+        1080: 2 * 540
+        1147: 31 * 37
+    Wyniki próby łamania:
+        ds = log_{956}68 (mod 1147) = 29 (bruteforce git)
+        ds = log_{240}89 (mod 1147) = 113 (bruteforce bad)
+        ds = log_{1033}90 (mod 1147) = 14 (bruteforce git)
+        ds = log_{110}73 (mod 1147) = 29 (bruteforce git)
+        ds = log_{1034}79 (mod 1147) = ??? (nie znaleziono algorytmu)
+        ds = log_{25}67 (mod 1147) = 23 (bruteforce git)
+    Wyniki bruteforce:
+        (screen)
+
+6.2
+    wiadomość: ptaki lataja kluczem
+    wartość crc: hex=0xD881EE4A	dec=3632393802
+    36, 32, 39, 38, 02
+    klucz prywatny: d = 149, n = 1147
+    Zaszyfrować: Różne -> Potęgowanie w grupie modulo n
+        Podstawa: Klucz prywatny [i] 36, 32, 39, 38, 02
+        Wykładnik: d = 149
+        Moduł: n = 1147
+    wyznaczony podpis cyfrowy:
+        92494624815698
+        924, 94, 624, 815, 698
