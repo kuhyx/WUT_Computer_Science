@@ -1,3 +1,7 @@
+Fraza przed: DYZIO 
+Fraza do liczb:  68, 89,  90,    73,  79
+klucz publiczny kolegi, n_2 = 1763, e_2 = 11 
+Fraza zakodowana kluczem publicznym kolegi: 167, 1621, 1632, 665, 178
 5.1
     1.  p = 31, q = 37
     2. Tak
