@@ -80,6 +80,13 @@ d = 611 jest jednym z elementów klucza prywatnego, drugim jest $n_2 = 1763$
 \includegraphics[width=1\textwidth]{nineteen.png} 
 \paragraph{Podzieliłem na mniejsze grupy: 24, 57, 67, 41, 21}
 \paragraph{Zaszyfrowałem wartość crc \\ d = 149, n = 1147 \\ Podpis cyfrowy: 890, 1091, 583, 617, 189 \\}
-\paragraph{Wiadomość: PTAKI LATAJA KLUCZEM \\ Obliczona wartość CRC: 2457674121 \\ Klucz prywatny: d = 149, n = 1147, \\ Podpis cyfrowy: 890, 1091, 583, 617, 189}
+\paragraph{Wiadomość: PTAKI LATAJA KLUCZEM \\ Obliczona wartość CRC: 2457674121 \\ Klucz prywatny: d = 149, n = 1147, \\ Podpis cyfrowy: 890, 1091, 583, 617, 189 \\}
 \includegraphics[width=1\textwidth]{twenty.png} 
+\section{Weryfikacja podpisu}
+\paragraph{Otrzymałem podpis: 1411 178 1615 269 \\ klucz publiczny: n = 1147, e = 11 \\ Wiadomość: HELLO NICE TO MEET YOU}
+\paragraph{Odszyfrowałem postać dziesiętną CRC: 11 79 57 64 \\}
+\includegraphics[width=1\textwidth]{twentyone.png} 
+\paragraph{Zaszyfrowałem wiadomośc i otrzymałem CRC: 11 79 57 64 \\}
+\includegraphics[width=1\textwidth]{twentytwo.png} 
+\paragraph{Obie wartości CRC są takie same w związku z tym wiadomość została pozytywnie zweryfikowana}  
 \end{document}
