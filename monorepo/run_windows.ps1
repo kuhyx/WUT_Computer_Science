@@ -18,6 +18,35 @@ function Get-LatestNodeLTSVersion {
     return $latestLTS
 }
 
+# Set execution policy to allow scripts to run
+Set-ExecutionPolicy Bypass -Scope Process -Force
+
+# Check if nvm is installed, if not download and install nvm-windows
+$nvmDir = "$ENV:APPDATA\nvm"
+if (-Not (Test-Path $nvmDir)) {
+    Write-Output "nvm-windows not found. Installing..."
+    # Download nvm-windows installer
+    $nvmInstaller = "https://github.com/coreybutler/nvm-windows/releases/download/1.1.10/nvm-setup.zip"
+    $outZip = "$ENV:TEMP\nvm-setup.zip"
+    Invoke-WebRequest -Uri $nvmInstaller -OutFile $outZip
+
+    # Extract the installer
+    Expand-Archive -LiteralPath $outZip -DestinationPath $ENV:TEMP -Force
+
+    # Run the installer
+    $installer = Get-ChildItem "$ENV:TEMP" -Filter "nvm-setup.exe"
+    Start-Process -FilePath $installer.FullName -Wait
+}
+
+# Load nvm to use in the current session
+& "$nvmDir\nvm.exe"
+
+# Install the latest LTS version of Node.js
+nvm install lts
+
+# Use the latest LTS version
+nvm use lts
+
 # Install or upgrade Node.js if not the latest LTS
 $latestLTS = Get-LatestNodeLTSVersion
 if (-Not (Get-Command node -ErrorAction SilentlyContinue) -or -Not (Test-NodeInPath)) {
