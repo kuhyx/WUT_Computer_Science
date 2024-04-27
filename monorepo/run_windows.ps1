@@ -1,8 +1,20 @@
-# PowerShell Script
-# Step 1: Check if Node.js is installed
-if (-Not (Get-Command node -ErrorAction SilentlyContinue)) {
+# Step 1: Check if Node.js is installed and in the PATH
+function Test-NodeInPath {
+    $nodeInPath = $False
+    try {
+        # Attempt to execute node command
+        node --version
+        $nodeInPath = $True
+    } catch {
+        Write-Output "Node.js is installed but not found in PATH."
+    }
+    return $nodeInPath
+}
+
+# Check for Node.js and try to add to PATH if necessary
+if (-Not (Get-Command node -ErrorAction SilentlyContinue) -or -Not (Test-NodeInPath)) {
     # Step 2: Download and install Node.js
-    Write-Output "Node.js is not installed. Installing Node.js..."
+    Write-Output "Installing Node.js..."
 
     # Define the Node.js version to install
     $nodeVersion = "node-v16.14.2-win-x64"
@@ -19,12 +31,17 @@ if (-Not (Get-Command node -ErrorAction SilentlyContinue)) {
     Expand-Archive -LiteralPath $output -DestinationPath $nodeExtractPath
 
     # Add Node.js to PATH
-    $env:Path += ";$nodeExtractPath\$nodeVersion"
+    $newPath = "$nodeExtractPath\$nodeVersion"
+    $env:Path += ";$newPath"
     [Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::Machine)
     
-    Write-Output "Node.js installed successfully."
+    if (Test-NodeInPath) {
+        Write-Output "Node.js installed and added to PATH successfully."
+    } else {
+        Write-Output "Failed to add Node.js to PATH. Please add manually to System Environment Variables."
+    }
 } else {
-    Write-Output "Node.js is already installed."
+    Write-Output "Node.js is already installed and available in PATH."
 }
 
 # Step 3: Install Nx CLI globally using npm
