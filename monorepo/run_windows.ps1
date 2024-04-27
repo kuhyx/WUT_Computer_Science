@@ -1,47 +1,49 @@
-# Step 1: Check if Node.js is installed and in the PATH
+# Function to test if Node.js is available in PATH
 function Test-NodeInPath {
-    $nodeInPath = $False
     try {
-        # Attempt to execute node command
-        node --version
-        $nodeInPath = $True
+        $nodeVersion = node --version
+        Write-Output "Node.js is installed with version $nodeVersion."
+        return $true
     } catch {
-        Write-Output "Node.js is installed but not found in PATH."
+        Write-Output "Node.js is not found in PATH."
+        return $false
     }
-    return $nodeInPath
 }
 
-# Check for Node.js and try to add to PATH if necessary
+# Function to fetch the latest LTS version of Node.js
+function Get-LatestNodeLTSVersion {
+    $nodeDistUrl = "https://nodejs.org/dist/index.json"
+    $nodeVersions = Invoke-RestMethod -Uri $nodeDistUrl
+    $latestLTS = $nodeVersions | Where-Object { $_.lts -ne $false } | Sort-Object version -Descending | Select-Object -First 1
+    return $latestLTS
+}
+
+# Install or upgrade Node.js if not the latest LTS
+$latestLTS = Get-LatestNodeLTSVersion
 if (-Not (Get-Command node -ErrorAction SilentlyContinue) -or -Not (Test-NodeInPath)) {
-    # Step 2: Download and install Node.js
-    Write-Output "Installing Node.js..."
+    Write-Output "Node.js is not the latest LTS or not found in PATH. Installing/upgrading..."
+    
+    $nodeVersion = $latestLTS.version -replace "v", ""
+    $nodeLTSFileName = "node-$nodeVersion-win-x64"
+    $url = "https://nodejs.org/dist/$latestLTS.version/$nodeLTSFileName.zip"
 
-    # Define the Node.js version to install
-    $nodeVersion = "node-v16.14.2-win-x64"
-    $url = "https://nodejs.org/dist/v16.14.2/$nodeVersion.zip"
-
-    # Specify path to save the Node.js ZIP
-    $output = "$env:USERPROFILE\Downloads\$nodeVersion.zip"
-
-    # Download Node.js
+    $output = "$env:USERPROFILE\Downloads\$nodeLTSFileName.zip"
     Invoke-WebRequest -Uri $url -OutFile $output
 
-    # Extract Node.js
     $nodeExtractPath = "$env:USERPROFILE\NodeJS"
-    Expand-Archive -LiteralPath $output -DestinationPath $nodeExtractPath
+    Expand-Archive -LiteralPath $output -DestinationPath $nodeExtractPath -Force
 
-    # Add Node.js to PATH
-    $newPath = "$nodeExtractPath\$nodeVersion"
+    $newPath = "$nodeExtractPath\$nodeLTSFileName"
     $env:Path += ";$newPath"
     [Environment]::SetEnvironmentVariable("Path", $env:Path, [EnvironmentVariableTarget]::Machine)
-    
+
     if (Test-NodeInPath) {
-        Write-Output "Node.js installed and added to PATH successfully."
+        Write-Output "Node.js upgraded/installed to latest LTS version successfully."
     } else {
         Write-Output "Failed to add Node.js to PATH. Please add manually to System Environment Variables."
     }
 } else {
-    Write-Output "Node.js is already installed and available in PATH."
+    Write-Output "Node.js is already installed with the latest LTS version."
 }
 
 # Step 3: Install Nx CLI globally using npm
