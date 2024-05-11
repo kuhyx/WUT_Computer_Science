@@ -12,11 +12,13 @@ db_connector = None
 def hello():
     return jsonify({"response": "Hello there"}), 200
 
-@app.route("/api/v3/get/<string:oauth_ID>/<string:username>", methods=["POST"])
-def access_user(oauth_ID, username):
-    print(oauth_ID, username)
-    return jsonify({"status": "success"}), 200
+#endpoint do wyciągania danych o userze
+@app.route("/api/v3/get/<string:username>", methods=["GET"])
+def access_user(username):
+    return jsonify({"us": "er"}), 200
 
+#endpoint służący do zapisu danych nowostworzonego użytkownika, podajemy mu
+#id z oautha oraz login
 @app.route("/api/v3/add/<string:oauth_ID>/<string:username>", methods=["POST"])
 def add_user(oauth_ID, username):
     res = db_connector.search(tinydb.where('username') == username)
@@ -28,7 +30,7 @@ def add_user(oauth_ID, username):
     return jsonify({"status": "success"}), 200
 
 
-#idk, czy zrobimy to w ten sposób, ale na wszelki w, route może pozostać, IG
+#roboczy endpoint służący do wyciąganiu rekomendacji
 @app.route("/api/v3/ai/<string:oauth_ID>", methods=["GET"])
 def get_recommendations(oauth_ID):
     #request od frontu na rekomendacje
