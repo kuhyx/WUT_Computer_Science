@@ -22,3 +22,4 @@ Decide:
             Google Cloud 
                 +We have google accounts anyway
     What technology for script (Ansible?)
+
