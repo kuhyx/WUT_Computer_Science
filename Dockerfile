@@ -1,8 +1,10 @@
-# Use a lightweight base image
-FROM alpine:latest 
+FROM alpine:latest
 
-# Install a minimal HTTP server
+# Install dependencies
 RUN apk add --no-cache httpie
 
-# Command to run when the container starts
-CMD echo 'Hello, World!' | http-server -p 8080
+# Set the default listening port
+ENV PORT 8080
+
+# Command to start the server
+CMD http-server -p $PORT
