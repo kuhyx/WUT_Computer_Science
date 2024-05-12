@@ -69,13 +69,20 @@ if __name__ == "__main__":
     config = ConfigParser()
     config.read("init_scripts/constants.ini")
 
-    conn = psycopg2.connect(
-        host=config["postgres"]["host"],
-        database=config["postgres"]["database"],
-        user=config["postgres"]["user"],
-        password=config["postgres"]["password"],
-        port=int(config["postgres"]["port"])
-    )
+    while True:
+        try:
+            conn = psycopg2.connect(
+                host=config["postgres"]["host"],
+                database=config["postgres"]["database"],
+                user=config["postgres"]["user"],
+                password=config["postgres"]["password"],
+                port=int(config["postgres"]["port"])
+            )
+        except Exception:
+            print("Trying to connect with database")
+            continue
+        else:
+            break
     
     movie_list = pandas.read_csv(config["movie"]["csv_path"])
 
