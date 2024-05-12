@@ -40,16 +40,13 @@ class MovieRecommender:
         self.df = None
         self.cosine_sim = None
 
-    def get_recommendations(self, title):
-        indices = pd.Series(self.df.index, index=self.df['title']).drop_duplicates()
-        idx = indices[title]
-        sim_scores = list(enumerate(self.cosine_sim[idx]))
-        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-        sim_scores = sim_scores[1:11]
-        movie_indices = [i[0] for i in sim_scores]
-        return self.df['title'].iloc[movie_indices]
-
     def fit(self, credits_file, movies_file):
+        """
+        Fittuje AI do przekazanych danych
+        :param credits_file: csv z creditsami
+        :param movies_file: csv z filmami
+        :return: Nic
+        """
         df1 = pd.read_csv(credits_file)
         df2 = pd.read_csv(movies_file)
         df1.columns = ['id', 'tittle', 'cast', 'crew']
@@ -79,10 +76,44 @@ class MovieRecommender:
 
         self.df = df2.reset_index()
 
+    def _get_recommendations_one_input(self, movie_id):
+        """
+        Tworzy rekomendacje, bazując na jednym filmie
+        :param movie_id: id filmu, dla którego ma zrobić rekomendację
+        :return: Zwraca listę [movie_ids, similarity_scores] gdzie oba argumenty są np.array
+        """
+        indices = pd.Series(self.df.index, index=self.df['id']).drop_duplicates()
+        idx = indices[movie_id]
+        sim_scores = list(enumerate(self.cosine_sim[idx]))
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+        sim_scores = sim_scores[1:101]
+        movie_indices = [i[0] for i in sim_scores]
+        sim_scores = np.array([t[1] for t in sim_scores])
+        return [self.df['id'].iloc[movie_indices].values, sim_scores]
 
-# Example usage:
+    def get_recommendations(self, movie_ids: list) -> {}:
+        """
+        Tworzy listę rekomendacji bazującą na id podanych filmów
+        :param movie_ids: id filmów, na podstawie których ma wybrać rekomendowane filmy
+        :return: Zwraca dicta {movie_id: similarity_scores}
+        """
+        recommended_movies = {}
+        for movie_id in movie_ids:
+            recommended_ids, sim_scores = self._get_recommendations_one_input(movie_id)
+            for recommended_id, sim_score in zip(recommended_ids, sim_scores):
+                if recommended_id in movie_ids:
+                    continue
+
+                if recommended_movies.get(recommended_id) is None:
+                    recommended_movies[recommended_id] = sim_score / len(movie_ids)
+                else:
+                    recommended_movies[recommended_id] += sim_score / len(movie_ids)
+        return recommended_movies
+
+
+# Przykładowe użycie:
 if __name__ == "__main__":
     recommender = MovieRecommender()
     recommender.fit('datasets/tmdb_5000_credits.csv', 'datasets/tmdb_5000_movies.csv')
-    recommendations = recommender.get_recommendations('The Dark Knight Rises')
+    recommendations = recommender.get_recommendations([49026, 155, 312113])
     print(recommendations)
