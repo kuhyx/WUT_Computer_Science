@@ -1,15 +1,11 @@
-FROM node:latest
+# Use the official Nginx image from the Docker Hub
+FROM nginx:alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+# Copy the static website file into the Nginx server directory
+COPY index.html /usr/share/nginx/html/index.html
 
-# Install app dependencies
+# Expose port 80
+EXPOSE 80
 
-# If you also need http-server globally
-RUN npm install -g http-server
-
-# Bundle app source
-COPY . .
-
-EXPOSE 8080
-CMD ["http-server", "-p 8080"]
+# Start Nginx and keep it running in the foreground
+CMD ["nginx", "-g", "daemon off;"]
