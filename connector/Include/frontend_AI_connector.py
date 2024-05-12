@@ -67,7 +67,7 @@ def get_movie(movie_ID):
 
 if __name__ == "__main__":
     config = ConfigParser()
-    config.read("ai_front_connector/init_scripts/constants.ini")
+    config.read("init_scripts/constants.ini")
 
     conn = psycopg2.connect(
         host=config["postgres"]["host"],
@@ -79,6 +79,6 @@ if __name__ == "__main__":
     
     movie_list = pandas.read_csv(config["movie"]["csv_path"])
 
-    app.run(port=8080, debug=True)
+    app.run(host="0.0.0.0",port=8090, debug=True)
     conn.close()
 

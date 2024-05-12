@@ -1,6 +1,17 @@
 version: "3.8"
 
 services:
+  connector:
+    container_name: connector_container
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - 8090:8090
+    depends_on:
+      - db
+    command:
+      - python3 ./frontend_AI_connector.py
   db:
     container_name: db_container
     image: postgres:13
@@ -11,7 +22,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./init_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data/
   pgadmin:
     container_name: admin_container
