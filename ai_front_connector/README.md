@@ -1,9 +1,12 @@
 # instalacja:
 pip install -r requirements.txt
 
+# budowanie i uruchamianie obrazu z bazą danych:
+cd ai_front_connector
+docker compose up (ewentualnie można też z GUI)
+
 # uruchomienie:
 (Z directory macierzystego)
-
 python3 ai_front_connector/frontend_AI_connector.py
 
 # gadanie z endpointami
