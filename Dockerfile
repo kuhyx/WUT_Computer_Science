@@ -1,10 +1,15 @@
-FROM alpine:latest
+FROM node:latest
 
-# Install dependencies
-RUN apk add --no-cache httpie
+# Create app directory
+WORKDIR /usr/src/app
 
-# Set the default listening port
-ENV PORT 8080
+# Install app dependencies
 
-# Command to start the server
-CMD http-server -p $PORT
+# If you also need http-server globally
+RUN npm install -g http-server
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD ["http-server", "-p 8080"]
