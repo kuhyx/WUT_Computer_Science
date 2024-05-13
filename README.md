@@ -3,15 +3,8 @@
 
 ## Backend
 
-### instalacja:
-pip install -r requirements.txt
-
-### budowanie i uruchamianie obrazu z bazą danych:
-docker compose up (ewentualnie można też z GUI)
-
-### uruchomienie:
-(Z directory macierzystego)
-python3 ai_front_connector/frontend_AI_connector.py
+### budowanie i uruchamianie obrazu z bazą danych oraz serwerem:
+docker compose up
 
 ### gadanie z endpointami
 
