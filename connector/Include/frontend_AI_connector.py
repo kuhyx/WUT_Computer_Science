@@ -10,6 +10,15 @@ db_connector = None
 conn = None
 movie_list = None
 
+def error_decorator(fun):
+    def inner1(*args, **kwargs):
+        try:
+            fun(*args, **kwargs)
+        except psycopg2.DatabaseError:
+            return jsonify({"status": "Something... unexpected has occured :sweat_smile:"}), 500
+         
+    return inner1
+
 @app.route("/", methods=["GET"])
 def hello():
     return jsonify({"response": "Hello there"}), 200
@@ -28,6 +37,7 @@ def add_user(oauth_ID, username):
     res = cursor.fetchall()
 
     if len(res):
+        cursor.close()
         return jsonify({"status": "User already exists"}), 500
 
     cursor.execute("INSERT INTO users (username, oauth_ID) VALUES ('{}','{}');".format(
@@ -49,6 +59,7 @@ def get_recommendations(oauth_ID):
     return jsonify({"movies": ["3", "Wiedźmin 3", "Najlepszy."]}), 200
 
 @app.route("/api/v3/get_movie/<int:movie_ID>", methods=["GET"])
+# @error_decorator
 def get_movie(movie_ID):
     movie_info = movie_list.loc[movie_list['movie_id'] == movie_ID]
     if movie_info.empty:
@@ -65,6 +76,46 @@ def get_movie(movie_ID):
 
     return jsonify(output_json), 200
 
+@app.route("/api/v3/rate_movie/<string:uID>/<string:movie_ID>/<int:rating>", methods=["POST"])
+def rate_movie(uID, movie_ID, rating):
+    movie_info = movie_list.loc[movie_list['movie_id'] == int(movie_ID)]
+    if movie_info.empty:
+        return jsonify({"status": "Movie with ID {} doesn't exist".format(movie_ID)}
+                       ), 500
+
+    if rating < 1 or rating > 5:
+        return jsonify({"status": "Incorrect rating"}), 500
+
+    cursor = conn.cursor()
+    cursor.execute("select * from users where oauth_ID='{}';".format(uID))
+    res = cursor.fetchall()
+
+    if not len(res):
+        cursor.close()
+        return jsonify({"status": "User doesn't exists"}), 500
+
+    cursor.execute("select * from ratings where oauth_ID='{}' AND movie_ID='{}';".format(uID, movie_ID))
+    res = cursor.fetchall()
+
+    if len(res):
+        sql = """ UPDATE ratings
+                SET rating = {},
+                rdate = CURRENT_TIMESTAMP
+                WHERE oauth_ID = '{}' AND
+                movie_ID = '{}'
+                """
+        cursor.execute(sql.format(rating, uID, movie_ID))
+    else:
+        cursor.execute("INSERT INTO ratings (movie_ID, oauth_ID, rating) VALUES ('{}','{}',{});".format(
+            movie_ID, uID, rating
+        ))
+
+    conn.commit()
+    cursor.close()
+    
+    return jsonify({"status": "success"}), 200
+
+
 if __name__ == "__main__":
     config = ConfigParser()
     config.read("init_scripts/constants.ini")
@@ -78,6 +129,7 @@ if __name__ == "__main__":
                 password=config["postgres"]["password"],
                 port=int(config["postgres"]["port"])
             )
+
         except Exception:
             print("Trying to connect with database")
             continue
