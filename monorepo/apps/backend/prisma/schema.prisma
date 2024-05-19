@@ -7,8 +7,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id    Int     @id @default(autoincrement())
-  name  String? @db.VarChar(100)
-  email String? @unique @db.VarChar(100)
+model Restauracja {
+  id Int @id @default(autoincrement())
+  adres String 
+}
+
+model Recencja {
+  id Int @id @default(autoincrement())
+  tekst String
+  wartosc Int
+}
+
+model Uzytkownik {
+  id Int @id @default(autoincrement())
+  imie String
+  nazwisko String
+  adres String
+}
+
+model Historia_zamowien {
+  id Int @id @default(autoincrement())
+  data_zamowienia DateTime
+}
+
+model Danie {
+  id Int @id @default(autoincrement())
+  cena Int
+  kategoria String
+  nazwa String
+}
+
+model Zamowione_danie {
+  id Int @id @default(autoincrement())
+}
+
+model Zamowienie {
+  id Int @id @default(autoincrement())
+  status String
+}
+
+model Znizka {
+  id Int @id @default(autoincrement())
+  kod String
+  wartosc Int
+  czy_dostepna Boolean
 }
