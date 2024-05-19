@@ -8,47 +8,64 @@ datasource db {
 }
 
 model Restauracja {
-  id Int @id @default(autoincrement())
-  adres String 
+  id        Int        @id @default(autoincrement())
+  adres     String
+  znizkas   Znizka[]   @relation("RestauracjaZnizka")
+  recenzjas Recenzja[] @relation("RestauracjaRecenzja")
 }
 
-model Recencja {
-  id Int @id @default(autoincrement())
-  tekst String
-  wartosc Int
+model Recenzja {
+  id            Int         @id @default(autoincrement())
+  tekst         String
+  wartosc       Int
+  restauracjaId Int
+  uzytkownikId  Int
+  restauracja   Restauracja @relation("RestauracjaRecenzja", fields: [restauracjaId], references: [id])
+  uzytkownik    Uzytkownik  @relation("UzytkownikRecenzja", fields: [uzytkownikId], references: [id])
 }
 
 model Uzytkownik {
-  id Int @id @default(autoincrement())
-  imie String
-  nazwisko String
-  adres String
+  id                  Int               @id @default(autoincrement())
+  imie                String
+  nazwisko            String
+  adres               String
+  Historia_zamowienId Int               @unique
+  recenzjas           Recenzja[]        @relation("UzytkownikRecenzja")
+  historia_zamowien   Historia_zamowien @relation("HistoriaRelation", fields: [Historia_zamowienId], references: [id])
 }
 
 model Historia_zamowien {
-  id Int @id @default(autoincrement())
-  data_zamowienia DateTime
+  id                 Int         @id @default(autoincrement())
+  data_zamowienia    DateTime
+  HistoriaUzytkownik Uzytkownik? @relation("HistoriaRelation")
 }
 
 model Danie {
-  id Int @id @default(autoincrement())
-  cena Int
-  kategoria String
-  nazwa String
+  id              Int               @id @default(autoincrement())
+  cena            Int
+  kategoria       String
+  nazwa           String
+  zamowioneDanias Zamowione_danie[] @relation("DanieZamowione_danie")
 }
 
 model Zamowione_danie {
-  id Int @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
+  zamowienie   Zamowienie @relation(fields: [zamowienieId], references: [id])
+  zamowienieId Int        @unique
+  danias       Danie[]    @relation("DanieZamowione_danie")
 }
 
 model Zamowienie {
-  id Int @id @default(autoincrement())
-  status String
+  id             Int              @id @default(autoincrement())
+  status         String
+  zamowioneDanie Zamowione_danie?
 }
 
 model Znizka {
-  id Int @id @default(autoincrement())
-  kod String
-  wartosc Int
-  czy_dostepna Boolean
+  id            Int         @id @default(autoincrement())
+  kod           String
+  wartosc       Int
+  czy_dostepna  Boolean
+  restauracjaId Int
+  restauracja   Restauracja @relation("RestauracjaZnizka", fields: [restauracjaId], references: [id])
 }
