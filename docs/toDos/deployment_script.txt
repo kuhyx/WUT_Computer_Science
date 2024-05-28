@@ -1,0 +1,25 @@
+One script upon being ran should deploy the entire solution to some 
+cloud service
+
+It should:
+1. Build everything 
+2. Connect to cloud service (Azure?)
+3. Send the data 
+
+After it will be run website should be accessible under some address 
+    (cloud service should provide this address?)
+
+Decide:
+    What cloud service? (Azure?) Requirements:
+        a. Free (https://github.com/cloudcommunity/Cloud-Free-Tier-Comparison)
+        b. Popular 
+            AWS:
+                +   Most popular 
+                +   "Always" free
+                +   AWS CDK available
+            Azure 
+                -Microsoft
+            Google Cloud 
+                +We have google accounts anyway
+    What technology for script (Ansible?)
+

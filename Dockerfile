@@ -1,25 +1,15 @@
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim
+FROM node:latest
 
-# Set the working directory to /app
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-# Install necessary OS packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install app dependencies
 
-# Copy the Python script, requirements, and constants.ini file into the container at /app
-COPY connector/Include/frontend_AI_connector.py /app/
-COPY connector/Include/requirements.txt /app/
-COPY connector/Include/init_scripts/constants.ini /app/init_scripts/
+# If you also need http-server globally
+RUN npm install -g http-server
 
-# Modify requirements.txt to use psycopg2-binary
-RUN sed -i 's/psycopg2==2.9.9/psycopg2-binary==2.9.9/' requirements.txt
+# Bundle app source
+COPY . .
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Run frontend_AI_connector.py when the container launches
-CMD ["python", "./frontend_AI_connector.py"]
+EXPOSE 8080
+CMD ["http-server", "-p 8080"]
