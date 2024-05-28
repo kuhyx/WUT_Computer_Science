@@ -1,0 +1,12 @@
+1. Receive data from database
+2. Calculate data:    
+    a) User Count 
+    b) Movies Count 
+    c) Rating Count 
+    d) Total data size 
+    e) "Hot" movies -> movies that received most ratings during last 
+        week 
+    f) System logs (keeps tracks of all messages exchanged by all services)
+        1. timestamp (when was a message send)
+        2. Message raw data 
+3. Send requests to frondend upon request 
