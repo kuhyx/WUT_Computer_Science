@@ -1,0 +1,12 @@
+Monitoring service 
+Monitoring service should keep track of all communication 
+send between all services 
+Store logs with:
+1. timestamp (when was a message send)
+2. Message raw data 
+
+To decide: 
+    What to use for Monitoring service? 
+    Maybe cloud service will provide us with functioning one?
+    Maybe deployment tool already has one?
+
