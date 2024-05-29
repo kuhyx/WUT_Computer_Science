@@ -1,0 +1,25 @@
+{
+    "recommendations": [
+        "ms-python.autopep8",
+        "aaron-bond.better-comments",
+        "ms-python.black-formatter",
+        "streetsidesoftware.code-spell-checker",
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "visualstudioexptteam.vscodeintellicode",
+        "visualstudioexptteam.intellicode-api-usage-examples",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-toolsai.vscode-jupyter-slideshow",
+        "james-yu.latex-workshop",
+        "pkief.material-icon-theme",
+        "streetsidesoftware.code-spell-checker-polish",
+        "ms-python.vscode-pylance",
+        "ms-python.pylint",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "kevinrose.vsc-python-indent"
+    ]
+}
