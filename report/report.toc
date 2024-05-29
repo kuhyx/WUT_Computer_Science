@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Wstęp}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Kontekst}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Cel}{2}{}%
+\contentsline {subsection}{\numberline {1.3}Hipoteza}{2}{}%
+\contentsline {subsection}{\numberline {1.4}Metoda badawcza}{2}{}%
+\contentsline {subsection}{\numberline {1.5}Wyniki}{3}{}%
+\contentsline {section}{\numberline {2}Omówienie rozdziałów}{3}{}%
+\contentsline {section}{\numberline {3}Opis literatury}{3}{}%
+\contentsline {subsection}{\numberline {3.1}Decision trees: from efficient prediction to responsible AI \cite {4}}{3}{}%
+\contentsline {subsection}{\numberline {3.2}Application of Successful EU Funds Absorption Models to Sustainable Regional Development \cite {5}}{3}{}%
+\contentsline {section}{\numberline {4}Proces badawczy}{4}{}%
+\contentsline {subsection}{\numberline {4.1}Zbieranie danych}{4}{}%
+\contentsline {subsection}{\numberline {4.2}Analiza danych}{4}{}%
+\contentsline {subsection}{\numberline {4.3}Przedstawienie wyników}{4}{}%
+\contentsline {section}{\numberline {5}Wyniki}{4}{}%
+\contentsline {section}{\numberline {6}Dyskusja}{4}{}%
+\contentsline {section}{\numberline {7}Konkluzja}{4}{}%
