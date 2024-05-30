@@ -1,0 +1,26 @@
+.logo {
+    width: 200px;
+    height: 200px;
+    
+}
+
+.flex-header {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.game-button {
+    margin: auto;
+    padding: 100px;
+    font-size: 8rem; /* 128px */
+    line-height: 1;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.instruction-text {
+    font-size: 3.75rem; /* 60px */
+    line-height: 1;
+    text-align: justify;
+}

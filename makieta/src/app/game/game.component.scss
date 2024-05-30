@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80vh;
+    .game-card {
+      width: 30%;
+    }
+  }
+  
+  .items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .item {
+      margin: 5px 0;
+      .item-image {
+        width: 150px; /* Adjust size as needed */
+        height: auto;
+      }
+    }
+  }
+  
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+      margin: 5px 0;
+    }
+  }
+  

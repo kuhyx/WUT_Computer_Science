@@ -1,12 +1,14 @@
 <div class="container">
-    <h1>Welcome to the Soft Skills Assessment</h1>
-    <p>This website is designed to assess your soft skills through a simple and fun game.</p>
-    <p>Please follow the instructions below to navigate through the site:</p>
-    <ul>
-      <li>Start with reading the instructions on this page.</li>
-      <li>Proceed to the game by clicking on the "Game" link.</li>
-      <li>After completing the game, view your report by clicking on the "Report" link.</li>
-    </ul>
-    <mat-button routerLink="/game"> Game </mat-button>
-  </div>
-  
+  <mat-card>
+    <mat-card-header class="flex-header">
+      <mat-card-title class="title">      <img mat-card-avatar class="logo" src="assets/logo.jpg" alt="logo image">
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="instruction-text">After clicking play you will see a simple game assesing your problem solving skills, good luck and have fun :)</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="game-button" mat-flat-button color="primary" [routerLink]="'/game'">Play</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
