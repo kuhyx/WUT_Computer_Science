@@ -1,17 +1,19 @@
-\contentsline {section}{\numberline {1}Wstęp}{2}{}%
-\contentsline {subsection}{\numberline {1.1}Kontekst}{2}{}%
-\contentsline {subsection}{\numberline {1.2}Cel}{2}{}%
-\contentsline {subsection}{\numberline {1.3}Hipoteza}{2}{}%
-\contentsline {subsection}{\numberline {1.4}Metoda badawcza}{2}{}%
-\contentsline {subsection}{\numberline {1.5}Wyniki}{3}{}%
-\contentsline {section}{\numberline {2}Omówienie rozdziałów}{3}{}%
-\contentsline {section}{\numberline {3}Opis literatury}{3}{}%
-\contentsline {subsection}{\numberline {3.1}Decision trees: from efficient prediction to responsible AI \cite {4}}{3}{}%
-\contentsline {subsection}{\numberline {3.2}Application of Successful EU Funds Absorption Models to Sustainable Regional Development \cite {5}}{3}{}%
-\contentsline {section}{\numberline {4}Proces badawczy}{4}{}%
-\contentsline {subsection}{\numberline {4.1}Zbieranie danych}{4}{}%
-\contentsline {subsection}{\numberline {4.2}Analiza danych}{4}{}%
-\contentsline {subsection}{\numberline {4.3}Przedstawienie wyników}{4}{}%
-\contentsline {section}{\numberline {5}Wyniki}{4}{}%
-\contentsline {section}{\numberline {6}Dyskusja}{4}{}%
-\contentsline {section}{\numberline {7}Konkluzja}{4}{}%
+\contentsline {section}{\numberline {1}Wstęp}{1}{section.1}%
+\contentsline {paragraph}{Kontekst}{1}{section*.2}%
+\contentsline {paragraph}{Cel}{2}{section*.3}%
+\contentsline {paragraph}{Hipoteza}{2}{section*.4}%
+\contentsline {paragraph}{Metoda badawcza}{2}{section*.5}%
+\contentsline {paragraph}{Wyniki}{2}{section*.6}%
+\contentsline {section}{\numberline {2}Omówienie rozdziałów}{2}{section.2}%
+\contentsline {section}{\numberline {3}Opis literatury}{3}{section.3}%
+\contentsline {paragraph}{Decision trees: from efficient prediction to responsible AI}{3}{section*.7}%
+\contentsline {paragraph}{Application of Successful EU Funds Absorption Models to Sustainable Regional Development}{3}{section*.8}%
+\contentsline {paragraph}{It’s not about the money. EU funds, local opportunities, and Euroscepticism}{3}{section*.9}%
+\contentsline {section}{\numberline {4}Proces badawczy}{4}{section.4}%
+\contentsline {paragraph}{Zbieranie danych}{4}{section*.10}%
+\contentsline {paragraph}{Przygotowywanie danych}{4}{section*.11}%
+\contentsline {paragraph}{Analiza danych}{4}{section*.12}%
+\contentsline {paragraph}{Przedstawienie wyników}{4}{section*.13}%
+\contentsline {section}{\numberline {5}Wyniki}{4}{section.5}%
+\contentsline {section}{\numberline {6}Dyskusja}{4}{section.6}%
+\contentsline {section}{\numberline {7}Konkluzja}{4}{section.7}%

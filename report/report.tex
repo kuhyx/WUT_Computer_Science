@@ -6,6 +6,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{natbib}
 \usepackage{soul}
+\usepackage{hyperref}
 
 \title{Analiza statystyczna przyznawania funduszy UE gminom}
 \author{Krzysztof Rudnicki, Michał Sar}
@@ -23,13 +24,20 @@
 
 
 \section{Wstęp}
-\subsection{Kontekst}
-W 2024 mija 20 lat od wstąpienia Polski do Unii Europejskiej \cite{1}. Od tamtej pory bilans Polski w stosunku do Brukseli wynosi 175 miliardów euro na plus dla Polski \cite{2} W samym 2023 roku Polska otrzymała z UE prawie 3.5 miliarda złotych, wpłacająć niecały miliard złotych \cite{3} W naszej pracy ponawiamy analizę statystyczną wykonaną sprzed 7 lat, na nowych danych, od początku roku 2014 do końca roku 2023
-\subsection{Cel}
-Celem pracy jest sprawdzenie jakie dane na temat gminy najbardziej korelują z liczbą przyznanych funduszy Unii Europejskiej danej gminy
-\subsection{Hipoteza} 
-\ul{Gęstość zaludnienia jest \textbf{najważniejszym} czynnikiem wpływającym na przyznanie środków unijnych} \\
-\subsection{Metoda badawcza}
+\paragraph{Kontekst}
+W 2024 mija 20 lat od wstąpienia Polski do Unii Europejskiej \cite{1}. 
+Od tamtej pory bilans Polski w stosunku do Brukseli wynosi 175 miliardów euro na 
+plus dla Polski \cite{2} W samym 2023 roku Polska otrzymała z UE prawie 3.5 miliarda 
+złotych, wpłacająć niecały miliard złotych \cite{3} W naszej pracy ponawiamy analizę 
+statystyczną wykonaną sprzed 7 lat, na nowych danych, od początku roku 2014 do końca 
+roku 2023
+\paragraph{Cel}
+Celem pracy jest sprawdzenie jakie dane na temat gminy najbardziej korelują z liczbą 
+przyznanych funduszy Unii Europejskiej danej gminy
+\paragraph{Hipoteza} 
+\ul{Gęstość zaludnienia jest \textbf{najważniejszym} czynnikiem wpływającym na 
+przyznanie środków unijnych} \\
+\paragraph{Metoda badawcza}
 \begin{enumerate}
     \item Zebrać dane UE
     \item Zebrać dane gmin
@@ -37,26 +45,62 @@ Celem pracy jest sprawdzenie jakie dane na temat gminy najbardziej korelują z l
     \item Przeanalizować dane 
     \item Wyświetlić wyniki
 \end{enumerate}
-\subsection{Wyniki}
+\paragraph{Wyniki}
 
 \section{Omówienie rozdziałów}
-Na początku artykułu przedstawiamy czemu wybraliśmy taki temat, co chcemy osiągnąć naszą pracą, w jaki sposób chcemy to osiągnąć i jaki rezultat ostatecznie udało nam się pokazać \\  
-Następnie opisujemy istniejącą literaturę na temat środków Unijnych z którą się zapoznaliśmy i przedstawiamy w czym różni się nasza praca od istniejących \\ 
-Potem tłumaczymy nasz proces badawczy, w jaki sposób zbieraliśmy i łączyliśmy dane, jak je analizowaliśmy i jak przedstawialiśmy wyniki \\ 
+Na początku artykułu przedstawiamy czemu wybraliśmy taki temat, co chcemy osiągnąć 
+naszą pracą, w jaki sposób chcemy to osiągnąć i jaki rezultat ostatecznie udało nam się 
+pokazać \\  
+Następnie opisujemy istniejącą literaturę na temat środków Unijnych z którą się 
+zapoznaliśmy i przedstawiamy w czym różni się nasza praca od istniejących \\ 
+Potem tłumaczymy nasz proces badawczy, w jaki sposób zbieraliśmy i łączyliśmy dane, 
+jak je analizowaliśmy i jak przedstawialiśmy wyniki \\ 
 Kontynując, pokazujemy co otrzymaliśmy ostatecznie w wyniku naszej pracy \\ 
-Przedostatni rozdział zajmuje się dyskusją wyników, przedstawiamy co udało nam się osiągnać i dlaczego, czego nie udało nam się osiągnąć i dlaczego oraz przede wszystkim konfrontujemy wynik z naszą hipotezą \\ 
+Przedostatni rozdział zajmuje się dyskusją wyników, przedstawiamy co udało nam się 
+osiągnać i dlaczego, czego nie udało nam się osiągnąć i dlaczego oraz przede wszystkim 
+konfrontujemy wynik z naszą hipotezą \\ 
 Na końcu podsumowujemy całą pracę i przedstawiamy spis literatury z której korzystaliśmy
 
 \section{Opis literatury}
-\subsection{Decision trees: from efficient prediction to responsible AI \cite{4}}
-Artykuł poświęcony jest omówieniu drzew decyzyjnych, rozpoczyna od zdefiniowania czym drzewo decyzyjne jest, jakie są jego unikalne cechy, gdzie jest stosowane, jakie ma wady i potencjalne zagrożenia oraz jak można je zminimalizować \\ 
-Wybraliśmy ten artykuł gdyż opisuje jedną z głównych metod którą zamierzamy stosować w naszym procesise badawczym do przeanalizowania danych 
-\subsection{Application of Successful EU Funds Absorption Models to Sustainable Regional Development \cite{5}}
-Artykuł wykorzystał ankiety pytając ankietowanych o to jak efektywnie wykorzystywane były fundusze UE w Polsce, Słowenji, Węgrzech i Chorwacji pod względe, 
+\paragraph{Decision trees: from efficient prediction to responsible AI}
+Artykuł poświęcony jest omówieniu drzew decyzyjnych, rozpoczyna od zdefiniowania czym 
+drzewo decyzyjne jest, jakie są jego unikalne cechy, gdzie jest stosowane, jakie ma wady 
+i potencjalne zagrożenia oraz jak można je zminimalizować \cite{4} \\ 
+Wybraliśmy ten artykuł gdyż opisuje jedną z głównych metod którą zamierzamy stosować w 
+naszym procesise badawczym do przeanalizowania danych 
+\paragraph{Application of Successful EU Funds Absorption Models to Sustainable Regional Development}
+Artykuł wykorzystał ankiety pytając 244 osób o to jak 
+efektywnie wykorzystywane były fundusze UE w Polsce, Słowenii, 
+Węgrzech i Chorwacji. Artykuł podkreśla znaczenie możliwości 
+technicznych, administracyjnych, koordynacji pomiędzy 
+instytucjami i dobrymi mechanizmami nadzorowania funduszy 
+europejskich jako kluczowe dla skutecznego wykorzystywania 
+funduszy unijnych.  \cite{5} \\ 
+Artykuł przydał się nam w ocenie jakie parametry pozytywnie wpływają na korzystanie z funduszy UE i jakie moglibyśmy śledzić w naszym modelu.
+W naszym artykule zamiast ankiet wykorzystujemy dostępne już dane, a wyniki staramy się stworzyć przy użyciu modeli statystycznych. Dodatkowo zajmujemy się przedstawieniem jakie parametry wpływają na przyznanie środków UE a nie na to w jaki sposób można te środki skutecznie wykorzystywać 
+\paragraph{It’s not about the money. EU funds, local opportunities, and Euroscepticism})
+Artykuł opisuje jak pieniądze z Unii Europejskiej wpływają na eurosceptycyzm w danym kraju na podstawie Walii w kontekście referendum "Brexit". 
+Badanie wykorzystuje metodę Regression discontinuity design (RDD), wybrano Walię z uwagi na różnicę w ilości pieniędzy przekazanych poszczególnym rejonom. 
+Autorzy wykazali że sama ilość pieniędzy przekazana danemu 
+regionowi nie zwiększa znacznie poparcia dla 
+Unii Europejskiej, natomiast duże nakłady powiązane z 
+widoczną, namacalną poprawą na lokalnym rynku wpływają 
+pozytywnie na postrzeganie Unii Europejskiej w lokalnych 
+społecznościach \cite{6} \\ 
+Nasz artykuł koncentruje się na tym co wpływa na przyznanie funduszy unijnych a nie na samą reakcje na ich przyznanie 
 \section{Proces badawczy}
-\subsection{Zbieranie danych}
-\subsection{Analiza danych}
-\subsection{Przedstawienie wyników}
+Proces badawczy podzieliliśmy na 3 zasadnicze etapy, zebranie danych, przeanalizowanie ich i zaprezentowanie wyników
+
+\paragraph{Zbieranie danych}
+Wszystkie dane pobieraliśmy ze strony GUS-u \\
+\href{https://bdl.stat.gov.pl/bdl/start}{https://bdl.stat.gov.pl/bdl/start} \\ 
+Dane wybieraliśmy z zakładki "Popularne podgrupy", następnie wybieraliśmy wszystkie lata które nas 
+interesowały (od 2014 do 2023 roku włącznie), po przejściu dalej wybieraliśmy wszystkie gminy, 
+finalnie otrzymując tablicę którą pobieraliśmy do formatu csv \\ 
+\paragraph{Przygotowywanie danych}
+Dane musieliśmy przeprocesować przed ich wykorzystaniem 
+\paragraph{Analiza danych}
+\paragraph{Przedstawienie wyników}
 
 \section{Wyniki}
 
