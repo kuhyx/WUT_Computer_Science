@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the project name
-PROJECT_NAME="backend"
+PROJECT_NAME="frontend"
 
 # Function to generate a module and a service
 generate_module_and_service() {
@@ -15,7 +15,9 @@ generate_module_and_service() {
   # Generate service in the specific directory
   # nx g @nrwl/nest:service ${MODULE_NAME} --directory=apps/${PROJECT_NAME}/src/app/${MODULE_NAME}
 
-  nx g @nrwl/nest:controller ${MODULE_NAME} --directory=apps/${PROJECT_NAME}/src/app/${MODULE_NAME}
+  # nx g @nrwl/nest:controller ${MODULE_NAME} --directory=apps/${PROJECT_NAME}/src/app/${MODULE_NAME}
+
+  nx g @nx/angular:component ${MODULE_NAME} --directory=apps/${PROJECT_NAME}/src/app/${MODULE_NAME}
 }
 
 # List of all models for which we need to generate modules and services
