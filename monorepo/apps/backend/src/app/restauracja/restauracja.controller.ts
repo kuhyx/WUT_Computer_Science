@@ -9,6 +9,7 @@ export class RestauracjaController {
 
   @Get()
   async findAll(): Promise<Restauracja[]> {
+    console.log(`restauracja all`);
     return this.restauracjaService.findAll();
   }
 
