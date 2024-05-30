@@ -1,1 +1,23 @@
-<p>zamowione-danie works!</p>
+<!-- src/app/zamowione-danie/zamowione-danie.component.html -->
+<div>
+    <h2>Zamowione Dania List</h2>
+    <ul>
+      <li *ngFor="let zamowioneDanie of zamowioneDania">
+        Zamowienie ID: {{ zamowioneDanie.zamowienieId }}
+        <button (click)="startEdit(zamowioneDanie)">Edit</button>
+        <button (click)="deleteZamowioneDanie(zamowioneDanie.id!)">Delete</button>
+      </li>
+    </ul>
+  
+    <h2>Create Zamowione Danie</h2>
+    <input [(ngModel)]="newZamowioneDanie.zamowienieId" placeholder="Zamowienie ID" type="number">
+    <button (click)="createZamowioneDanie()">Create</button>
+  
+    <div *ngIf="editZamowioneDanie">
+      <h2>Edit Zamowione Danie</h2>
+      <input [(ngModel)]="editZamowioneDanie.zamowienieId" placeholder="Zamowienie ID" type="number">
+      <button (click)="updateZamowioneDanie()">Update</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+  

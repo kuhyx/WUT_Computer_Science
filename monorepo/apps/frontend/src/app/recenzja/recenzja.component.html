@@ -1,1 +1,29 @@
-<p>recenzja works!</p>
+<!-- src/app/recenzja/recenzja.component.html -->
+<div>
+    <h2>Recenzja List</h2>
+    <ul>
+      <li *ngFor="let recenzja of recenzje">
+        <strong>{{ recenzja.wartosc }}</strong> - {{ recenzja.tekst }} (Restauracja ID: {{ recenzja.restauracjaId }}, Uzytkownik ID: {{ recenzja.uzytkownikId }})
+        <button (click)="startEdit(recenzja)">Edit</button>
+        <button (click)="deleteRecenzja(recenzja.id!)">Delete</button>
+      </li>
+    </ul>
+  
+    <h2>Create Recenzja</h2>
+    <textarea [(ngModel)]="newRecenzja.tekst" placeholder="Tekst"></textarea>
+    <input [(ngModel)]="newRecenzja.wartosc" placeholder="Wartosc" type="number">
+    <input [(ngModel)]="newRecenzja.restauracjaId" placeholder="Restauracja ID" type="number">
+    <input [(ngModel)]="newRecenzja.uzytkownikId" placeholder="Uzytkownik ID" type="number">
+    <button (click)="createRecenzja()">Create</button>
+  
+    <div *ngIf="editRecenzja">
+      <h2>Edit Recenzja</h2>
+      <textarea [(ngModel)]="editRecenzja.tekst" placeholder="Tekst"></textarea>
+      <input [(ngModel)]="editRecenzja.wartosc" placeholder="Wartosc" type="number">
+      <input [(ngModel)]="editRecenzja.restauracjaId" placeholder="Restauracja ID" type="number">
+      <input [(ngModel)]="editRecenzja.uzytkownikId" placeholder="Uzytkownik ID" type="number">
+      <button (click)="updateRecenzja()">Update</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+  
