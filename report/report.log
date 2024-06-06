@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024/Arch Linux) (preloaded format=xelatex 2024.6.6)  6 JUN 2024 04:05
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024/Arch Linux) (preloaded format=xelatex 2024.6.6)  6 JUN 2024 04:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -270,105 +270,489 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count295
 \@lastruleclass=\count296
 \@thisrulewidth=\dimen172
-) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+) (/usr/share/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2024/02/07 v24.2 The Babel package
+\babel@savecnt=\count297
+\U@D=\dimen173
+\l@unhyphenated=\language89
+ (/usr/share/texmf-dist/tex/generic/babel/xebabel.def)
+\bbl@readstream=\read2
+\bbl@dirlevel=\count298
+ (/usr/share/texmf-dist/tex/generic/babel-polish/polish.ldf
+Language: polish 2022/03/12 1.3 Babel support for Polish
+Package babel Info: Making " an active character on input line 101.
+)) (/usr/share/texmf-dist/tex/generic/babel/locale/pl/babel-polish.tex
+Package babel Info: Importing font and identification data for polish
+(babel)             from babel-pl.ini. Reported on input line 11.
+) (/usr/share/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 112.
+ (/usr/share/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
-\g__graphics_track_int=\count297
+\g__graphics_track_int=\count299
 \l__pdf_internal_box=\box58
-\g__pdf_backend_object_int=\count298
-\g__pdf_backend_annotation_int=\count299
-\g__pdf_backend_link_int=\count300
+\g__pdf_backend_object_int=\count300
+\g__pdf_backend_annotation_int=\count301
+\g__pdf_backend_link_int=\count302
 ) (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 29.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-Package hyperref Info: Link coloring OFF on input line 27.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+Package hyperref Info: Link coloring OFF on input line 29.
  (./report.out) (./report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
-\c@lstlisting=\count301
- (./report.toc)
+\c@lstlisting=\count303
+
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmbx12!
+(./report.toc
+Missing character: There is no ę ("119) in font ec-lmbx12!
+Missing character: There is no ł ("142) in font ec-lmbx12!
+)
 \tf@toc=\write4
 \openout4 = `report.toc'.
 
- [1
 
-] [2]
-Overfull \hbox (18.03017pt too wide) in paragraph at lines 70--74
-\TU/lmr/m/n/12 przekazanych poszczególnym rejonom. Autorzy wykazali, że sama ilość pieniędzy
+Missing character: There is no ł ("142) in font ec-lmr10!
+Missing character: There is no ę ("119) in font ec-lmr10!
+Missing character: There is no ą ("105) in font ec-lmr10!
+Missing character: There is no ł ("142) in font ec-lmr10!
+Missing character: There is no ł ("142) in font ec-lmr10!
+Missing character: There is no ę ("119) in font ec-lmbx12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ń ("144) in font ec-lmr12!
+[1
+
+]
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmbx12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmbx12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ń ("144) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+
+Overfull \hbox (6.29964pt too wide) in paragraph at lines 57--63
+\T1/lmr/m/n/12 Na pocz-tku ar-ty-kuu przed-sta-wiamy, dla-czego wy-bra-limy taki te-mat, co chcemy
  []
 
-
-Overfull \hbox (6.31363pt too wide) in paragraph at lines 70--74
-\TU/lmr/m/n/12 ropejskiej, natomiast duże nakłady powiązane z widoczną, namacalną poprawą
- []
-
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+[2]
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ’ ("2019) in font ec-lmbx12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
 [3]
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
 File: gus.jpg Graphic file (type bmp)
 <gus.jpg>
 
-Overfull \hbox (127.88402pt too wide) in paragraph at lines 79--86
- []\TU/lmr/bx/n/12 Zbieranie danych[] \TU/lmr/m/n/12 Wszystkie dane pobieraliśmy ze strony GUS-u: []https://bdl.stat.gov.pl/bdl/start[]
+Overfull \hbox (120.97589pt too wide) in paragraph at lines 81--88
+ []\T1/lmr/bx/n/12 Zbieranie da-nych[] \T1/lmr/m/n/12 Wszyst-kie dane po-bie-ra-limy ze strony GUS-u: []https://bdl.stat.gov.pl/bdl/start[]
  []
 
+Missing character: There is no ą ("105) in font ec-lmr12!
 File: dane3.png Graphic file (type bmp)
 <dane3.png>
 File: dane4.png Graphic file (type bmp)
 <dane4.png>
 [4]
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
 File: dane5.png Graphic file (type bmp)
 <dane5.png>
- [5] [6]
-Overfull \hbox (13.27364pt too wide) in paragraph at lines 112--113
-[]\TU/lmr/m/n/12 Ludność (całkowita, na płeć, wiek przedprodukcyjny/produkcyjny/popro-
- []
-
+[5] [6]
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
 [7]
-Overfull \hbox (13.296pt too wide) in paragraph at lines 130--134
-\TU/lmr/m/n/12 wykorzystujących ”Recursive Feature Elimination” (RFE). Trenowaliśmy model
- []
-
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no Ś ("15A) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 136.
+(/usr/share/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
 File: output.png Graphic file (type bmp)
 <output.png>
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
 File: output2.png Graphic file (type bmp)
 <output2.png>
 [8]
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ń ("144) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ń ("144) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
 File: output3.png Graphic file (type bmp)
 <output3.png>
- [9] [10] [11]
-Overfull \hbox (21.84882pt too wide) in paragraph at lines 187--188
- []\TU/lmr/bx/n/12 Weryfikacja hipotezy[] \TU/lmr/m/n/12 Nasza hipoteza zgodnie z wynikami, które uzyskaliśmy,
- []
-
+[9] [10]
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmbx12!
+Missing character: There is no ć ("107) in font ec-lmbx12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+[11]
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmbx12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmbx12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmbx12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmbx12!
+Missing character: There is no ś ("15B) in font ec-lmbx12!
+Missing character: There is no ę ("119) in font ec-lmbx12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ń ("144) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
 [12]
-Overfull \hbox (1.65762pt too wide) in paragraph at lines 196--197
-\TU/lmr/m/n/12 datkowych zmiennych, takich jak zmiany polityczne, ekonomiczne i społeczne.
- []
-
-(./report.bbl [13]) [14] (./report.aux)
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ą ("105) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ę ("119) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+(./report.bbl
+Missing character: There is no ’ ("2019) in font ec-lmr12!
+Missing character: There is no ż ("17C) in font ec-lmr12!
+Missing character: There is no ń ("144) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no ś ("15B) in font ec-lmr12!
+Missing character: There is no ł ("142) in font ec-lmr12!
+Missing character: There is no Š ("160) in font ec-lmr12!
+Missing character: There is no ć ("107) in font ec-lmr12!
+[13]) [14] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -377,12 +761,12 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 32F2BC88091AA1FC1FA69BA8B4B74412;712.
  ) 
 Here is how much of TeX's memory you used:
- 10373 strings out of 474773
- 159149 string characters out of 5763520
- 1936839 words of memory out of 5000000
- 32397 multiletter control sequences out of 15000+600000
- 563283 words of font info for 64 fonts, out of 8000000 for 9000
+ 11781 strings out of 474773
+ 182575 string characters out of 5763520
+ 1934839 words of memory out of 5000000
+ 33787 multiletter control sequences out of 15000+600000
+ 592175 words of font info for 66 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,8n,79p,584b,928s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,8n,79p,584b,930s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on report.xdv (14 pages, 116776 bytes).
+Output written on report.xdv (14 pages, 28832 bytes).

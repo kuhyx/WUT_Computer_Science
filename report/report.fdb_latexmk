@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex report"] 1717639552.41387 "report.aux" "report.bbl" "report" 1717639553.44082 0
+["bibtex report"] 1717639800.95443 "report.aux" "report.bbl" "report" 1717639854.73562 0
   "./references.bib" 1717637031.51299 5886 d2ede292160e44ab3355de95724d1827 ""
   "/usr/share/texmf-dist/bibtex/bst/base/plain.bst" 1716849630 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "report.aux" 1717639552.85121 4232 785817d55d014b0c82f7241d0ea03b0c "xelatex"
+  "report.aux" 1717639854.13249 4331 93fbe7ee987b1fef10637cb56a261d6b "xelatex"
   (generated)
   "report.bbl"
   "report.blg"
   (rewritten before read)
-["xdvipdfmx"] 1717639552.97753 "report.xdv" "report.pdf" "report" 1717639553.44176 0
-  "report.xdv" 1717639552.85121 116776 be4a95dcf88354aee0df66ad989db9e0 "xelatex"
+["xdvipdfmx"] 1717639854.27857 "report.xdv" "report.pdf" "report" 1717639854.73686 0
+  "report.xdv" 1717639854.13583 28832 b64f7e48bd2b6140227f0a558eb33a6e "xelatex"
   (generated)
   "report.pdf"
   (rewritten before read)
-["xelatex"] 1717639552.46593 "/home/kuchy/PBAD/report/report.tex" "report.xdv" "report" 1717639553.44091 0
-  "/home/kuchy/PBAD/report/report.tex" 1717639550.46125 11856 3394914766b6635c5774e28a61c1cf1f ""
+["xelatex"] 1717639853.74007 "/home/kuchy/PBAD/report/report.tex" "report.xdv" "report" 1717639854.7357 0
+  "/home/kuchy/PBAD/report/report.tex" 1717639853.51584 11983 7c3f3fc259d9a16f77a9057dba4d9acb ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1716849630 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1716849630 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1716849630 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -27,7 +27,20 @@
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1716849630 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1716849630 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1716849630 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmbx10.tfm" 1716849630 12076 b54175e02101bea1addf6b2d0197ed12 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm" 1716849630 12088 d750ac78274fa7c9f73ba09914c04f8a ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmr10.tfm" 1716849630 12056 7e13df7fe4cbce21b072ba7c4f4deb6e ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm" 1716849630 12092 7b1546e2d096cfd5dcbd4049b0b1ec2e ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmr17.tfm" 1716849630 12156 ca1ae6a3c8564e89597f1f993fba1608 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmri12.tfm" 1716849630 17144 271aaf9ebb339934b04110dc5211fba4 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmtt12.tfm" 1716849630 1368 6a60e6a5e029141041d64d339b87e533 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/lm/ts1-lmr12.tfm" 1716849630 1596 1d4548788e389ded56d0b01b28377882 ""
   "/usr/share/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1716849630 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
+  "/usr/share/texmf-dist/tex/generic/babel-polish/polish.ldf" 1716849630 5224 54b136d5d57ebf87f319fcfb9b2d5f4c ""
+  "/usr/share/texmf-dist/tex/generic/babel/babel.sty" 1716849630 146276 10a40dabec03ce18494af0c3a51bcbdc ""
+  "/usr/share/texmf-dist/tex/generic/babel/locale/pl/babel-pl.ini" 1716849630 4401 c49ce73b2d2d1fc06e171b1bc3378399 ""
+  "/usr/share/texmf-dist/tex/generic/babel/locale/pl/babel-polish.tex" 1716849630 336 9d186e8448dd0bc4c4e4b79f12cdb480 ""
+  "/usr/share/texmf-dist/tex/generic/babel/xebabel.def" 1716849630 19125 6423881bf88a3d215c9b000a41a9b3a7 ""
   "/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1716849630 40635 c40361e206be584d448876bba8a64a3b ""
   "/usr/share/texmf-dist/tex/generic/bitset/bitset.sty" 1716849630 33961 6b5c75130e435b2bfdb9f480a09a39f9 ""
   "/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty" 1716849630 8371 9d55b8bd010bc717624922fb3477d92e ""
@@ -50,6 +63,7 @@
   "/usr/share/texmf-dist/tex/latex/base/article.cls" 1716849630 20144 147463a6a579f4597269ef9565205cfe ""
   "/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty" 1716849630 3045 273c666a54e60b9f730964f431a56c1b ""
   "/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1716849630 2462 6bc53756156dbd71c1ad550d30a3b93f ""
+  "/usr/share/texmf-dist/tex/latex/base/fontenc.sty" 1716849630 5119 a04a8b68ab4f6ce800a41f7f8012a10e ""
   "/usr/share/texmf-dist/tex/latex/base/size12.clo" 1716849630 8449 f07039d8e4e89f21078d9b5137579bfc ""
   "/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd" 1716849630 2430 fce77d7e103eb98b6c4d486ae1d466c0 ""
   "/usr/share/texmf-dist/tex/latex/booktabs/booktabs.sty" 1716849630 6078 f1cb470c9199e7110a27851508ed7a5c ""
@@ -77,6 +91,8 @@
   "/usr/share/texmf-dist/tex/latex/listings/listings.sty" 1716849630 81322 d02238bdeb305f2c9f9d0229f99371d0 ""
   "/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty" 1716849630 77022 5c8c440739265e7ba15b8379ece6ecd7 ""
   "/usr/share/texmf-dist/tex/latex/listings/lstpatch.sty" 1716849630 329 f19f5da7234b51d16764e23d20999c73 ""
+  "/usr/share/texmf-dist/tex/latex/lm/t1lmr.fd" 1716849630 1867 996fe743d88a01aca041ed22cc10e1bb ""
+  "/usr/share/texmf-dist/tex/latex/lm/t1lmtt.fd" 1716849630 2682 555da1faa2e266801e4b221d01a42cb5 ""
   "/usr/share/texmf-dist/tex/latex/refcount/refcount.sty" 1716849630 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1716849630 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "/usr/share/texmf-dist/tex/latex/url/url.sty" 1716849630 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
@@ -89,11 +105,11 @@
   "output.png" 1717631013.53073 124108 88884632f86b6a5c4ae26415b5958f2b ""
   "output2.png" 1717631064.00648 112061 3f6c7ec89dd3fd180a51bc67768357af ""
   "output3.png" 1717631070.05637 51961 6582b43d059a522f59c563fc46acd44e ""
-  "report.aux" 1717639552.85121 4232 785817d55d014b0c82f7241d0ea03b0c "xelatex"
-  "report.bbl" 1717639552.46122 1143 d390156dc888b44272dcb4e6634a373a "bibtex report"
-  "report.out" 1717639552.85121 712 32f2bc88091aa1fc1fa69ba8b4b74412 "xelatex"
-  "report.tex" 1717639550.46125 11856 3394914766b6635c5774e28a61c1cf1f ""
-  "report.toc" 1717639552.85121 1560 f06ca1f375cd49cd450c2c2d2e83c217 "xelatex"
+  "report.aux" 1717639854.13249 4331 93fbe7ee987b1fef10637cb56a261d6b "xelatex"
+  "report.bbl" 1717639801.00011 1143 d390156dc888b44272dcb4e6634a373a "bibtex report"
+  "report.out" 1717639854.13583 712 32f2bc88091aa1fc1fa69ba8b4b74412 "xelatex"
+  "report.tex" 1717639853.51584 11983 7c3f3fc259d9a16f77a9057dba4d9acb ""
+  "report.toc" 1717639854.13583 1589 afff3d9623f945a478527ef10b1fc9d3 "xelatex"
   (generated)
   "report.aux"
   "report.log"

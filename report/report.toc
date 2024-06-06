@@ -1,3 +1,4 @@
+\babel@toc {polish}{}\relax 
 \contentsline {section}{\numberline {1}Wstęp}{1}{section.1}%
 \contentsline {paragraph}{Kontekst}{1}{section*.2}%
 \contentsline {paragraph}{Cel}{2}{section*.3}%
