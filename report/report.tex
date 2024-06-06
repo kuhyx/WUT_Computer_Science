@@ -1,14 +1,14 @@
 \documentclass[12pt]{article}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{natbib}
-\usepackage{soul}
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{booktabs}
 
 \definecolor{codebg}{rgb}{0.95,0.95,0.95}
 \definecolor{codeframe}{rgb}{0.8,0.8,0.8}
@@ -34,13 +34,13 @@
 \tableofcontents
 
 \begin{abstract}
-    This is a brief summary of your study, its results, and major conclusions.
+    Artykuł skupia się na sprawdzeniu jakie dane gminy najbardziej wpływają na pozyskiwanie przez nią funduszy UE
 \end{abstract}
 
 
 \section{Wstęp}
 \paragraph{Kontekst}
-W 2024 mija 20 lat od wstąpienia Polski do Unii Europejskiej \cite{1}. 
+W 2024 mija 20 lat od wstąpienia Polski do Unii Europejskiej \cite{1} . 
 Od tamtej pory bilans Polski w stosunku do Brukseli wynosi 175 miliardów euro na 
 plus dla Polski \cite{2} W samym 2023 roku Polska otrzymała z UE prawie 3.5 miliarda 
 złotych, wpłacająć niecały miliard złotych \cite{3} W naszej pracy ponawiamy analizę 
@@ -50,8 +50,8 @@ roku 2023
 Celem pracy jest sprawdzenie jakie dane na temat gminy najbardziej korelują z liczbą 
 przyznanych funduszy Unii Europejskiej danej gminy
 \paragraph{Hipoteza} 
-\ul{Gęstość zaludnienia jest \textbf{najważniejszym} czynnikiem wpływającym na 
-przyznanie środków unijnych} \\
+Gęstość zaludnienia jest \textbf{najważniejszym} czynnikiem wpływającym na 
+przyznanie środków unijnych
 \paragraph{Metoda badawcza}
 \begin{enumerate}
     \item Zebrać dane UE
@@ -112,28 +112,23 @@ Wszystkie dane pobieraliśmy ze strony GUS-u \\
 Dane wybieraliśmy z zakładki "Popularne podgrupy", następnie wybieraliśmy wszystkie lata które nas 
 interesowały (od 2014 do 2023 roku włącznie), po przejściu dalej wybieraliśmy wszystkie gminy, 
 finalnie otrzymując tablicę którą pobieraliśmy do formatu csv \\ 
-\begin{figure}[h]
-    \caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+    \caption{Strona GUS z zaznaczonymi popularnymi podgrupami}
     \centering
     \includegraphics[width=1.0\textwidth]{gus}
     \end{figure}
-\begin{figure}[h]
-    \caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
-    \centering
-    \includegraphics[width=1.0\textwidth]{dane2}
-\end{figure}
-\begin{figure}[h]
-    \caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+    \caption{Strona GUS z zaznaczonymi latami i powierzchnią}
     \centering
     \includegraphics[width=1.0\textwidth]{dane3}
 \end{figure}
-\begin{figure}[h]
-    \caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+    \caption{Strona GUS z zaznaczonymi powiatami}
     \centering
     \includegraphics[width=1.0\textwidth]{dane4}
 \end{figure}
-\begin{figure}[h]
-    \caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+    \caption{Dane o powierzchni z możliwością eksportu do CSV}
     \centering
     \includegraphics[width=1.0\textwidth]{dane5}
 \end{figure}
@@ -163,7 +158,6 @@ Dzieliliśmy dane o dofinansowaniu UE na podstawie programów:
     \item Program Operacyjny Wiedza Edukacja Rozwój
     \item Program Operacyjny Polska Wschodnia
 \end{itemize}
-\end{document}
 \paragraph{Analiza danych}
 Wykorzystaliśmy model drzew decyzyjnych regresyjnych wykorzystujących "Recursive Feature Elimination" (RFE) \\ 
 Trenowaliśmy model na głębokościach od 3 do 28 i na "featureach" od 2 do 20 \\ 
@@ -176,39 +170,73 @@ Najlepsze parametry uzyskaliśmy dla głębokości 20 i featurach w liczbie 13
 \paragraph{Przedstawienie wyników}
 Wyniki przedstawiliśmy na grafach wykorzystując pythonową bibliotekę matplotlib 
 \section{Wyniki}
-\begin{figure}[h]
-\caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+\caption{Błąd dla danych treningowych jako funkcja głębokości i liczby featerów}
 \centering
 \includegraphics[width=1.0\textwidth]{output.png}
 \end{figure}
-\begin{figure}[h]
-\caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+\caption{Błąd dla danych testowych jako funkcja głębokości i liczby featerów}
 \centering
 \includegraphics[width=1.0\textwidth]{output2.png}
 \end{figure}
-\begin{figure}[h]
-\caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
+\begin{figure}[H]
+\caption{Funkcja predykcji modelu co do wielkości finansowania porównana do prawdziwego finansowania, czerwieńsze kolory odpowiadają większej gęstości zaludnienia}
 \centering
 \includegraphics[width=1.0\textwidth]{output3.png}
 \end{figure}
-\begin{figure}[h]
-\caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
-\centering
-\includegraphics[width=1.0\textwidth]{output4.png}
-\end{figure}
-\begin{figure}[h]
-\caption{Strona z gusy z zaznaczonymi podgrupami z których korzystaliśmy}
-\centering
-\includegraphics[width=1.0\textwidth]{output5.png}
-                    \end{figure}
+Parametry poniżej miały największy związake z wysokością wpływów z Unii Europejskiej do gminy
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lr}
+    \toprule
+    \textbf{Value} & \textbf{Category} \\
+    \midrule
+    0.3853 & Dochody podatek od nieruchomości \\
+    0.2161 & Dochody podatek od środków transportowych \\
+    0.0911 & Powierzchnia \\
+    0.0670 & Wynagrodzenie ogółem \\
+    0.0581 & Dochody podatek PCC \\
+    0.0424 & Dochody razem \\
+    0.0292 & Dochody z majątku \\
+    0.0286 & Dochody podatek od spadków \\
+    0.0277 & Dochody podatek rolny \\
+    0.0225 & Dochody podatek od działalności gospodarczej \\
+    0.0156 & Wynagrodzenie w relacji do średniej \\
+    0.0107 & Dochody podatek odrębne ustawy \\
+    0.0057 & Dochody podatek leśny \\
+    \bottomrule
+    \end{tabular}
+    \caption{Najistotniejsze dane gminy wpływające na przyznanie funduszów UE}
+    \end{table}
 \section{Dyskusja}
-
+\paragraph{Sukcesy} 
+Udało nam się zebrać dane z GUS-u i połączyć je z danymi o inwestycjach Unii Europejskich, stworzyliśmy model który na podstawie 
+przygotowanych przez nas danych spróbował wykazac jakie parametry gminy najbardziej wpływały na przyznanie środków unijnych 
+\paragraph{Weryfikacja hipotezy}
+Nasza hipoteza zgodnie z wynikami które uzyskaliśmy okazała się \textbf{fałszywa}, nasz model za najważniejszą daną o gminie wpływającą
+na przyznanie środków z Unii Europejskiej uznał \textbf{Dochód z podatków od nieruchomości} a nie gęstość zaludnienia 
+\paragraph{Niskie wartości korelacji}
+Niestety wartości powiązania danych o gminie i wpływów z UE w naszym modelu mają niskie wartości, 
+najwyższe rzędu 0.4 po czym drastycznie spadające do poziomu 0.01, 0.005 \\ 
+\paragraph{Brak możliwości predykcji}
+Nasz model \textbf{nie nadaje się} do wykorzystania w celu przewidywania wpływów inwestycji z UE do gminy w przyszłości, 
+wynika to z dynamicznie zmieniającej się sytuacji geopolitycznej, w ostatnich latach zdecydowany wpływ na działania Unii Europejskiej miały 
+takie wydarzenia jak pandemia Covid-19 lub wojna w Ukrainie, niemożliwe do przewidzenia wydarzenia na arenie międzynarodowej sprawiają że 
+predykcja przyszłych zachowań tak dużych instytucji jak Unia Europejska jest dla naszego modelu zadaniem nie osiagalnym 
 
 \section{Konkluzja}
+Analiza obaliła nasza hipotezę że gęstość zaludnienia odgrywa największą rolę i zamiast tego wskazuje na dochód z podatków od nieruchomości.
+Nasz model, mimo że zidentyfikował pewne zależności, charakteryzuje się niskimi wartościami korelacji i ograniczoną zdolnością do przewidywania przyszłych funduszy.
+
+Aby poprawić dokładność przyszłych analiz, sugerujemy wykorzystanie innych technik modelowania (gradient boosting, sieci neuronowe)
+oraz dodatkowych zmiennych, takich jak zmiany polityczne, ekonomiczne i społeczne. Rozważenie tych dynamicznych czynników może lepiej
+odzwierciedlić skomplikowane procesy decyzyjne w Unii Europejskiej i zwiększyć trafność prognozowania przyznawania funduszy.
 
 
-\bibliographystyle{plain}
-\bibliography{references}
+\bibliographystyle{plain} % or any other style you prefer
+\bibliography{references} % 'references' should be the name of your .bib file without the extension
+
 
 \end{document}
