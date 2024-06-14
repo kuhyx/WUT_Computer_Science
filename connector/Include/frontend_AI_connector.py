@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
+from flask_caching import Cache
 import psycopg2
 import pandas
 import json
 from configparser import ConfigParser
+from datetime import datetime
 
 
 app = Flask(__name__)
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  
 db_connector = None
 conn = None
 movie_list = None
@@ -20,8 +23,9 @@ def error_decorator(fun):
     return inner1
 
 @app.route("/", methods=["GET"])
+@cache.cached(timeout=69)
 def hello():
-    return jsonify({"response": "Hello there"}), 200
+    return jsonify({"response": "Hello there", "time": datetime.now()}), 200
 
 #endpoint do wyciągania danych o userze
 @app.route("/api/v3/get/<string:username>", methods=["GET"])
@@ -59,7 +63,6 @@ def get_recommendations(oauth_ID):
     return jsonify({"movies": ["3", "Wiedźmin 3", "Najlepszy."]}), 200
 
 @app.route("/api/v3/get_movie/<int:movie_ID>", methods=["GET"])
-# @error_decorator
 def get_movie(movie_ID):
     movie_info = movie_list.loc[movie_list['movie_id'] == movie_ID]
     if movie_info.empty:
@@ -136,8 +139,11 @@ if __name__ == "__main__":
         else:
             break
     
-    movie_list = pandas.read_csv(config["movie"]["csv_path"])
 
+    movie_list = pandas.read_csv(config["movie"]["csv_path"])
+    cache.init_app(app)
     app.run(host="0.0.0.0",port=8090, debug=True)
+
+
     conn.close()
 
