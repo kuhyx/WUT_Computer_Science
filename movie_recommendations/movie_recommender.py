@@ -3,6 +3,9 @@ import numpy as np
 from ast import literal_eval
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from flask import Flask, request, jsonify
+import os
+app = Flask(__name__)
 
 
 def get_director(x):
@@ -104,16 +107,30 @@ class MovieRecommender:
                 if recommended_id in movie_ids:
                     continue
 
-                if recommended_movies.get(recommended_id) is None:
-                    recommended_movies[recommended_id] = sim_score / len(movie_ids)
+                if recommended_movies.get(int(recommended_id)) is None:
+                    recommended_movies[int(recommended_id)] = float(round((sim_score / len(movie_ids)), 4))
                 else:
-                    recommended_movies[recommended_id] += sim_score / len(movie_ids)
+                    recommended_movies[int(recommended_id)] += float(round((sim_score / len(movie_ids)), 4))
         return recommended_movies
 
 
+recommender = MovieRecommender()
+recommender.fit('movie_recommendations/datasets/tmdb_5000_credits.csv',
+                'movie_recommendations/datasets/tmdb_5000_movies.csv')
+
+
+@app.route("/api/v3/AI_recommendations", methods=["POST"])
+def AI_recommendations():
+    ids = request.get_json()
+    recommendations = recommender.get_recommendations(ids)
+    return jsonify(recommendations)
+
+
+
+
 # Przykładowe użycie:
-if __name__ == "__main__":
-    recommender = MovieRecommender()
-    recommender.fit('datasets/tmdb_5000_credits.csv', 'datasets/tmdb_5000_movies.csv')
-    recommendations = recommender.get_recommendations([49026, 155, 312113])
-    print(recommendations)
+# if __name__ == "__main__":
+#     recommender = MovieRecommender()
+#     recommender.fit('datasets/tmdb_5000_credits.csv', 'datasets/tmdb_5000_movies.csv')
+#     recommendations = recommender.get_recommendations([49026, 155, 312113])
+#     print(recommendations)
