@@ -1,0 +1,24 @@
+###
+GET http://127.0.0.1:8090/get/boop
+###
+POST http://127.0.0.1:8090/api/v3/AI_recommendations
+Content-Type: application/json
+
+[
+  49026,
+  155,
+  312113
+]
+###
+POST http://127.0.0.1:8090/api/v3/add/1111/boop
+###
+POST http://127.0.0.1:8090/api/v3/rate_movie/1111/155/4
+###
+GET http://localhost:8090/api/get_number_of_ratings
+###
+GET http://localhost:8090/api/get_movie_ratings/155
+###
+GET http://localhost:8090/api/get_users_number
+###
+GET http://localhost:8090/api/get_movie_rating_avg/155
+###
