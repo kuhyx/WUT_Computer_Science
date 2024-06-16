@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  recommendations:
+    build: ./movie_recommendations
+    ports:
+      - 5001:5001
+    depends_on:
+      - cert
+    volumes:
+      - ./movie_recommendations:/app2
+      - certs:/certs
+  app:
+    build: ./connector
+    volumes:
+      - ./connector/Include:/app
+      - certs:/certs
+    ports:
+      - "8090:8090"  # Adjust if your app uses a different port
+    depends_on:
+      - db
+      - cert
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+  pgadmin:
+    container_name: admin_container
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+  cert:
+    build: ./certificates
+    volumes:
+      - certs:/certs
+
+volumes:
+  postgres_data:
+  certs:

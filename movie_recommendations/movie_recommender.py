@@ -146,7 +146,7 @@ def AI_recommendations():
 
 if __name__ == "__main__":
     config = ConfigParser()
-    config.read("../connector/Include/init_scripts/constants.ini")
+    config.read("init_scripts/constants.ini")
 
     while True:
         try:

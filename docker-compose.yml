@@ -2,14 +2,13 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    build: ./connector
     ports:
       - "5000:8090"  # Adjust if your app uses a different port
     depends_on:
       - db
     networks:
       - my-bridge-network
-
   db:
     image: postgres:13
     environment:
@@ -48,6 +47,20 @@ services:
       - app
     networks:
       - my-bridge-network
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+    networks:
+      - my-bridge-network
+
+
 
 volumes:
   postgres_data:
