@@ -1,0 +1,22 @@
+.home-container {
+    padding: 20px;
+  }
+  
+  .mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .mat-menu-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mat-menu-item mat-icon {
+    margin-right: 8px;
+  }
+  

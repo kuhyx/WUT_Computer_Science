@@ -11,6 +11,7 @@ import { DanieModule } from './danie/danie.module';
 import { ZamowioneDanieModule } from './zamowione-danie/zamowione-danie.module';
 import { ZamowienieModule } from './zamowienie/zamowienie.module';
 import { ZnizkaModule } from './znizka/znizka.module';
+import { FakeDataService } from './fake-data/fake-data.service';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { ZnizkaModule } from './znizka/znizka.module';
     ZnizkaModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FakeDataService],
 })
 export class AppModule {}
