@@ -14,6 +14,11 @@ COPY movie_recommender.py .
 COPY datasets/tmdb_5000_credits.csv ./movie_recommendations/datasets/
 COPY datasets/tmdb_5000_movies.csv ./movie_recommendations/datasets/
 COPY init_scripts/constants.ini ./init_scripts/constants.ini
+COPY init_scripts/movies.csv /app/init_scripts/
+
+
+# Modify requirements.txt to use psycopg2-binary
+RUN sed -i 's/psycopg2==2.9.9/psycopg2-binary==2.9.9/' requirements.txt
 
 # Install any needed packages specified in requirements.txt
 COPY requirements.txt .

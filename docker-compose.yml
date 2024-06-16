@@ -59,6 +59,24 @@ services:
       - app
     networks:
       - my-bridge-network
+  movie_rec:
+    container_name: movie_rec
+    build: ./movie_recommendations
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    networks:
+      - my-bridge-network
+  analitics:
+    container_name: analytics
+    build: ./analytics
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+    networks:
+      - my-bridge-network
 
 
 
