@@ -5,7 +5,7 @@ import pandas
 import json
 from configparser import ConfigParser
 from datetime import datetime
-
+import requests
 
 app = Flask(__name__)
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  
@@ -13,27 +13,37 @@ db_connector = None
 conn = None
 movie_list = None
 
+
 def error_decorator(fun):
     def inner1(*args, **kwargs):
         try:
             fun(*args, **kwargs)
         except psycopg2.DatabaseError:
-            return jsonify({"status": "Something... unexpected has occured :sweat_smile:"}), 500
-         
+            return jsonify({"status": "Something... unexpected has occurred :sweat_smile:"}), 500
+
     return inner1
+
 
 @app.route("/", methods=["GET"])
 @cache.cached(timeout=69)
 def hello():
     return jsonify({"response": "Hello there", "time": datetime.now()}), 200
 
-#endpoint do wyciągania danych o userze
+
+# endpoint do wyciągania danych o userze
 @app.route("/api/v3/get/<string:username>", methods=["GET"])
 def access_user(username):
-    return jsonify({"us": "er"}), 200
+    cursor = conn.cursor()
+    cursor.execute("select * from users where username='{}';".format(username))
+    res = cursor.fetchall()
 
-#endpoint służący do zapisu danych nowostworzonego użytkownika, podajemy mu
-#id z oautha oraz login
+    cursor.close()
+
+    return jsonify(res[0]), 200
+
+
+# endpoint służący do zapisu danych nowo stworzonego użytkownika, podajemy mu
+# id z oautha oraz login
 @app.route("/api/v3/add/<string:oauth_ID>/<string:username>", methods=["POST"])
 def add_user(oauth_ID, username):
     cursor = conn.cursor()
@@ -42,7 +52,7 @@ def add_user(oauth_ID, username):
 
     if len(res):
         cursor.close()
-        return jsonify({"status": "User already exists"}), 500
+        return jsonify({"status": "User already exists"}), 409
 
     cursor.execute("INSERT INTO users (username, oauth_ID) VALUES ('{}','{}');".format(
         username, oauth_ID
@@ -50,27 +60,33 @@ def add_user(oauth_ID, username):
 
     conn.commit()
     cursor.close()
-    
+
     return jsonify({"status": "success"}), 200
 
 
-#roboczy endpoint służący do wyciąganiu rekomendacji
+# roboczy endpoint służący do wyciąganiu rekomendacji
 @app.route("/api/v3/ai/<string:oauth_ID>", methods=["GET"])
 def get_recommendations(oauth_ID):
-    #request od frontu na rekomendacje
-    #wysyłanie requestu do AI API o rekomendacje dla usera
-    #przesłanie danych do  
-    return jsonify({"movies": ["3", "Wiedźmin 3", "Najlepszy."]}), 200
+    cursor = conn.cursor()
+    cursor.execute("select movie_ID from ratings where oauth_ID='{}'", oauth_ID)
+    res = cursor.fetchall()
+    movies = [int(i) for i in res[0]]
+    url = 'http://localhost:8081/api/v3/AI_recommendations'
+    response = requests.post(url,
+                             json=movies,
+                             headers={'Content-Type': 'application/json'})
+    return jsonify(response.json()), 200
+
 
 @app.route("/api/v3/get_movie/<int:movie_ID>", methods=["GET"])
 def get_movie(movie_ID):
     movie_info = movie_list.loc[movie_list['movie_id'] == movie_ID]
     if movie_info.empty:
         return jsonify({"status": "Movie with ID {} doesn't exist".format(movie_ID)}
-                       ), 500
+                       ), 404
 
-    cast = json.loads(movie_info["cast"][0].replace('\\"','"'))
-    crew = json.loads(movie_info["crew"][0].replace('\\"','"'))
+    cast = json.loads(movie_info["cast"][0].replace('\\"', '"'))
+    crew = json.loads(movie_info["crew"][0].replace('\\"', '"'))
 
     output_json = {"movie_id": movie_ID,
                    "title": movie_info["title"][0],
@@ -79,15 +95,16 @@ def get_movie(movie_ID):
 
     return jsonify(output_json), 200
 
+
 @app.route("/api/v3/rate_movie/<string:uID>/<string:movie_ID>/<int:rating>", methods=["POST"])
 def rate_movie(uID, movie_ID, rating):
     movie_info = movie_list.loc[movie_list['movie_id'] == int(movie_ID)]
     if movie_info.empty:
         return jsonify({"status": "Movie with ID {} doesn't exist".format(movie_ID)}
-                       ), 500
+                       ), 404
 
     if rating < 1 or rating > 5:
-        return jsonify({"status": "Incorrect rating"}), 500
+        return jsonify({"status": "Incorrect rating"}), 400
 
     cursor = conn.cursor()
     cursor.execute("select * from users where oauth_ID='{}';".format(uID))
@@ -95,7 +112,7 @@ def rate_movie(uID, movie_ID, rating):
 
     if not len(res):
         cursor.close()
-        return jsonify({"status": "User doesn't exists"}), 500
+        return jsonify({"status": "User doesn't exists"}), 404
 
     cursor.execute("select * from ratings where oauth_ID='{}' AND movie_ID='{}';".format(uID, movie_ID))
     res = cursor.fetchall()
@@ -115,7 +132,7 @@ def rate_movie(uID, movie_ID, rating):
 
     conn.commit()
     cursor.close()
-    
+
     return jsonify({"status": "success"}), 200
 
 
@@ -138,12 +155,10 @@ if __name__ == "__main__":
             continue
         else:
             break
-    
 
     movie_list = pandas.read_csv(config["movie"]["csv_path"])
     cache.init_app(app)
-    app.run(host="0.0.0.0",port=8090, debug=True)
-
+    app.run(host="localhost", port=8090, debug=True)
 
     conn.close()
 
