@@ -28,19 +28,27 @@ function Welcome() {
 
   return (
     <main>
-      <p className="text-lg mb-8">Hello {user.displayName}!</p>
+      <p className="text-lg mb-12">Hello {user.displayName}!</p>
       {ratingsCount === null && <p>Loading your data</p>}
       {Number.isInteger(ratingsCount) &&
         (ratingsCount === 0 ? (
-          <p>
-            <span>You don't have any ratings yet. Please </span>
+          <p className="leading-loose">
+            ℹ️
+            <br />
+            You don't have any ratings yet.
+            <br />
+            <span>Please </span>
             <Link to="/rate" className="underline">
               rate
             </Link>
             <span> your first movie.</span>
           </p>
         ) : (
-          <p>
+          <p className="leading-loose">
+            <span>You have </span>
+            <span className="text-yellow-400 font-bold">{ratingsCount}</span>
+            <span> movie rating{ratingsCount! > 1 ? 's' : ''}!</span>
+            <br />
             <span>Go to </span>
             <Link to="/recommendations" className="underline">
               recommendations

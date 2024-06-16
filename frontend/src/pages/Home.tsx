@@ -1,11 +1,10 @@
 import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { Triangle } from 'react-loader-spinner';
 import Welcome from '../components/Welcome';
 import { auth } from '../firebase';
 import googleLogo from '../assets/google.svg';
 
 function Home() {
-  const [user, userLoading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [signInWithGoogle] = useSignInWithGoogle(auth);
 
   return (
@@ -13,8 +12,7 @@ function Home() {
       <h2 className="text-2xl font-medium mb-8">
         Find the perfect movie to watch tonight.
       </h2>
-      {userLoading && <Triangle />}
-      {!userLoading && !user && (
+      {!user && (
         <>
           <p className="mt-4">But first you need to log in:</p>
           <button
