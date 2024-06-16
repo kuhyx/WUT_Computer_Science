@@ -79,7 +79,7 @@ def get_movie_rating_avg(movie_id):
 def get_user_ratings(user_id):
     cursor = conn.cursor()
     cursor.execute("""
-            SELECT * 
+            SELECT movie_ID, rating 
             FROM ratings 
             WHERE oauth_ID = %s;
         """, (user_id,))
@@ -111,6 +111,6 @@ if __name__ == "__main__":
             break
 
     cache.init_app(app)
-    app.run(host="0.0.0.0", port=8082, debug=True)
+    app.run(host="localhost", port=8082, debug=True)
 
     conn.close()
