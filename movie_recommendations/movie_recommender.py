@@ -1,26 +1,20 @@
-import hashlib
-import json
-from datetime import datetime
-
 import pandas as pd
 import numpy as np
 from ast import literal_eval
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import hashlib
+import json
+from configparser import ConfigParser
+import psycopg2
 from flask import Flask, request, jsonify
 from flask_caching import Cache
 
 
-config = {
-    "DEBUG": True,          # some Flask specific configs
-    "CACHE_TYPE": "SimpleCache",
-    "CACHE_DEFAULT_TIMEOUT": 300
-}
-
 app = Flask(__name__)
-
-app.config.from_mapping(config)
-cache = Cache(app)
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+db_connector = None
+conn = None
 
 
 def get_director(x):
@@ -130,8 +124,8 @@ class MovieRecommender:
 
 
 recommender = MovieRecommender()
-recommender.fit('movie_recommendations/datasets/tmdb_5000_credits.csv',
-                'movie_recommendations/datasets/tmdb_5000_movies.csv')
+recommender.fit('datasets/tmdb_5000_credits.csv',
+                'datasets/tmdb_5000_movies.csv')
 
 
 def make_cache_key():
@@ -147,13 +141,30 @@ def make_cache_key():
 def AI_recommendations():
     ids = request.get_json()
     recommendations = recommender.get_recommendations(ids)
-    recommendations[0] = datetime.now()
     return jsonify(recommendations)
 
 
-# Przykładowe użycie:
-# if __name__ == "__main__":
-#     recommender = MovieRecommender()
-#     recommender.fit('datasets/tmdb_5000_credits.csv', 'datasets/tmdb_5000_movies.csv')
-#     recommendations = recommender.get_recommendations([49026, 155, 312113])
-#     print(recommendations)
+if __name__ == "__main__":
+    config = ConfigParser()
+    config.read("../connector/Include/init_scripts/constants.ini")
+
+    while True:
+        try:
+            conn = psycopg2.connect(
+                host=config["postgres"]["host"],
+                database=config["postgres"]["database"],
+                user=config["postgres"]["user"],
+                password=config["postgres"]["password"],
+                port=int(config["postgres"]["port"])
+            )
+
+        except Exception:
+            print("Trying to connect with database")
+            continue
+        else:
+            break
+
+    cache.init_app(app)
+    app.run(host="0.0.0.0", port=4200, debug=False)
+
+    conn.close()

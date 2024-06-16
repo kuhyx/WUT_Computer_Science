@@ -3,7 +3,11 @@ GET http://127.0.0.1:5000/boop
 
 ###
 
-POST http://127.0.0.1:5000/api/v3/AI_recommendations
+GET http://127.0.0.1:8090/api/v3/ai/1111
+
+###
+
+POST http://127.0.0.1:4200/api/v3/AI_recommendations
 Content-Type: application/json
 
 [

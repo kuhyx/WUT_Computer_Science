@@ -4,8 +4,8 @@ import pandas
 import json
 from configparser import ConfigParser
 from datetime import datetime
-
 import requests
+from flask_caching import Cache
 
 app = Flask(__name__)
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  
@@ -57,12 +57,11 @@ def add_user(oauth_ID, username):
 #roboczy endpoint służący do wyciąganiu rekomendacji
 @app.route("/api/v3/ai/<string:oauth_ID>", methods=["GET"])
 def get_recommendations(oauth_ID):
-    #request od frontu na rekomendacje
-    #wysyłanie requestu do AI API o rekomendacje dla usera
-    #przesłanie danych do
-
-    movies = [49026, 155, 312113]  # mock values to be received from backend
-    url = 'http://localhost:8080/api/v3/AI_recommendations'  # nie wiem, jakie powinno być url
+    cursor = conn.cursor()
+    cursor.execute("select movie_ID from ratings where oauth_ID='{}'", oauth_ID)
+    res = cursor.fetchall()
+    movies = [int(i) for i in res[0]]
+    url = 'http://localhost:4200/api/v3/AI_recommendations'
     response = requests.post(url,
                              json=movies,
                              headers={'Content-Type': 'application/json'})
