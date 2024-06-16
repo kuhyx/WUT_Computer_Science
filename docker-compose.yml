@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    build: ./connector
     volumes:
       - ./connector/Include:/app
     ports:
@@ -34,7 +34,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8000:80"
     depends_on:
       - app
 
