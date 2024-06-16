@@ -2,7 +2,7 @@
 FROM python:3.10-slim
 
 # Set the working directory to /app2
-WORKDIR /app2
+WORKDIR /app
 
 # Install necessary OS packages
 RUN apt-get update && apt-get install -y --no-install-recommends \

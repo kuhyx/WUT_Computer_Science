@@ -77,6 +77,15 @@ services:
       - db
     networks:
       - my-bridge-network
+  firebase:
+    container_name: firebase
+    build: .
+    ports:
+      - "8084:8084"
+    depends_on:
+      - db
+    networks:
+      - my-bridge-network
 
 
 

@@ -197,3 +197,5 @@ def get_rating():
     except Exception as e:
         print(e)
         return jsonify({'message': str(e)}), 500
+
+app.run(host="0.0.0.0", port=8084)
