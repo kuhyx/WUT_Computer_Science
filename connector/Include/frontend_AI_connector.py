@@ -8,10 +8,11 @@ from datetime import datetime
 
 
 app = Flask(__name__)
-cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
 db_connector = None
 conn = None
 movie_list = None
+
 
 def error_decorator(fun):
     def inner1(*args, **kwargs):
@@ -19,21 +20,24 @@ def error_decorator(fun):
             fun(*args, **kwargs)
         except psycopg2.DatabaseError:
             return jsonify({"status": "Something... unexpected has occured :sweat_smile:"}), 500
-         
+
     return inner1
+
 
 @app.route("/", methods=["GET"])
 @cache.cached(timeout=69)
 def hello():
     return jsonify({"response": "Hello there", "time": datetime.now()}), 200
 
-#endpoint do wyciągania danych o userze
+
+# endpoint do wyciągania danych o userze
 @app.route("/api/v3/get/<string:username>", methods=["GET"])
 def access_user(username):
     return jsonify({"us": "er"}), 200
 
-#endpoint służący do zapisu danych nowostworzonego użytkownika, podajemy mu
-#id z oautha oraz login
+
+# endpoint służący do zapisu danych nowo stworzonego użytkownika, podajemy mu
+# id z oautha oraz login
 @app.route("/api/v3/add/<string:oauth_ID>/<string:username>", methods=["POST"])
 def add_user(oauth_ID, username):
     cursor = conn.cursor()
@@ -50,17 +54,18 @@ def add_user(oauth_ID, username):
 
     conn.commit()
     cursor.close()
-    
+
     return jsonify({"status": "success"}), 200
 
 
-#roboczy endpoint służący do wyciąganiu rekomendacji
+# roboczy endpoint służący do wyciąganiu rekomendacji
 @app.route("/api/v3/ai/<string:oauth_ID>", methods=["GET"])
 def get_recommendations(oauth_ID):
     #request od frontu na rekomendacje
     #wysyłanie requestu do AI API o rekomendacje dla usera
     #przesłanie danych do  
     return jsonify({"movies": ["3", "Wiedźmin 3", "Najlepszy."]}), 200
+
 
 @app.route("/api/v3/get_movie/<int:movie_ID>", methods=["GET"])
 def get_movie(movie_ID):
@@ -69,8 +74,8 @@ def get_movie(movie_ID):
         return jsonify({"status": "Movie with ID {} doesn't exist".format(movie_ID)}
                        ), 500
 
-    cast = json.loads(movie_info["cast"][0].replace('\\"','"'))
-    crew = json.loads(movie_info["crew"][0].replace('\\"','"'))
+    cast = json.loads(movie_info["cast"][0].replace('\\"', '"'))
+    crew = json.loads(movie_info["crew"][0].replace('\\"', '"'))
 
     output_json = {"movie_id": movie_ID,
                    "title": movie_info["title"][0],
@@ -78,6 +83,7 @@ def get_movie(movie_ID):
                    "crew": crew}
 
     return jsonify(output_json), 200
+
 
 @app.route("/api/v3/rate_movie/<string:uID>/<string:movie_ID>/<int:rating>", methods=["POST"])
 def rate_movie(uID, movie_ID, rating):
@@ -115,7 +121,7 @@ def rate_movie(uID, movie_ID, rating):
 
     conn.commit()
     cursor.close()
-    
+
     return jsonify({"status": "success"}), 200
 
 
@@ -133,17 +139,15 @@ if __name__ == "__main__":
                 port=int(config["postgres"]["port"])
             )
 
-        except Exception:
+        except Exception as e:
+            print(e)
             print("Trying to connect with database")
             continue
         else:
             break
-    
 
     movie_list = pandas.read_csv(config["movie"]["csv_path"])
     cache.init_app(app)
-    app.run(host="0.0.0.0",port=8090, debug=True)
-
+    app.run(host="localhost", port=8090, debug=True)
 
     conn.close()
-
