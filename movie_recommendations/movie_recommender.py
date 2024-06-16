@@ -1,14 +1,13 @@
-import hashlib
-import json
-from datetime import datetime
-
 import pandas as pd
 import numpy as np
 from ast import literal_eval
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
 from flask import Flask, request, jsonify
 from flask_caching import Cache
+import hashlib
+import json
 
 
 config = {
@@ -147,7 +146,6 @@ def make_cache_key():
 def AI_recommendations():
     ids = request.get_json()
     recommendations = recommender.get_recommendations(ids)
-    recommendations[0] = datetime.now()
     return jsonify(recommendations)
 
 
