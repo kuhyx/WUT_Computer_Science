@@ -1,10 +1,16 @@
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 
 function Navbar() {
   const [user, userLoading] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    navigate('/');
+    signOut();
+  };
 
   return (
     <header className="px-6 py-4 flex justify-between items-center">
@@ -45,7 +51,7 @@ function Navbar() {
               </li>
             </ul>
           </nav>
-          <button onClick={() => signOut()}>Log out</button>
+          <button onClick={handleSignOut}>Log out</button>
         </div>
       )}
     </header>
