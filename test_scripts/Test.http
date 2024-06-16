@@ -1,7 +1,5 @@
 ###
-GET http://127.0.0.1:8090/get/boop
-###
-POST http://127.0.0.1:8090/api/v3/AI_recommendations
+POST http://127.0.0.1:8081/api/v3/AI_recommendations
 Content-Type: application/json
 
 [
@@ -10,15 +8,23 @@ Content-Type: application/json
   312113
 ]
 ###
-POST http://127.0.0.1:8090/api/v3/add/1111/boop
+POST http://127.0.0.1:8090/api/v3/add/1234/blep
 ###
-POST http://127.0.0.1:8090/api/v3/rate_movie/1111/155/4
+GET http://127.0.0.1:8090/api/v3/get/blep
 ###
-GET http://localhost:8090/api/get_number_of_ratings
+POST http://127.0.0.1:8090/api/v3/add/6666/blop
 ###
-GET http://localhost:8090/api/get_movie_ratings/155
+POST http://127.0.0.1:8090/api/v3/rate_movie/1234/155/4
 ###
-GET http://localhost:8090/api/get_users_number
+POST http://127.0.0.1:8090/api/v3/rate_movie/6666/155/5
 ###
-GET http://localhost:8090/api/get_movie_rating_avg/155
+POST http://127.0.0.1:8090/api/v3/rate_movie/1234/19995/5
+###
+GET http://localhost:8082/api/get_movie_ratings/155
+###
+GET http://localhost:8082/api/get_number_of_ratings
+###
+GET http://localhost:8082/api/get_users_number
+###
+GET http://localhost:8082/api/get_movie_rating_avg/155
 ###

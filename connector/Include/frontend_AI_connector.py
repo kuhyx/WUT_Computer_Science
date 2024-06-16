@@ -6,7 +6,6 @@ import json
 from configparser import ConfigParser
 from datetime import datetime
 import requests
-from flask_caching import Cache
 
 app = Flask(__name__)
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  
@@ -20,7 +19,7 @@ def error_decorator(fun):
         try:
             fun(*args, **kwargs)
         except psycopg2.DatabaseError:
-            return jsonify({"status": "Something... unexpected has occured :sweat_smile:"}), 500
+            return jsonify({"status": "Something... unexpected has occurred :sweat_smile:"}), 500
 
     return inner1
 
@@ -34,7 +33,13 @@ def hello():
 # endpoint do wyciągania danych o userze
 @app.route("/api/v3/get/<string:username>", methods=["GET"])
 def access_user(username):
-    return jsonify({"us": "er"}), 200
+    cursor = conn.cursor()
+    cursor.execute("select * from users where username='{}';".format(username))
+    res = cursor.fetchall()
+
+    cursor.close()
+
+    return jsonify(res[0]), 200
 
 
 # endpoint służący do zapisu danych nowo stworzonego użytkownika, podajemy mu
@@ -47,7 +52,7 @@ def add_user(oauth_ID, username):
 
     if len(res):
         cursor.close()
-        return jsonify({"status": "User already exists"}), 500
+        return jsonify({"status": "User already exists"}), 409
 
     cursor.execute("INSERT INTO users (username, oauth_ID) VALUES ('{}','{}');".format(
         username, oauth_ID
@@ -66,7 +71,7 @@ def get_recommendations(oauth_ID):
     cursor.execute("select movie_ID from ratings where oauth_ID='{}'", oauth_ID)
     res = cursor.fetchall()
     movies = [int(i) for i in res[0]]
-    url = 'http://localhost:4200/api/v3/AI_recommendations'
+    url = 'http://localhost:8081/api/v3/AI_recommendations'
     response = requests.post(url,
                              json=movies,
                              headers={'Content-Type': 'application/json'})
@@ -78,7 +83,7 @@ def get_movie(movie_ID):
     movie_info = movie_list.loc[movie_list['movie_id'] == movie_ID]
     if movie_info.empty:
         return jsonify({"status": "Movie with ID {} doesn't exist".format(movie_ID)}
-                       ), 500
+                       ), 404
 
     cast = json.loads(movie_info["cast"][0].replace('\\"', '"'))
     crew = json.loads(movie_info["crew"][0].replace('\\"', '"'))
@@ -96,10 +101,10 @@ def rate_movie(uID, movie_ID, rating):
     movie_info = movie_list.loc[movie_list['movie_id'] == int(movie_ID)]
     if movie_info.empty:
         return jsonify({"status": "Movie with ID {} doesn't exist".format(movie_ID)}
-                       ), 500
+                       ), 404
 
     if rating < 1 or rating > 5:
-        return jsonify({"status": "Incorrect rating"}), 500
+        return jsonify({"status": "Incorrect rating"}), 400
 
     cursor = conn.cursor()
     cursor.execute("select * from users where oauth_ID='{}';".format(uID))
@@ -107,7 +112,7 @@ def rate_movie(uID, movie_ID, rating):
 
     if not len(res):
         cursor.close()
-        return jsonify({"status": "User doesn't exists"}), 500
+        return jsonify({"status": "User doesn't exists"}), 404
 
     cursor.execute("select * from ratings where oauth_ID='{}' AND movie_ID='{}';".format(uID, movie_ID))
     res = cursor.fetchall()
