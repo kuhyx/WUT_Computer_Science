@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify
-from flask_caching import Cache
 import psycopg2
 import pandas
 import json
 from configparser import ConfigParser
 from datetime import datetime
 
+import requests
 
 app = Flask(__name__)
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})  
@@ -19,7 +19,7 @@ def error_decorator(fun):
             fun(*args, **kwargs)
         except psycopg2.DatabaseError:
             return jsonify({"status": "Something... unexpected has occured :sweat_smile:"}), 500
-         
+
     return inner1
 
 @app.route("/", methods=["GET"])
@@ -59,8 +59,14 @@ def add_user(oauth_ID, username):
 def get_recommendations(oauth_ID):
     #request od frontu na rekomendacje
     #wysyłanie requestu do AI API o rekomendacje dla usera
-    #przesłanie danych do  
-    return jsonify({"movies": ["3", "Wiedźmin 3", "Najlepszy."]}), 200
+    #przesłanie danych do
+
+    movies = [49026, 155, 312113]  # mock values to be received from backend
+    url = 'http://localhost:8080/api/v3/AI_recommendations'  # nie wiem, jakie powinno być url
+    response = requests.post(url,
+                             json=movies,
+                             headers={'Content-Type': 'application/json'})
+    return jsonify(response.json()), 200
 
 @app.route("/api/v3/get_movie/<int:movie_ID>", methods=["GET"])
 def get_movie(movie_ID):
@@ -138,12 +144,10 @@ if __name__ == "__main__":
             continue
         else:
             break
-    
 
     movie_list = pandas.read_csv(config["movie"]["csv_path"])
     cache.init_app(app)
     app.run(host="0.0.0.0",port=8090, debug=True)
-
 
     conn.close()
 
