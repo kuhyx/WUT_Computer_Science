@@ -18,7 +18,7 @@ elif [[ -f /etc/debian_version ]]; then
     # Debian-based (Debian, Ubuntu, etc.)
     echo "Detected Debian-based Linux"
     INSTALL_CMD="sudo apt-get install -y"
-    SERVICE_CMD="sudo service"
+    SERVICE_CMD="sudo systemctl"
     CONFIG_DIR="/etc/postgresql"
 else
     echo "Unsupported Linux distribution. Exiting."
