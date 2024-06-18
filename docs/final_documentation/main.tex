@@ -1,0 +1,54 @@
+\documentclass{article}[11pt]
+\usepackage{graphicx}
+\usepackage{float}
+
+\title{ERSMS, Group F, Project Documentation}
+\author{Hubert Dwornik, Michał Łezka, Jakub Mazur \\ Michał Sar, Krzysztof Rudnicki}
+\begin{document}
+\maketitle
+
+\section{System Architecture} 
+We have designed and implemented 4 microservices,
+all of microservices are written in Python using Flask framework
+\paragraph{AI recommendations}
+Based on a list of movies ids, calculates and returns list of ids recommended for user who likes given movies
+\paragraph{Analytics}
+Holds information about number of 
+ratings, number of users, 
+average movie ratings, ratings of 
+given user which are later used in 
+webinterface to show data for admins 
+concerning website usage
+\paragraph{Notifications}
+Notifies user whenever there is a new movie recommend by AI recommender for them 
+\paragraph{Backend}
+Updates database and mantains all ongoing and incoming communication between all microservices, both between microservies and from microservices to the webinterface
+\paragraph{Caching}
+We implemented two caches
+\begin{enumerate}
+    \item Backend is cached inside Analytics Service \\
+    Analytics service holds tata about users and movies, 
+    in order to not pull all the data from backend every time we update analytics
+    (for example every day), we keep the cache of backend date in our analytics 
+    service
+    \item AI recommendations are cached inside Notification Service \\ 
+    AI recommendations can change whenever new movie appears, notification 
+    service keeps the cache of ai recommendation service in order to not 
+    pull all the data from the ai recommendation every time it wants to notify 
+    the users about new movies to recommend
+\end{enumerate}
+
+
+\begin{figure}[H]
+    \caption{System architecture representation, webinterface although not part of microservices included to show relation with backend}
+    \centering
+\includegraphics[width=\textwidth]{images/systemArchitecture.drawio.pdf}
+\end{figure}
+
+
+\section{Automated Infrastructure Management solution}
+\section{Federated authorization and authentication management in the project}
+\section{Threat model with mitigations}
+
+
+\end{document}
