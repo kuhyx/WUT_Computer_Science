@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import threading
 
 class modified_richardson_base(ABC):
     """
@@ -95,6 +96,33 @@ class modified_richardson(modified_richardson_base):
         return [scalar * vi for vi in vec]
 
     
+class modified_richardson_with_threads(modified_richardson_base):
+    def compute_with_threads(self, v1, v2, function: function):
+        """ Executes the provided function on many threads """
+        result = [0] * len(v1)
+        threads = []
 
+        for i in range(len(v1)):
+            t = threading.Thread(target=function, args=(v1, v2, result, i))
+            threads.append(t)
+            t.start()
+
+        for t in threads:
+            t.join()
+
+        return result
     
+    def subtract_elements(self, v1, v2, result, index):
+        """ This function is executed by single thread. It calculates one row in matrix """
+        result[index] = v1[index] - v2[index]
+
+    def add_elements(self, v1, v2, result, index):
+        """ As above """
+        result[index] = v1[index] - v2[index]
+
+    def vec_sub(self, v1, v2):
+        return self.compute_with_threads(v1, v2, self.subtract_elements)
+
+    def vec_add(self, v1, v2):
+        return self.compute_with_threads(v1, v2, self.add_elements)
     
