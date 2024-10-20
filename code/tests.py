@@ -12,7 +12,7 @@ def run_tests():
         
         A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
 
-        richardson_solver = RichardsonMethod(A, b, max_iterations=10000000, tol=1e-7)
+        richardson_solver = RichardsonMethod(A, b, size=n, max_iterations=10000000, tol=1e-7)
         solution_richardson = richardson_solver.solve()
         print("Richardson Method Solution:", solution_richardson)
 

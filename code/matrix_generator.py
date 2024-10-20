@@ -7,3 +7,6 @@ class MatrixGenerator:
         A = np.dot(A.T, A) + np.eye(size) * size # dodanie `size` do przekątnej zwiększa wartości własne -> obejście problemu z overflow
         b = np.random.uniform(-1, 1, size)
         return A, b
+
+    def generate_identity_matrix(size):
+        return np.eye(size)

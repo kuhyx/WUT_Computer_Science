@@ -10,7 +10,7 @@ class EigenvalueMethods:
         for _ in range(max_iter):
             x = LinearAlgebraUtils.matrix_vector_multiply(A, x)
             lambda_new = LinearAlgebraUtils.vector_norm(x)
-            x = LinearAlgebraUtils.scalar_divide(x, lambda_new)
+            x = LinearAlgebraUtils.vector_scalar_divide(x, lambda_new)
             if abs(lambda_new - lambda_old) < tol:
                 break
             lambda_old = lambda_new
