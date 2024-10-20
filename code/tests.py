@@ -5,7 +5,7 @@ from matrix_generator import MatrixGenerator
 from richardson_method import RichardsonMethod
 
 @pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
-def test_richardson_vs_cg(n):
+def test_richardson_vs_cg(n: int):
     tolerance = 1e-5
     A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
     
@@ -28,7 +28,11 @@ def assert_scipy_converged(solution_richardson, solution_cg, tolerance, A, b):
     else:
         difference = np.linalg.norm(solution_richardson - solution_cg)
         print(f"Difference between Richardson and CG solutions: {difference:.8f}")
-        if difference >= tolerance:
+        if difference < tolerance:
+            print("Both Richardson and CG converged and calculated correct values.")
+            print("Solution CG:\n", solution_cg)
+            print("Solution Richardson:\n", solution_richardson)
+        else:
             print("Matrix A:\n", A)
             print("Vector b:\n", b)
         assert difference < tolerance, f"The solutions are different! Difference: {difference:.8f}"
@@ -41,3 +45,8 @@ def assert_scipy_not_converged(solution_richardson, A, b):
         print("Matrix A:\n", A)
         print("Vector b:\n", b)
         assert False, "Richardson converged while SciPy did not"
+        
+if __name__ == "__main__":
+    # Run pytest and exit with the appropriate status code
+    for n in [2, 3, 4, 5, 10, 20, 50, 100]:
+        test_richardson_vs_cg(n)
