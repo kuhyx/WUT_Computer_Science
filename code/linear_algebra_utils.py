@@ -8,6 +8,14 @@ class LinearAlgebraUtils:
     @staticmethod
     def matrix_vector_multiply(A, x):
         return [LinearAlgebraUtils.dot_product(row, x) for row in A]
+    
+    @staticmethod
+    def vector_norm(v):
+        return sum(x*x for x in v)**0.5
+
+    @staticmethod
+    def vector_scalar_divide(x, scalar):
+        return [xi / scalar for xi in x]
 
     @staticmethod
     def matrix_scalar_multiply(A, w):
@@ -25,17 +33,10 @@ class LinearAlgebraUtils:
     def scalar_matrix_multiply(omega, vector):
         return [omega * x for x in vector]
 
-    @staticmethod
-    def vector_norm(v):
-        return sum(x*x for x in v)**0.5
 
     @staticmethod
     def matrix_norm(A):
         return math.sqrt(sum(sum(element ** 2 for element in row) for row in A))
-
-    @staticmethod
-    def vector_scalar_divide(x, scalar):
-        return [xi / scalar for xi in x]
 
     @staticmethod
     def matrix_matrix_subtraction(A, B):

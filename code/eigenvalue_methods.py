@@ -2,7 +2,7 @@ from linear_algebra_utils import LinearAlgebraUtils
 
 class EigenvalueMethods:
     @staticmethod
-    def power_method(A, max_iter=1000, tol=1e-6):
+    def power_method(A, max_iter, tol=1e-6):
         n = len(A)
         x = [1] * n
         lambda_old = 0
@@ -18,7 +18,7 @@ class EigenvalueMethods:
         return lambda_new
 
     @staticmethod
-    def inverse_power_method(A, max_iter=1000, tol=1e-6):
+    def inverse_power_method(A, max_iter, tol=1e-6):
         n = len(A)
         I = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
         A_inv = [[I[i][j] - A[i][j] for j in range(n)] for i in range(n)]

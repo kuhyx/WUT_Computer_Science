@@ -4,12 +4,39 @@ from scipy.sparse.linalg import cg
 from matrix_generator import MatrixGenerator
 from richardson_method import RichardsonMethod
 
+def calculate_norm_numpy(I, w, A):
+    # Calculate the difference between I and w * A
+    difference = I - w * A
+    
+    # Calculate the Euclidean norm of the difference
+    norm = np.linalg.norm(difference)
+    
+    return norm
+
+def calculate_eigenvalues(A):
+    # Calculate the eigenvalues of matrix A
+    eigenvalues = np.linalg.eigvals(A)
+    
+    # Find the minimum and maximum eigenvalues
+    lambda_min = np.min(eigenvalues)
+    lambda_max = np.max(eigenvalues)
+    
+    return lambda_min, lambda_max
+
 @pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
 def test_richardson_vs_cg(n: int):
+    print("matrix size: ", n)
     tolerance = 1e-5
+    max_iterations=1000
     A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
+    lambda_min, lambda_max = calculate_eigenvalues(A)
+    print("eigenvalues: ", lambda_min, lambda_max, RichardsonMethod.calculate_eigenvalues(A, max_iterations))
+    omega = 2 / (lambda_min + lambda_max)
+    print("omega: ", omega, RichardsonMethod.calculate_omega(lambda_min, lambda_max))
+    I = np.eye(n)
+    print("norms: ", calculate_norm_numpy(I, omega, A), RichardsonMethod.convergence_norm(A, omega, I))
     
-    richardson_solver = RichardsonMethod(A, b, size=n, max_iterations=1000, tol=1e-7)
+    richardson_solver = RichardsonMethod(A, b, max_iterations, size=n, tol=1e-7)
     solution_richardson = richardson_solver.solve()
     
     solution_cg, info = cg(A, b)
