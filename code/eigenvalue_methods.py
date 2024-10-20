@@ -21,6 +21,7 @@ class EigenvalueMethods:
     def inverse_power_method(A, max_iter, tol=1e-6):
         n = len(A)
         I = [[1 if i == j else 0 for j in range(n)] for i in range(n)]
-        A_inv = [[I[i][j] - A[i][j] for j in range(n)] for i in range(n)]
-        
+        A_inv = [LinearAlgebraUtils.gaussian_elimination(A.tolist(), I_col) for I_col in I]
+        A_inv = list(map(list, zip(*A_inv)))
+
         return 1 / EigenvalueMethods.power_method(A_inv, max_iter, tol)

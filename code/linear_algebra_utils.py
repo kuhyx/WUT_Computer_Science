@@ -41,3 +41,31 @@ class LinearAlgebraUtils:
     @staticmethod
     def matrix_matrix_subtraction(A, B):
         return [[A[i][j] - B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+    @staticmethod
+    def gaussian_elimination(A, b):
+        n = len(A)
+        M = [row[:] for row in A]
+        
+        for i in range(n):
+            M[i].append(b[i])
+        
+        for k in range(n):
+            if M[k][k] == 0:
+                for i in range(k + 1, n):
+                    if M[i][k] != 0:
+                        M[k], M[i] = M[i], M[k]
+                        break
+            
+            for i in range(k + 1, n):
+                factor = M[i][k] / M[k][k]
+                for j in range(k, n + 1):
+                    M[i][j] -= factor * M[k][j]
+        
+        x = [0] * n
+        for i in range(n - 1, -1, -1):
+            x[i] = M[i][-1] / M[i][i]
+            for k in range(i - 1, -1, -1):
+                M[k][-1] -= M[k][i] * x[i]
+        
+        return x
