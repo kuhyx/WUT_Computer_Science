@@ -23,19 +23,20 @@ def calculate_eigenvalues(A):
     
     return lambda_min, lambda_max
 
-@pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
-def test_richardson_vs_cg(n: int):
-    print("matrix size: ", n)
-    tolerance = 1e-5
-    max_iterations=1000
-    A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
+def numpy_additional_richardson_calculations():
     lambda_min, lambda_max = calculate_eigenvalues(A)
     print("eigenvalues: ", lambda_min, lambda_max, RichardsonMethod.calculate_eigenvalues(A, max_iterations))
     omega = 2 / (lambda_min + lambda_max)
     print("omega: ", omega, RichardsonMethod.calculate_omega(lambda_min, lambda_max))
     I = np.eye(n)
     print("norms: ", calculate_norm_numpy(I, omega, A), RichardsonMethod.convergence_norm(A, omega, I))
-    
+
+@pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
+def test_richardson_vs_cg(n: int):
+    print("matrix size: ", n)
+    tolerance = 1e-5
+    max_iterations=1000
+    A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
     richardson_solver = RichardsonMethod(A, b, max_iterations, size=n, tol=1e-7)
     solution_richardson = richardson_solver.solve()
     
