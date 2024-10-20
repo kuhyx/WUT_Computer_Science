@@ -1,32 +1,36 @@
+import pytest
 import numpy as np
 from scipy.sparse.linalg import cg
 from matrix_generator import MatrixGenerator
 from richardson_method import RichardsonMethod
 
-def run_tests():
-    test_sizes = [2, 3, 4, 5, 10, 20, 50, 100]
+@pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
+def test_richardson_vs_cg(n):
     tolerance = 1e-5
+    A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
     
-    for n in test_sizes:
-        print(f"\nRunning test for n = {n}")
-        
-        A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
-        print("A: ", A)
-        print("b: ", b)
-        richardson_solver = RichardsonMethod(A, b, size=n, max_iterations=1000, tol=1e-7)
-        solution_richardson = richardson_solver.solve()
-        print("Richardson Method Solution:", solution_richardson)
+    richardson_solver = RichardsonMethod(A, b, size=n, max_iterations=1000, tol=1e-7)
+    solution_richardson = richardson_solver.solve()
+    
+    solution_cg, info = cg(A, b)
+    
+    if info == 0:  # SciPy CG converged
+        assert_scipy_converged(solution_richardson, solution_cg, tolerance)
+    else:  # SciPy CG did not converge
+        assert_scipy_not_converged(solution_richardson)
 
-        solution_cg, info = cg(A, b)
-        if info == 0:
-            print("SciPy Conjugate Gradient solution:", solution_cg)
-        else:
-            print("SciPy Conjugate Gradient did not converge.")
-
+def assert_scipy_converged(solution_richardson, solution_cg, tolerance):
+    if solution_richardson == "Richardson method for those values will NOT converge":
+        print("Richardson did not converge, while SciPy did")
+        assert False, "Richardson did not converge, while SciPy did"
+    else:
         difference = np.linalg.norm(solution_richardson - solution_cg)
         print(f"Difference between Richardson and CG solutions: {difference:.8f}")
-        
-        if difference < tolerance:
-            print("The solutions are effectively the same.")
-        else:
-            print("The solutions are different!")
+        assert difference < tolerance, f"The solutions are different! Difference: {difference:.8f}"
+
+def assert_scipy_not_converged(solution_richardson):
+    if solution_richardson == "Richardson method for those values will NOT converge":
+        print("Richardson and SciPy did not converge")
+    else:
+        print("Richardson converged while SciPy did not:", solution_richardson)
+        assert False, "Richardson converged while SciPy did not"

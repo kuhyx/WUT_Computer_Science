@@ -1,7 +1,5 @@
-from tests import run_tests
-
-def main():
-    run_tests()
+import pytest
 
 if __name__ == "__main__":
-    main()
+    # Run pytest and exit with the appropriate status code
+    pytest.main(["-v", "tests.py"])
