@@ -32,8 +32,8 @@ class RichardsonMethod:
 
     def solve(self):
         x = self.x0[:]
-        if RichardsonMethod.convergence_norm(self.A, self.omega, self.I) >= 1:
-            return RichardsonMethod.convergence_norm(self.A, self.omega, self.I), "Richardson method for those values will NOT converge", 
+        #if RichardsonMethod.convergence_norm(self.A, self.omega, self.I) >= 1:
+        #    return RichardsonMethod.convergence_norm(self.A, self.omega, self.I), "Richardson method for those values will NOT converge", 
 
         for iteration in range(self.max_iterations):
             Ax = LinearAlgebraUtils.matrix_vector_multiply(self.A, x)
