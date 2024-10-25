@@ -3,6 +3,7 @@ import numpy as np
 from scipy.sparse.linalg import cg
 from matrix_generator import MatrixGenerator
 from richardson_method import RichardsonMethod
+from processing_type import ProcessingType
 
 def calculate_norm_numpy(I, w, A):
     # Calculate the difference between I and w * A
@@ -37,7 +38,7 @@ def test_richardson_vs_cg(n: int):
     tolerance = 1e-5
     max_iterations=1000
     A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
-    richardson_solver = RichardsonMethod(A, b, max_iterations, size=n, tol=1e-7)
+    richardson_solver = RichardsonMethod(ProcessingType.SEQUENTIAL , A, b, max_iterations, size=n, tol=1e-7)
     solution_richardson, info_richardson = richardson_solver.solve()
     
     solution_cg, info = cg(A, b)

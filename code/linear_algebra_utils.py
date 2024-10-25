@@ -1,13 +1,71 @@
 import math
+from abc import ABC, abstractmethod
 
-class LinearAlgebraUtils:
+class LinearAlgebraUtils(ABC):
+    @staticmethod
+    @abstractmethod
+    def dot_product(v1, v2):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def matrix_vector_multiply(A, x):
+        pass
+    
+    @staticmethod
+    @abstractmethod
+    def vector_norm(v):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def vector_scalar_divide(x, scalar):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def matrix_scalar_multiply(A, w):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def vector_vector_subtraction(v1, v2):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def vector_vector_addition(v1, v2):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def scalar_matrix_multiply(omega, vector):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def matrix_norm(A):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def matrix_matrix_subtraction(A, B):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def gaussian_elimination(A, b):
+        pass
+
+
+class SequentialLinearAlgebraUtils(ABC):
     @staticmethod
     def dot_product(v1, v2):
         return sum(x*y for x, y in zip(v1, v2))
 
     @staticmethod
     def matrix_vector_multiply(A, x):
-        return [LinearAlgebraUtils.dot_product(row, x) for row in A]
+        return [SequentialLinearAlgebraUtils.dot_product(row, x) for row in A]
     
     @staticmethod
     def vector_norm(v):
@@ -69,3 +127,49 @@ class LinearAlgebraUtils:
                 M[k][-1] -= M[k][i] * x[i]
         
         return x
+    
+
+class ThreadsLinearAlgebraUtils(ABC):
+    @staticmethod
+    def dot_product(v1, v2):
+        pass
+
+    @staticmethod
+    def matrix_vector_multiply(A, x):
+        pass
+    
+    @staticmethod
+    def vector_norm(v):
+        pass
+
+    @staticmethod
+    def vector_scalar_divide(x, scalar):
+        pass
+
+    @staticmethod
+    def matrix_scalar_multiply(A, w):
+        pass
+
+    @staticmethod
+    def vector_vector_subtraction(v1, v2):
+        pass
+
+    @staticmethod
+    def vector_vector_addition(v1, v2):
+        pass
+
+    @staticmethod
+    def scalar_matrix_multiply(omega, vector):
+        pass
+
+    @staticmethod
+    def matrix_norm(A):
+        pass
+
+    @staticmethod
+    def matrix_matrix_subtraction(A, B):
+        pass
+
+    @staticmethod
+    def gaussian_elimination(A, b):
+        pass
