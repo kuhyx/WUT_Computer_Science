@@ -7,7 +7,19 @@ najmniej trzech różnych mapach. Omów otrzymane wyniki oraz zwizualizuj dział
 wytrenowanych agentów.
 
 ## How to run:
+
+### Install metadrive 
+```
+pip install metadrive-simulator
+python -m metadrive.pull_asset
+```
+
+#### Verify
+`python -m metadrive.examples.profile_metadrive`
+
 Install swig, python and pip
-Install libraries required by program:
+
+Install other libraries required by program:
+
 `pip install -r requirements.txt`
 
