@@ -54,6 +54,6 @@ class RichardsonMethod:
         for iteration in range(self.max_iterations):
             Ax = self.LinAlg.matrix_vector_multiply(self.A, x)
             residual = self.LinAlg.vector_vector_subtraction(self.b, Ax)
-            x = self.LinAlg.vector_vector_addition(x, self.LinAlg.scalar_matrix_multiply(self.omega, residual))
+            x = self.LinAlg.vector_vector_addition(x, self.LinAlg.scalar_vector_multiply(self.omega, residual))
 
         return x, 0

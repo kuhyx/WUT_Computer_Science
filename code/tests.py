@@ -30,15 +30,14 @@ def calcualte_norm_from_matrix_numpy(A, n, max_iterations):
     I = np.eye(n)
     return calculate_norm_numpy(I, omega, A)
 
-
-
 @pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
-def test_richardson_vs_cg(n: int):
+@pytest.mark.parametrize("processing_type", [ProcessingType.SEQUENTIAL, ProcessingType.THREADS])
+def test_richardson_vs_cg(n: int, processing_type: ProcessingType):
     print("matrix size: ", n)
     tolerance = 1e-5
     max_iterations=1000
     A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
-    richardson_solver = RichardsonMethod(ProcessingType.SEQUENTIAL , A, b, max_iterations, size=n, tol=1e-7)
+    richardson_solver = RichardsonMethod(processing_type, A, b, max_iterations, size=n, tol=1e-7)
     solution_richardson, info_richardson = richardson_solver.solve()
     
     solution_cg, info = cg(A, b)
@@ -76,6 +75,4 @@ def assert_scipy_not_converged(solution_richardson, info_richardson, A, b):
         assert False, "Richardson converged while SciPy did not"
         
 if __name__ == "__main__":
-    # Run pytest and exit with the appropriate status code
-    for n in [2, 3, 4, 5, 10, 20, 50, 100]:
-        test_richardson_vs_cg(n)
+    pytest.main()
