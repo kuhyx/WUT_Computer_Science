@@ -1,1 +1,5 @@
+metadrive
+ray 
+rlib
+ray[rllib]
 metadrive-simulator
