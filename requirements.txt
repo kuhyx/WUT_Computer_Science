@@ -1,2 +1,1 @@
-gymnasium
-gymnasium[box2d]
+metadrive-simulator
