@@ -1,8 +1,24 @@
 import math
+import itertools
+import operator
+from multiprocessing import Pool
 from abc import ABC, abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from time_measurement import time_measurement, threads_time_accumulator
+
+def process_row(params):
+    A, k, i = params
+    factor = A[i][k] / A[k][k]
+    return [A[i][j] - factor * A[k][j] for j in range(len(A[0]))]
+
+def divide_by_scalar(pair):
+    xi, scalar = pair
+    return xi / scalar
+
+def multiply_by_scalar(pair):
+    element, scalar = pair
+    return element * scalar
 
 class LinearAlgebraUtils(ABC):
     @staticmethod
@@ -72,7 +88,7 @@ class SequentialLinearAlgebraUtils(ABC):
     
     @staticmethod
     def vector_norm(v):
-        return sum(x*x for x in v)**0.5
+        return math.sqrt(sum(x*x for x in v))
 
     @staticmethod
     def vector_scalar_divide(x, scalar):
@@ -310,3 +326,128 @@ class ThreadsLinearAlgebraUtils(ABC):
                 M[k][-1] -= M[k][i] * x[i]
 
         return x
+
+class ProcessLinearAlgebraUtils:
+    @staticmethod
+    def dot_product(v1, v2):
+        with Pool() as pool:
+            result = pool.starmap(ProcessLinearAlgebraUtils.multiply_elements, zip(v1, v2))
+        return sum(result)
+    
+    @staticmethod
+    def multiply_elements(x, y):
+        return x * y
+
+    @staticmethod
+    def matrix_vector_multiply_row(params):
+        row, vector = params
+        return SequentialLinearAlgebraUtils.dot_product(row, vector)
+
+    @staticmethod
+    def matrix_vector_multiply(A, x):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.matrix_vector_multiply_row, [(row, x) for row in A])
+        return list(result)
+    
+    @staticmethod
+    def vector_norm(v):
+        with Pool() as pool:
+            squared = pool.map(ProcessLinearAlgebraUtils.square, v)
+        return math.sqrt(sum(squared))
+
+    @staticmethod
+    def square(x):
+        return x * x
+
+    @staticmethod
+    def vector_scalar_divide(x, scalar):
+        with Pool() as pool:
+            result = pool.map(divide_by_scalar, [(xi, scalar) for xi in x])
+        return list(result)
+    
+    @staticmethod
+    def divide_vector_by_scalar(x, scalar):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.vector_scalar_divide, [(xi, scalar) for xi in x])
+        return list(result)
+
+    @staticmethod
+    def matrix_scalar_multiply_row(params):
+        row, w = params
+        return [w * element for element in row]
+
+    @staticmethod
+    def matrix_scalar_multiply(A, w):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.matrix_scalar_multiply_row, [(row, w) for row in A])
+        return result
+
+    @staticmethod
+    def vector_vector_operation(params):
+        v1, v2, op = params
+        return op(v1, v2)
+
+    @staticmethod
+    def vector_vector_subtraction(v1, v2):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.vector_vector_operation, zip(v1, v2, itertools.repeat(operator.sub)))
+        return list(result)
+
+    @staticmethod
+    def vector_vector_addition(v1, v2):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.vector_vector_operation, zip(v1, v2, itertools.repeat(operator.add)))
+        return list(result)
+
+    @staticmethod
+    def scalar_matrix_multiply(omega, vector):
+        with Pool() as pool:
+            result = pool.map(multiply_by_scalar, [(element, omega) for element in vector])
+        return list(result)
+
+    @staticmethod
+    def matrix_norm(A):
+        with Pool() as pool:
+            row_sums = pool.map(lambda row: sum(x ** 2 for x in row), A)
+        return math.sqrt(sum(row_sums))
+
+    @staticmethod
+    def matrix_matrix_subtraction(A, B):
+        def subtract_rows(row_pair):
+            return [a - b for a, b in zip(*row_pair)]
+
+        with Pool() as pool:
+            result = pool.starmap(subtract_rows, zip(A, B))
+        return result
+
+    @staticmethod
+    def gaussian_elimination(A, b):
+        try:
+            n = len(A)
+            A = [list(row) + [b_i] for row, b_i in zip(A, b)] 
+
+            for k in range(n):
+                # Pivoting
+                max_index = max(range(k, n), key=lambda x: abs(A[x][k]))
+                if A[max_index][k] == 0:
+                    raise ValueError("Matrix is singular and cannot be solved.")
+                A[k], A[max_index] = A[max_index], A[k]
+
+                # Parallel row processing
+                with Pool() as pool:
+                    results = pool.map(process_row, [(A, k, i) for i in range(k + 1, n)])
+
+                # Update remaining rows in matrix
+                for i in range(k + 1, n):
+                    A[i] = results[i - (k + 1)]
+
+            # Back substitution
+            x = [0] * n
+            for i in range(n - 1, -1, -1):
+                sum_ax = sum(A[i][j] * x[j] for j in range(i + 1, n))
+                x[i] = (A[i][-1] - sum_ax) / A[i][i]
+
+            return x
+        except Exception as e:
+            print(f"Error during Gaussian elimination: {e}")
+            return None

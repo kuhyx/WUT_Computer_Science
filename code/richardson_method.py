@@ -39,15 +39,16 @@ class RichardsonMethod:
     
     @staticmethod
     def assign_LinAlgType(method):
-        metody = {
-            ProcessingType.SEQUENTIAL: SequentialLinearAlgebraUtils,
-            ProcessingType.THREADS: ThreadsLinearAlgebraUtils
+        methods = {
+            ProcessingType.SEQUENTIAL: linAlg.SequentialLinearAlgebraUtils,
+            ProcessingType.THREADS: linAlg.ThreadsLinearAlgebraUtils,
+            ProcessingType.PROCESSES: linAlg.ProcessLinearAlgebraUtils
         }
         
         try:
-            return metody[method]
+            return methods[method]
         except KeyError:
-            raise ValueError("Unknown method, please use 'SEQUENTIAL' or 'THREADS'.")
+            raise ValueError("Unknown method, please use 'SEQUENTIAL', 'THREADS' or 'PROCESSES'.")
 
     def solve(self):
         gc.disable()
