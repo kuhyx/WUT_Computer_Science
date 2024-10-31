@@ -32,13 +32,21 @@ def calcualte_norm_from_matrix_numpy(A, n, max_iterations):
 
 @pytest.mark.parametrize("n", [2, 3, 4, 5, 10, 20, 50, 100])
 @pytest.mark.parametrize("processing_type", [ProcessingType.SEQUENTIAL, ProcessingType.THREADS])
-def test_richardson_vs_cg(n: int, processing_type: ProcessingType):
+def test_richardson_vs_cg(n: int, processing_type: ProcessingType, capsys):
     print("matrix size: ", n)
     tolerance = 1e-5
     max_iterations=1000
     A, b = MatrixGenerator.generate_random_matrix_and_vector(n)
     richardson_solver = RichardsonMethod(processing_type, A, b, max_iterations, size=n, tol=1e-7)
-    solution_richardson, info_richardson = richardson_solver.solve()
+    # solution_richardson, info_richardson = richardson_solver.solve()
+
+    solution_richardson, info_richardson = None, None
+    with capsys.disabled():
+        solution_richardson, info_richardson = richardson_solver.solve()
+    
+    # Przechwytywanie wyjścia po solve
+    captured = capsys.readouterr()
+    print("Captured output:", captured.out)
     
     solution_cg, info = cg(A, b)
     

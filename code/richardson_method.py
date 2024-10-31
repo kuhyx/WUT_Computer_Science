@@ -4,6 +4,9 @@ from linear_algebra_utils import ThreadsLinearAlgebraUtils
 from eigenvalue_methods import EigenvalueMethods
 from matrix_generator import MatrixGenerator
 from processing_type import ProcessingType
+from time_measurement import threads_time_accumulator
+import time
+import gc
 
 class RichardsonMethod:
     def __init__(self, method: ProcessingType, A, b, max_iterations, size: int, x0=None, tol=1e-5):
@@ -47,6 +50,9 @@ class RichardsonMethod:
             raise ValueError("Unknown method, please use 'SEQUENTIAL' or 'THREADS'.")
 
     def solve(self):
+        gc.disable()
+        threads_time_accumulator.total_time = 0
+        start = time.time()
         x = self.x0[:]
         #if RichardsonMethod.convergence_norm(self.LinAlg, self.A, self.omega, self.I) >= 1:
         #    return RichardsonMethod.convergence_norm(self.A, self.omega, self.I), "Richardson method for those values will NOT converge", 
@@ -56,4 +62,13 @@ class RichardsonMethod:
             residual = self.LinAlg.vector_vector_subtraction(self.b, Ax)
             x = self.LinAlg.vector_vector_addition(x, self.LinAlg.scalar_vector_multiply(self.omega, residual))
 
+        end = time.time()
+        total_time = end - start
+        gc.enable()
+        if(self.LinAlg == SequentialLinearAlgebraUtils):
+            print(f"Total: {total_time:.3e}s")
+        elif(self.LinAlg == ThreadsLinearAlgebraUtils):
+            sequential_time = total_time - threads_time_accumulator.total_time
+            print(f"Total: {total_time:.3e}s, Seq: {sequential_time:.3e}s, Parallel: {threads_time_accumulator.total_time:.3e}s")
+        
         return x, 0
