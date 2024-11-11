@@ -1,8 +1,11 @@
 import math
+import itertools
+import operator
+from multiprocessing import Pool
 from abc import ABC, abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
-from time_measurement import time_measurement, threads_time_accumulator
+from time_measurement import time_measurement, time_accumulator
 
 class LinearAlgebraUtils(ABC):
     @staticmethod
@@ -72,7 +75,7 @@ class SequentialLinearAlgebraUtils(ABC):
     
     @staticmethod
     def vector_norm(v):
-        return sum(x*x for x in v)**0.5
+        return math.sqrt(sum(x*x for x in v))
 
     @staticmethod
     def vector_scalar_divide(x, scalar):
@@ -171,7 +174,7 @@ class ThreadsLinearAlgebraUtils(ABC):
 
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def dot_product(v1, v2):
         chunks = ThreadsLinearAlgebraUtils.divide_vectors_to_chunks(v1, v2)
         with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
@@ -179,7 +182,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return sum(results)
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def matrix_vector_multiply(A, x):
         chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(A)
         with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
@@ -188,7 +191,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return [item for sublist in results for item in sublist]
     
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def vector_norm(v):
         chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(v)
 
@@ -201,7 +204,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return total_sum**0.5
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def vector_scalar_divide(x, scalar):
         chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(x)
 
@@ -210,7 +213,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return [item for sublist in results for item in sublist]
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def matrix_scalar_multiply(A, w):
         chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(A)
         with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
@@ -218,7 +221,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return [item for sublist in results for item in sublist]
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def vector_vector_subtraction(v1, v2):
         chunks = ThreadsLinearAlgebraUtils.divide_vectors_to_chunks(v1, v2)
         with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
@@ -227,7 +230,7 @@ class ThreadsLinearAlgebraUtils(ABC):
 
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def vector_vector_addition(v1, v2):
         chunks = ThreadsLinearAlgebraUtils.divide_vectors_to_chunks(v1, v2)
         with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
@@ -235,7 +238,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return [item for sublist in results for item in sublist]
     
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def scalar_vector_multiply(omega, vector):
         chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(vector)
         with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
@@ -244,7 +247,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return [item for sublist in results for item in sublist]
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def matrix_norm(A):
         chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(A)
 
@@ -258,13 +261,13 @@ class ThreadsLinearAlgebraUtils(ABC):
         return math.sqrt(total_sum)
     
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def divide_matrixes_to_chunks(A, B):
         chunk_size = len(A) // ThreadsLinearAlgebraUtils.NUM_THREADS
         return [(A[i:i + chunk_size], B[i:i + chunk_size]) for i in range(0, len(A), chunk_size)]
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def matrix_matrix_subtraction(A, B):
 
         def subtract_chunk(pair):
@@ -277,7 +280,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         return [row for chunk in results for row in chunk]
 
     @staticmethod
-    @time_measurement(threads_time_accumulator)
+    @time_measurement(time_accumulator)
     def gaussian_elimination(A, b):
         n = len(A)
         M = [row[:] for row in A]
@@ -310,3 +313,161 @@ class ThreadsLinearAlgebraUtils(ABC):
                 M[k][-1] -= M[k][i] * x[i]
 
         return x
+
+@time_measurement(time_accumulator)
+def process_row(params):
+    A, k, i = params
+    factor = A[i][k] / A[k][k]
+    return [A[i][j] - factor * A[k][j] for j in range(len(A[0]))]
+
+@time_measurement(time_accumulator)
+def divide_by_scalar(pair):
+    xi, scalar = pair
+    return xi / scalar
+
+@time_measurement(time_accumulator)
+def multiply_by_scalar(pair):
+    element, scalar = pair
+    return element * scalar
+
+class ProcessLinearAlgebraUtils:
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def dot_product(v1, v2):
+        with Pool() as pool:
+            result = pool.starmap(ProcessLinearAlgebraUtils.multiply_elements, zip(v1, v2))
+        return sum(result)
+    
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def multiply_elements(x, y):
+        return x * y
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_vector_multiply_row(params):
+        row, vector = params
+        return SequentialLinearAlgebraUtils.dot_product(row, vector)
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_vector_multiply(A, x):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.matrix_vector_multiply_row, [(row, x) for row in A])
+        return list(result)
+    
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_norm(v):
+        with Pool() as pool:
+            squared = pool.map(ProcessLinearAlgebraUtils.square, v)
+        return math.sqrt(sum(squared))
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def square(x):
+        return x * x
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_scalar_divide(x, scalar):
+        with Pool() as pool:
+            result = pool.map(divide_by_scalar, [(xi, scalar) for xi in x])
+        return list(result)
+    
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def divide_vector_by_scalar(x, scalar):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.vector_scalar_divide, [(xi, scalar) for xi in x])
+        return list(result)
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_scalar_multiply_row(params):
+        row, w = params
+        return [w * element for element in row]
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_scalar_multiply(A, w):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.matrix_scalar_multiply_row, [(row, w) for row in A])
+        return result
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_vector_operation(params):
+        v1, v2, op = params
+        return op(v1, v2)
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_vector_subtraction(v1, v2):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.vector_vector_operation, zip(v1, v2, itertools.repeat(operator.sub)))
+        return list(result)
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_vector_addition(v1, v2):
+        with Pool() as pool:
+            result = pool.map(ProcessLinearAlgebraUtils.vector_vector_operation, zip(v1, v2, itertools.repeat(operator.add)))
+        return list(result)
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def scalar_vector_multiply(omega, vector):
+        with Pool() as pool:
+            result = pool.map(multiply_by_scalar, [(element, omega) for element in vector])
+        return list(result)
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_norm(A):
+        with Pool() as pool:
+            row_sums = pool.map(lambda row: sum(x ** 2 for x in row), A)
+        return math.sqrt(sum(row_sums))
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_matrix_subtraction(A, B):
+        def subtract_rows(row_pair):
+            return [a - b for a, b in zip(*row_pair)]
+
+        with Pool() as pool:
+            result = pool.starmap(subtract_rows, zip(A, B))
+        return result
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def gaussian_elimination(A, b):
+        try:
+            n = len(A)
+            A = [list(row) + [b_i] for row, b_i in zip(A, b)] 
+
+            for k in range(n):
+                # Pivoting
+                max_index = max(range(k, n), key=lambda x: abs(A[x][k]))
+                if A[max_index][k] == 0:
+                    raise ValueError("Matrix is singular and cannot be solved.")
+                A[k], A[max_index] = A[max_index], A[k]
+
+                # Parallel row processing
+                with Pool() as pool:
+                    results = pool.map(process_row, [(A, k, i) for i in range(k + 1, n)])
+
+                # Update remaining rows in matrix
+                for i in range(k + 1, n):
+                    A[i] = results[i - (k + 1)]
+
+            # Back substitution
+            x = [0] * n
+            for i in range(n - 1, -1, -1):
+                sum_ax = sum(A[i][j] * x[j] for j in range(i + 1, n))
+                x[i] = (A[i][-1] - sum_ax) / A[i][i]
+
+            return x
+        except Exception as e:
+            print(f"Error during Gaussian elimination: {e}")
+            return None
