@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.io
 
 class MatrixGenerator:
     @staticmethod
@@ -17,10 +18,39 @@ class MatrixGenerator:
         return spd_matrix
 
     @staticmethod
-    def generate_random_matrix_and_vector(size):
-        A = MatrixGenerator.generate_spd_matrix(size)
-        b = np.random.uniform(-1, 1, size)
-        return A, b
-
     def generate_identity_matrix(size):
         return np.eye(size)
+    
+    @staticmethod
+    def generate_alternating_vector(size):
+        return np.tile([1, 2], int(np.ceil(size / 2)))[:size]
+    
+    @staticmethod
+    def get_matrix_from_file(file_path, problem):
+        mat_contents = scipy.io.loadmat(file_path)
+        problem_record = mat_contents['Problem'][0][0]
+        A = np.array(problem_record[problem])
+        if scipy.sparse.issparse(A):
+            A = A.toarray()
+        return A
+
+    @staticmethod
+    def generate_matrix_and_vector(type, size=None):
+        if type == 'spd':
+            if size is None:
+                raise ValueError("Size must be provided for SPD matrix generation.")
+            matrix = MatrixGenerator.generate_spd_matrix(size)
+            vector = np.random.uniform(-1, 1, size)
+        elif type == 'nemeth12':
+            matrix = -1 * MatrixGenerator.get_matrix_from_file("nemeth12.mat", 1)
+            size = matrix.shape[0]
+            vector = MatrixGenerator.generate_alternating_vector(size)
+        elif type == 'poli3':
+            matrix = MatrixGenerator.get_matrix_from_file("poli3.mat", 2)
+            size = matrix.shape[0]
+            vector = MatrixGenerator.generate_alternating_vector(size)
+        else:
+            raise ValueError("Invalid type specified. Choose 'spd', 'nemeth12', or 'poli3'.")
+        
+        return matrix, vector
+
