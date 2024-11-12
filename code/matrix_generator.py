@@ -29,10 +29,12 @@ class MatrixGenerator:
     def get_matrix_from_file(file_path, problem):
         mat_contents = scipy.io.loadmat(file_path)
         problem_record = mat_contents['Problem'][0][0]
-        A = np.array(problem_record[problem])
+        A = problem_record[problem]
         if scipy.sparse.issparse(A):
-            A = A.toarray()
-        return A
+                A_dense = A.todense()
+        else:
+                A_dense = A
+        return np.array(A_dense)
 
     @staticmethod
     def generate_matrix_and_vector(type, size=None):
@@ -53,4 +55,3 @@ class MatrixGenerator:
             raise ValueError("Invalid type specified. Choose 'spd', 'nemeth12', or 'poli3'.")
         
         return matrix, vector
-
