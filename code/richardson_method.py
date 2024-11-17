@@ -8,7 +8,7 @@ import gc
 
 class RichardsonMethod:
     @time_measurement(time_accumulator)
-    def __init__(self, method: ProcessingType, A, b, max_iterations, size: int, x0=None, tol=1e-5):
+    def __init__(self, method: ProcessingType, A, type, b, max_iterations, size: int, x0=None, tol=1e-5):
         self.LinAlg = self.assign_LinAlgType(method)
         self.A = A
         self.b = b
@@ -16,14 +16,14 @@ class RichardsonMethod:
         self.max_iterations = max_iterations
         self.tol = tol
         # self.I = MatrixGenerator.generate_identity_matrix(size)
-        self.lambda_min, self.lambda_max = RichardsonMethod.calculate_eigenvalues(self.LinAlg, self.A, max_iterations)
+        self.lambda_min, self.lambda_max = RichardsonMethod.calculate_eigenvalues(self.LinAlg, self.A, type)
         if self.lambda_min < 0:
             raise ValueError("Matrix A is not positive semi-definite.")
         self.omega = RichardsonMethod.calculate_omega(self.lambda_min, self.lambda_max)
         
     @staticmethod
-    def calculate_eigenvalues(LinAlgType, A, max_iterations):
-        return EigenvalueMethods.inverse_power_method(LinAlgType, A, max_iterations), EigenvalueMethods.power_method(LinAlgType, A, max_iterations)
+    def calculate_eigenvalues(LinAlgType, A, type):
+        return EigenvalueMethods.inverse_power_method(LinAlgType, A, type), EigenvalueMethods.power_method(LinAlgType, A, type)
 
     @staticmethod
     def calculate_omega(lambda_min, lambda_max):
@@ -70,7 +70,7 @@ class RichardsonMethod:
 
         match self.LinAlg:
             case linAlg.SequentialLinearAlgebraUtils:
-                print(f"Total: {total_time:.3e}s")
+                print(f"Total: {total_time:.3e}s, Tests time: {tests_time.total_time:.3e}s")
             case linAlg.ThreadsLinearAlgebraUtils:
                 sequential_time = total_time - time_accumulator.total_time
                 print(f"Total: {total_time:.3e}s, Seq: {sequential_time:.3e}s, Parallel (threads): {time_accumulator.total_time:.3e}s, Tests time: {tests_time.total_time:.3e}s")
