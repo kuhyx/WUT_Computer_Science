@@ -1,3 +1,7 @@
+Create environment
+
+pyenv virtualenv porr
+
 Activate environment
 
 pyenv activate porr
