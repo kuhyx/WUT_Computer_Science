@@ -5,6 +5,7 @@ from processing_type import ProcessingType
 from time_measurement import time_measurement, time_accumulator, tests_time
 import time
 import gc
+import numpy as np
 
 class RichardsonMethod:
     @time_measurement(time_accumulator)
@@ -23,7 +24,10 @@ class RichardsonMethod:
         
     @staticmethod
     def calculate_eigenvalues(LinAlgType, A, type):
-        return EigenvalueMethods.inverse_power_method(LinAlgType, A, type), EigenvalueMethods.power_method(LinAlgType, A, type)
+        eigenvalues = np.linalg.eigvals(A)
+        lambda_min = np.min(eigenvalues)
+        lambda_max = np.max(eigenvalues)
+        return lambda_min, lambda_max
 
     @staticmethod
     def calculate_omega(lambda_min, lambda_max):
