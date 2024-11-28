@@ -2,3 +2,5 @@ code/poli3.npz filter=lfs diff=lfs merge=lfs -text
 code/nemeth12.npz filter=lfs diff=lfs merge=lfs -text
 code/spd_5000.npz filter=lfs diff=lfs merge=lfs -text
 code/spd_10000.npz filter=lfs diff=lfs merge=lfs -text
+code/nemeth12_1.npz filter=lfs diff=lfs merge=lfs -text
+code/nemeth12_2.npz filter=lfs diff=lfs merge=lfs -text
