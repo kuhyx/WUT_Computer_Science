@@ -1,5 +1,4 @@
 import linear_algebra_utils as linAlg
-from eigenvalue_methods import EigenvalueMethods
 from matrix_generator import MatrixGenerator
 from processing_type import ProcessingType
 from time_measurement import time_measurement, time_accumulator, tests_time
@@ -9,7 +8,7 @@ import numpy as np
 
 class RichardsonMethod:
     @time_measurement(time_accumulator)
-    def __init__(self, method: ProcessingType, A, type, b, max_iterations, size: int, x0=None, tol=1e-5):
+    def __init__(self, method: ProcessingType, A, b, lambda_min, lambda_max, max_iterations, size: int, x0=None, tol=1e-5):
         self.LinAlg = self.assign_LinAlgType(method)
         self.A = A
         self.b = b
@@ -17,27 +16,21 @@ class RichardsonMethod:
         self.max_iterations = max_iterations
         self.tol = tol
         # self.I = MatrixGenerator.generate_identity_matrix(size)
-        self.lambda_min, self.lambda_max = RichardsonMethod.calculate_eigenvalues(self.LinAlg, self.A, type)
+        self.lambda_min = lambda_min
+        self.lambda_max = lambda_max
         if self.lambda_min < 0:
             raise ValueError("Matrix A is not positive semi-definite.")
         self.omega = RichardsonMethod.calculate_omega(self.lambda_min, self.lambda_max)
         
-    @staticmethod
-    def calculate_eigenvalues(LinAlgType, A, type):
-        eigenvalues = np.linalg.eigvals(A)
-        lambda_min = np.min(eigenvalues)
-        lambda_max = np.max(eigenvalues)
-        return lambda_min, lambda_max
-
     @staticmethod
     def calculate_omega(lambda_min, lambda_max):
         return 2 / (lambda_min + lambda_max)
     
     @staticmethod
     def convergence_norm(LinAlgType, A, omega, I) -> bool:
-        wA = LinAlgType.LinAlg.matrix_scalar_multiply(A, omega)
-        IMinuswA = LinAlgType.LinAlg.matrix_matrix_subtraction(I, wA)
-        norm = LinAlgType.LinAlg.matrix_norm(IMinuswA)
+        wA = LinAlgType.matrix_scalar_multiply(A, omega)
+        IMinuswA = LinAlgType.matrix_matrix_subtraction(I, wA)
+        norm = LinAlgType.matrix_norm(IMinuswA)
         return norm
     
     @staticmethod
@@ -58,8 +51,8 @@ class RichardsonMethod:
         time_accumulator.total_time = 0
         start = time.perf_counter()
         x = self.x0[:]
-        #if RichardsonMethod.convergence_norm(self.LinAlg, self.A, self.omega, self.I) >= 1:
-        #    return RichardsonMethod.convergence_norm(self.A, self.omega, self.I), "Richardson method for those values will NOT converge", 
+        # if RichardsonMethod.convergence_norm(self.LinAlg, self.A, self.omega, self.I) >= 1:
+        #    return RichardsonMethod.convergence_norm(self.LinAlg, self.A, self.omega, self.I), "Richardson method for those values will NOT converge", 
 
         for iteration in range(self.max_iterations):
             Ax = self.LinAlg.matrix_vector_multiply(self.A, x)
