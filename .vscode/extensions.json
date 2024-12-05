@@ -1,6 +1,12 @@
 {
     "recommendations": [
         "github.vscode-github-actions",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "ms-python.autopep8",
+        "nwgh.bandit",
+        "ms-python.black-formatter",
+        "usernamehw.errorlens",
+        "ms-python.debugpy",
+        "ms-python.vscode-pylance"
     ]
 }

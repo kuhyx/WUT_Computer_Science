@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from time_measurement import time_measurement, time_accumulator
+import dask.array as da
 
 class LinearAlgebraUtils(ABC):
     @staticmethod
@@ -468,6 +469,101 @@ class ProcessLinearAlgebraUtils:
                 x[i] = (A[i][-1] - sum_ax) / A[i][i]
 
             return x
+        except Exception as e:
+            print(f"Error during Gaussian elimination: {e}")
+            return None
+
+class DistributedArraysLinearAlgebraUtils(ABC):
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def dot_product(v1, v2):
+        dv1 = da.from_array(v1, chunks='auto')
+        dv2 = da.from_array(v2, chunks='auto')
+        return da.dot(dv1, dv2).compute()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_vector_multiply(A, x):
+        dA = da.from_array(A, chunks='auto')
+        dx = da.from_array(x, chunks='auto')
+        return da.dot(dA, dx).compute().tolist()
+    
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_norm(v):
+        dv = da.from_array(v, chunks='auto')
+        return da.linalg.norm(dv).compute()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_scalar_divide(x, scalar):
+        dx = da.from_array(x, chunks='auto')
+        return (dx / scalar).compute().tolist()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_scalar_multiply(A, w):
+        dA = da.from_array(A, chunks='auto')
+        return (dA * w).compute().tolist()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_vector_subtraction(v1, v2):
+        dv1 = da.from_array(v1, chunks='auto')
+        dv2 = da.from_array(v2, chunks='auto')
+        return (dv1 - dv2).compute().tolist()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def vector_vector_addition(v1, v2):
+        dv1 = da.from_array(v1, chunks='auto')
+        dv2 = da.from_array(v2, chunks='auto')
+        return (dv1 + dv2).compute().tolist()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def scalar_vector_multiply(omega, vector):
+        dvector = da.from_array(vector, chunks='auto')
+        return (omega * dvector).compute().tolist()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_norm(A):
+        dA = da.from_array(A, chunks='auto')
+        return da.linalg.norm(dA).compute()
+    
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def matrix_matrix_subtraction(A, B):
+        dA = da.from_array(A, chunks='auto')
+        dB = da.from_array(B, chunks='auto')
+        return (dA - dB).compute().tolist()
+
+    @staticmethod
+    @time_measurement(time_accumulator)
+    def gaussian_elimination(A, b):
+        try:
+            dA = da.from_array(A, chunks='auto')
+            db = da.from_array(b, chunks='auto')
+            Ab = da.hstack([dA, db[:, None]])
+            Ab = Ab.persist()
+
+            def elimination_step(Ab, k):
+                n = Ab.shape[0]
+                max_index = da.argmax(da.abs(Ab[k:, k])) + k
+                Ab[[k, max_index]] = Ab[[max_index, k]]
+                Ab = Ab.persist()
+                factor = Ab[k + 1:, k] / Ab[k, k]
+                Ab[k + 1:] -= factor[:, None] * Ab[k]
+                return Ab
+
+            for k in range(A.shape[0]):
+                Ab = elimination_step(Ab, k)
+
+            x = da.zeros(A.shape[0])
+            for i in range(A.shape[0] - 1, -1, -1):
+                x[i] = (Ab[i, -1] - da.dot(Ab[i, i + 1:-1], x[i + 1:])) / Ab[i, i]
+            return x.compute().tolist()
         except Exception as e:
             print(f"Error during Gaussian elimination: {e}")
             return None

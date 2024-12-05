@@ -41,7 +41,8 @@ class RichardsonMethod:
         methods = {
             ProcessingType.SEQUENTIAL: linAlg.SequentialLinearAlgebraUtils,
             ProcessingType.THREADS: linAlg.ThreadsLinearAlgebraUtils,
-            ProcessingType.PROCESSES: linAlg.ProcessLinearAlgebraUtils
+            ProcessingType.PROCESSES: linAlg.ProcessLinearAlgebraUtils,
+            ProcessingType.DISTRIBUTED_ARRAYS: linAlg.DistributedArraysLinearAlgebraUtils
         }
         
         try:
@@ -77,6 +78,9 @@ class RichardsonMethod:
             case linAlg.ProcessLinearAlgebraUtils:
                 sequential_time = total_time - time_accumulator.total_time
                 print(f"Total: {total_time:.3e}s, Seq: {sequential_time:.3e}s, Parallel (processes): {time_accumulator.total_time:.3e}s, Tests time: {tests_time.total_time:.3e}s")
+            case linAlg.DistributedArraysLinearAlgebraUtils:
+                sequential_time = total_time - time_accumulator.total_time
+                print(f"Total: {total_time:.3e}s, Seq: {sequential_time:.3e}s, Parallel (distributed arrays): {time_accumulator.total_time:.3e}s, Tests time: {tests_time.total_time:.3e}s")
             case _:
                 print("Unhandled LinAlg type")
             
