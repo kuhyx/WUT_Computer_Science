@@ -26,9 +26,30 @@ def calcualte_norm_from_matrix_numpy(A, n):
 def solution_lib(A, b):
     return np.linalg.solve(A, b)
 
-@pytest.mark.parametrize("n", [2, 5, 10, 50, 100, 300, 500, 750, 1000, 5000, 10000])
-@pytest.mark.parametrize("processing_type", [ProcessingType.SEQUENTIAL, ProcessingType.THREADS, ProcessingType.PROCESSES])
-@pytest.mark.parametrize("matrix_type", ["spd", "nemeth12", "poli3"])
+@pytest.mark.parametrize("n", [
+    2, 
+    5, 
+    10, 
+    50, 
+    100, 
+    300,
+    500,
+    750,
+    1000,
+    5000, 
+    10000
+    ])
+@pytest.mark.parametrize("processing_type", [
+    ProcessingType.SEQUENTIAL, 
+    ProcessingType.THREADS, 
+    ProcessingType.PROCESSES,
+    ProcessingType.DISTRIBUTED_ARRAYS
+    ])
+@pytest.mark.parametrize("matrix_type", [
+    "spd",
+    "nemeth12",
+    "poli3"
+    ])
 def test_richardson_vs_cg(n: int, processing_type: ProcessingType, matrix_type: str, capsys):
     print("matrix type: ", matrix_type)
     print("matrix size: ", n if matrix_type == "spd" else "fixed")
