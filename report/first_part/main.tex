@@ -144,7 +144,7 @@ Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglo
 \end{itemize}
 
 \subsection{Wyniki}
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|l|l|l|l|}
     \hline
@@ -161,12 +161,13 @@ Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglo
     5000 & 2.170e+02             & 9.077e+01             & 2.402e+02             & 1.368e+01             \\ \hline
     10000 & 8.615e+02            & 2.378e+02             & 9.705e+02             & 4.643e+01             \\ \hline
     nemeth12 & 3.630e+02 & 1.105e+02 & 3.863e+02s & 2.133e+01 \\ \hline
+    poli3 & 1.291e+03 & 1.187e+03s & 1.363e+03 & 7.561e+02\\ \hline
     \end{tabular}
     \caption{Wyniki dla różnych zrównolegleń (procesy, wątki i tablice rozproszone)}
     \label{tab:test_results_full}
 \end{table}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \begin{loglogaxis}[
@@ -266,6 +267,28 @@ Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglo
     \end{tikzpicture}
 \end{figure}
     
-    
+\subsection{Przyśpieszenie według definicji z wykładu}    
+$S(n, p) = \frac{T(n, 1)}{T(n, p)} $
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textbf{Wielkość/Typ} & \textbf{S(n,p) - Procesy} & \textbf{S(n,p) - Wątki} & \textbf{S(n,p) - Tablice} \\ \hline
+    2 & 2.69e-05 & 8.17e-03 & 8.83e-04 \\ \hline
+    5 & 4.48e-05 & 8.91e-03 & 1.85e-03 \\ \hline
+    10 & 9.57e-05 & 2.34e-02 & 4.04e-03 \\ \hline
+    50 & 1.27e-03 & 2.58e-01 & 5.58e-02 \\ \hline
+    100 & 5.52e-03 & 5.78e-01 & 1.73e-01 \\ \hline
+    300 & 3.33e-02 & 8.23e-01 & 1.05e+00 \\ \hline
+    500 & 8.30e-02 & 8.85e-01 & 2.59e+00 \\ \hline
+    750 & 1.63e-01 & 8.67e-01 & 5.08e+00 \\ \hline
+    1000 & 2.67e-01 & 8.98e-01 & 7.24e+00 \\ \hline
+    5000 & 2.39e+00 & 9.04e-01 & 1.59e+01 \\ \hline
+    10000 & 3.62e+00 & 8.88e-01 & 1.86e+01 \\ \hline
+    nemeth12 & 3.28e+00 & 9.40e-01 & 1.70e+01 \\ \hline
+    \end{tabular}
+    \label{tab:calculated_speedup}
+\end{table}
+
 
 \end{document}
