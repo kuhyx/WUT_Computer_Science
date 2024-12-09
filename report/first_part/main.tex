@@ -291,5 +291,11 @@ $S(n, p) = \frac{T(n, 1)}{T(n, p)} $
     \label{tab:calculated_speedup}
 \end{table}
 
+\paragraph{Wnioski}
+Zrównoleglenie metodą tablic rozproszonych okazało się najbardziej efektywne. Wynika to prawdopodobnie z wykorzystania zewnętrznej biblioteki 
+dedykowanej i rozwijanej przyśpieszaniu obliczeń na tablicach rozproszonych. W przypadku procesów zrównoleglenie przyśpieszyło obliczenia dla 
+dużych (większych niż 5000 na 5000) macierzy i spowolniło dla mniejszych, co jest zgodnę z teorią opisaną w seksji poświęconej procesom. \\ 
+Dla wątków nie udało się uzyskać przyśpieszenia ani dla małych ani dla dużych macierzy, podejrzewamy że jest to spowodowane przez nieefektywne
+zarządzanie wątkami przez Python-a 
 
 \end{document}
