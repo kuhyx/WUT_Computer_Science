@@ -1,3 +1,4 @@
+import cmath
 import math
 import itertools
 import operator
@@ -72,7 +73,9 @@ class SequentialLinearAlgebraUtils(ABC):
     
     @staticmethod
     def vector_norm(v):
-        return math.sqrt(sum(x*x for x in v))
+        x_values = (x*x for x in v)
+        x_values_sum = sum(x_values)
+        return cmath.sqrt(x_values_sum).real
 
     @staticmethod
     def vector_scalar_divide(x, scalar):
