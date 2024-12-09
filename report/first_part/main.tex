@@ -114,6 +114,30 @@ Procesy wykorzystujemy do:
     \item Wymiana danych między procesami - wymaga serializacji i deserializacji danych, co może wprowadzić dodatkowe opóźnienia. 
     \item Brak korzyści dla małych danych - w przypadku małych macierzy, gdzie rozmiar nie przekracza 5 tysięcy x 5 tysięcy elementów, zarządzanie procesami i koszty komunikacji międzyprocesowej mogą przewyższać korzyści wynikające z równoległego przetwarzania,
 \end{itemize}
+
+\subsection{Wątki}
+Do implementacji wątków użyto dwóch bibliotek, ThreadPoolExecutor która umożliwia zarządzanie pulą wątków i delegowanie zadań do wątków 
+w sposób równoległy oraz funkcji partial z biblioteki functools która pozwala na tworzenie częściowo zainicjalizowanych funkcji.
+\paragraph{Funkcje}
+Wątki zaimplementowano w mnożeniu macierzy przeez wektor, odejmowaniu wektorów, dodawaniu wektorów oraz mnożeniu wektora przez skalar, metody zostają
+zrównoleglone poprzez podzielenie liczby wierszy macierzy między wątki, następnie ThreadPoolExecutor tworzy wątki i przekazuje im odpowiednie, niezależne 
+części pracy do wykonania.
+\paragraph{Zalety}
+Zalety wykorzystania wątków to przede wszystkim szybki czas tworzenia i niszczenia wątków przez system operacyjny w porównaniu do procesów. 
+Co więcej mają one dostęp do całej przestrzeni adresowej programu, co oszczędza niepotrzebne kopiowanie danych. Jedynie ich własny stos jest prywatny. 
+
+\subsection{Tablice rozproszone}
+Tablice rozproszone dzielą macierz i przypisują każdą z jej części do konkretnego procesora. 
+Procesory wykonują obliczenia na danych przechowywanych w ich lokalnej pamięci, co minimalizuje konieczność przesyłania danych pomiędzy węzłami. \\ 
+Tablice rozporoszone nie są natywnie wspierane przez Python-a, w związku z tym zostały zaimplementowane przy użyciu modułu array z biblioteki \textbf{dask}. \\ 
+Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglone przy użyciu tablic rozproszonych.
+
+\paragraph{Wyzwania}
+\begin{itemize}
+\item Przy dużej zależności danych dochodzi do częstej komunikacji która obniża wydajnośc 
+\item Elementy tablicy należy dobrze zbalansować aby procesory były równo obciążone
+\end{itemize}
+
 \subsection{Wyniki}
 \begin{table}[h!]
     \centering
