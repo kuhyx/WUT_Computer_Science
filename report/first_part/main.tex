@@ -1,4 +1,9 @@
 \documentclass[12pt]{article}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.17}
+\usepackage{float}
+\usepackage{graphicx}
 \usepackage[polish]{babel}
 \usepackage{hyperref}
 \hypersetup{
@@ -143,7 +148,7 @@ Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglo
     \centering
     \begin{tabular}{|l|l|l|l|l|}
     \hline
-    \textbf{Wielkość} & \textbf{Sekwencyjnie [s]} & \textbf{Procesy [s]} & \textbf{Wątki [s]} & \textbf{Tablice [s]} \\ \hline
+    \textbf{Wielkość/Typ} & \textbf{Sekwencyjnie [s]} & \textbf{Procesy [s]} & \textbf{Wątki [s]} & \textbf{Tablice [s]} \\ \hline
     2    & 7.784e-05             & 2.896e+00             & 9.772e-03             & 8.817e-02             \\ \hline
     5    & 1.746e-04             & 3.897e+00             & 1.960e-02             & 9.443e-02             \\ \hline
     10   & 6.769e-04             & 7.073e+00             & 2.895e-02             & 1.674e-01             \\ \hline
@@ -155,13 +160,111 @@ Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglo
     1000 & 8.689e+00             & 3.259e+01             & 9.672e+00             & 1.201e+00             \\ \hline
     5000 & 2.170e+02             & 9.077e+01             & 2.402e+02             & 1.368e+01             \\ \hline
     10000 & 8.615e+02            & 2.378e+02             & 9.705e+02             & 4.643e+01             \\ \hline
+    nemeth12 & 3.630e+02 & 1.105e+02 & 3.863e+02s & 2.133e+01 \\ \hline
     \end{tabular}
     \caption{Wyniki dla różnych zrównolegleń (procesy, wątki i tablice rozproszone)}
     \label{tab:test_results_full}
 \end{table}
 
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{loglogaxis}[
+            width=12.99cm,
+            height=12.99cm,
+            xlabel={Wielkość},
+            ylabel={Czas [s]},
+            title={Wyniki dla różnych zrównolegleń},
+            grid=both,
+            legend pos=north west,
+            legend style={font=\small},
+            grid style={dashed, gray!30},
+            cycle list name=color list % Use the default color list for different lines
+        ]
 
+        % Sequential
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=blue
+        ] table[x index=0, y index=1] {
+            2 7.784e-05
+            5 1.746e-04
+            10 6.769e-04
+            50 2.735e-02
+            100 1.195e-01
+            300 7.863e-01
+            500 2.206e+00
+            750 4.785e+00
+            1000 8.689e+00
+            5000 2.170e+02
+            10000 8.615e+02
+        };
+        \addlegendentry{Sekwencyjnie}
 
+        % Processes
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=red
+        ] table[x index=0, y index=1] {
+            2 2.896e+00
+            5 3.897e+00
+            10 7.073e+00
+            50 2.153e+01
+            100 2.167e+01
+            300 2.363e+01
+            500 2.657e+01
+            750 2.939e+01
+            1000 3.259e+01
+            5000 9.077e+01
+            10000 2.378e+02
+        };
+        \addlegendentry{Procesy}
+
+        % Threads
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=green
+        ] table[x index=0, y index=1] {
+            2 9.772e-03
+            5 1.960e-02
+            10 2.895e-02
+            50 1.059e-01
+            100 2.067e-01
+            300 9.558e-01
+            500 2.494e+00
+            750 5.520e+00
+            1000 9.672e+00
+            5000 2.402e+02
+            10000 9.705e+02
+        };
+        \addlegendentry{Wątki}
+
+        % Distributed Arrays
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=purple
+        ] table[x index=0, y index=1] {
+            2 8.817e-02
+            5 9.443e-02
+            10 1.674e-01
+            50 4.899e-01
+            100 6.921e-01
+            300 7.461e-01
+            500 8.521e-01
+            750 9.408e-01
+            1000 1.201e+00
+            5000 1.368e+01
+            10000 4.643e+01
+        };
+        \addlegendentry{Tablice}
+
+        \end{loglogaxis}
+    \end{tikzpicture}
+\end{figure}
     
     
 
