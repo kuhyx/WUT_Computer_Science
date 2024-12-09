@@ -87,5 +87,58 @@ metody zrównoleglenia bez zmiany podstawowego kodu Richardsona
     
     
 \section{Zrównoleglenie} 
+Wykorzystaliśmy 3 metody zrównoleglenia: 
+\begin{enumerate} 
+    \item Tablice rozproszone 
+    \item Wątki 
+    \item Procesy
+\end{enumerate}
+\subsection{Procesy}
+Aby wykonać obliczenia na wielu rdzeniach procesora \textbf{jednocześnie} wykorzystujemy model w którym różne 
+frakcje danych są przetwarzane przez oddzielne procesy. Dzięki temu dla dużych zbiorów danych możemy 
+znacznie zwiększyć wydajnośc obliczeń \\ 
+W tym celu wykorzystujemy klasę \textbf{multiprocessing.Pool} z biblioteki \textbf{multiprocessing}. 
+Wykorzystujemy ją do stworzenia puli procesów które potem niezależnie wykonują funkcje na różnych frakcjach 
+danych.
+\paragraph{Funkcje}
+Procesy wykorzystujemy do:
+\begin{enumerate}
+    \item Obliczenia iloczynu skalarnego - Metoda $dot\_product$ wykorzystuje pulę procesów do obliczenia iloczynów par elementów dwóch wektorów, a następnie sumuje te wyniki. Zrównoleglenie tej operacji jest korzystne, gdy mamy do czynienia z bardzo długimi wektorami.
+    \item Mnożenia macierzy przez wektor - $matrix\_vector\_multiply$, każdy wiersz macierzy jest mnożony przez wektor w osobnym procesie. Dzięki temu każde takie mnożenie może być przeprowadzane równolegle, co jest szczególnie efektywne dla macierzy o dużym rozmiarze.
+    \item Obliczenia normy wektora - Procesy są używane do obliczenia kwadratów poszczególnych elementów wektora, a następnie sumowanie tych wartości (także w procesach) umożliwia obliczenie pierwiastka kwadratowego z ich sumy, co daje normę wektora.
+    \item Działania na wektorach i macierzach - Działania takie jak dodawanie i odejmowanie wektorów, dzielenie wektora przez skalar, czy mnożenie macierzy przez skalar, są przeprowadzane w segmentach, gdzie każdy segment jest przetwarzany przez osobny proces. 
+\end{enumerate}
+\paragraph{Wyzwania}
+\begin{itemize}
+    \item Zarządzanie procesami jest kosztowne - tworzenie i zarządzanie procesami jest droższe od wątków ze względu na większy narzut systemowy.
+    \item Wymiana danych między procesami - wymaga serializacji i deserializacji danych, co może wprowadzić dodatkowe opóźnienia. 
+    \item Brak korzyści dla małych danych - w przypadku małych macierzy, gdzie rozmiar nie przekracza 5 tysięcy x 5 tysięcy elementów, zarządzanie procesami i koszty komunikacji międzyprocesowej mogą przewyższać korzyści wynikające z równoległego przetwarzania,
+\end{itemize}
+\subsection{Wyniki}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Wielkość} & \textbf{Sekwencyjnie [s]} & \textbf{Procesy [s]} & \textbf{Wątki [s]} & \textbf{Tablice [s]} \\ \hline
+    2    & 7.784e-05             & 2.896e+00             & 9.772e-03             & 8.817e-02             \\ \hline
+    5    & 1.746e-04             & 3.897e+00             & 1.960e-02             & 9.443e-02             \\ \hline
+    10   & 6.769e-04             & 7.073e+00             & 2.895e-02             & 1.674e-01             \\ \hline
+    50   & 2.735e-02             & 2.153e+01             & 1.059e-01             & 4.899e-01             \\ \hline
+    100  & 1.195e-01             & 2.167e+01             & 2.067e-01             & 6.921e-01             \\ \hline
+    300  & 7.863e-01             & 2.363e+01             & 9.558e-01             & 7.461e-01             \\ \hline
+    500  & 2.206e+00             & 2.657e+01             & 2.494e+00             & 8.521e-01             \\ \hline
+    750  & 4.785e+00             & 2.939e+01             & 5.520e+00             & 9.408e-01             \\ \hline
+    1000 & 8.689e+00             & 3.259e+01             & 9.672e+00             & 1.201e+00             \\ \hline
+    5000 & 2.170e+02             & 9.077e+01             & 2.402e+02             & 1.368e+01             \\ \hline
+    10000 & 8.615e+02            & 2.378e+02             & 9.705e+02             & 4.643e+01             \\ \hline
+    \end{tabular}
+    \caption{Wyniki dla różnych zrównolegleń (procesy, wątki i tablice rozproszone)}
+    \label{tab:test_results_full}
+\end{table}
+
+
+
+    
+    
 
 \end{document}
