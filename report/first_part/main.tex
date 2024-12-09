@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage[polish]{babel}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdfpagemode=FullScreen,
+}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small, 
+    keywordstyle=\color{blue}\bfseries, 
+    commentstyle=\color{green!60!black}, 
+    stringstyle=\color{red},
+    numbers=left, 
+    numberstyle=\tiny, 
+    stepnumber=1, 
+    numbersep=5pt,
+    frame=lines,
+    breaklines=true,
+    captionpos=b
+}
+
+\title{Rozwiązanie układu równań liniowych iteracyjną metodą Richardsona \\ 
+        Sprawozdanie, Etap I}
+\author{Kacper Górka, Krzysztof Rudnicki, Aleksandra Sobala}
+\begin{document}
+\maketitle
+\section{Zadanie}
+\paragraph{Metoda Richardsona} 
+Metoda Richardsona służy do iteracyjnego rozwiązywania systemów równań liniowych postaci $Ax = b$.
+\\
+Pojedyńcza iteracja wygląda następująco:
+\[
+    x^{(k+1)} = x^{(k)} + \omega (b - Ax^{(k)}) 
+\]
+Gdzie $\omega$ to skalar wybrany tak by $x^{(k)}$ zbiegało 
+\paragraph{Wymagania}
+Mieliśmy za zadanie stworzyć program rozwiązujący układ równań dla wygenerowanych 
+macierzy gęstych oraz dla macierzy rzadkich: \\
+\href{https://sparse.tamu.edu/Nemeth/nemeth12}{nemeth12} \\
+i \\
+\href{https://sparse.tamu.edu/Grund/poli3}{poli3}
+
+\section{Baza} 
+\paragraph{Generowanie i zapisywanie macierzy}
+Macierze gęste są przez nas generowane przy użyciu biblioteki \textbf{numpy}, 
+aby przyśpieszyć obliczenia zapewniamy \textbf{bewzględna dominację wierszową głównej przekątnej} i 
+upewniamy się że wygenerowana macierz jest \textbf{symetryczna i dodatnio określona} \\ 
+Macierze są potem zapisywane do pliku w 
+formacie .npz, łącznie z ich wartościami własnymi, tak by 
+skrócić działanie programu i ujednolicić testy 
+\\ \null \\ 
+Macierze nemeth12 i poli3 są pobierane ze strony podanej wyżej, dla macierzy nemeth12 aby spełnić
+warunki stosowalności metody musieliśmy przemnożyć ją przez -1
+\paragraph{Testy}
+Do testów wykorzystujemy biblioteki \textbf{numpy} oraz \textbf{pytest} oraz wbudowane w Pythona 
+narzędzia do mierzenia czasu. \\ 
+Sprawdzamy popawność naszych algorytmów poprzez porównanie naszych wyników z wynikami policzonymi przy 
+wykorzystaniu funkcji np.linalg.norm z biblioteki numpy. Jeżeli nasze rozwiązanie różni się od 
+rozwiązania numpy o mniej niż $8 \times 10^{-3}$ akceptujemy je jako poprawne \\ 
+Zarówno wielkośc macierzy, jej typ i typ metody użytej do zrównoleglenia Richardsona jest podawana jako 
+parametr testów, pozwala nam to łatwo dodawać nowe metody zrównoleglenia bez zmiany kodu testów.
+\paragraph{Funkcje pomocnicze}
+Wszelkie podstawowe metody operacji na macierzach takie jak mnożenie wektorów, macierzy itp,
+napisaliśmy od zera, bez użycia zewnętrznych bibliotek, funkcje są zdefiniowane w pliku 
+\textbf{linear\_algebra\_utils.py}
+\paragraph{Metoda Richardsona}
+Metoda Richardsona jest zaimplementowana w pliku \textbf{richardson\_method.py}, sprowadza się ona do 
+pętli:
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, breaklines=true, caption=Python Code for Iterative Solver]
+    for iteration in range(self.max_iterations):
+        Ax = self.LinAlg.matrix_vector_multiply(self.A, x)
+        residual = self.LinAlg.vector_vector_subtraction(self.b, Ax)
+        x = self.LinAlg.vector_vector_addition(
+            x, 
+            self.LinAlg.scalar_vector_multiply(self.omega, residual)
+        )
+        if self.LinAlg.SequentialLinearAlgebraUtils.vector_norm(residual) < self.tol:
+            break
+\end{lstlisting}
+Dla różnych metod zrównoleglenia stosujemy różne implementacje podstawowych funkcji odpowiedzialnych za 
+mnożenie macierzy przez wektor, odejmowanie wektorów itp. Ponownie, dzięki temu możemy łatwo dodawać nowe
+metody zrównoleglenia bez zmiany podstawowego kodu Richardsona
+    
+    
+\section{Zrównoleglenie} 
+\end{document}
