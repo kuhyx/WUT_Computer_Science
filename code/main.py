@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ Renders an image using raytracing """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,18 +7,18 @@ IMAGE_WIDTH = 400
 IMAGE_HEIGHT = 300
 
 
-def normalize(x):
+def normalize(vector):
     """
     Normalize a vector.
 
     Parameters:
-    x (numpy.ndarray): The input vector to be normalized.
+    vector (numpy.ndarray): The input vector to be normalized.
 
     Returns:
     numpy.ndarray: The normalized vector.
     """
-    x /= np.linalg.norm(x)
-    return x
+    vector /= np.linalg.norm(vector)
+    return vector
 
 
 def intersect_plane(ray_origin, ray_direction, plane_point, plane_normal):
@@ -71,6 +72,23 @@ def intersect_sphere(ray_origin, ray_direction, sphere_center, sphere_radius):
     radius_squared = sphere_radius * sphere_radius
     c = np.dot(origin_to_center, origin_to_center) - radius_squared
     disc = b * b - 4 * a * c
+    return calculate_sphere_intersection(a, b, c, disc)
+
+
+def calculate_sphere_intersection(a, b, c, disc):
+    """
+    Calculate the intersection distance of a ray with a sphere using the quadratic formula.
+
+    Parameters:
+    a (float): Coefficient of t^2 in the quadratic equation.
+    b (float): Coefficient of t in the quadratic equation.
+    c (float): Constant term in the quadratic equation.
+    disc (float): Discriminant of the quadratic equation.
+
+    Returns:
+    float: The distance from the origin to the intersection point with the sphere.
+           Returns +inf if there is no intersection or if the intersection is behind the origin.
+    """
     if disc > 0:
         distance_squared = np.sqrt(disc)
         # q is used to find the roots of the quadratic equation
@@ -166,41 +184,104 @@ def trace_ray(ray_origin, ray_direction):
     and the color at the intersection point.
     Returns None if there is no intersection.
     """
-    # Find first point of intersection with the scene.
+    t, obj_idx = find_intersection(ray_origin, ray_direction)
+    if t == np.inf:
+        return
+    object_, intersection_point = get_intersection_details(
+        ray_origin, ray_direction, t, obj_idx)
+    normal, color = get_normal(object_, intersection_point), get_color(
+        object_, intersection_point)
+    if is_shadowed(intersection_point, normal, obj_idx):
+        return
+    return compute_color(
+        object_, intersection_point, normal, color, ray_origin)
+
+
+def find_intersection(ray_origin, ray_direction):
+    """
+    Find the intersection of a ray with the objects in the scene.
+
+    Parameters:
+    ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
+    ray_direction (numpy.ndarray):
+    A normalized 3D vector representing the direction of the ray.
+
+    Returns:
+    tuple: A tuple containing the distance to the intersection point
+    and the index of the intersected object.
+    """
     t = np.inf
     obj_idx = -1
     for index, object_ in enumerate(scene):
         t_obj = intersect(ray_origin, ray_direction, object_)
         if t_obj < t:
             t, obj_idx = t_obj, index
-    # Return None if the ray does not intersect any object.
-    if t == np.inf:
-        return
-    # Find the object.
+    return t, obj_idx
+
+
+def get_intersection_details(ray_origin, ray_direction, t, obj_idx):
+    """
+    Get the details of the intersection point on the object.
+
+    Parameters:
+    ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
+    ray_direction (numpy.ndarray):
+    A normalized 3D vector representing the direction of the ray.
+    t (float): The distance to the intersection point.
+    obj_idx (int): The index of the intersected object in the scene.
+
+    Returns:
+    tuple: A tuple containing the intersected object
+    and the intersection point.
+    """
     object_ = scene[obj_idx]
-    # Find the point of intersection on the object.
     intersection_point = ray_origin + ray_direction * t
-    # Find properties of the object.
-    normal = get_normal(object_, intersection_point)
-    color = get_color(object_, intersection_point)
+    return object_, intersection_point
+
+
+def is_shadowed(intersection_point, normal, obj_idx):
+    """
+    Determine if the intersection point is in shadow.
+
+    Parameters:
+    intersection_point (numpy.ndarray):
+    A 3D point representing the intersection point on the object.
+    normal (numpy.ndarray): The normal vector at the intersection point.
+    obj_idx (int): The index of the intersected object in the scene.
+
+    Returns:
+    bool: True if the intersection point is in shadow, False otherwise.
+    """
     to_light = normalize(L - intersection_point)
-    to_origin = normalize(O - intersection_point)
-    # Shadow: find if the point is shadowed or not.
-    shadow_intersections = [intersect(  intersection_point + normal * .0001,
-                                        to_light,
-                                        obj_sh
-                                        )
+    shadow_intersections = [intersect(
+        intersection_point + normal * .0001, to_light, obj_sh)
                             for k, obj_sh in enumerate(scene) if k != obj_idx]
-    if shadow_intersections and min(shadow_intersections) < np.inf:
-        return
-    # Start computing the color.
+    return shadow_intersections and min(shadow_intersections) < np.inf
+
+
+def compute_color(object_, intersection_point, normal, color, ray_origin):
+    """
+    Compute the color at the intersection point using shading techniques.
+
+    Parameters:
+    object_ (dict): A dictionary representing the intersected object.
+    intersection_point (numpy.ndarray):
+    A 3D point representing the intersection point on the object.
+    normal (numpy.ndarray): The normal vector at the intersection point.
+    color (numpy.ndarray): The base color of the object.
+    ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
+
+    Returns:
+    tuple:
+    A tuple containing the intersected object, intersection point, normal,
+    and the computed color.
+    """
+    to_light = normalize(L - intersection_point)
+    to_origin = normalize(ray_origin - intersection_point)
     color_ray = ambient
-    # Lambert shading (diffuse).
     diffuse_intensity = object_.get('diffuse_c', diffuse_c) * max(
         np.dot(normal, to_light), 0)
     color_ray += diffuse_intensity * color
-
-    # Blinn-Phong shading (specular).
     half_vector = normalize(to_light + to_origin)
     specular_intensity = object_.get('specular_c', specular_c) * max(
         np.dot(normal, half_vector), 0) ** specular_k

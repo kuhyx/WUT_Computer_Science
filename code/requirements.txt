@@ -3,3 +3,7 @@ numpy
 pyrr
 PyOpenGL
 matplotlib
+flake8
+black
+autopep8
+flake8-max-function-length
