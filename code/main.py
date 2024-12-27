@@ -124,9 +124,9 @@ def intersect(ray_origin, ray_direction, object_):
     if object_['type'] == 'plane':
         return intersect_plane(ray_origin, ray_direction,
                                object_['position'], object_['normal'])
-    elif object_['type'] == 'sphere':
-        return intersect_sphere(ray_origin, ray_direction,
-                                object_['position'], object_['radius'])
+    # object_['type'] == 'sphere':
+    return intersect_sphere(ray_origin, ray_direction,
+                            object_['position'], object_['radius'])
 
 
 def get_normal(object_, intersection_point):
@@ -186,13 +186,13 @@ def trace_ray(ray_origin, ray_direction):
     """
     t, obj_idx = find_intersection(ray_origin, ray_direction)
     if t == np.inf:
-        return
+        return None
     object_, intersection_point = get_intersection_details(
         ray_origin, ray_direction, t, obj_idx)
     normal, color = get_normal(object_, intersection_point), get_color(
         object_, intersection_point)
     if is_shadowed(intersection_point, normal, obj_idx):
-        return
+        return None
     return compute_color(
         object_, intersection_point, normal, color, ray_origin)
 
@@ -278,13 +278,13 @@ def compute_color(object_, intersection_point, normal, color, ray_origin):
     """
     to_light = normalize(L - intersection_point)
     to_origin = normalize(ray_origin - intersection_point)
-    color_ray = ambient
-    diffuse_intensity = object_.get('diffuse_c', diffuse_c) * max(
+    color_ray = AMBIENT
+    diffuse_intensity = object_.get('diffuse_c', DIFFUSE_C) * max(
         np.dot(normal, to_light), 0)
     color_ray += diffuse_intensity * color
     half_vector = normalize(to_light + to_origin)
-    specular_intensity = object_.get('specular_c', specular_c) * max(
-        np.dot(normal, half_vector), 0) ** specular_k
+    specular_intensity = object_.get('specular_c', SPECULAR_C) * max(
+        np.dot(normal, half_vector), 0) ** SPECULAR_K
     color_ray += specular_intensity * color_light
     return object_, intersection_point, normal, color_ray
 
@@ -302,8 +302,13 @@ def add_sphere(position, radius, color):
     Returns:
     dict: A dictionary representing the sphere object.
     """
-    return dict(type='sphere', position=np.array(position),
-                radius=np.array(radius), color=np.array(color), reflection=.5)
+    return {
+        'type': 'sphere',
+        'position': np.array(position),
+        'radius': np.array(radius),
+        'color': np.array(color),
+        'reflection': .5
+    }
 
 
 def add_plane(position, normal):
@@ -319,12 +324,17 @@ def add_plane(position, normal):
     Returns:
     dict: A dictionary representing the plane object.
     """
-    return dict(type='plane', position=np.array(position),
-                normal=np.array(normal),
-                color=lambda M: (color_plane0
-                                 if (int(M[0] * 2) % 2) == (int(M[2] * 2) % 2)
-                                 else color_plane1),
-                diffuse_c=.75, specular_c=.5, reflection=.25)
+    return {
+        'type': 'plane',
+        'position': np.array(position),
+        'normal': np.array(normal),
+        'color': lambda M: (color_plane0
+                            if (int(M[0] * 2) % 2) == (int(M[2] * 2) % 2)
+                            else color_plane1),
+        'diffuse_c': .75,
+        'specular_c': .5,
+        'reflection': .25
+    }
 
 
 # List of objects.
@@ -341,12 +351,12 @@ L = np.array([5., 5., -10.])
 color_light = np.ones(3)
 
 # Default light and material parameters.
-ambient = .05
-diffuse_c = 1.
-specular_c = 1.
-specular_k = 50
+AMBIENT = .05
+DIFFUSE_C = 1.
+SPECULAR_C = 1.
+SPECULAR_K = 50
 
-depth_max = 5  # Maximum number of light reflections.
+DEPTH_MAX = 5  # Maximum number of light reflections.
 col = np.zeros(3)  # Current color.
 O = np.array([0., 0.35, -1.])  # Camera.
 Q = np.array([0., 0., 0.])  # Camera pointing to.
@@ -364,11 +374,11 @@ for i, x in enumerate(np.linspace(S[0], S[2], IMAGE_WIDTH)):
         col[:] = 0
         Q[:2] = (x, y)
         D = normalize(Q - O)
-        depth = 0
+        DEPTH = 0
         rayO, rayD = O, D
-        reflection = 1.
+        REFLECTION = 1.
         # Loop through initial and secondary rays.
-        while depth < depth_max:
+        while DEPTH < DEPTH_MAX:
             traced = trace_ray(rayO, rayD)
             if not traced:
                 break
@@ -376,9 +386,9 @@ for i, x in enumerate(np.linspace(S[0], S[2], IMAGE_WIDTH)):
             # Reflection: create a new ray.
             rayO, rayD = M + \
                 N * .0001, normalize(rayD - 2 * np.dot(rayD, N) * N)
-            depth += 1
-            col += reflection * col_ray
-            reflection *= obj.get('reflection', 1.)
+            DEPTH += 1
+            col += REFLECTION * col_ray
+            REFLECTION *= obj.get('reflection', 1.)
         img[IMAGE_HEIGHT - j - 1, i, :] = np.clip(col, 0, 1)
 
 plt.imsave('fig.png', img)
