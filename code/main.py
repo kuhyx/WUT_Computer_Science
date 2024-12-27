@@ -56,7 +56,7 @@ def intersect_sphere(ray_origin, ray_direction, sphere_center, sphere_radius):
     ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
     ray_direction (numpy.ndarray): A normalized 3D vector representing the
     direction of the ray.
-    sphere_center (numpy.ndarray): A 3D point representing 
+    sphere_center (numpy.ndarray): A 3D point representing
     the center of the sphere.
     sphere_radius (float): The radius of the sphere.
 
@@ -77,7 +77,8 @@ def intersect_sphere(ray_origin, ray_direction, sphere_center, sphere_radius):
 
 def calculate_sphere_intersection(a, b, c, disc):
     """
-    Calculate the intersection distance of a ray with a sphere using the quadratic formula.
+    Calculate the
+    intersection distance of a ray with a sphere using the quadratic formula.
 
     Parameters:
     a (float): Coefficient of t^2 in the quadratic equation.
@@ -86,8 +87,10 @@ def calculate_sphere_intersection(a, b, c, disc):
     disc (float): Discriminant of the quadratic equation.
 
     Returns:
-    float: The distance from the origin to the intersection point with the sphere.
-           Returns +inf if there is no intersection or if the intersection is behind the origin.
+    float:
+    The distance from the origin to the intersection point with the sphere.
+    Returns +inf if there is no intersection
+    or if the intersection is behind the origin.
     """
     if disc > 0:
         distance_squared = np.sqrt(disc)
@@ -179,7 +182,7 @@ def trace_ray(ray_origin, ray_direction):
     A normalized 3D vector representing the direction of the ray.
 
     Returns:
-    tuple: A tuple containing the object, 
+    tuple: A tuple containing the object,
     intersection point, normal at the intersection,
     and the color at the intersection point.
     Returns None if there is no intersection.
@@ -358,7 +361,7 @@ SPECULAR_K = 50
 
 DEPTH_MAX = 5  # Maximum number of light reflections.
 col = np.zeros(3)  # Current color.
-O = np.array([0., 0.35, -1.])  # Camera.
+camera_origin = np.array([0., 0.35, -1.])  # Camera.
 Q = np.array([0., 0., 0.])  # Camera pointing to.
 img = np.zeros((IMAGE_HEIGHT, IMAGE_WIDTH, 3))
 
@@ -373,9 +376,9 @@ for i, x in enumerate(np.linspace(S[0], S[2], IMAGE_WIDTH)):
     for j, y in enumerate(np.linspace(S[1], S[3], IMAGE_HEIGHT)):
         col[:] = 0
         Q[:2] = (x, y)
-        D = normalize(Q - O)
+        D = normalize(Q - camera_origin)
         DEPTH = 0
-        rayO, rayD = O, D
+        rayO, rayD = camera_origin, D
         REFLECTION = 1.
         # Loop through initial and secondary rays.
         while DEPTH < DEPTH_MAX:
