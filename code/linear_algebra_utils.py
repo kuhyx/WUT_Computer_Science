@@ -154,15 +154,6 @@ class ThreadsLinearAlgebraUtils:
             results = executor.map(lambda pair: SequentialLinearAlgebraUtils.dot_product(*pair), chunks)
         return sum(results)
 
-    # @staticmethod
-    # @time_measurement(time_accumulator)
-    # def matrix_vector_multiply(A, x):
-    #     chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(A)
-    #     with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
-    #         func = partial(SequentialLinearAlgebraUtils.matrix_vector_multiply, x=x)
-    #         results = executor.map(func, chunks)
-    #     return [item for sublist in results for item in sublist]
-
     @staticmethod
     @time_measurement(time_accumulator)
     def matrix_vector_multiply(A, x):

@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from matrix_generator import MatrixGenerator
 from richardson_method import RichardsonMethod
-from threads import RichardsonMethodThreads
+from threads_indep import RichardsonMethodThreads
 from processing_type import ProcessingType
 from time_measurement import time_measurement, tests_time
 
@@ -41,10 +41,10 @@ def solution_lib(A, b):
     10000
     ])
 @pytest.mark.parametrize("processing_type", [
-    # ProcessingType.SEQUENTIAL, 
-    ProcessingType.THREADS#, 
-    # ProcessingType.PROCESSES,
-    # ProcessingType.DISTRIBUTED_ARRAYS
+    ProcessingType.SEQUENTIAL, 
+    ProcessingType.THREADS, 
+    ProcessingType.PROCESSES,
+    ProcessingType.DISTRIBUTED_ARRAYS
     ])
 @pytest.mark.parametrize("matrix_type", [
     "spd",

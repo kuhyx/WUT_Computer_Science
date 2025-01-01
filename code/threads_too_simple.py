@@ -58,15 +58,3 @@ def RichardsonMethodThreads(A, b, lambda_min, lambda_max, max_iterations, x0=Non
     return x, 0
 
 
-
-
-# # Przykładowe dane wejściowe
-# np.random.seed(0)  # Ustalanie ziarna dla powtarzalności wyników
-# A = np.random.rand(20, 20) + 20 * np.eye(20)  # Macierz przekątniowa z losowymi elementami
-# b = np.random.rand(20)  # Wektor wyrazów wolnych
-# omega = 0.2
-# n_iterations = 1000
-
-# # Rozwiązanie układu równań metodą Richardson'a
-# x = RichardsonMethodThreads(A, b, 5, 5, n_iterations)
-# print("Rozwiązanie: ", x)

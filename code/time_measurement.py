@@ -8,16 +8,28 @@ class TimeAccumulator:
 
 class ComplexTimeAcumulator:
     def __init__(self):
+        self.hard_reset()
+    
+    def hard_reset(self):
         self.total_time = 0
+        self.reset()
+    
+    def reset(self):
+        self.lap_time = 0
         self.start = sys.float_info.max
         self.end = 0
+        
+    def save_lap_and_reset(self):
+        self.total_time += self.lap_time
+        self.reset()
+
 
 time_accumulator = TimeAccumulator()
 tests_time = TimeAccumulator()
 
-longest_time_accumulator = ComplexTimeAcumulator()
+longest_threads_time_accumulator = ComplexTimeAcumulator()
 
-def time_measurement(accumulator):
+def time_measurement(accumulator: TimeAccumulator):
     def decorator(func):
         @wraps(func)
         def inner(*args, **kwargs):
@@ -40,7 +52,7 @@ def time_measurement_longest(accumulator: ComplexTimeAcumulator):
                 accumulator.start = start
             if end > accumulator.end:
                 accumulator.end = end
-            accumulator.total_time = accumulator.end - accumulator.start # "=" instead of "+="
+            accumulator.lap_time = accumulator.end - accumulator.start # "=" instead of "+="
             return result
         return inner
     return decorator
