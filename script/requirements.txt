@@ -1,3 +1,4 @@
+wheel
 metadrive-simulator
 gymnasium
 gym
