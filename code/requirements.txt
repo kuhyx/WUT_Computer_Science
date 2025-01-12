@@ -7,3 +7,5 @@ flake8
 black
 autopep8
 flake8-max-function-length
+pillow
+progressbar
