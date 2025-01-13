@@ -362,9 +362,7 @@ dużych (większych niż 5000 na 5000) macierzy i spowolniło dla mniejszych, co
 \paragraph{Wątki} Dla wątków nie udało się uzyskać przyśpieszenia ani dla małych ani dla dużych macierzy, podejrzewamy że jest to spowodowane przez nieefektywne
 zarządzanie wątkami przez Python-a 
 \\
-\paragraph{MPI} Zrównoleglenie używające MPI okazało się gorsze niż 
-rozwiązanie sekwencyjne ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, w jaki macierze są rozgłaszane między procesami,
-Rozwiązanie nie działa dla dużych macierzy, takich jak poli3, ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, 
+\paragraph{MPI} Rozwiązanie nie działa dla dużych macierzy, takich jak poli3, ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, 
 w jaki macierze są rozgłaszane między procesami. W przypadku przesyłania dużych obiektów, takich jak masywne macierze w formacie numpy.ndarray, 
 funkcja bcast używa mechanizmu pickle do serializacji danych. Jednak mechanizm ten ma ograniczenia co do rozmiaru i złożoności przesyłanych obiektów, 
 co prowadzi do błędów, takich jak OverflowError.
