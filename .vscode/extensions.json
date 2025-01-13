@@ -8,6 +8,7 @@
         "usernamehw.errorlens",
         "ms-python.debugpy",
         "ms-python.vscode-pylance",
-        "james-yu.latex-workshop"
+        "james-yu.latex-workshop",
+        "github.copilot-chat"
     ]
 }
