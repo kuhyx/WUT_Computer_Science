@@ -2,6 +2,7 @@ import cmath
 import math
 import itertools
 import operator
+import multiprocessing
 from multiprocessing import Pool
 from abc import ABC, abstractmethod
 from concurrent.futures import ThreadPoolExecutor
@@ -10,7 +11,7 @@ from time_measurement import time_measurement, time_accumulator
 import numpy as np
 import dask.array as da
 
-class LinearAlgebraUtils(ABC):
+class LinearAlgebraUtils:
     @staticmethod
     @abstractmethod
     def dot_product(v1, v2):
@@ -62,7 +63,7 @@ class LinearAlgebraUtils(ABC):
         pass
 
 
-class SequentialLinearAlgebraUtils(ABC):
+class SequentialLinearAlgebraUtils:
     @staticmethod
     def dot_product(v1, v2):
         return sum(x*y for x, y in zip(v1, v2))
@@ -106,11 +107,10 @@ class SequentialLinearAlgebraUtils(ABC):
         return [[A[i][j] - B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
 
 
-class ThreadsLinearAlgebraUtils(ABC):
-    NUM_THREADS = 4
+class ThreadsLinearAlgebraUtils:
+    NUM_THREADS = multiprocessing.cpu_count()
 
     @staticmethod
-    @time_measurement(time_accumulator)
     def get_chunk_size(data):
         num_elements = len(data)
         num_threads = min(ThreadsLinearAlgebraUtils.NUM_THREADS, num_elements)
@@ -118,9 +118,7 @@ class ThreadsLinearAlgebraUtils(ABC):
         remainder = num_elements % num_threads
         return chunk_size, num_threads, remainder
 
-
     @staticmethod
-    @time_measurement(time_accumulator)
     def divide_vectors_to_chunks(v1, v2):
         chunk_size, num_threads, remainder = ThreadsLinearAlgebraUtils.get_chunk_size(v1)
 
@@ -134,7 +132,6 @@ class ThreadsLinearAlgebraUtils(ABC):
         return chunks
     
     @staticmethod
-    @time_measurement(time_accumulator)
     def divide_vector_or_matrix_to_chunks(v):
         chunk_size, num_threads, remainder = ThreadsLinearAlgebraUtils.get_chunk_size(v)
 
@@ -146,15 +143,6 @@ class ThreadsLinearAlgebraUtils(ABC):
             start = end
 
         return chunks
-
-
-    @staticmethod
-    @time_measurement(time_accumulator)
-    def dot_product(v1, v2):
-        chunks = ThreadsLinearAlgebraUtils.divide_vectors_to_chunks(v1, v2)
-        with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
-            results = executor.map(lambda pair: SequentialLinearAlgebraUtils.dot_product(*pair), chunks)
-        return sum(results)
 
     @staticmethod
     @time_measurement(time_accumulator)
@@ -177,23 +165,6 @@ class ThreadsLinearAlgebraUtils(ABC):
             results = executor.map(partial_norm, chunks)
         total_sum = sum(results)
         return total_sum**0.5
-
-    @staticmethod
-    @time_measurement(time_accumulator)
-    def vector_scalar_divide(x, scalar):
-        chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(x)
-
-        with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
-            results = executor.map(lambda chunk: SequentialLinearAlgebraUtils.vector_scalar_divide(chunk, scalar), chunks)
-        return [item for sublist in results for item in sublist]
-
-    @staticmethod
-    @time_measurement(time_accumulator)
-    def matrix_scalar_multiply(A, w):
-        chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(A)
-        with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
-            results = executor.map(lambda chunk: SequentialLinearAlgebraUtils.matrix_scalar_multiply(w, chunk), chunks)
-        return [item for sublist in results for item in sublist]
 
     @staticmethod
     @time_measurement(time_accumulator)
@@ -220,54 +191,6 @@ class ThreadsLinearAlgebraUtils(ABC):
             results = executor.map(lambda chunk: SequentialLinearAlgebraUtils.scalar_vector_multiply(omega, chunk), chunks)
         
         return [item for sublist in results for item in sublist]
-
-    @staticmethod
-    @time_measurement(time_accumulator)
-    def matrix_norm(A):
-        chunks = ThreadsLinearAlgebraUtils.divide_vector_or_matrix_to_chunks(A)
-
-        def partial_norm(chunk):
-            return sum(element ** 2 for row in chunk for element in row)
-
-        with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
-            results = executor.map(partial_norm, chunks)
-
-        total_sum = sum(results)
-        return math.sqrt(total_sum)
-    
-    @staticmethod
-    @time_measurement(time_accumulator)
-    def divide_matrixes_to_chunks(A, B):
-        num_rows = len(A)
-        num_threads = ThreadsLinearAlgebraUtils.NUM_THREADS
-        if num_threads > num_rows:
-            num_threads = num_rows
-        if num_rows == 0:
-            return []
-        chunk_size = num_rows // num_threads
-        remainder = num_rows % num_threads
-        chunks = []
-        start = 0
-        for _ in range(num_threads):
-            end = start + chunk_size + (1 if remainder > 0 else 0)
-            chunks.append((A[start:end], B[start:end]))
-            start = end
-            if remainder > 0:
-                remainder -= 1
-        return chunks
-
-    @staticmethod
-    @time_measurement(time_accumulator)
-    def matrix_matrix_subtraction(A, B):
-
-        def subtract_chunk(pair):
-            chunk_A, chunk_B = pair
-            return [[chunk_A[i][j] - chunk_B[i][j] for j in range(len(chunk_A[0]))] for i in range(len(chunk_A))]
-
-        chunks = ThreadsLinearAlgebraUtils.divide_matrixes_to_chunks(A, B)
-        with ThreadPoolExecutor(max_workers=ThreadsLinearAlgebraUtils.NUM_THREADS) as executor:
-            results = executor.map(subtract_chunk, chunks)
-        return [row for chunk in results for row in chunk]
 
 
 @time_measurement(time_accumulator)

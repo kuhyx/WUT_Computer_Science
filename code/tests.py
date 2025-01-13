@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 from matrix_generator import MatrixGenerator
 from richardson_method import RichardsonMethod
+from threads_indep import RichardsonMethodThreads
 from processing_type import ProcessingType
 from time_measurement import time_measurement, tests_time
 
@@ -67,12 +68,16 @@ def test_richardson_vs_cg(n: int, processing_type: ProcessingType, matrix_type: 
     else:
         raise ValueError("Invalid matrix type specified. Choose 'spd', 'poli3', or 'nemeth12'.")
     
-    richardson_solver = RichardsonMethod(processing_type, A, b, lambda_min, lambda_max, max_iterations, size=A.shape[0], tol=1e-7)
-
     solution_richardson, info_richardson = None, None
-    with capsys.disabled():
-        solution_richardson, info_richardson = richardson_solver.solve()
-    
+
+    if processing_type != ProcessingType.THREADS:
+        richardson_solver = RichardsonMethod(processing_type, A, b, lambda_min, lambda_max, max_iterations, size=A.shape[0], tol=1e-7)
+        with capsys.disabled():
+            solution_richardson, info_richardson = richardson_solver.solve()
+    else:
+        with capsys.disabled():
+            solution_richardson, info_richardson = RichardsonMethodThreads(A, b, lambda_min, lambda_max, max_iterations, tol=1e-7)
+
     # Przechwytywanie wyjścia po solve
     captured = capsys.readouterr()
     print("Captured output:", captured.out)
