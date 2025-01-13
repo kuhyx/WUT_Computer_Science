@@ -186,8 +186,6 @@ Procesy wykonują większość obliczeń równolegle, co znacząco zmniejsza cza
     \item Obciążenie procesorów: Jeśli rozmiar macierzy nie dzieli się równomiernie między procesy, niektóre procesory mogą być mniej obciążone.
 \end{itemize}
 
-\subsection{poli3 i duże macierze}
-Rozwiązanie nie działa dla dużych macierzy, takich jak poli3, ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, w jaki macierze są rozgłaszane między procesami. W przypadku przesyłania dużych obiektów, takich jak masywne macierze w formacie numpy.ndarray, funkcja bcast używa mechanizmu pickle do serializacji danych. Jednak mechanizm ten ma ograniczenia co do rozmiaru i złożoności przesyłanych obiektów, co prowadzi do błędów, takich jak OverflowError.
 
 \subsection{Wyniki}
 \begin{table}[H]
@@ -351,16 +349,24 @@ $S(n, p) = \frac{T(n, 1)}{T(n, p)} $
     5000 & 2.39e+00 & 9.04e-01 & 1.59e+01 & 1.76e+00 \\ \hline
     10000 & 3.62e+00 & 8.88e-01 & 1.86e+01 & 1.89e+00 \\ \hline
     nemeth12 & 3.28e+00 & 9.40e-01 & 1.70e+01 & 1.95e+00 \\ \hline
-    poli3 & 1.09e+00 & 9.47e-01 & 1.84e+01 & 1.85e+00 \\ \hline
+    poli3 & 1.09e+00 & 9.47e-01 & 1.84e+01 & \textit{N/A} \\ \hline
     \end{tabular}
     \label{tab:calculated_speedup}
 \end{table}
 
-\paragraph{Wnioski}
+\subsubsection{Wnioski}
 Zrównoleglenie metodą tablic rozproszonych okazało się najbardziej efektywne. Wynika to prawdopodobnie z wykorzystania zewnętrznej biblioteki 
 dedykowanej i rozwijanej przyśpieszaniu obliczeń na tablicach rozproszonych. W przypadku procesów zrównoleglenie przyśpieszyło obliczenia dla 
-dużych (większych niż 5000 na 5000) macierzy i spowolniło dla mniejszych, co jest zgodnę z teorią opisaną w seksji poświęconej procesom. \\ 
-Dla wątków nie udało się uzyskać przyśpieszenia ani dla małych ani dla dużych macierzy, podejrzewamy że jest to spowodowane przez nieefektywne
+dużych (większych niż 5000 na 5000) macierzy i spowolniło dla mniejszych, co jest zgodnę z teorią opisaną w seksji poświęconej procesom.
+ \\ 
+\paragraph{Wątki} Dla wątków nie udało się uzyskać przyśpieszenia ani dla małych ani dla dużych macierzy, podejrzewamy że jest to spowodowane przez nieefektywne
 zarządzanie wątkami przez Python-a 
+\\
+\paragraph{MPI} Zrównoleglenie używające MPI okazało się gorsze niż 
+rozwiązanie sekwencyjne ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, w jaki macierze są rozgłaszane między procesami,
+Rozwiązanie nie działa dla dużych macierzy, takich jak poli3, ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, 
+w jaki macierze są rozgłaszane między procesami. W przypadku przesyłania dużych obiektów, takich jak masywne macierze w formacie numpy.ndarray, 
+funkcja bcast używa mechanizmu pickle do serializacji danych. Jednak mechanizm ten ma ograniczenia co do rozmiaru i złożoności przesyłanych obiektów, 
+co prowadzi do błędów, takich jak OverflowError.
 
 \end{document}
