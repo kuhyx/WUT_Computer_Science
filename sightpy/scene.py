@@ -3,9 +3,8 @@ import numpy as np
 import time
 from .utils import colour_functions as cf
 from .camera import Camera
-from .utils.constants import *
 from .utils.vector3 import vec3, rgb
-from .ray import Ray, get_raycolor, get_distances
+from .ray import get_raycolor, get_distances
 from . import lights
 from .backgrounds.skybox import SkyBox
 from .backgrounds.panorama import Panorama
@@ -31,7 +30,7 @@ class Scene():
         self.Light_list += [lights.PointLight(pos, color)]
         
     def add_DirectionalLight(self, Ldir, color):
-        self.Light_list += [lights.DirectionalLight(Ldir.normalize() , color)]  
+        self.Light_list += [lights.DirectionalLight(Ldir.normalize(), color)]
 
     def add(self,primitive, importance_sampled = False):
         self.scene_primitives += [primitive]
