@@ -1,1 +1,1 @@
-g++ -std=c++11 -O2 main.cpp -o photon_mapping
+g++ -O2 main.cpp -o photon_mapping
