@@ -1,10 +1,10 @@
 import argparse
-from configparser import ConfigParser
 from rendering import ray_trace
 from utils import load_config, parse_resolution
 import importlib
 import os
-# from scenes.cornell_box import *
+import matplotlib.pyplot as plt
+from photon_mapping import render_photon_mapping
 
 def main():
     # default config
@@ -22,6 +22,12 @@ def main():
     parser.add_argument("--output", type=str, default=config.get('DEFAULT', 'output'), help="Output file name.")
 
     parser.add_argument('--num_spheres', type=int, default=3, help='Number of spheres in the scene for Ray Tracing 0')
+    parser.add_argument('--num_photons', type=int, default=config.getint('photon_mapping', 'num_photons'), help='Number of photons for photon mapping')
+    parser.add_argument('--max_depth', type=int, default=config.getint('photon_mapping', 'max_depth'),
+                        help='Maximum depth for photon tracing')
+    parser.add_argument('--gather_radius', type=float, default=config.getfloat('photon_mapping', 'gather_radius'),
+                        help='Radius for radiance estimation in photon mapping')
+
 
     args = parser.parse_args()
 
@@ -53,6 +59,15 @@ def main():
         img.save(output_path)
         print(f"Image saved to {output_path}")
         img.show()
+    elif args.algorithm == "photon_mapping":
+        print("Starting photon mapping...")
+        image = render_photon_mapping(width, height, args.num_photons, args.max_depth, args.gather_radius)
+        plt.imshow(image)
+        plt.axis('off')
+        output_path = os.path.join("outputs", args.output)
+        plt.savefig(output_path)
+        print(f"Image saved to {output_path}")
+        plt.show()
     else:
         print(f"Unknown algorithm: {args.algorithm}")
         return
