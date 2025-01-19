@@ -2,6 +2,7 @@
 """ Renders an image using raytracing """
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 def ray_trace(num_spheres, environment, image_width=400, image_height=300, output_file="fig.png"):
     IMAGE_WIDTH = image_width
@@ -381,10 +382,14 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
     # Screen coordinates: x0, y0, x1, y1.
     S = (-1., -1. / r + .25, 1., 1. / r + .25)
 
+    renderTime = time.time()
+    reflections = 0
+    rays = 0
+    initialRays = 0
     # Loop through all pixels.
     for i, x in enumerate(np.linspace(S[0], S[2], IMAGE_WIDTH)):
         if i % 10 == 0:
-            print(i / float(IMAGE_WIDTH) * 100, "%")
+            print(round(i / float(IMAGE_WIDTH) * 100, 2), "%")
         for j, y in enumerate(np.linspace(S[1], S[3], IMAGE_HEIGHT)):
             col[:] = 0
             Q[:2] = (x, y)
@@ -392,11 +397,14 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
             DEPTH = 0
             rayO, rayD = camera_origin, D
             REFLECTION = 1.
+            initialRays += 1
             # Loop through initial and secondary rays.
             while DEPTH < DEPTH_MAX:
                 traced = trace_ray(rayO, rayD)
+                rays += 1
                 if not traced:
                     break
+                reflections += 1
                 obj, M, N, col_ray = traced
                 # Reflection: create a new ray.
                 rayO, rayD = M + \
@@ -405,6 +413,13 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
                 col += REFLECTION * col_ray
                 REFLECTION *= obj.get('reflection', 1.)
             img[IMAGE_HEIGHT - j - 1, i, :] = np.clip(col, 0, 1)
+    renderTime = time.time() - renderTime
 
     plt.imsave(output_file, img)
-    print(f"Image saved as {output_file}")
+    print(f"Image saved as {output_file}\n"
+          f"resolution: {IMAGE_WIDTH}x{IMAGE_HEIGHT}\n"
+          f"render time: {round(renderTime, 2)} s\n"
+          f"reflections: {reflections}\n"
+          f"rays (initial): {initialRays}\n"
+          f"rays (secondary): {rays - initialRays}\n"
+          f"rays (total): {rays}")

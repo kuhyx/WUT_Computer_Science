@@ -4,7 +4,7 @@ import time
 from .utils import colour_functions as cf
 from .camera import Camera
 from .utils.vector3 import vec3, rgb
-from .ray import get_raycolor, get_distances
+from .ray import get_raycolor, get_distances, get_rays
 from . import lights
 from .backgrounds.skybox import SkyBox
 from .backgrounds.panorama import Panorama
@@ -88,7 +88,13 @@ class Scene():
         #gamma correction
         color = cf.sRGB_linear_to_sRGB(color_RGBlinear.to_array())
         
-        print ("Render Took", time.time() - t0)
+        RAYS, PRIMARY_RAYS = get_rays()
+        
+        print (f"Render Took: {round(time.time() - t0, 2)}s\n"
+               f"resolution: {self.camera.screen_width}x{self.camera.screen_height}\n"
+               f"rays (total): {RAYS}\n"
+               f"rays (primary): {PRIMARY_RAYS}\n"
+               f"rays (secondary): {RAYS-PRIMARY_RAYS}")
 
         img_RGB = []
         for c in color:

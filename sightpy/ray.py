@@ -3,6 +3,9 @@ from .utils.vector3 import vec3, extract, rgb
 import numpy as np
 from functools import reduce as reduce 
 
+RAYS = 0
+PRIMARY_RAYS = 0
+
 
 class Ray:    
     """Info of the ray and the media it's travelling"""
@@ -25,6 +28,12 @@ class Ray:
         self.reflections = reflections  #reflections is the number of the refrections, starting at zero for camera rays
         self.transmissions = transmissions  #transmissions is the number of the transmissions/refractions, starting at zero for camera rays
         self.diffuse_reflections = diffuse_reflections  #reflections is the number of the refrections, starting at zero for camera rays
+        
+        global RAYS 
+        RAYS += 1
+        if  self.reflections == 0 and self.transmissions == 0 and self.diffuse_reflections == 0:
+            global PRIMARY_RAYS
+            PRIMARY_RAYS += 1
 
 
     def extract(self,hit_check):
@@ -97,7 +106,8 @@ def get_distances(ray, scene): #Used for debugging ray-surface collisions. Retur
     norm_r_distance = r_distance/max_r_distance
     return rgb(norm_r_distance, norm_r_distance, norm_r_distance)
 
-
+def get_rays():
+    return RAYS, PRIMARY_RAYS
     
     
 

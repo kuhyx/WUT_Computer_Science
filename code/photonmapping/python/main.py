@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import time
+
+PHOTONS = 0
 
 # Define basic vector operations
 class Vector3:
@@ -103,6 +106,8 @@ def emit_photons():
         trace_photon(photon, 0)
 
 def trace_photon(photon, depth):
+    global PHOTONS
+    PHOTONS += 1
     if depth > max_depth:
         return
     closest_t = np.inf
@@ -211,9 +216,18 @@ if __name__ == '__main__':
     emit_photons()
     
     print("Rendering image...")
-    width = 200
+    width = 100
     height = 100
+    t0 = time.time()
     image = render_image(width, height)
+    
+    print (f"Render Took: {round(time.time() - t0, 2)}s\n"
+        f"resolution: {width}x{height}\n"
+        f"photons (emitted): {num_photons}\n"
+        f"photons (reflected): {PHOTONS - num_photons}\n"
+        f"photons (total): {PHOTONS}\n"
+        f"rays: {width*height}"
+        )
     
     # Display the image
     plt.imshow(image)
