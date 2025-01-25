@@ -22,7 +22,7 @@ cd CoPO/copo_code
 pip install -e .
 
 pip install -U ray==1.2.0 "ray[rllib]==1.2.0"
-pip install -U "numpy<1.24.0"
+pip install -U "numpy<1.19.0"
 pip uninstall opencv-python
 pip uninstall opencv-python-headless
 pip install opencv-python==4.5.5.64
