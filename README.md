@@ -41,7 +41,7 @@ python train_all_ippo.py --exp-name my_ippo
 ```
 Training process 7.3h
 
-## how to evaluate
+## How to evaluate
 ```
 python eval.py --root my_cl
 python eval.py --root my_ippo
