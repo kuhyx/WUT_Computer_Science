@@ -6,20 +6,31 @@ wykorzystując algorytmy **wieloagentowe** (MA), na co
 najmniej trzech różnych mapach. Omów otrzymane wyniki oraz zwizualizuj działanie
 wytrenowanych agentów.
 
-## How to run:
 
-### Install metadrive 
+## Setup
 ```
-pip install metadrive-simulator
-python -m metadrive.pull_asset
+conda create -n copo python=3.7
+conda activate copo
+
+# Install MetaDrive version 0.2.5
+pip install git+https://github.com/metadriverse/metadrive.git@releases/0.2.5
+
+pip install torch
+
+git clone https://github.com/decisionforce/CoPO
+cd CoPO/copo_code
+pip install -e .
+
+pip install -U ray==1.2.0 "ray[rllib]==1.2.0"
+pip install -U "numpy<1.24.0"
+pip uninstall opencv-python
+pip uninstall opencv-python-headless
+pip install opencv-python==4.5.5.64
+pip install pydantic==1.9.0
 ```
 
-#### Verify
-`python -m metadrive.examples.profile_metadrive`
+## How to train a RL agents
 
-Install swig, python and pip
 
-Install other libraries required by program:
 
-`pip install -r requirements.txt`
 
