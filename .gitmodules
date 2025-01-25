@@ -1,0 +1,3 @@
+[submodule "CoPO"]
+	path = CoPO
+	url = https://github.com/cncPomper/CoPO
