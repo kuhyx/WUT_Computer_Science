@@ -31,6 +31,12 @@ pip install pydantic==1.9.0
 
 ## How to train a RL agents
 
-
-
-
+```
+cd CoPo/copo_code/copo/
+python train_all_cl.py --exp-name my_cl
+```
+Training process 4.7h
+```
+python train_all_ippo.py --exp-name my_ippo
+```
+Training process 7.3h
