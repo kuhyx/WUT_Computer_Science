@@ -1,0 +1,879 @@
+{
+  "configuration" : {
+    "scope" : "SoftwareSystem"
+  },
+  "description" : "Description",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2025-04-04T13:15:11Z",
+  "model" : {
+    "deploymentNodes" : [ {
+      "containerInstances" : [ {
+        "containerId" : "7",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Deployment",
+        "id" : "41",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.2087bcf8-a1f5-48ca-a213-fff854217495.livemobileappinstance"
+        },
+        "relationships" : [ {
+          "destinationId" : "50",
+          "id" : "51",
+          "linkedRelationshipId" : "28",
+          "sourceId" : "41"
+        } ],
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "Deployment",
+      "id" : "40",
+      "instances" : "1",
+      "name" : "Urządzenie mobilne klienta",
+      "properties" : {
+        "structurizr.dsl.identifier" : "livedeployment.2087bcf8-a1f5-48ca-a213-fff854217495"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Apple iOS or Android"
+    }, {
+      "containerInstances" : [ {
+        "containerId" : "8",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Deployment",
+        "id" : "43",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.fbed2522-62c6-4a1c-9a7b-520ec6b36d38.liveembeddedappinstance"
+        },
+        "relationships" : [ {
+          "destinationId" : "50",
+          "id" : "52",
+          "linkedRelationshipId" : "29",
+          "sourceId" : "43"
+        } ],
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "Deployment",
+      "id" : "42",
+      "instances" : "1",
+      "name" : "Dedykowane urządzenie zbierania opłat",
+      "properties" : {
+        "structurizr.dsl.identifier" : "livedeployment.fbed2522-62c6-4a1c-9a7b-520ec6b36d38"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Linux"
+    }, {
+      "children" : [ {
+        "containerInstances" : [ {
+          "containerId" : "6",
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Deployment",
+          "id" : "46",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "livedeployment.e9eaa3f6-af9c-42f1-9367-1a37fcc205d7.8088b721-2182-4429-8b13-664075dd9d0f.browserinstance"
+          },
+          "relationships" : [ {
+            "destinationId" : "50",
+            "id" : "53",
+            "linkedRelationshipId" : "27",
+            "sourceId" : "46"
+          } ],
+          "tags" : "Container Instance"
+        } ],
+        "environment" : "Deployment",
+        "id" : "45",
+        "instances" : "1",
+        "name" : "Przeglądarka internetowa",
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.e9eaa3f6-af9c-42f1-9367-1a37fcc205d7.8088b721-2182-4429-8b13-664075dd9d0f"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Chromium/Firefox"
+      } ],
+      "environment" : "Deployment",
+      "id" : "44",
+      "instances" : "1",
+      "name" : "Urządzenie klienta",
+      "properties" : {
+        "structurizr.dsl.identifier" : "livedeployment.e9eaa3f6-af9c-42f1-9367-1a37fcc205d7"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Laptop/Desktop"
+    }, {
+      "children" : [ {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "9",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Deployment",
+            "id" : "50",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.88ab7a8a-0eef-4412-8f72-d5e515771aff.7be60e42-dc3f-477d-a5b1-fde4519954a6.livewebapplicationinstance"
+            },
+            "relationships" : [ {
+              "description" : "Czyta i zapisuje dane",
+              "destinationId" : "56",
+              "id" : "57",
+              "linkedRelationshipId" : "26",
+              "sourceId" : "50"
+            }, {
+              "description" : "Czyta i zapisuje dane",
+              "destinationId" : "60",
+              "id" : "61",
+              "linkedRelationshipId" : "26",
+              "sourceId" : "50"
+            } ],
+            "tags" : "Container Instance"
+          } ],
+          "environment" : "Deployment",
+          "id" : "49",
+          "instances" : "1",
+          "name" : "Apache Tomcat",
+          "properties" : {
+            "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.88ab7a8a-0eef-4412-8f72-d5e515771aff.7be60e42-dc3f-477d-a5b1-fde4519954a6"
+          },
+          "tags" : "Element,Deployment Node",
+          "technology" : "Apache Tomcat 8.x"
+        } ],
+        "environment" : "Deployment",
+        "id" : "48",
+        "instances" : "4",
+        "name" : "etoll-server",
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.88ab7a8a-0eef-4412-8f72-d5e515771aff"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Ubuntu Server 24.04 LTS"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "25",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Deployment",
+            "id" : "56",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.db1.primarydatabaseserver.liveprimarydatabaseinstance"
+            },
+            "tags" : "Container Instance"
+          } ],
+          "environment" : "Deployment",
+          "id" : "55",
+          "instances" : "1",
+          "name" : "Oracle - Primary",
+          "properties" : {
+            "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.db1.primarydatabaseserver"
+          },
+          "relationships" : [ {
+            "description" : "Replikuje dane",
+            "destinationId" : "59",
+            "id" : "64",
+            "sourceId" : "55",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Deployment Node",
+          "technology" : "Oracle 12c"
+        } ],
+        "environment" : "Deployment",
+        "id" : "54",
+        "instances" : "1",
+        "name" : "etoll-db01",
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.db1"
+        },
+        "tags" : "Element,Deployment Node",
+        "technology" : "Ubuntu Server 24.04 LTS"
+      }, {
+        "children" : [ {
+          "containerInstances" : [ {
+            "containerId" : "25",
+            "deploymentGroups" : [ "Default" ],
+            "environment" : "Deployment",
+            "id" : "60",
+            "instanceId" : 1,
+            "properties" : {
+              "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.db2.secondarydatabaseserver.livesecondarydatabaseinstance"
+            },
+            "tags" : "Container Instance"
+          } ],
+          "environment" : "Deployment",
+          "id" : "59",
+          "instances" : "1",
+          "name" : "Oracle - Secondary",
+          "properties" : {
+            "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.db2.secondarydatabaseserver"
+          },
+          "tags" : "Element,Deployment Node,Failover",
+          "technology" : "Oracle 12c"
+        } ],
+        "environment" : "Deployment",
+        "id" : "58",
+        "instances" : "1",
+        "name" : "etoll-db02",
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.db2"
+        },
+        "tags" : "Element,Deployment Node,Failover",
+        "technology" : "Ubuntu Server 24.04 LTS"
+      }, {
+        "environment" : "Deployment",
+        "id" : "62",
+        "instances" : "1",
+        "name" : "etoll-prod001",
+        "properties" : {
+          "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.691545ea-8d2c-4e50-bd63-3527bb05fce9"
+        },
+        "softwareSystemInstances" : [ {
+          "deploymentGroups" : [ "Default" ],
+          "environment" : "Deployment",
+          "id" : "63",
+          "instanceId" : 1,
+          "properties" : {
+            "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af.691545ea-8d2c-4e50-bd63-3527bb05fce9.ad43053a-31b8-426b-bc45-7431835a3321"
+          },
+          "softwareSystemId" : "5",
+          "tags" : "Software System Instance"
+        } ],
+        "tags" : "Element,Deployment Node"
+      } ],
+      "environment" : "Deployment",
+      "id" : "47",
+      "instances" : "1",
+      "name" : "System e-Toll",
+      "properties" : {
+        "structurizr.dsl.identifier" : "livedeployment.913e98a3-fb43-4378-a7c5-02a63e35e9af"
+      },
+      "tags" : "Element,Deployment Node",
+      "technology" : "Data Center dla systemu e-Toll"
+    } ],
+    "people" : [ {
+      "description" : "Administrator zarządzający systemem e-Toll",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "Administrator",
+      "properties" : {
+        "structurizr.dsl.identifier" : "admin"
+      },
+      "relationships" : [ {
+        "description" : "Zarządza systemem",
+        "destinationId" : "6",
+        "id" : "30",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Zarządza systemem",
+        "destinationId" : "5",
+        "id" : "31",
+        "linkedRelationshipId" : "30",
+        "sourceId" : "1"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Kierowca korzystający z płatnych dróg w systemie e-Toll",
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Kierowca",
+      "properties" : {
+        "structurizr.dsl.identifier" : "kierowca"
+      },
+      "relationships" : [ {
+        "description" : "Korzysta z systemu",
+        "destinationId" : "5",
+        "id" : "32",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Zarządza kontem",
+        "destinationId" : "6",
+        "id" : "33",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Opłaca przejazdy",
+        "destinationId" : "7",
+        "id" : "34",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Opłaca przejazdy",
+        "destinationId" : "8",
+        "id" : "35",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "description" : "Archiwum danych do celów statystycznych",
+      "documentation" : { },
+      "id" : "3",
+      "location" : "Unspecified",
+      "name" : "System agregacji danych historycznych",
+      "properties" : {
+        "structurizr.dsl.identifier" : "archiwum"
+      },
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "System odpowiedzialny za obsługę płatności dokonywanych prze użytkowników",
+      "documentation" : { },
+      "id" : "4",
+      "location" : "Unspecified",
+      "name" : "System procesowania płatności",
+      "properties" : {
+        "structurizr.dsl.identifier" : "systemplatnosci"
+      },
+      "tags" : "Element,Software System"
+    }, {
+      "containers" : [ {
+        "description" : "Służy do zarządzania kontem oraz systemem",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "Aplikacja webowa",
+        "properties" : {
+          "structurizr.dsl.identifier" : "systemetoll.webapp"
+        },
+        "relationships" : [ {
+          "destinationId" : "9",
+          "id" : "27",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Pozwala na śledzenie pozycji pojazdu w celu dokonywania opłat",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Aplikacja mobilna",
+        "properties" : {
+          "structurizr.dsl.identifier" : "systemetoll.mobileapp"
+        },
+        "relationships" : [ {
+          "destinationId" : "9",
+          "id" : "28",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "description" : "Działa na dedykowanych urządzeniach śledzących pozycję pojazdu",
+        "documentation" : { },
+        "id" : "8",
+        "name" : "Aplikacja na dedykowane urządzenia zbierania opłat",
+        "properties" : {
+          "structurizr.dsl.identifier" : "systemetoll.embeddedapp"
+        },
+        "relationships" : [ {
+          "destinationId" : "9",
+          "id" : "29",
+          "sourceId" : "8",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "components" : [ {
+          "description" : "Centralny element aplikacji odpowiedzialny za jej działanie",
+          "documentation" : { },
+          "id" : "10",
+          "name" : "MainComponent",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.maincomponent"
+          },
+          "relationships" : [ {
+            "description" : "Używa",
+            "destinationId" : "11",
+            "id" : "18",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Używa",
+            "destinationId" : "12",
+            "id" : "19",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Używa",
+            "destinationId" : "14",
+            "id" : "21",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Odpowiada za logowanie do systemu i autoryzację",
+          "documentation" : { },
+          "id" : "11",
+          "name" : "SigninController",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.signincontroller"
+          },
+          "relationships" : [ {
+            "description" : "Używa",
+            "destinationId" : "13",
+            "id" : "20",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Odpowiada za kontrolowanie wysokości opłat",
+          "documentation" : { },
+          "id" : "12",
+          "name" : "TollController",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.tollcontroller"
+          },
+          "relationships" : [ {
+            "description" : "Używa",
+            "destinationId" : "17",
+            "id" : "22",
+            "sourceId" : "12",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Zawiera logikę biznesową dotyczącą użytkowników",
+          "documentation" : { },
+          "id" : "13",
+          "name" : "UserService",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.userservice"
+          },
+          "relationships" : [ {
+            "description" : "Odczytuje/zapisuje dane",
+            "destinationId" : "15",
+            "id" : "23",
+            "sourceId" : "13",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Zawiera logikę dotyczącą przetwarzania płatności",
+          "documentation" : { },
+          "id" : "14",
+          "name" : "PaymentService",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.paymentservice"
+          },
+          "relationships" : [ {
+            "description" : "Odczytuje/zapisuje dane",
+            "destinationId" : "16",
+            "id" : "24",
+            "sourceId" : "14",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Odpowiada za dostęp do danych użytkownika",
+          "documentation" : { },
+          "id" : "15",
+          "name" : "UserRepository",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.userrepository"
+          },
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Odpowiada za dostęp do danych płatności",
+          "documentation" : { },
+          "id" : "16",
+          "name" : "PaymentRepository",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.paymentrepository"
+          },
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Odpowiada za określanie pozycji pojazdu w kontekście odcinków dróg",
+          "documentation" : { },
+          "id" : "17",
+          "name" : "PositionService",
+          "properties" : {
+            "structurizr.dsl.identifier" : "systemetoll.serverapp.positionservice"
+          },
+          "tags" : "Element,Component"
+        } ],
+        "description" : "Obsługuje logikę działania systemu",
+        "documentation" : { },
+        "id" : "9",
+        "name" : "Aplikacja serwerowa",
+        "properties" : {
+          "structurizr.dsl.identifier" : "systemetoll.serverapp"
+        },
+        "relationships" : [ {
+          "description" : "Czyta i zapisuje dane",
+          "destinationId" : "25",
+          "id" : "26",
+          "sourceId" : "9",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Realizuje płatność",
+          "destinationId" : "4",
+          "id" : "36",
+          "sourceId" : "9",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Przekazuje dane o użyciu dróg",
+          "destinationId" : "3",
+          "id" : "38",
+          "sourceId" : "9",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "documentation" : { },
+        "id" : "25",
+        "name" : "Baza danych",
+        "properties" : {
+          "structurizr.dsl.identifier" : "systemetoll.db"
+        },
+        "tags" : "Element,Container,Database"
+      } ],
+      "documentation" : { },
+      "id" : "5",
+      "location" : "Unspecified",
+      "name" : "System e-Toll",
+      "properties" : {
+        "structurizr.dsl.identifier" : "systemetoll"
+      },
+      "relationships" : [ {
+        "description" : "Realizuje płatność",
+        "destinationId" : "4",
+        "id" : "37",
+        "linkedRelationshipId" : "36",
+        "sourceId" : "5"
+      }, {
+        "description" : "Przekazuje dane o użyciu dróg",
+        "destinationId" : "3",
+        "id" : "39",
+        "linkedRelationshipId" : "38",
+        "sourceId" : "5"
+      } ],
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Name",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJOYW1lIiAiRGVzY3JpcHRpb24iIHsKCiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIGFkbWluID0gcGVyc29uICJBZG1pbmlzdHJhdG9yIiAiQWRtaW5pc3RyYXRvciB6YXJ6xIVkemFqxIVjeSBzeXN0ZW1lbSBlLVRvbGwiCiAgICAgICAga2llcm93Y2EgPSBwZXJzb24gIktpZXJvd2NhIiAiS2llcm93Y2Ega29yenlzdGFqxIVjeSB6IHDFgmF0bnljaCBkcsOzZyB3IHN5c3RlbWllIGUtVG9sbCIKICAgICAgICBhcmNoaXd1bSA9IHNvZnR3YXJlU3lzdGVtICJTeXN0ZW0gYWdyZWdhY2ppIGRhbnljaCBoaXN0b3J5Y3pueWNoIiAiQXJjaGl3dW0gZGFueWNoIGRvIGNlbMOzdyBzdGF0eXN0eWN6bnljaCIKICAgICAgICBzeXN0ZW1QbGF0bm9zY2kgPSBzb2Z0d2FyZVN5c3RlbSAiU3lzdGVtIHByb2Nlc293YW5pYSBwxYJhdG5vxZtjaSIgIlN5c3RlbSBvZHBvd2llZHppYWxueSB6YSBvYnPFgnVnxJkgcMWCYXRub8WbY2kgZG9rb255d2FueWNoIHByemUgdcW8eXRrb3duaWvDs3ciCgogICAgICAgIHN5c3RlbUV0b2xsID0gc29mdHdhcmVTeXN0ZW0gIlN5c3RlbSBlLVRvbGwiIHsKICAgICAgICAgICAgd2ViQXBwID0gY29udGFpbmVyICJBcGxpa2FjamEgd2Vib3dhIiAiU8WCdcW8eSBkbyB6YXJ6xIVkemFuaWEga29udGVtIG9yYXogc3lzdGVtZW0iCiAgICAgICAgICAgIG1vYmlsZUFwcCA9IGNvbnRhaW5lciAiQXBsaWthY2phIG1vYmlsbmEiICJQb3p3YWxhIG5hIMWbbGVkemVuaWUgcG96eWNqaSBwb2phemR1IHcgY2VsdSBkb2tvbnl3YW5pYSBvcMWCYXQiCiAgICAgICAgICAgIGVtYmVkZGVkQXBwID0gY29udGFpbmVyICJBcGxpa2FjamEgbmEgZGVkeWtvd2FuZSB1cnrEhWR6ZW5pYSB6YmllcmFuaWEgb3DFgmF0IiAiRHppYcWCYSBuYSBkZWR5a293YW55Y2ggdXJ6xIVkemVuaWFjaCDFm2xlZHrEhWN5Y2ggcG96eWNqxJkgcG9qYXpkdSIKCiAgICAgICAgICAgIHNlcnZlckFwcCA9IGNvbnRhaW5lciAiQXBsaWthY2phIHNlcndlcm93YSIgIk9ic8WCdWd1amUgbG9naWvEmSBkemlhxYJhbmlhIHN5c3RlbXUiIHsKICAgICAgICAgICAgICAgIG1haW5Db21wb25lbnQgPSBjb21wb25lbnQgIk1haW5Db21wb25lbnQiICJDZW50cmFsbnkgZWxlbWVudCBhcGxpa2Fjamkgb2Rwb3dpZWR6aWFsbnkgemEgamVqIGR6aWHFgmFuaWUiIAogICAgICAgICAgICAgICAgc2lnbmluQ29udHJvbGxlciA9IGNvbXBvbmVudCAiU2lnbmluQ29udHJvbGxlciIgIk9kcG93aWFkYSB6YSBsb2dvd2FuaWUgZG8gc3lzdGVtdSBpIGF1dG9yeXphY2rEmSIKICAgICAgICAgICAgICAgIHRvbGxDb250cm9sbGVyID0gY29tcG9uZW50ICJUb2xsQ29udHJvbGxlciIgIk9kcG93aWFkYSB6YSBrb250cm9sb3dhbmllIHd5c29rb8WbY2kgb3DFgmF0IgoKICAgICAgICAgICAgICAgIHVzZXJTZXJ2aWNlID0gY29tcG9uZW50ICJVc2VyU2VydmljZSIgIlphd2llcmEgbG9naWvEmSBiaXpuZXNvd8SFIGRvdHljesSFY8SFIHXFvHl0a293bmlrw7N3IgogICAgICAgICAgICAgICAgcGF5bWVudFNlcnZpY2UgPSBjb21wb25lbnQgIlBheW1lbnRTZXJ2aWNlIiAiWmF3aWVyYSBsb2dpa8SZIGRvdHljesSFY8SFIHByemV0d2FyemFuaWEgcMWCYXRub8WbY2kiCiAgICAgICAgICAgICAgICB1c2VyUmVwb3NpdG9yeSA9IGNvbXBvbmVudCAiVXNlclJlcG9zaXRvcnkiICJPZHBvd2lhZGEgemEgZG9zdMSZcCBkbyBkYW55Y2ggdcW8eXRrb3duaWthIgogICAgICAgICAgICAgICAgcGF5bWVudFJlcG9zaXRvcnkgPSBjb21wb25lbnQgIlBheW1lbnRSZXBvc2l0b3J5IiAiT2Rwb3dpYWRhIHphIGRvc3TEmXAgZG8gZGFueWNoIHDFgmF0bm/Fm2NpIgoKICAgICAgICAgICAgICAgIHBvc2l0aW9uU2VydmljZSA9IGNvbXBvbmVudCAiUG9zaXRpb25TZXJ2aWNlIiAiT2Rwb3dpYWRhIHphIG9rcmXFm2xhbmllIHBvenljamkgcG9qYXpkdSB3IGtvbnRla8WbY2llIG9kY2lua8OzdyBkcsOzZyIKCiAgICAgICAgICAgICAgICBtYWluQ29tcG9uZW50IC0+IHNpZ25pbkNvbnRyb2xsZXIgIlXFvHl3YSIKICAgICAgICAgICAgICAgIG1haW5Db21wb25lbnQgLT4gdG9sbENvbnRyb2xsZXIgIlXFvHl3YSIKICAgICAgICAgICAgICAgIHNpZ25pbkNvbnRyb2xsZXIgLT4gdXNlclNlcnZpY2UgIlXFvHl3YSIKICAgICAgICAgICAgICAgIG1haW5Db21wb25lbnQgLT4gcGF5bWVudFNlcnZpY2UgIlXFvHl3YSIKICAgICAgICAgICAgICAgIHRvbGxDb250cm9sbGVyIC0+IHBvc2l0aW9uU2VydmljZSAiVcW8eXdhIgoKICAgICAgICAgICAgICAgIHVzZXJTZXJ2aWNlIC0+IHVzZXJSZXBvc2l0b3J5ICJPZGN6eXR1amUvemFwaXN1amUgZGFuZSIKICAgICAgICAgICAgICAgIHBheW1lbnRTZXJ2aWNlIC0+IHBheW1lbnRSZXBvc2l0b3J5ICJPZGN6eXR1amUvemFwaXN1amUgZGFuZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZGIgPSBjb250YWluZXIgIkJhemEgZGFueWNoIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgc2VydmVyQXBwIC0+IGRiICJDenl0YSBpIHphcGlzdWplIGRhbmUiCiAgICAgICAgICAgIHdlYkFwcCAtPiBzZXJ2ZXJBcHAKICAgICAgICAgICAgbW9iaWxlQXBwIC0+IHNlcnZlckFwcAogICAgICAgICAgICBlbWJlZGRlZEFwcCAtPiBzZXJ2ZXJBcHAKICAgICAgICB9CgogICAgICAgIGFkbWluIC0+IHN5c3RlbUV0b2xsLndlYkFwcCAiWmFyesSFZHphIHN5c3RlbWVtIgogICAgICAgIGtpZXJvd2NhIC0+IHN5c3RlbUV0b2xsICJLb3J6eXN0YSB6IHN5c3RlbXUiCgogICAgICAgIGtpZXJvd2NhIC0+IHN5c3RlbUV0b2xsLndlYkFwcCAiWmFyesSFZHphIGtvbnRlbSIKICAgICAgICBraWVyb3djYSAtPiBzeXN0ZW1FdG9sbC5tb2JpbGVBcHAgIk9wxYJhY2EgcHJ6ZWphemR5IgogICAgICAgIGtpZXJvd2NhIC0+IHN5c3RlbUV0b2xsLmVtYmVkZGVkQXBwICJPcMWCYWNhIHByemVqYXpkeSIKCiAgICAgICAgc3lzdGVtRXRvbGwuc2VydmVyQXBwIC0+IHN5c3RlbVBsYXRub3NjaSAiUmVhbGl6dWplIHDFgmF0bm/Fm8SHIgogICAgICAgIHN5c3RlbUV0b2xsLnNlcnZlckFwcCAtPiBhcmNoaXd1bSAiUHJ6ZWthenVqZSBkYW5lIG8gdcW8eWNpdSBkcsOzZyIKCiAgICAgICAgbGl2ZURlcGxveW1lbnQgPSBkZXBsb3ltZW50RW52aXJvbm1lbnQgIkRlcGxveW1lbnQiIHsKICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIlVyesSFZHplbmllIG1vYmlsbmUga2xpZW50YSIgIiIgIkFwcGxlIGlPUyBvciBBbmRyb2lkIiB7CiAgICAgICAgICAgICAgICBsaXZlTW9iaWxlQXBwSW5zdGFuY2UgPSBjb250YWluZXJJbnN0YW5jZSBzeXN0ZW1FdG9sbC5tb2JpbGVBcHAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkRlZHlrb3dhbmUgdXJ6xIVkemVuaWUgemJpZXJhbmlhIG9wxYJhdCIgIiIgIkxpbnV4IiB7CiAgICAgICAgICAgICAgICBsaXZlRW1iZWRkZWRBcHBJbnN0YW5jZSA9IGNvbnRhaW5lckluc3RhbmNlIHN5c3RlbUV0b2xsLmVtYmVkZGVkQXBwCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJVcnrEhWR6ZW5pZSBrbGllbnRhIiAiIiAiTGFwdG9wL0Rlc2t0b3AiIHsKICAgICAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJQcnplZ2zEhWRhcmthIGludGVybmV0b3dhIiAiIiAiQ2hyb21pdW0vRmlyZWZveCIgewogICAgICAgICAgICAgICAgICAgIGJyb3dzZXJJbnN0YW5jZSA9IGNvbnRhaW5lckluc3RhbmNlIHN5c3RlbUV0b2xsLndlYkFwcAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CgogICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiU3lzdGVtIGUtVG9sbCIgIiIgIkRhdGEgQ2VudGVyIGRsYSBzeXN0ZW11IGUtVG9sbCIgewogICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgImV0b2xsLXNlcnZlciIgIiIgIlVidW50dSBTZXJ2ZXIgMjQuMDQgTFRTIiAiIiA0IHsKICAgICAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiQXBhY2hlIFRvbWNhdCIgIiIgIkFwYWNoZSBUb21jYXQgOC54IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGxpdmVXZWJBcHBsaWNhdGlvbkluc3RhbmNlID0gY29udGFpbmVySW5zdGFuY2Ugc3lzdGVtRXRvbGwuc2VydmVyQXBwCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGRiMSA9IGRlcGxveW1lbnROb2RlICJldG9sbC1kYjAxIiAiIiAiVWJ1bnR1IFNlcnZlciAyNC4wNCBMVFMiIHsKICAgICAgICAgICAgICAgICAgICBwcmltYXJ5RGF0YWJhc2VTZXJ2ZXIgPSBkZXBsb3ltZW50Tm9kZSAiT3JhY2xlIC0gUHJpbWFyeSIgIiIgIk9yYWNsZSAxMmMiIHsKICAgICAgICAgICAgICAgICAgICAgICAgbGl2ZVByaW1hcnlEYXRhYmFzZUluc3RhbmNlID0gY29udGFpbmVySW5zdGFuY2Ugc3lzdGVtRXRvbGwuZGIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBkYjIgPSBkZXBsb3ltZW50Tm9kZSAiZXRvbGwtZGIwMiIgIiIgIlVidW50dSBTZXJ2ZXIgMjQuMDQgTFRTIiAiRmFpbG92ZXIiIHsKICAgICAgICAgICAgICAgICAgICBzZWNvbmRhcnlEYXRhYmFzZVNlcnZlciA9IGRlcGxveW1lbnROb2RlICJPcmFjbGUgLSBTZWNvbmRhcnkiICIiICJPcmFjbGUgMTJjIiAiRmFpbG92ZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgbGl2ZVNlY29uZGFyeURhdGFiYXNlSW5zdGFuY2UgPSBjb250YWluZXJJbnN0YW5jZSBzeXN0ZW1FdG9sbC5kYiAiRmFpbG92ZXIiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgImV0b2xsLXByb2QwMDEiICIiICIiICIiIHsKICAgICAgICAgICAgICAgICAgICBzb2Z0d2FyZVN5c3RlbUluc3RhbmNlIHN5c3RlbUV0b2xsCiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgZGIxLnByaW1hcnlEYXRhYmFzZVNlcnZlciAtPiBkYjIuc2Vjb25kYXJ5RGF0YWJhc2VTZXJ2ZXIgIlJlcGxpa3VqZSBkYW5lIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IHN5c3RlbUV0b2xsICJTeXN0ZW1Db250ZXh0IiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0IGJ0CiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgc3lzdGVtRXRvbGwgIkNvbnRhaW5lciIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CgogICAgICAgICMgY29tcG9uZW50IHN5c3RlbUV0b2xsLndlYkFwcCAiQ29tcG9uZW50V2ViQXBwIiB7CiAgICAgICAgIyAgICAgaW5jbHVkZSAqCiAgICAgICAgIyB9CgogICAgICAgICMgY29tcG9uZW50IHN5c3RlbUV0b2xsLm1vYmlsZUFwcCAiQ29tcG9uZW50TW9iaWxlQXBwIiB7CiAgICAgICAgIyAgICAgaW5jbHVkZSAqCiAgICAgICAgIyB9CgogICAgICAgICMgY29tcG9uZW50IHN5c3RlbUV0b2xsLmVtYmVkZGVkQXBwICJDb21wb25lbnRFbWJlZGRlZEFwcCIgewogICAgICAgICMgICAgIGluY2x1ZGUgKgogICAgICAgICMgfQoKICAgICAgICBjb21wb25lbnQgc3lzdGVtRXRvbGwuc2VydmVyQXBwICJDb21wb25lbnRTZXJ2ZXJBcHAiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgYnQKICAgICAgICB9CgogICAgICAgIGRlcGxveW1lbnQgc3lzdGVtRXRvbGwgIkRlcGxveW1lbnQiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzE5OWI2NQogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiU29mdHdhcmUgU3lzdGVtIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICMxZWJhNzkKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzIzZDk4ZAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBjeWxpbmRlcgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQoKICAgIGNvbmZpZ3VyYXRpb24gewogICAgICAgIHNjb3BlIHNvZnR3YXJlc3lzdGVtCiAgICB9Cgp9"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "BottomTop",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "9",
+      "dimensions" : {
+        "height" : 2611,
+        "width" : 2390
+      },
+      "elements" : [ {
+        "id" : "10",
+        "x" : 969,
+        "y" : 1985
+      }, {
+        "id" : "11",
+        "x" : 219,
+        "y" : 1385
+      }, {
+        "id" : "12",
+        "x" : 969,
+        "y" : 1385
+      }, {
+        "id" : "13",
+        "x" : 219,
+        "y" : 785
+      }, {
+        "id" : "14",
+        "x" : 1719,
+        "y" : 1385
+      }, {
+        "id" : "15",
+        "x" : 219,
+        "y" : 185
+      }, {
+        "id" : "16",
+        "x" : 1719,
+        "y" : 785
+      }, {
+        "id" : "17",
+        "x" : 969,
+        "y" : 785
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "ComponentServerApp",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "18"
+      }, {
+        "id" : "19"
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "24"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "SystemContext",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "color" : "#ffffff",
+          "tag" : "Element"
+        }, {
+          "background" : "#199b65",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#1eba79",
+          "tag" : "Software System"
+        }, {
+          "background" : "#23d98d",
+          "tag" : "Container"
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "dimensions" : {
+        "height" : 2754,
+        "width" : 3912
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 440,
+        "y" : 2185
+      }, {
+        "id" : "2",
+        "x" : 1525,
+        "y" : 2170
+      }, {
+        "id" : "3",
+        "x" : 2545,
+        "y" : 645
+      }, {
+        "id" : "4",
+        "x" : 2565,
+        "y" : 1100
+      }, {
+        "id" : "6",
+        "x" : 410,
+        "y" : 1555
+      }, {
+        "id" : "7",
+        "x" : 1135,
+        "y" : 1540
+      }, {
+        "id" : "8",
+        "x" : 1875,
+        "y" : 1565
+      }, {
+        "id" : "9",
+        "x" : 1080,
+        "y" : 925
+      }, {
+        "id" : "25",
+        "x" : 1090,
+        "y" : 340
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Container",
+      "order" : 2,
+      "paperSize" : "A3_Landscape",
+      "relationships" : [ {
+        "id" : "26"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "36"
+      }, {
+        "id" : "38"
+      } ],
+      "softwareSystemId" : "5"
+    } ],
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 2148,
+        "width" : 3754
+      },
+      "elements" : [ {
+        "id" : "40",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "41",
+        "x" : 240,
+        "y" : 185
+      }, {
+        "id" : "42",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "43",
+        "x" : 240,
+        "y" : 785
+      }, {
+        "id" : "44",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "45",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "46",
+        "x" : 240,
+        "y" : 1431
+      }, {
+        "id" : "47",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "48",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "49",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "50",
+        "x" : 1244,
+        "y" : 785
+      }, {
+        "id" : "54",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "55",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "56",
+        "x" : 2144,
+        "y" : 839
+      }, {
+        "id" : "58",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "59",
+        "x" : 175,
+        "y" : 175
+      }, {
+        "id" : "60",
+        "x" : 3044,
+        "y" : 785
+      } ],
+      "environment" : "Deployment",
+      "generatedKey" : true,
+      "key" : "Deployment-001",
+      "order" : 4,
+      "relationships" : [ {
+        "id" : "51"
+      }, {
+        "id" : "52"
+      }, {
+        "id" : "53"
+      }, {
+        "id" : "57"
+      }, {
+        "id" : "61",
+        "vertices" : [ {
+          "x" : 1936,
+          "y" : 660
+        }, {
+          "x" : 2802,
+          "y" : 660
+        } ]
+      }, {
+        "id" : "64"
+      } ],
+      "softwareSystemId" : "5"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "BottomTop",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 2000,
+        "width" : 1600
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 250,
+        "y" : 1365
+      }, {
+        "id" : "2",
+        "x" : 950,
+        "y" : 1365
+      }, {
+        "id" : "3",
+        "x" : 200,
+        "y" : 165
+      }, {
+        "id" : "4",
+        "x" : 950,
+        "y" : 165
+      }, {
+        "id" : "5",
+        "x" : 575,
+        "y" : 765
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "31"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "37"
+      }, {
+        "id" : "39"
+      } ],
+      "softwareSystemId" : "5"
+    } ]
+  }
+}
