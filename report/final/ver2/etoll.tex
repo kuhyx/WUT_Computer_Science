@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\usepackage[left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -25,60 +26,14 @@
     pdfkeywords={e-Toll, wymagania, architektura, system}
 }
 
-\title{System e-Toll}
-\author{Dokumentacja systemu do zbierania danych na temat ruchu pojazdów\\po polskich drogach i naliczania należności za przejazdy}
+\title{System e-Toll \\
+\large Dokumentacja systemu do zbierania danych na temat ruchu pojazdów\\po polskich drogach i naliczania należności za przejazdy}
+\author{Dawid Budzyński, Filip Budzyński \\ Artur Romaniuk, Krzysztof Rudnicki, Jakub Woźniak}
 \date{\today}
 
 \begin{document}
 
 \maketitle
-
-\begin{center}
-\url{https://github.com/Artur-Romaniuk/ais}\\
-\url{https://www.overleaf.com/project/67e843e5c78b52b01a88211a}
-\end{center}
-
-\section*{Wstęp}
-System e-Toll do zbierania danych na temat ruchu pojazdów po polskich drogach i naliczania należności za przejazdy.
-
-\section*{Zakres dokumentu}
-Rezultatem projektu powinien być dokument PDF, zawierający następujące elementy:
-
-\begin{enumerate}
-    \item Wymagania funkcjonalne.
-    \begin{itemize}
-        \item pogrupowana lista wymagań
-        \item zidentyfikować jeden kluczowy proces biznesowy i szczegółowo ten proces zdefiniować. Definicja procesu to po prostu:
-        \begin{itemize}
-            \item cel procesu
-            \item stan początkowy
-            \item stan końcowy
-            \item kroki procesu, z uwzględnieniem sytuacji wyjątkowych.
-        \end{itemize}
-    \end{itemize}
-    
-    \item Wymagania niefunkcjonalne.
-    \begin{itemize}
-        \item geograficzna skala działania
-        \item liczba obsługiwanych klientów
-        \item liczba obsługiwanych zdarzeń biznesowych w określonym czasie (na godzinę/dziennie/miesięcznie etc.)
-        \item wymagania wydajnościowe
-        \item wymagania niezawodnościowe
-        \item wymagania bezpieczeństwa
-        \item ...
-    \end{itemize}
-    
-    \item Projekt systemu w postaci modelu C4 (\url{https://c4model.com/})
-    \begin{itemize}
-        \item wystarczą 3 pierwsze poziomy: context, containers, components, nie wymagam poziomu code
-        \item diagram dynamiczny (dynamic diagram) realizujący opisany w wymaganiach proces biznesowy
-        \item diagram wdrożenia (deployment diagram)
-    \end{itemize}
-    
-    \item Dyskusja zastosowanych wzorców i/lub taktyk architektonicznych - w celu wyboru odpowiednich rozwiązań należy się odwołać do wymagań funkcjonalnych i niefunkcjonalnych.
-    
-    \item Decyzje architektoniczne w postaci modelu MAD 2.0
-\end{enumerate}
 
 \section{Wymagania funkcjonalne}
 
@@ -202,9 +157,9 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \section{Decyzje architektoniczne}
 
 \subsection{Podział na warstwy}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{organizacja_aplikacji_serwerowej.png}
+\includegraphics[width=0.8\textwidth]{wybor_architektury.png}
 \caption{Diagram podziału na warstwy}
 \label{fig:layers}
 \end{figure}
@@ -235,9 +190,9 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \end{itemize}
 
 \subsection{Modularność i komponenty (Component-based Design)}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{dostep_do_systemu.png}
+\includegraphics[width=0.8\textwidth]{organizacja_aplikacji_serwerowej.png}
 \caption{Diagram komponentów}
 \label{fig:components}
 \end{figure}
@@ -266,7 +221,7 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \end{itemize}
 
 \subsection{Wielokanałowy dostęp (Multi-Platform Clients)}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{dostep_do_systemu.png}
 \caption{Diagram wielokanałowego dostępu}
@@ -296,7 +251,7 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \end{itemize}
 
 \subsection{Rozdzielenie ról i uprawnień}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{uprawnienia_dla_uzytkownikow.png}
 \caption{Diagram ról i uprawnień}
@@ -325,7 +280,7 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \end{itemize}
 
 \subsection{Integracja z zewnętrznymi systemami}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{realizacja_obslugi_platnosci_i_archiwizacji_danych.png}
 \caption{Diagram integracji z systemami zewnętrznymi}
@@ -354,9 +309,9 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \end{itemize}
 
 \subsection{Wysoka dostępność i odporność na awarie}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{zapewnienie_dosepnosci_i_odpornosci_na_awarie.png}
+\includegraphics[width=0.8\textwidth]{zapewnienie_dostepnosci_i_odpornosci_na_awarie.png}
 \caption{Diagram wysokiej dostępności}
 \label{fig:high-availability}
 \end{figure}
@@ -384,7 +339,7 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \end{itemize}
 
 \subsection{Wybór technologii wdrożeniowych}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{wybor_technologii_wdrozeniowej.png}
 \caption{Diagram technologii wdrożeniowych}
@@ -415,4 +370,29 @@ Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie fi
 \item Potencjalne wyższe koszty początkowe
 \end{itemize}
 
+\section{Projekt systemu w postaci modelu C4}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{c4/etoll.png}
+    \caption{Poziom context}
+    \label{fig:deployment-tech}
+    \end{figure}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{c4/component_server_app.png}
+    \caption{Poziom component}
+    \label{fig:deployment-tech}
+    \end{figure}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{c4/etool_glebiej.png}
+    \caption{Diagram dynamiczny}
+    \label{fig:deployment-tech}
+    \end{figure}
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{c4/deployment.png}
+    \caption{Diagram technologii wdrożeniowych}
+    \label{fig:deployment-tech}
+    \end{figure}
 \end{document}
