@@ -1,0 +1,236 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage{amsmath, amssymb, amsthm} % For math symbols and theorems
+\usepackage{graphicx} % For including images
+\usepackage{hyperref} % For hyperlinks
+\usepackage{geometry} % Page layout
+\usepackage{fancyhdr} % Header and footer
+\usepackage{listings} % Code listings
+\usepackage{xcolor} % Colors for code
+\usepackage{biblatex} % References
+\usepackage{float} % Dodaj na początku dokumentu
+\usepackage{polski} % Obsługa języka polskiego
+\addbibresource{references.bib}
+
+% Page Setup
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\lhead{Small Documentation}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Code Formatting
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    frame=single
+}
+
+% Theorem, Definition, and Example Styles
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+
+\begin{document}
+
+% Title Page
+\title{AIS \\ Projekt}
+\author{Jakub Woźniak 318745 \\ Filip Budzyński 319021 \\}
+\date{\small \today}
+\maketitle
+
+\begin{abstract}
+Projekt opiera sie...
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Wymagania funkcjonalne}
+
+\subsection{Pogrupowana lista wymagań}
+
+\begin{itemize}
+  \item \textbf{Rejestracja i zarządzanie kontem}
+  \begin{itemize}
+    \item Rejestracja konta użytkownika (indywidualnego lub firmowego)
+    \item Dodawanie pojazdów i przypisywanie urządzeń lokalizacyjnych
+    \item Zarządzanie danymi użytkownika
+  \end{itemize}
+
+  \item \textbf{Monitoring pojazdów}
+  \begin{itemize}
+    \item Odbieranie danych GPS w czasie rzeczywistym
+    \item Identyfikacja płatnych odcinków
+    \item Obsługa przerw w sygnale
+  \end{itemize}
+
+  \item \textbf{Naliczanie opłat}
+  \begin{itemize}
+    \item Analiza przejazdu i naliczanie opłaty
+    \item Uwzględnianie kategorii pojazdu, pory dnia, długości trasy
+    \item Obsługa taryf i zniżek
+  \end{itemize}
+
+  \item \textbf{Płatności i fakturowanie}
+  \begin{itemize}
+    \item Doładowanie konta
+    \item Historia opłat i przejazdów
+    \item Generowanie faktur
+  \end{itemize}
+
+  \item \textbf{Obsługa wyjątków}
+  \begin{itemize}
+    \item Brak sygnału GPS – interpolacja pozycji
+    \item Brak środków – powiadomienie i odroczenie płatności
+    \item Korekta błędnych danych, reklamacje
+  \end{itemize}
+\end{itemize}
+
+\subsection{Kluczowy proces biznesowy: Naliczanie opłaty}
+
+\begin{itemize}
+  \item \textbf{Cel:} Naliczenie opłaty za przejazd przez płatny odcinek drogi
+  \item \textbf{Stan początkowy:} System odbiera dane GPS pojazdu
+  \item \textbf{Stan końcowy:} Opłata naliczona i zarejestrowana
+  \item \textbf{Kroki:}
+  \begin{enumerate}
+    \item Odbiór danych GPS
+    \item Detekcja wjazdu/zjazdu z odcinka
+    \item Obliczenie opłaty
+    \item Sprawdzenie środków:
+      \begin{itemize}
+        \item Jeśli są: pobranie opłaty
+        \item Jeśli brak: zapis zobowiązania, notyfikacja
+      \end{itemize}
+    \item Zapis transakcji
+    \item Wystawienie e-faktury
+  \end{enumerate}
+\end{itemize}
+
+\section{Wymagania niefunkcjonalne}
+
+\begin{itemize}
+  \item \textbf{Skala działania:} Polska, z możliwością rozszerzenia na UE
+  \item \textbf{Liczba klientów:} do 7 milionów aktywnych użytkowników
+  \item \textbf{Zdarzenia biznesowe:}
+  \begin{itemize}
+    \item 5 mln przejazdów dziennie
+    \item 200 tys. opłat/h
+    \item 10 tys. zapytań/min
+  \end{itemize}
+  \item \textbf{Wydajność:} <1s latencji, \textless 200 ms API
+  \item \textbf{Niezawodność:} SLA 99.95\%, redundancja
+  \item \textbf{Bezpieczeństwo:}
+  \begin{itemize}
+    \item TLS, MFA, role
+    \item Szyfrowanie danych lokalizacyjnych
+    \item Zgodność z RODO
+  \end{itemize}
+\end{itemize}
+
+\section{Model C4}
+
+\begin{itemize}
+  \item \textbf{Poziom 1:} Kontekst – użytkownicy, systemy zewnętrzne, urządzenia
+  \item \textbf{Poziom 2:} Kontenery – frontend, backend, baza, billing
+  \item \textbf{Poziom 3:} Komponenty – mikroserwisy: płatności, GPS, billing, notyfikacje
+\end{itemize}
+
+\section{Diagramy}
+
+\begin{itemize}
+  \item \textbf{Diagram dynamiczny:} Proces naliczania opłaty
+  \item \textbf{Diagram wdrożenia:} Kubernetes, CDN, bazy danych, load balancer
+\end{itemize}
+
+\section{Zastosowane wzorce i taktyki}
+
+\begin{itemize}
+  \item CQRS – oddzielenie zapisu i odczytu
+  \item Event-Driven Architecture – system oparty na zdarzeniach
+  \item Saga Pattern – do obsługi błędów i retry
+  \item Service Mesh – np. Istio
+  \item Cache Aside – Redis dla odczytów
+  \item Sharding danych lokalizacyjnych
+\end{itemize}
+
+\section{Model MAD 2.0 – decyzje architektoniczne}
+
+\begin{tabular}{|p{4cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Decyzja} & \textbf{Alternatywy} & \textbf{Uzasadnienie} \\
+\hline
+Architektura mikroserwisowa & Monolit & Skalowalność i niezależny rozwój komponentów \\
+\hline
+TimescaleDB & MongoDB, Cassandra & Dane czasowo-lokalizacyjne w zoptymalizowany sposób \\
+\hline
+gRPC do komunikacji & REST & Wydajność, binarny format, mniejsze opóźnienia \\
+\hline
+Kafka jako event broker & RabbitMQ & Lepsza wydajność dla dużych wolumenów danych \\
+\hline
+Kubernetes & VM & Skalowalność, automatyzacja, dostępność \\
+\hline
+\end{tabular}
+
+% ===============
+% MODELE MAD 2.0
+% ===============
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-wybor-architektury.png}
+	\caption{Model MAD 2.0 dla decyzji wyboru architektury systemu.}
+    \label{fig:csr}
+\end{figure}
+
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-organizacja-aplikacji-serwerowej.png}
+	\caption{Model MAD 2.0 dla decyzji organizacji aplikacji serwerowej.}
+    \label{fig:csr}
+\end{figure}
+
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-dostep-do-systemu.png}
+	\caption{Model MAD 2.0 dla decyzji dostępu do systemu.}
+    \label{fig:csr}
+\end{figure}
+
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-uprawniania-uzytkownikow.png}
+	\caption{Model MAD 2.0 dla decyzji o uprawnianiach dla użytkowników.}
+    \label{fig:csr}
+\end{figure}
+
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-obsluga-platnosci-archiwizacja-danych.png}
+	\caption{Model MAD 2.0 dla decyzji o realizacji obsługi płatności i archiwizacji danych.}
+    \label{fig:csr}
+\end{figure}
+
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-zapewnienie-dostepnosci.png}
+	\caption{Model MAD 2.0 dla decyzji zapewnienia dostępności i odporności na awarie.}
+    \label{fig:csr}
+\end{figure}
+
+\begin{figure}[h]
+	\centering \includegraphics[width=0.8\textwidth]{mad/mad2-wybor-tech-wdrozeniowej.png}
+	\caption{Model MAD 2.0 dla decyzji wyboru technologii wdrożeniowej.}
+    \label{fig:csr}
+\end{figure}
+
+
+
+
+\end{document}
+
+
+\printbibliography
+
+\end{document}
