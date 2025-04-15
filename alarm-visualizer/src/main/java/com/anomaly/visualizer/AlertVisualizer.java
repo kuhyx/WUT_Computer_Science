@@ -267,7 +267,7 @@ public class AlertVisualizer {
             dialog.setVisible(true);
             
             // Auto-dismiss after 5 seconds
-            Timer timer = new Timer(5000, e -> dialog.dispose());
+            javax.swing.Timer timer = new javax.swing.Timer(5000, e -> dialog.dispose());
             timer.setRepeats(false);
             timer.start();
         });

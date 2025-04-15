@@ -2,32 +2,32 @@ package com.anomaly.model;
 
 import java.time.Instant;
 
-/**
- * Represents an alert generated when an anomaly is detected in a transaction.
- */
 public class TransactionAlert {
     private String alertType;
+    private Instant alertTime;
+    private Instant timestamp;
     private String cardId;
     private String userId;
     private double amount;
     private double latitude;
     private double longitude;
-    private Instant timestamp;
     private String message;
 
+    // Default constructor for Gson deserialization
     public TransactionAlert() {
     }
-
-    public TransactionAlert(String alertType, String cardId, String userId, 
-                           double amount, double latitude, double longitude, 
-                           Instant timestamp, String message) {
+    
+    public TransactionAlert(String alertType, Instant alertTime, Instant timestamp, 
+                           String cardId, String userId, double amount, 
+                           double latitude, double longitude, String message) {
         this.alertType = alertType;
+        this.alertTime = alertTime;
+        this.timestamp = timestamp;
         this.cardId = cardId;
         this.userId = userId;
         this.amount = amount;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.timestamp = timestamp;
         this.message = message;
     }
 
@@ -38,6 +38,22 @@ public class TransactionAlert {
 
     public void setAlertType(String alertType) {
         this.alertType = alertType;
+    }
+
+    public Instant getAlertTime() {
+        return alertTime;
+    }
+
+    public void setAlertTime(Instant alertTime) {
+        this.alertTime = alertTime;
+    }
+
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getCardId() {
@@ -80,33 +96,11 @@ public class TransactionAlert {
         this.longitude = longitude;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    @Override
-    public String toString() {
-        return "TransactionAlert{" +
-                "alertType='" + alertType + '\'' +
-                ", cardId='" + cardId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", amount=" + amount +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", timestamp=" + timestamp +
-                ", message='" + message + '\'' +
-                '}';
     }
 }
