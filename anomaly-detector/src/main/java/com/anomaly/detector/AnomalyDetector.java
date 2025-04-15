@@ -5,14 +5,17 @@ import com.anomaly.model.TransactionAlert;
 import com.google.gson.Gson;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
+import org.apache.flink.connector.base.DeliveryGuarantee;
+import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
+import org.apache.flink.connector.kafka.sink.KafkaSink;
+import org.apache.flink.connector.kafka.source.KafkaSource;
+import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 import org.apache.flink.util.Collector;
 
 import java.util.*;
@@ -29,21 +32,18 @@ public class AnomalyDetector {
         // Set up the execution environment
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        // Configure Kafka consumer
-        Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", BOOTSTRAP_SERVERS);
-        properties.setProperty("group.id", "anomaly-detector");
-
-        // Create Kafka consumer
-        FlinkKafkaConsumer<String> consumer = new FlinkKafkaConsumer<>(
-                INPUT_TOPIC,
-                new SimpleStringSchema(),
-                properties
-        );
+        // Create Kafka source to replace deprecated FlinkKafkaConsumer
+        KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
+                .setBootstrapServers(BOOTSTRAP_SERVERS)
+                .setTopics(INPUT_TOPIC)
+                .setGroupId("anomaly-detector")
+                .setStartingOffsets(OffsetsInitializer.earliest())
+                .setValueOnlyDeserializer(new SimpleStringSchema())
+                .build();
 
         // Parse JSON transactions
         DataStream<Transaction> transactionStream = env
-                .addSource(consumer)
+                .fromSource(kafkaSource, org.apache.flink.api.common.eventtime.WatermarkStrategy.noWatermarks(), "Kafka Source")
                 .map(new MapFunction<String, Transaction>() {
                     @Override
                     public Transaction map(String value) throws Exception {
@@ -74,14 +74,20 @@ public class AnomalyDetector {
         DataStream<TransactionAlert> allAlerts = amountAlerts
                 .union(locationAlerts, frequencyAlerts);
 
+        // Create KafkaSink to replace deprecated FlinkKafkaProducer
+        KafkaSink<String> kafkaSink = KafkaSink.<String>builder()
+                .setBootstrapServers(BOOTSTRAP_SERVERS)
+                .setRecordSerializer(KafkaRecordSerializationSchema.builder()
+                        .setTopic(OUTPUT_TOPIC)
+                        .setValueSerializationSchema(new SimpleStringSchema())
+                        .build())
+                .setDeliverGuarantee(DeliveryGuarantee.AT_LEAST_ONCE)
+                .build();
+
         // Convert alerts to JSON and send to Kafka
         allAlerts
                 .map(alert -> gson.toJson(alert))
-                .addSink(new FlinkKafkaProducer<>(
-                        OUTPUT_TOPIC,
-                        new SimpleStringSchema(),
-                        properties
-                ));
+                .sinkTo(kafkaSink);
 
         // Execute the Flink job
         env.execute("Credit Card Transaction Anomaly Detection");

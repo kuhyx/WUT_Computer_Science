@@ -3,9 +3,15 @@ package com.anomaly.producer;
 import com.anomaly.generator.TransactionGenerator;
 import com.anomaly.model.Transaction;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.io.IOException;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,7 +21,21 @@ public class TransactionProducer {
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String TOPIC_NAME = "transactions";
     private static final TransactionGenerator generator = new TransactionGenerator();
-    private static final Gson gson = new Gson();
+
+    // Replace simple Gson with a properly configured instance
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Instant.class, new TypeAdapter<Instant>() {
+                @Override
+                public void write(JsonWriter out, Instant value) throws IOException {
+                    out.value(value != null ? value.toString() : null);
+                }
+
+                @Override
+                public Instant read(JsonReader in) throws IOException {
+                    return Instant.parse(in.nextString());
+                }
+            })
+            .create();
 
     public static void main(String[] args) {
         // Create producer properties
