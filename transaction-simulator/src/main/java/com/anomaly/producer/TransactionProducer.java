@@ -5,15 +5,13 @@ import com.anomaly.model.Transaction;
 import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TransactionProducer {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionProducer.class);
+    //private static final Logger logger = LoggerFactory.getLogger(TransactionProducer.class);
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String TOPIC_NAME = "transactions";
     private static final TransactionGenerator generator = new TransactionGenerator();
@@ -31,10 +29,10 @@ public class TransactionProducer {
 
         // Add shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.info("Shutting down producer...");
+            //logger.info("Shutting down producer...");
             producer.flush();
             producer.close();
-            logger.info("Producer closed");
+            //logger.info("Producer closed");
         }));
 
         // Generate and send transactions
@@ -58,7 +56,7 @@ public class TransactionProducer {
                 Thread.sleep(ThreadLocalRandom.current().nextLong(100, 1000));
             }
         } catch (InterruptedException | ExecutionException e) {
-            logger.error("Error in transaction producer", e);
+            //logger.error("Error in transaction producer", e);
         } finally {
             producer.flush();
             producer.close();
@@ -76,10 +74,10 @@ public class TransactionProducer {
 
         producer.send(record, (metadata, exception) -> {
             if (exception == null) {
-                logger.info("Received metadata: Topic: {}, Partition: {}, Offset: {}, Timestamp: {}",
-                        metadata.topic(), metadata.partition(), metadata.offset(), metadata.timestamp());
+                //logger.info("Received metadata: Topic: {}, Partition: {}, Offset: {}, Timestamp: {}",
+                //        metadata.topic(), metadata.partition(), metadata.offset(), metadata.timestamp());
             } else {
-                logger.error("Error sending message", exception);
+                //logger.error("Error sending message", exception);
             }
         }).get(); // Making it synchronous for demonstration
     }

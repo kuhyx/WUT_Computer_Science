@@ -4,8 +4,8 @@ import com.anomaly.model.TransactionAlert;
 import com.google.gson.Gson;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.List;
 
 public class AlertVisualizer {
-    private static final Logger logger = LoggerFactory.getLogger(AlertVisualizer.class);
+    //private static final Logger logger = LoggerFactory.getLogger(AlertVisualizer.class);
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String GROUP_ID = "alert-visualizer-group";
     private static final String TOPIC = "alerts";
@@ -52,9 +52,9 @@ public class AlertVisualizer {
         
         // Add shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.info("Shutting down alert visualizer...");
+            //logger.info("Shutting down alert visualizer...");
             consumer.close();
-            logger.info("Alert visualizer closed");
+            //logger.info("Alert visualizer closed");
         }));
         
         // Poll for new alerts

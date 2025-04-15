@@ -4,8 +4,6 @@ import com.anomaly.model.Transaction;
 import com.google.gson.Gson;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +12,7 @@ import java.util.*;
 import java.util.List;
 
 public class TransactionConsumer {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionConsumer.class);
+    //private static final Logger logger = LoggerFactory.getLogger(TransactionConsumer.class);
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String GROUP_ID = "transaction-consumer-group";
     private static final String TOPIC = "transactions";
@@ -46,9 +44,9 @@ public class TransactionConsumer {
         
         // Add shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.info("Shutting down consumer...");
+            //logger.info("Shutting down consumer...");
             consumer.close();
-            logger.info("Consumer closed");
+            //logger.info("Consumer closed");
         }));
         
         // Poll for new data
