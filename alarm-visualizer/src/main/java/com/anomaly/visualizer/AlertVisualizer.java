@@ -167,7 +167,9 @@ public class AlertVisualizer {
             
             synchronized (allAlerts) {
                 for (TransactionAlert alert : allAlerts) {
-                    String formattedTime = formatter.format(alert.getAlertTime());
+                    // Add null check for alert time
+                    String formattedTime = alert.getAlertTime() != null ? 
+                        formatter.format(alert.getAlertTime()) : "N/A";
                     tableModel.addRow(new Object[]{
                             formattedTime,
                             alert.getAlertType(),
@@ -187,8 +189,10 @@ public class AlertVisualizer {
             sb.append("ALERT DETAILS\n");
             sb.append("============================================\n\n");
             sb.append("Alert Type: ").append(alert.getAlertType()).append("\n");
-            sb.append("Alert Time: ").append(formatter.format(alert.getAlertTime())).append("\n");
-            sb.append("Transaction Time: ").append(formatter.format(alert.getTimestamp())).append("\n\n");
+            sb.append("Alert Time: ").append(alert.getAlertTime() != null ? 
+                formatter.format(alert.getAlertTime()) : "N/A").append("\n");
+            sb.append("Transaction Time: ").append(alert.getTimestamp() != null ? 
+                formatter.format(alert.getTimestamp()) : "N/A").append("\n\n");
             sb.append("Card ID: ").append(alert.getCardId()).append("\n");
             sb.append("User ID: ").append(alert.getUserId()).append("\n");
             sb.append("Transaction Amount: $").append(String.format("%.2f", alert.getAmount())).append("\n\n");
