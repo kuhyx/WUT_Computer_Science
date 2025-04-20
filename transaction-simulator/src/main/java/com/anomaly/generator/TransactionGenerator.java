@@ -21,7 +21,7 @@ public class TransactionGenerator {
     private static final int ANOMALY_FREQUENCY = 3;
     
     // Probability of generating an anomaly (1%)
-    private static final double ANOMALY_PROBABILITY = 0.01;
+    private static final double ANOMALY_PROBABILITY = 0.5;
     
     // Initialize card and user data
     static {

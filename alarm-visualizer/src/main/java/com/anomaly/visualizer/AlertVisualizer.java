@@ -2,6 +2,11 @@ package com.anomaly.visualizer;
 
 import com.anomaly.model.TransactionAlert;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
 //import org.slf4j.Logger;
@@ -10,6 +15,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -22,7 +28,11 @@ public class AlertVisualizer {
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String GROUP_ID = "alert-visualizer-group";
     private static final String TOPIC = "alerts";
-    private static final Gson gson = new Gson();
+    
+    // Custom Gson instance with Instant type adapter
+    private static final Gson gson = new GsonBuilder()
+        .registerTypeAdapter(Instant.class, new InstantDeserializer())
+        .create();
     
     // UI Components
     private static JFrame frame;
@@ -32,6 +42,21 @@ public class AlertVisualizer {
     private static final List<TransactionAlert> allAlerts = new ArrayList<>();
     private static final DateTimeFormatter formatter = 
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+    
+    // Custom deserializer for Instant
+    private static class InstantDeserializer implements JsonDeserializer<Instant> {
+        @Override
+        public Instant deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) 
+            throws JsonParseException {
+            try {
+                // Try parsing as long (epoch milliseconds)
+                return Instant.ofEpochMilli(json.getAsLong());
+            } catch (NumberFormatException e) {
+                // Try parsing as ISO-8601 string
+                return Instant.parse(json.getAsString());
+            }
+        }
+    }
     
     public static void main(String[] args) {
         setupUI();
