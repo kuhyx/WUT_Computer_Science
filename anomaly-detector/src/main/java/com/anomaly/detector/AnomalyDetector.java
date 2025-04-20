@@ -3,6 +3,10 @@ package com.anomaly.detector;
 import com.anomaly.model.Transaction;
 import com.anomaly.model.TransactionAlert;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.connector.base.DeliveryGuarantee;
@@ -20,13 +24,35 @@ import org.apache.flink.util.Collector;
 
 import java.util.*;
 import java.time.Instant;
+import java.io.IOException;
 
 public class AnomalyDetector {
 
     private static final String INPUT_TOPIC = "transactions";
     private static final String OUTPUT_TOPIC = "alerts";
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
-    private static final Gson gson = new Gson();
+
+    // Replace the simple Gson initialization with a configured one
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+            .create();
+
+    // Add a custom TypeAdapter for Instant
+    private static class InstantTypeAdapter extends TypeAdapter<Instant> {
+        @Override
+        public void write(JsonWriter out, Instant value) throws IOException {
+            if (value == null) {
+                out.nullValue();
+            } else {
+                out.value(value.toString());
+            }
+        }
+
+        @Override
+        public Instant read(JsonReader in) throws IOException {
+            return Instant.parse(in.nextString());
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         // Set up the execution environment

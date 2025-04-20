@@ -34,28 +34,28 @@ echo "Starting all applications..."
 # Start Flink job (Anomaly Detector)
 echo "Starting Anomaly Detector..."
 cd anomaly-detector
-java -jar target/anomaly-detector-1.0-SNAPSHOT.jar &
+java --add-opens java.base/java.time=ALL-UNNAMED -jar target/anomaly-detector-1.0-SNAPSHOT.jar &
 ANOMALY_PID=$!
 cd ..
 
 # Start Alert Visualizer
 echo "Starting Alert Visualizer..."
 cd alarm-visualizer
-java -jar target/alarm-visualizer-1.0-SNAPSHOT.jar &
+java --add-opens java.base/java.time=ALL-UNNAMED -jar target/alarm-visualizer-1.0-SNAPSHOT.jar &
 ALARM_PID=$!
 cd ..
 
 # Start Transaction Consumer/Visualizer
 echo "Starting Transaction Consumer..."
 cd kafka-consumer-visualizer
-java -jar target/kafka-consumer-visualizer-1.0-SNAPSHOT.jar &
+java --add-opens java.base/java.time=ALL-UNNAMED -jar target/kafka-consumer-visualizer-1.0-SNAPSHOT.jar &
 CONSUMER_PID=$!
 cd ..
 
 # Start Transaction Producer last
 echo "Starting Transaction Producer..."
 cd transaction-simulator
-java -jar target/transaction-simulator-1.0-SNAPSHOT.jar &
+java --add-opens java.base/java.time=ALL-UNNAMED -jar target/transaction-simulator-1.0-SNAPSHOT.jar &
 PRODUCER_PID=$!
 cd ..
 
