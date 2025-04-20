@@ -1,0 +1,7 @@
+Ocenione na 80/100
+
+Uwagi:
+- brak wstêpu teoretycznego
+- brak udowodnienia, ¿e mo¿na u¿yæ wartoœci oczekiwanej w zadaniu 1-wszym - E(R) = E(R1) + E(R2)
+- b³¹d na wykresie z obrazem rozwi¹zañ - pojawiaj¹ siê rozwi¹zania zdominowane! - mo¿e sugerowaæ b³¹d w implementacji
+- brak odniesienia do przypadku ogólnego i omówienia wyninku w badaniu dominacji stohastycznej
