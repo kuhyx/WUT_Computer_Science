@@ -11,7 +11,7 @@ lower_bound = 5
 upper_bound = 12
 
 # Generate scenarios
-data <- rtmvt(n=10000, mean=mu, sigma=sigma, df=5, lower=rep(lower_bound, 4), upper=rep(upper_bound, 4))
+data <- rtmvt(n=10000, mean=Mu, sigma=Sigma, df=5, lower=rep(lower_bound, 4), upper=rep(upper_bound, 4))
 write.table(format(data, digits=15, drop0trailing=F), "data10000.txt", quote=F, sep="\t", eol="\n\t", col.names = F, row.names = T)
 mean <- colMeans(data)
 
