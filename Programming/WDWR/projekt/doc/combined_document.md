@@ -468,7 +468,7 @@ Listing 1: Skrypt w języku *R* do obliczania wartości oczekiwanej wektora *R* 
 ```
 załączniku.
 1 # ##########################################################
-2 # WDWR 18042 #
+2 # WDWR 25406 #
 3 # Planowanie produkcj w warunkach ryzyka. #
 4 # DANE #
 5 # Autor : Jan Kumor #

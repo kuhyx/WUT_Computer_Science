@@ -1,5 +1,5 @@
 ###########################################################
-# WDWR 18042                                              #
+# WDWR 25406                                              #
 # Planowanie produkcj w warunkach ryzyka.                 #
 # MODEL                                                   #
 # Autor: Krzysztof Rudnicki                                        #

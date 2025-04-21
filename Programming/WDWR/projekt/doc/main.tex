@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[polish]{babel} 
 \usepackage{amsmath,amssymb}
@@ -7,6 +7,8 @@
 \usepackage{hyperref}
 \usepackage{longtable}
 \usepackage{enumitem}
+\usepackage{float}
+\usepackage{minted}
 
 \title{WDWR, sprawozdanie}
 \author{Krzysztof Rudnicki, 307585}
@@ -15,53 +17,23 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
 
-\section*{Spis treści}
-\begin{longtable}{|c|l|c|}
-\hline
-1 & Treść zadania & 2 \\
-\hline
-2 & Jednokryterialny model wyboru w warunkach ryzyka z wartością oczekiwaną jako miarą & 3 \\
-  & zysku & \\
-  & 2.1 Zbiory indeksowe & 3 \\
-  & 2.2 Parametry & 3 \\
-  & 2.3 Zmienne & 4 \\
-  & 2.4 Ograniczenia & 4 \\
-  & 2.5 Funkcja celu & 4 \\
-\hline
-3 & Dwukryterialny model zysku i ryzyka z wartoscią oczekiwaną jako miarą zysku i od & 5 \\
-  & chyleniem maksymalnym jako miarą ryzyka & \\
-  & 3.1 Zbiory indeksowe & 5 \\
-  & 3.2 Parametry & 5 \\
-  & 3.3 Zmienne & 5 \\
-  & 3.4 Ograniczenia & 5 \\
-  & 3.5 Metoda punktu odniesienia & 6 \\
-\hline
-4 & Wyznaczenie parametrów zadania z rozkładu t-Studenta & 6 \\
-\hline
-5 & Model dla programu AMPL & 8 \\
-  & 5.1 Plik z modelem (.mod) & 8 \\
-  & 5.2 Plik z danymi (.dat) & 11 \\
-  & 5.3 Skrypty uruchomieniowe (.run) & 14 \\
-\hline
-6 & Rozwiązanie zadania optymalizacji & 16 \\
-  & 6.1 Wyniki dla modelu jednokryterialnego & 16 \\
-  & 6.2 Wyniki dla modelu dwukryterialnego & 19 \\
-  & 6.2.1 Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk & 19 \\
-  & 6.2.2 Analiza relacji dominacji stochastycznej dla trzech wybranych rozwiązań efek & 21 \\
-  & tywnych & \\
-\hline
-\end{longtable}
-
-\section*{WDWR 18402}
+\section*{WDWR 25406}
 
 Rozważamy następujące zagadnienie planowania produkcji:
 
 \begin{itemize}
-\item Przedsiębiorstwo wytwarza 4 produkty P1, \ldots, P4 na następujących maszynach: 4 szlifierkach, 2 wiertarkach pionowych, 3 wiertarkach poziomych, 1 frezarce i 1 tokarce. Wymagane czasy produkcji 1 sztuki produktu (w godzinach) w danym procesie obróbki zostały przedstawione w poniższej tabeli:
+\item Przedsiębiorstwo wytwarza 4 produkty P1, 
+\ldots, P4 na następujących maszynach: 
+4 szlifierkach, 2 wiertarkach pionowych, 
+3 wiertarkach poziomych, 1 frezarce i 1 tokarce. 
+Wymagane czasy produkcji 1 sztuki produktu (w godzinach) 
+w danym procesie obróbki zostały przedstawione w poniższej 
+tabeli:
 \end{itemize}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|c|c|c|c|}
 \hline
@@ -81,7 +53,14 @@ Toczenie          & —    & 0,05 & 0,02 & —    \\
 \end{table}
 
 \begin{itemize}
-\item Dochody ze sprzedaży produktów (w zł/sztukę) określają składowe wektora losowego \textbf{R} = ($R_1, \ldots, R_4$)$^T$. Wektor losowy \textbf{R} opisuje 4-wymiarowy rozkład $t$-Studenta z 5 stopniami swobody, którego wartości składowych zostały zawężone do przedziału [5; 12]. Parametry $\mu$ oraz $\mathbf{\Sigma}$ niezawężonego rozkładu $t$-Studenta są następujące:
+\item Dochody ze sprzedaży produktów (w zł/sztukę) 
+modelują składowe wektora losowego 
+\textbf{R} = ($R_1, \ldots, R_4$)$^T$. 
+Wektor losowy \textbf{R} opisuje 4-wymiarowy rozkład 
+$t$-Studenta z 5 stopniami swobody, 
+którego wartości składowych zostały zawężone do przedziału 
+[5; 12]. Parametry $\mu$ oraz $\mathbf{\Sigma}$ 
+niezawężonego rozkładu $t$-Studenta są następujące:
 
 $$
 \mu = \begin{pmatrix} 9 \\ 8 \\ 7 \\ 6 \end{pmatrix}, \qquad \Sigma = \begin{pmatrix} 16 & -2 & -1 & -3 \\ -2 & 9 & -4 & -1 \\ -1 & -4 & 4 & 1 \\ -3 & -1 & 1 & 1 \end{pmatrix}.
@@ -92,7 +71,7 @@ $$
 \item Istnieją ograniczenia rynkowe na liczbę sprzedawanych produktów w danym miesiącu:
 \end{itemize}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|c|c|c|c|}
 \hline
@@ -108,11 +87,12 @@ Marzec  & 0   & 300 & 100 & 200 \\
 \end{table}
 
 \begin{itemize}
-\item Jeżeli w danym miesiącu jest sprzedawany produkt P1 lub P2, to musi być również sprzedawany produkt P4 w ilości nie mniejszej niż suma sprzedawanych produktów P1 i P2.
+\item Jeżeli sprzedaż danego produktu przekracza 80 procent ilości jaką może wchłonąć rynek, jego
+dochód spada o 20 procent.
 \item Istnieje możliwość składowania do 200 sztuk każdego produktu w danym czasie w cenie 1 zł/sztukę za miesiąc. Aktualnie firma nie posiada żadnych zapasów, ale jest pożądane mieć po 50 sztuk każdego produktu pod koniec marca.
 \item Przedsiębiorstwo pracuje 6 dni w tygodniu w systemie dwóch zmian. Każda zmiana trwa 8 godzin. Można założyć, że każdy miesiąc składa się z 24 dni roboczych.
 \item 1. Zaproponować jednokryterialny model wyboru w warunkach ryzyka z wartością oczekiwaną jako miarą zysku. Wyznaczyć rozwiązanie optymalne.
-\item 2. Jako rozszerzenie powyższego zaproponować dwukryterialny model zysku i ryzyka z wartością oczekiwaną jako miarą zysku i odchyleniem maksymalnym jako miarą ryzyka. Dla decyzji $\mathbf{x} \in Q$ odchylenie maksymalne jest definiowane jako $D(\mathbf{x}) = \max_{t=1,...,T} |\mu(\mathbf{x}) - r_t(\mathbf{x})|$, gdzie $\mu(\mathbf{x})$ oznacza wartość oczekiwaną, $r_t(\mathbf{x})$ realizację dla scenariusza $t$.
+\item 2. Jako rozszerzenie powyższego zaproponować dwukryterialny model zysku i ryzyka z wartością średnią jako miarą zysku i średnią różnicą Giniego jako miarą ryzyka. Dla decyzji $\mathbf{x} \in Q$ średnia różnica Giniego jest definiowana jako $\Gamma(\mathbf{x}) = \frac{1}{2} \sum_{t'=1}^{T} \sum_{t''=1}^{T} |r^{t'}(\mathbf{x}) - r^{t''}(\mathbf{x})|p^{t'}p^{t''}$, gdzie $r^t(\mathbf{x})$ oznacza realizację dla scenariusza $t$, $p^t$ prawdopodobieństwo scenariusza $t$.
     \begin{itemize}
     \item a. Wyznaczyć obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko–zysk.
     \item b. Wskazać rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku. Jakie odpowiadają im wartości w przestrzeni ryzyko–zysk?
@@ -126,7 +106,7 @@ W celu rozwiązania postawionego zadania dokonano sformułowania modelu programo
 
 \subsection{Zbiory indeksowe}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|}
 \hline
@@ -143,7 +123,7 @@ M = M1, M2, M3 & Zbiór kolejnych miesięcy produkcji \\
 
 \subsection{Parametry}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|p{10cm}|}
 \hline
@@ -180,7 +160,8 @@ $att_t = tc_t \cdot whp_m$ & Dostępna liczba godzin roboczych maszyn typu $t$ w
 
 \subsection{Zmienne}
 
-\begin{table}[h!]
+\renewcommand{\arraystretch}{1.5} % Increase row height
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|p{10cm}|}
 \hline
@@ -194,16 +175,21 @@ $ts_p = \sum_{m \in M} s_{mp}$ & Całkowita liczba sprzedanych sztuk produktu $p
 \hline
 $std_{mp} = p_{mp} - s_{mp}$ & Liczba sztuk produktu $p$ zmagazynowanych w miesiącu $m$ [szt] \\
 \hline
-$stg_{mp} = st0_p + \sum_{m2=1}^{m} std_{m2p}$ & Stan magazynowy produktu $p$ na koniec miesiąca $m$ [szt] \\
+$stg_{mp} = st0_p + \sum\limits_{m2=1}^{m} std_{m2p}$ & Stan magazynowy produktu $p$ na koniec miesiąca $m$ [szt] \\
 \hline
-$uttm_t = \sum_{p \in P} p_{mp} \cdot ttpu_{tp}$ & Wykorzystanie czasu pracy maszyny typu $t$ w miesiącu $m$ [godz] \\
+$uttm_t = \sum\limits_{p \in P} p_{mp} \cdot ttpu_{tp}$ & Wykorzystanie czasu pracy maszyny typu $t$ w miesiącu $m$ [godz] \\
 \hline
-$tstc = stcp_u \cdot \sum_{m \in M} \sum_{p \in P} stg_{mp}$ & Całkowity koszt wykorzystania magazynów [zł] \\
+$tstc = stcp_u \cdot \sum\limits_{m \in M} \sum\limits_{p \in P} stg_{mp}$ & Całkowity koszt wykorzystania magazynów [zł] \\
 \hline
-$ep = \sum_{p \in P} (ts_p \cdot eppu_p) - tstc$ & Wartość zysku całkowitego dla wartości oczekiwanych zysku ze sprzedaży produktów [zł] \\
+$b_{mp}$ & Zmienna binarna określająca czy sprzedaż produktu $p$ w miesiącu $m$ przekracza 80\% limitu rynkowego \\
+\hline
+$eppu_{mp} = eppu_p \cdot (1 - 0.2 \cdot b_{mp})$ & Skorygowany zysk jednostkowy dla produktu $p$ w miesiącu $m$ uwzględniający spadek o 20\% jeśli sprzedaż przekracza 80\% limitu rynkowego [zł] \\
+\hline
+$ep = \sum\limits_{m \in M} \sum\limits_{p \in P} (s_{mp} \cdot eppu_{mp}) - tstc$ & Wartość zysku całkowitego dla wartości oczekiwanych zysku ze sprzedaży produktów [zł] \\
 \hline
 \end{tabular}
 \end{table}
+\renewcommand{\arraystretch}{1} % Reset to default value
 
 \subsection{Ograniczenia}
 
@@ -219,10 +205,6 @@ Ograniczenie sprzedaży produktów w kolejnych miesiącach:
 
 $$s_{mp} \leqslant p_{mp} + stg_{mp}, \quad \forall m \in M \backslash \{1\}$$
 
-Ograniczenie na powiązanie sprzedaży produktu 4 ze sprzedażą produktów 1 i 2:
-
-$s_{m4} > s_{m1} + s_{m2}, \quad \forall m \in M$
-
 Ograniczenie pojemności magazynów:
 
 $$stg_{mp} \leqslant stl_p, \quad \forall p \in P$$
@@ -235,6 +217,14 @@ Ograniczenie wykorzystania czasu pracy narzędzi w danym miesiącu:
 
 $uttm_t \leq att_t, \quad \forall t \in T, \forall m \in M$
 
+Ograniczenie identyfikujące przekroczenie 80\% limitu rynkowego:
+
+$$s_{mp} \leq 0.8 \cdot smlm_p + M \cdot b_{mp}, \quad \forall m \in M, \forall p \in P$$
+
+$$s_{mp} \geq 0.8 \cdot smlm_p - M \cdot (1 - b_{mp}) + \varepsilon, \quad \forall m \in M, \forall p \in P$$
+
+gdzie $M$ jest dostatecznie dużą liczbą, a $\varepsilon$ jest małą liczbą dodatnią.
+
 \subsection{Funkcja celu}
 
 Jako funkcję celu przyjęto maksymalizację wartości oczekiwanej zysku: $maximize \; ep$
@@ -245,7 +235,7 @@ Model ten został zrealizowany jako rozszerzenie modelu jednokryterialnego o dod
 
 \subsection{Zbiory indeksowe}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|}
 \hline
@@ -258,7 +248,7 @@ S = S1, \ldots, S1000 & Zbiór scenariuszy wygenerowanych z rozkładu t-Studenta
 
 \subsection{Parametry}
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|l|}
 \hline
@@ -270,8 +260,8 @@ $sppu_{ps}$ & Zysk ze sprzedaży jednej sztuki produktu $p$ w scenariuszu $s$ [z
 \end{table}
 
 \subsection{Zmienne}
-
-\begin{table}[h!]
+inputminted
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|p{10cm}|}
 \hline
@@ -316,7 +306,7 @@ $$\sum_{s \in S} Z_s = 1$$
 
 Jako model preferencji dla modelu dwukryterialnego została wybrana metoda punktu odniesienia. Wprowadza ona zestaw dodatkowych parametrów i zmiennych:
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|p{10cm}|}
 \hline
@@ -384,230 +374,23 @@ Otrzymano wartości:
 
 $E(R)^T = [8.5094, 8.4710, 8.1319, 6.3944]$
 
-Do obliczenia wartości oczekiwanej oraz wyznaczenia scenariuszy wykorzystano skrypt napisany w języku $R$. Wygenerowano 1000 scenariuszy testowtych. Użyty skrypt przedstawia Listing 1.
+Do obliczenia wartości oczekiwanej oraz wyznaczenia scenariuszy wykorzystano skrypt napisany w języku $R$. Wygenerowano 100 scenariuszy testowtych. Użyty skrypt przedstawia Listing 1.
 
 Listing 1: Skrypt w języku $R$ do obliczania wartości oczekiwanej wektora $R$ i generowania scenariuszy z rozkładu t-Studenta.
 
-\begin{verbatim}
-1 library ( tmvtnorm )
-2
-3 # t- Stutdet parameters
-4 Mu = c(9 , 8 , 7 , 6)
-5 Sigma = matrix (c(16 , -2 , -1 , -3 ,
-6 -2 , 9 , -4 , -1 ,
-7 -1 , -4 , 4 , 1 ,
-8 -3 , -1 , 1 , 1) ,
-9 nrow =4 , ncol =4)
-10 lower _ bound = 5
-11 upper _ bound = 12
-12
-13 # Generate scenarios
-14 data <- rtmvt ( n =10000 , mean = mu , sigma = sigma , df =5 , lower =rep ( lower _←-
-       bound , 4) , upper =rep ( upper _bound , 4) )
-15 write . table ( format (data , digits =15 , drop0trailing = F ) , " data10000 .txt"←-
-       , quote =F , sep ="\t", eol ="\n\t", col . names = F , row . names = T )
-16 mean <- colMeans ( data )
-17
-18 E <- function ( idx , Mu , Sigma , v , alfa , beta ) {
-19 mu = Mu [ idx ]
-20 sigma = Sigma [ idx , idx ]
-21 a = ( alfa - mu )/ sigma
-22 b = ( beta - mu )/ sigma
-23 nom = gamma (( v -1)/2) *
-24 (( v + a ^2) ^( -1*(v -1) /2) -
-25 ( v + b ^2) ^( -1*(v -1)/2) ) *
-26 v ^( v/2)
-27 den = 2 * (pt(b , v ) - pt(a , v ) ) * gamma ( v/2) * gamma (1/2)
-28 return ( mu + sigma *( nom /den ) )
-29 }
-30
-31 ER1 <- E (1 , Mu , Sigma , 5 , 5 , 12)
-32 ER2 <- E (2 , Mu , Sigma , 5 , 5 , 12)
-33 ER3 <- E (3 , Mu , Sigma , 5 , 5 , 12)
-34 ER4 <- E (4 , Mu , Sigma , 5 , 5 , 12)
-\end{verbatim}
-
-\begin{verbatim}
-45
-46 # Aktualny stan magazynowy [szt]
-47 param startingStorage { PRODUCTS } >= 0;
-48
-49 # Pozadany stan magazynowy na koniec symulacji [szt]
-50 param desiredEndStorage { PRODUCTS } >= 0;
-51
-52 # Liczba dni roboczych w miesiacu [d]
-53 param daysPerMonth >= 1;
-54
-55 # Liczba zmian w ciagu jednego dnia roboczego
-56 param shiftsPerDay >= 1;
-57
-58 # Dlugosc zmiany [ godz ]
-59 param hoursPerShift >= 1;
-60
-61 # Liczba roboczogodzin w miesiacu [ godz ]
-62 param workHoursPerMonth = daysPerMonth * shiftsPerDay * hoursPerShift ;
-63
-64 # Czas pracy narzedzi w danym miesiacu
-65 param availableToolTime { t in TOOLS } = toolCount [ t ]* workHoursPerMonth←-
-       ;
-66
-67 # ##########
-68 # Zmienne #
-69 # ##########
-70 # Produkcja produktow
-71 var produced { MONTHS , PRODUCTS } >= 0 integer ;
-72
-73 # Sprzedaz produktow w danym miesiacu
-74 var sold { MONTHS , PRODUCTS } >= 0 integer ;
-75 var totalSold { p in PRODUCTS } = sum { m in MONTHS } sold [m , p ];
-76
-77 # Ilosc produktow przekazanych do magazynu w danym miesiacu
-78 var stored { m in MONTHS , p in PRODUCTS } = produced [m , p ] - sold [m , p←-
-       ];
-79
-80 # Stan magazynowy na koniec danego miesiaca
-81 var storage { m in MONTHS , p in PRODUCTS } =
-82 startingStorage [ p ] + sum { m2 in MONTHS : ord( m2 ) <= ord( m ) } ←-
-               stored [ m2 , p ];
-83
-84 # Wykorzystany czas pracy
-85 var usedToolTime { m in MONTHS , t in TOOLS } =
-86 sum { p in PRODUCTS } produced [m , p ]* toolTimePerUnit [t , p ];
-87
-88 # Koszt magazynowania
-89 var monthlyStorageCost { m in MONTHS } =
-90 (sum { p in PRODUCTS } storage [m , p ]) * storageUnitCost ;
-91 var totalStorageCost = sum { m in MONTHS } monthlyStorageCost [ m ];
-92
-93 # Zysk dla wartosci oczekiwanej
-94 var expectedSalesProfit =
-95 sum { p in PRODUCTS } totalSold [ p ]* expectedProfitPerUnit [ p ];
-96 var expectedNetProfit =
-97 expectedSalesProfit - totalStorageCost ;
-\end{verbatim}
-
-\begin{verbatim}
-98
-99 # Zysk w danym scenariuszu
-100 var scenarioSalesProfit { s in SCENARIOS } =
-101 sum { p in PRODUCTS } totalSold [ p ]* scenarioProfitPerUnit [s , p ];
-102 var scenarioNetProfit { s in SCENARIOS } =
-103 scenarioSalesProfit [ s ] - totalStorageCost ;
-104
-105 # Odchylenie jako miara ryzyka - zlinearyzowana wartosc bezwzgledna
-106 var deviation { s in SCENARIOS } =
-107 expectedNetProfit - scenarioNetProfit [ s ];
-108 var P { SCENARIOS } >= 0;
-109 var Q { SCENARIOS } >= 0;
-110 subject to deviationLimit { s1 in SCENARIOS , s2 in SCENARIOS }:
-111 deviation [ s1 ] - deviation [ s2 ]+ P [ s1 ] - Q [ s2 ] = 0;
-112
-113 #var maxDeviation = max {s in SCENARIOS } deviation [s];
-114 var maxDeviation ;
-115 # Linearyzacja maksymalnego odchylenia jako miary ryzyka
-116 param M = 10000;
-117 var Z { SCENARIOS } binary ;
-118 subject to mdLimit { s in SCENARIOS }:
-119 maxDeviation >= deviation [ s ];
-120 subject to mdWhere { s in SCENARIOS }:
-121 maxDeviation <= deviation [ s ] + M *(1 - Z [ s ]) ;
-122 subject to mdOS :
-123 sum { s in SCENARIOS } Z [ s ] = 1;
-124
-125 # Aliasy dla ocenianych wartosci
-126 var profit = expectedNetProfit ;
-127 var risk = maxDeviation ;
-128
-129 # ######################
-130 # Ograniczenia modelu #
-131 # ######################
-132
-133 # Ograniczenie rynkowe sprzedazy produktow
-134 subject to SalesMarketLimit { m in MONTHS , p in PRODUCTS }:
-135 sold [m , p ] <= salesMarketLimit [m , p ];
-136 # Ograniczenie magazynowe sprzedazy produktow
-137 subject to SalesLimit1 { p in PRODUCTS }:
-138 sold [ first ( MONTHS ) , p ] <= produced [ first ( MONTHS ) , p ];
-139 subject to SalesLimit2 { m in MONTHS , p in PRODUCTS : m != first ( MONTHS←-
-       ) }:
-140 sold [m , p ] <= produced [m , p ] + storage [m , p ];
-141 # Powiazanie sprzedazy produktu P4 ze sprzedaza produktow P1 i P2
-142 subject to P4SalesConstraint { m in MONTHS }:
-143 sold [m , "P4"] >= sold [m , "P1"] + sold [m , "P2"];
-144 # Ograniczenie pojemnosci magazynowej
-145 subject to StorageLimit { m in MONTHS , p in PRODUCTS }:
-146 storage [m , p ] <= storageLimit [ p ];
-147 # Ograniczenie na pozadany stan magazynowy na koniec marca
-148 subject to DesiredStorage { p in PRODUCTS }:
-149 storage [ last ( MONTHS ) , p ] >= desiredEndStorage [ p ];
-150 # Ograniczenie czasu pracy narzedzi w miesiacu
-151 subject to ToolWorkTime { m in MONTHS , t in TOOLS }:
-152 usedToolTime [m , t ] <= availableToolTime [ t ];
-\end{verbatim}
-
-\begin{verbatim}
-153
-154 # ############################
-155 # Metoda punktu odniesienia #
-156 # ############################
-157 # Skladniki wektora oceny
-158 set RATED = {" PROFIT ", " RISK "};
-159 # Wektor oceny
-160 var value { r in RATED } =
-161 if r == " PROFIT " then profit
-162 else if r == " RISK " then risk ;
-163 # Wektor aspiracji
-164 param aspiration { RATED };
-165 # Wartosci utopii i nadiru
-166 param utopia { RATED };
-167 param nadir { RATED };
-168 # Wspolczynniki normalizujace
-169 param lambda { r in RATED } =
-170 1 / ( utopia [r] - nadir [r]);
-171 # Wspolczynnik skladnika regularyzacyjnego
-172 param epsilon ;
-173 # Wspolczynnik pomniejszenia wartosci ocen ponad poziomem aspiracji
-174 param beta ;
-175 # Indywidualne funkcje osiagniec
-176 var individualRating { RATED };
-177 # Zmienna pomocnicza metody punktu odniesienia
-178 var v;
-179 # Skalaryzujaca funkcja osiagniecia
-180 var rating = v + epsilon * (sum {r in RATED } individualRating [r]);
-181 # Odleglosc od punktu odniesienia
-182 var distance {r in RATED } = value [r] - aspiration [r];
-183 # Znormalizowana odleglosc od punktu odniesienia
-184 var normalizedDistance {r in RATED } = lambda [r]* distance [r];
-185 # Ograniczenia zmiennej v przez indywidualne funkcje osiagniec
-186 subject to VSubject {r in RATED }:
-187 v <= individualRating [r];
-188 # Ograniczenia indywidualnych funkcji osiagniec
-189 subject to IndividualRatingSubjectBeta {r in RATED }:
-190 individualRating [r] <= beta * normalizedDistance [r];
-191 subject to IndividualRatingSubject {r in RATED }:
-192 individualRating [r] <= normalizedDistance [r];
-193
-194 ################
-195 # Funkcje celu #
-196 ################
-197 minimize MinimizeProfit : profit ;
-198 maximize MaximizeProfit : profit ;
-199 minimize MinimizeRisk : risk ;
-200 maximize MaximizeRisk : risk ;
-201 maximize RPM: rating ;
-\end{verbatim}
+\inputminted[autogobble]{R}{../WDWR.r}
 
 \section{Model dla programu AMPL}
 
 \subsection{Plik z modelem (.mod)}
 
-\subsection{Plik z danymi (.dat)}
+\inputminted[autogobble]{R}{../WDWR1.mod}
 
-Listing 3: Dane dla modelu AMPL - pominięto scenariusze, pełny zestaw danych dostępny w załączniku.
+\subsection{Plik z danymi (.dat)}
 
 \begin{verbatim}
 1 # ##########################################################
-2 # WDWR 18042 #
+2 # WDWR 25406 #
 3 # Planowanie produkcj w warunkach ryzyka. #
 4 # DANE #
 5 # Autor : Krzysztof Rudnicki #
@@ -631,13 +414,13 @@ Listing 3: Dane dla modelu AMPL - pominięto scenariusze, pełny zestaw danych d
 23 # Czasy produkcji h
 24 param toolTimePerUnit :
 25 P1 P2 P3←-
-                               P4 :=
+                                   P4 :=
 26 GRINDER 0 .4 0 .6 0 ←-
-             0
+              0
 27 VDRILL 0 .2 0 .1 0 ←-
-             0 .6
+              0 .6
 28 HDRILL 0 .1 0 0 .7 ←-
-             0
+              0
 29 MILLER 0 .06 0 .04 0 0 .05
 30 LATHE 0 0 .05 0 .02 0
 31 ;
@@ -645,13 +428,13 @@ Listing 3: Dane dla modelu AMPL - pominięto scenariusze, pełny zestaw danych d
 33 # Ograniczenia rynkowe liczby sprzedawanych produktow pcs
 34 param salesMarketLimit :
 35 P1 P2 P3 ←-
-                       P4 :=
+                            P4 :=
 36 JAN 200 0 100 ←-
-             200
+              200
 37 FEB 300 100 200 ←-
-             200
+              200
 38 MAR 0 300 100 ←-
-             200
+              200
 39 ;
 40
 41 # Ograniczeine liczby magazynowanych produktow pcs
@@ -721,7 +504,10 @@ Listing 3: Dane dla modelu AMPL - pominięto scenariusze, pełny zestaw danych d
 102 RISK 0
 \end{verbatim}
 
+
 \subsection{Skrypty uruchomieniowe (.run)}
+
+\inputminted[autogobble]{R}{../WDWR1.run}
 
 \section{Rozwiązanie zadania optymalizacji}
 
@@ -729,65 +515,67 @@ Listing 3: Dane dla modelu AMPL - pominięto scenariusze, pełny zestaw danych d
 
 $s_{mp}$ oraz wartość wyznaczonego rozwiązania optymalnego:
 
-$ep = 11987.42[z]$
+$ep = 13943.26177[z]$
 
 Listing 7: Wynik działania skryptu wyznaczającego rozwiązanie optymalne modelu jednokryterialnego.
 
 \begin{verbatim}
-1                                                                        # ################################################         
-2 ###Maximize profit for expected profit value ###                                    
-3 # ################################################                                                    
-4 CPLEX                                                                   12 .8.0.0 : optimal   integer   solution ;   objective 11987 .41899  
-5                                                                         11MIP simplex iterations                                                     
-6                                                                         0branch -and - bound nodes                                                     
-7                                                                         produced                           :=                                                 
-8 JAN                                                    P1                                 200                                                     
-9 JAN                                                    P2                                 0                                                     
-10 JAN                                                    P3                                 100                                                     
-11 JAN                                                    P4                                 200                                                     
-12 FEB                                                    P1                                 200                                                     
-13 FEB                                                    P2                                 0                                                     
-14 FEB                                                    P3                                 200                                                     
-15 FEB                                                    P4                                 200                                                     
-16 MAR                                                    P1                                 50                                                     
-17 MAR                                                    P2                                 250                                                     
-18 MAR                                                    P3                                 150                                                     
-19 MAR                                                    P4                                 250                                                     
-20 ;                                                                                                                           
-21                                                                                                                             
-22 sold                                                   :=                                                    
-23 JAN                                                    P1                                 200                                                     
-24 JAN                                                    P2                                 0                                                     
-25 JAN                                                    P3                                 100                                                     
-26 JAN                                                    P4                                 200                                                     
-27 FEB                                                    P1                                 200                                                     
-28 FEB                                                    P2                                 0                                                     
-29 FEB                                                    P3                                 200                                                     
-30 FEB                                                    P4                                 200                                                     
-31 MAR                                                    P1                                 0                                                     
-32 MAR                                                    P2                                 200                                                     
-33 MAR                                                    P3                                 100                                                     
-34 MAR                                                    P4                                 200                                                     
-35 ;                                                                                                                           
-36                                                                                                                             
-37 stored                                                 :=                                                    
-38 JAN                                                    P1                                 0                                                     
-39 JAN                                                    P2                                 0                                                     
-40 JAN                                                    P3                                 0                                                     
-41 JAN                                                    P4                                 0                                                     
-42 FEB                                                    P1                                 0                                                     
-43 FEB                                                    P2                                 0                                                     
-44 FEB                                                    P3                                 0                                                     
-45 FEB                                                    P4                                 0                                                     
-46 MAR                                                    P1                                 50                                                     
-47 MAR                                                    P2                                 50                                                     
-48 MAR                                                    P3                                 50                                                     
-49 MAR                                                    P4                                 50                                                     
+#################################################
+### Maximize profit for expected profit value ###
+#################################################
+CPLEX 22.1.2: optimal solution; objective 13943.26177
+7 simplex iterations
+produced :=
+JAN P1   200
+JAN P2     0
+JAN P3   100
+JAN P4   200
+FEB P1   300
+FEB P2   100
+FEB P3   200
+FEB P4   200
+MAR P1    50
+MAR P2   350
+MAR P3   150
+MAR P4   250
+;
+
+sold :=
+JAN P1   200
+JAN P2     0
+JAN P3   100
+JAN P4   200
+FEB P1   300
+FEB P2   100
+FEB P3   200
+FEB P4   200
+MAR P1     0
+MAR P2   300
+MAR P3   100
+MAR P4   200
+;
+
+stored :=
+JAN P1    0
+JAN P2    0
+JAN P3    0
+JAN P4    0
+FEB P1    0
+FEB P2    0
+FEB P3    0
+FEB P4    0
+MAR P1   50
+MAR P2   50
+MAR P3   50
+MAR P4   50
+;
+
+Profit: 13943.261775                                     
 \end{verbatim}
 
-52 Profit: 11987.418989
+52 Profit: 13943.261775
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 %\includegraphics[width=\linewidth]{_page_0_Figure_0.jpeg}
 \caption{Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk}
@@ -912,7 +700,7 @@ Dystrybuanty zysku przedstawia Rysunek 2.
 
 Na podstawie wykresów możemy stwierdzić, że rozwiązanie dla scenariusza z maksymalnym zyskiem dominuje w sensie FSD pozostałe rozwiązania. Dodatkowo widzimy, że rozwiązanie ze scenariusza 3 dominuje w sensie FSD rozwiązanie scenariusza 2.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 %\includegraphics[width=\linewidth]{_page_0_Figure_0.jpeg}
 \caption{Wykres dystrybuant zysku dla poszczególnych rozwiązań}
