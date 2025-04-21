@@ -71,6 +71,10 @@ var produced {MONTHS, PRODUCTS} >= 0 integer;
 var sold {MONTHS,PRODUCTS} >= 0 integer;
 var totalSold {p in PRODUCTS} = sum {m in MONTHS} sold[m, p];
 
+# Sprzedaz z podziałem na normalną (do 80% limitu rynku) i z obniżonym zyskiem (powyżej 80% limitu)
+var salesNormal {m in MONTHS, p in PRODUCTS} >= 0 integer;
+var salesDiscounted {m in MONTHS, p in PRODUCTS} >= 0 integer;
+
 # Iloosc produktow przekazanych do magazynu w danym miesiacu
 var stored {m in MONTHS, p in PRODUCTS} = produced[m, p] - sold[m, p]; 
 
@@ -91,7 +95,10 @@ var totalStorageCost = sum {m in MONTHS} monthlyStorageCost[m];
 
 # Zysk dla warto�ci oczekiwanej 
 var expectedSalesProfit =
-	sum {p in PRODUCTS} totalSold[p]*expectedProfitPerUnit[p];
+	sum {m in MONTHS, p in PRODUCTS} (
+		salesNormal[m, p] * expectedProfitPerUnit[p] +
+		salesDiscounted[m, p] * 0.8 * expectedProfitPerUnit[p]
+	);
 var expectedNetProfit =
 	expectedSalesProfit - totalStorageCost;
 
@@ -99,6 +106,14 @@ var expectedNetProfit =
 #######################
 # Ograniczenia modelu #
 #######################
+
+# Podział sprzedaży na normalną i z obniżonym zyskiem
+subject to TotalSales {m in MONTHS, p in PRODUCTS}:
+	sold[m, p] = salesNormal[m, p] + salesDiscounted[m, p];
+
+# Ograniczenie normalnej sprzedaży do 80% limitu rynkowego
+subject to NormalSalesLimit {m in MONTHS, p in PRODUCTS}:
+	salesNormal[m, p] <= 0.8 * salesMarketLimit[m, p];
 
 # Ograniczenie rynkowe sprzedazy produktow
 subject to SalesMarketLimit {m in MONTHS, p in PRODUCTS}:
@@ -108,9 +123,6 @@ subject to SalesLimit1 {p in PRODUCTS}:
 	sold[first(MONTHS), p] <= produced[first(MONTHS), p];
 subject to SalesLimit2 {m in MONTHS, p in PRODUCTS: m != first(MONTHS)}:
 	sold[m, p] <= produced [m, p] + storage[m, p];
-# Powiazanie sprzedazy produktu P4 ze sprzedaza produktow P1 i P2
-subject to P4SalesConstraint {m in MONTHS}:
-	sold[m, "P4"] >= sold[m, "P1"] + sold[m, "P2"];
 # Ograniczenie pojemno�ci magazynowej
 subject to StorageLimit {m in MONTHS, p in PRODUCTS}:
 	storage[m, p] <= storageLimit[p];
