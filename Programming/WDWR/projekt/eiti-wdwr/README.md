@@ -1,2 +1,0 @@
-# eiti-wdwr
-WDWR
