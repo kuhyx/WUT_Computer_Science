@@ -1,10 +1,4 @@
-/*********************************************
- * OPL 12.5.1.0 Model
- * Author: mateu
- * Creation Date: May 24, 2017 at 10:08:31 PM
- *********************************************/
- 
- /***********PARAMETRY************************/
+/***********PARAMETRY************************/
  //Paramatry zostaladniej opisane w pliku .dat oraz raporcie
  
 // Parametry liczbowe

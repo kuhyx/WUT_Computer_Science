@@ -1,9 +1,3 @@
-/*********************************************
- * OPL 12.5.1.0 Model
- * Author: mateu
- * Creation Date: May 24, 2017 at 10:08:31 PM
- *********************************************/
- 
  /***********PARAMETRY************************/
  //Paramatry zostaladniej opisane w pliku .dat oraz raporcie
  
@@ -54,21 +48,14 @@ dvar boolean if80prec[months][products];
 dvar float lowerProfit[scenarios][months][products];
 
 /************ KRYTERIA OCENY *********************************************/
-// ZYSK policzony dla poszczegolnych scenariuszy
+// zysk policzony dla poszczegolnych scenariuszy
 dexpr float profit[i in scenarios] = sum(m in months, p in products) 
 (sell[m][p]*sellProfit[i][p]-lowerProfit[i][m][p]- stock[m][p]*storageCost);
-
 // wartosc oczekiwana zysku policzona jako srednia
 dexpr float avgProfit = sum(i in scenarios)(profit[i])/numberOfScenarios;
 
-// RYZYKO zdefiniowane srednia roznica Giniego
-dexpr float giniRisk = sum (t1 in scenarios, t2 in scenarios ) (
-			0.5 * abs(profit[t1] - profit[t2]) * 1/numberOfScenarios * 1/numberOfScenarios
-		);
-
 // funkcja celu
-minimize giniRisk;
-//maximize avgProfit;
+maximize avgProfit;
 
 // ************** OGRANICZENIA ******************************************/
 subject to {
@@ -102,7 +89,7 @@ subject to {
         lowerProfit[i][m][p] <= 1000000 * if80prec[m][p];
         lowerProfit[i][m][p] <= 0.2 * sell[m][p]*sellProfit[i][p];
         0.2 * sell[m][p]*sellProfit[i][p] - lowerProfit[i][m][p] + 1000000 * if80prec[m][p] <= 1000000;
-    }        
+    }    
   // Ograniczenie sprzedazy oraz definicja ilosci towaru pozostajacej w magazynie
   	forall(m in months, p in products) {
   	  if(m == 1) { //pierwszy miesiac
@@ -120,9 +107,5 @@ subject to {
   	  if(m == 3) {
   	  	stock[m][p] >= 50;
     }  	  	
-   }
-} 
-execute {
- 	cplex.tilim = 600;
-	writeln("avgProfit: ",avgProfit,", giniRisk: ",giniRisk);
+   }    	  	
 }

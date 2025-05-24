@@ -1,10 +1,4 @@
-/*********************************************
- * OPL 12.5.1.0 Data
- * Author: Mateusz Percinski
- * Creation Date: May 24, 2017 at 10:09:32 PM
- *********************************************/
- 
- /***************PARAMETRY********************/
+/***************PARAMETRY********************/
 numberOfMachineTypes = 5;	//ilosc typow maszun
 numberOfMonths = 3;		//ilosc symulowanych miesiecy
 numberOfProductsTypes = 4;	//ilosc typow produktow
@@ -32,9 +26,6 @@ maxProductsInMonth = [[ 200     0   100   200]
 storageMax = [200 200 200 200];	//maksymalna pojemnosc dla typow produktow
 storageCost = 1;				//koszt magazynowania zl/sztuka/miesiac
 storageStart = [50 50 50 50];	//poczatkowa ilosc w magazynach
-
-/******************* METODA: WYMAGANY POZIOM ZYSKU ***********/
-minAvgProfit = 20000.0; //wymagany poziom zysku
 
 /************************* SCENARIOS *************************/
 // expected values (used only in t-student.R script)
