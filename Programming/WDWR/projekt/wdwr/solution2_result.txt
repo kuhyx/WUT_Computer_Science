@@ -1,0 +1,2 @@
+// solution (optimal) with objective 11031.2880472593
+avgProfit: 11031.288047259, giniRisk: 473.954253809
