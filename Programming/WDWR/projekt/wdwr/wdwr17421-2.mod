@@ -67,8 +67,8 @@ dexpr float giniRisk = sum (t1 in scenarios, t2 in scenarios ) (
 		);
 
 // funkcja celu
-//minimize giniRisk;
-maximize avgProfit;
+minimize giniRisk;
+//maximize avgProfit;
 
 // ************** OGRANICZENIA ******************************************/
 subject to {

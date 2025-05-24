@@ -24,9 +24,9 @@ prodTime = [[ 0.4   0.6    0         0]
 			[ 0     0.05   0.02      0]];
 			
 // Pojemnosc rynku - typ produktu(kolumny) w miesiacu(wiersz)
-maxInMonth = [[ 400     0   200   300]
-			[ 700   400   500     0]
-			[   0   800   600   400]];
+maxInMonth = [[ 200     0   100   200]
+			[ 300   100   200     200]
+			[   0   300   100   200]];
 
 // Magazyn
 storageMax = [200 200 200 200];	//maksymalna pojemnosc dla typow produktow

@@ -75,8 +75,8 @@ dexpr float giniRisk = sum (t1 in scenarios, t2 in scenarios ) (
 		);
 
 // funkcja celu
-minimize giniRisk;
-//maximize avgProfit;
+//minimize giniRisk;
+maximize avgProfit;
 
 // ************** OGRANICZENIA ******************************************/
 subject to {
@@ -143,27 +143,27 @@ main {
    var mod  = thisOplModel;
    var def  = mod.modelDefinition;
    var data = mod.dataElements;
-   var maxAvgProfit = 26553;
+   var maxAvgProfit = 11031;
    var i = 1;
    /**************** Pierwsze wybrane rozwiazanie ************************************/
 	 fileProfit.writeln("minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4");
    	 fileRisk.writeln("minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4");
 					
-   	 //data.minAvgProfit = 25488.3;
-   	 data.minAvgProfit = 10580.7;
+   	 data.minAvgProfit = 8450.97;
 
      mod = new IloOplModel (def, cplex);
    	 mod.addDataSource(data);
    	 mod.generate();
    	 
    	 writeln("Pierwsze wybrane rozwiazanie: ");
+   	 cplex.tilim = 60;
    	 cplex.solve();
    	 
    	 writeln(i," minAvgProfit: ",data.minAvgProfit," avgProfit: ",mod.avgProfit,", giniRisk: ",mod.giniRisk);
      fileProfit.writeln(data.minAvgProfit,";",mod.avgProfit,";",mod.giniRisk,";",mod.produce[1][1],";",mod.produce[1][2],";",mod.produce[1][3],";",mod.produce[1][4], ";",mod.produce[2][1],";",mod.produce[2][2],";",mod.produce[2][3],";",mod.produce[2][4],";",mod.produce[3][1],";",mod.produce[3][2], ";",mod.produce[3][3],";",mod.produce[3][4],";",mod.stock[1][1],";",mod.stock[1][2],";",mod.stock[1][3],";",mod.stock[1][4], ";",mod.stock[2][1],";",mod.stock[2][2],";",mod.stock[2][3],";",mod.stock[2][4],";",mod.stock[3][1],";",mod.stock[3][2], ";",mod.stock[3][3],";",mod.stock[3][4]);
      fileRisk.writeln(data.minAvgProfit,";",mod.avgProfit,";",mod.giniRisk,";",mod.produce[1][1],";",mod.produce[1][2],";",mod.produce[1][3],";",mod.produce[1][4], ";",mod.produce[2][1],";",mod.produce[2][2],";",mod.produce[2][3],";",mod.produce[2][4],";",mod.produce[3][1],";",mod.produce[3][2], ";",mod.produce[3][3],";",mod.produce[3][4],";",mod.stock[1][1],";",mod.stock[1][2],";",mod.stock[1][3],";",mod.stock[1][4], ";",mod.stock[2][1],";",mod.stock[2][2],";",mod.stock[2][3],";",mod.stock[2][4],";",mod.stock[3][1],";",mod.stock[3][2], ";",mod.stock[3][3],";",mod.stock[3][4]);
 		
-     i = 1;
+     i = 1;4
      fileProfit.writeln("avgProfit: ");
      while (i<=data.nScenarios) {
        fileProfit.writeln(mod.profit[i]);
@@ -180,9 +180,8 @@ main {
      /**************** Drugie wybrane rozwiazanie ************************************/
 	 fileProfit.writeln("minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4");
    	 fileRisk.writeln("minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4");
-					
-   	 //data.minAvgProfit = 26020.6;
-   	 data.minAvgProfit = 20164;
+
+   	 data.minAvgProfit = 8983.38;
    	 
 
      mod = new IloOplModel (def, cplex);
@@ -214,8 +213,7 @@ main {
 	 fileProfit.writeln("minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4");
    	 fileRisk.writeln("minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4");
 					
-   	 //data.minAvgProfit = 26553.9;
-   	 data.minAvgProfit = 26553.9;
+   	 data.minAvgProfit = 9515.79;
 
      mod = new IloOplModel (def, cplex);
    	 mod.addDataSource(data);
