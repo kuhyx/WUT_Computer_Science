@@ -380,18 +380,18 @@ gdzie $r_{t'}(\mathbf{x})$ oznacza realizację zysku dla scenariusza $t'$, a $p_
 
 W kontekście przyjętych w projekcie oznaczeń, wyrażenie definiujące miarę ryzyka przyjmuje następującą postać:
 \begin{equation}
-giniRisk = \frac{1}{2}\cdot\sum_{t1 \in scenarios}\sum_{t2 \in scenarios} \lvert profit[t1]-profit[t2] \rvert \cdot \frac{1}{numberOfScenarios} \cdot \frac{1}{numberOfScenarios} 
+riskMeasureGini = \frac{1}{2}\cdot\sum_{t1 \in scenarios}\sum_{t2 \in scenarios} \lvert profit[t1]-profit[t2] \rvert \cdot \frac{1}{numberOfScenarios} \cdot \frac{1}{numberOfScenarios} 
 \end{equation}
 
 \subsection{Model preferencji}
 Model preferencji oparto na minimalizacji ryzyka przy zadanym poziomie średniego zysku.
 \begin{equation}
-avgProfit<minAvgProfit
+averageProfit<minimalAverageProfit
 \end{equation}
 \begin{equation}
-minimize giniRisk
+minimize riskMeasureGini
 \end{equation}
-minAvgProfit stanowi dodatkowy parametr modelu. Załączniki 5 i 6 zawierają pliki z parametrami i modelem zadania dwukryterialnego wyboru - pliki źródłowe przeznaczone dla solvera CPLEX. 
+minimalAverageProfit stanowi dodatkowy parametr modelu. Załączniki 5 i 6 zawierają pliki z parametrami i modelem zadania dwukryterialnego wyboru - pliki źródłowe przeznaczone dla solvera CPLEX. 
 
 \subsection{Zbiór rozwiązań efektywnych w przestrzeni ryzyko-zysk}
 Na rysunku \ref{fig:profit-risk} zaprezentowano rozwiązania efektywne modelu w przestrzeni ryzyko-zysk. Niebieskie trójkąty oznaczają rozwiązania efektywne dla różnych wartości wymaganego poziomu zysku. Uwzględniając ograniczenia obliczeniowe komputera, wygenerowano 52 równomiernie rozmieszczone rozwiązania, z których każde bazuje na 30 scenariuszach. Wprowadzono ograniczenie czasowe działania solvera dla pojedynczego rozwiązania na poziomie 5 minut. Całkowity czas obliczeń przekroczył 3 godziny. Załączniki 7 i 8 obejmują pliki parametrów oraz modelu wraz ze skryptem dla solvera CPLEX, które zostały wykorzystane do uzyskania rozwiązań. Kolorem żółtym wyróżniono rozwiązanie maksymalnego zysku oraz minimalnego ryzyka. Wartości odpowiadające tym rozwiązaniom przedstawiono w tabeli \ref{tab:min-max}.

@@ -1,6 +1,6 @@
-Pierwsze wybrane rozwiazanie: 
-1 minAvgProfit: 8450.97 avgProfit: 8451.020747071, giniRisk: 306.383357869
-Drugie wybrane rozwiazanie: 
-31 minAvgProfit: 8983.38 avgProfit: 8983.400103901, giniRisk: 332.936696297
-Trzecie wybrane rozwiazanie: 
-31 minAvgProfit: 9515.79 avgProfit: 9515.804890325, giniRisk: 360.18213126
+First solution: 
+1 minimalAverageProfit: 8450.97 averageProfit: 8451.020747071, riskMeasureGini: 306.383357869
+Second solution: 
+31 minimalAverageProfit: 8983.38 averageProfit: 8983.400103901, riskMeasureGini: 332.936696297
+Third solution: 
+31 minimalAverageProfit: 9515.79 averageProfit: 9515.804890325, riskMeasureGini: 360.18213126

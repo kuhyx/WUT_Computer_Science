@@ -3,7 +3,7 @@ import pandas as pd
 from io import StringIO
 
 # Your data
-data_str = """i;minAvgProfit;avgProfit;giniRisk;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4
+data_str = """i;minimalAverageProfit;averageProfit;riskMeasureGini;m1_prod_P1;m1_prod_P2;m1_prod_P3;m1_prod_P4;m2_prod_P1;m2_prod_P2;m2_prod_P3;m2_prod_P4;m3_prod_P1;m3_prod_P2;m3_prod_P3;m3_prod_P4;m1_stock_P1;m1_stock_P2;m1_stock_P3;m1_stock_P4;m2_stock_P1;m2_stock_P2;m2_stock_P3;m2_stock_P4;m3_stock_P1;m3_stock_P2;m3_stock_P3;m3_stock_P4
 1;-600;-600;0;0;0;0;0;0;0;0;0;0;0;0;0;50;50;50;50;50;50;50;50;50;50;50;50
 2;-67.59;-67.423334025;12.249866065;0;0;0;1;0;0;0;0;9;8;1;43;41;50;50;7;41;42;49;7;50;50;50;50
 3;464.82;465.647226284;26.015138747;0;0;0;0;0;0;0;29;20;19;9;52;30;50;41;0;30;31;41;0;50;50;50;50
@@ -30,7 +30,7 @@ df = pd.read_csv(StringIO(data_str), sep=';')
 
 # Create the scatter plot
 plt.figure(figsize=(10, 6))
-plt.scatter(df['avgProfit'], df['giniRisk'], alpha=0.7, s=50)
+plt.scatter(df['averageProfit'], df['riskMeasureGini'], alpha=0.7, s=50)
 
 # Add labels and title
 plt.xlabel('Przeciętny Zysk')
@@ -46,6 +46,6 @@ plt.tight_layout()
 plt.show()
 
 # Print some basic statistics
-print(f"Average Profit range: {df['avgProfit'].min():.2f} to {df['avgProfit'].max():.2f}")
-print(f"Gini Risk range: {df['giniRisk'].min():.2f} to {df['giniRisk'].max():.2f}")
+print(f"Average Profit range: {df['averageProfit'].min():.2f} to {df['averageProfit'].max():.2f}")
+print(f"Gini Risk range: {df['riskMeasureGini'].min():.2f} to {df['riskMeasureGini'].max():.2f}")
 print(f"Number of data points: {len(df)}")
