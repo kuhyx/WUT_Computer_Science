@@ -1,24 +1,11 @@
-\documentclass[44pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{relsize,amsfonts}
 \usepackage{enumitem}
 \usepackage{graphicx}
-\usepackage{anyfontsize}
-\usepackage{fix-cm}
-
-% Scale all text by factor of 4
-\renewcommand{\normalsize}{\fontsize{44}{50}\selectfont}
-\renewcommand{\large}{\fontsize{52}{58}\selectfont}
-\renewcommand{\Large}{\fontsize{60}{68}\selectfont}
-\renewcommand{\LARGE}{\fontsize{72}{80}\selectfont}
-\renewcommand{\huge}{\fontsize{88}{96}\selectfont}
-\renewcommand{\Huge}{\fontsize{104}{112}\selectfont}
-\renewcommand{\small}{\fontsize{36}{42}\selectfont}
-\renewcommand{\footnotesize}{\fontsize{32}{38}\selectfont}
-\renewcommand{\scriptsize}{\fontsize{28}{34}\selectfont}
-\renewcommand{\tiny}{\fontsize{20}{24}\selectfont}
+\usepackage{float}
 
 \newcommand\bigexists{%
   \mathop{\lower0.75ex\hbox{\ensuremath{%
@@ -452,7 +439,7 @@ W plikach wdwr25406-3.dat oraz wdwr25406-3.mod znajdują się definicje parametr
 modelu wraz z implementacją dla solvera CPLEX. 
 Wartości ekstremalne - maksymalny zysk oraz 
 minimalne ryzyko - zostały zestawione w poniższej tabeli
-\begin{figure}[ht!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{graphics/ryzyko_zysk_wykres.png}
 \caption{Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk}
@@ -462,7 +449,7 @@ minimalne ryzyko - zostały zestawione w poniższej tabeli
 \subsection{Rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku}
 \addcontentsline{toc}{subsection}{Rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku}
 
-\begin{table}[ht!]
+\begin{table}[H]
 \label{tab:min-max}
   \caption{Rozwiązania maksymalnego zysku i minimalnego ryzyka}
   \centering
@@ -489,7 +476,7 @@ Parametry charakteryzujące średni zysk i miarę ryzyka dla analizowanych rozwi
 Implementacja parametrów oraz modelu została zawarta w plikach wdwr25406-4.dat i wdwr25406-4.mod - skrypty przeznaczone dla solvera CPLEX 
 służące do generowania informacji o zysku i ryzyku w ramach poszczególnych scenariuszy.
 
-\begin{table}[ht!]
+\begin{table}[H]
   \label{tab:abc}
   \caption{Scenariusze wybrane do analizy dominacji FSD}
   \centering
@@ -512,7 +499,7 @@ oznaczając, że dla każdego scenariusza wartość zysku osiągana przez decyzj
 odpowiadające jej wartości dla decyzji 1 i 2. Jednocześnie rozwiązanie 2 dominuje nad rozwiązaniem 1
 w sensie dominacji stochastycznej pierwszego rzędu.
 
-\begin{figure}[ht!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{graphics/zysk_dystrybuanta.png}
 \caption{Odwrotna dystrybuanta rozkładu średniego zysku między scenariuszami}
@@ -522,7 +509,7 @@ Rysunek \ref{fig:FSD-risk} prezentuje odwrotną dystrybuantę rozkładu średnie
 tych samych trzech rozwiązań efektywnych. W zakresie miary ryzyka rozwiązanie 1 charakteryzuje się dominacją 
 nad rozwiązaniami 2 i 3, rozwiązanie 2 wykazuje również jednoznaczną dominację względem rozwiązania 3. 
 
-\begin{figure}[ht!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{graphics/ryzyko_dystrybuanta.png}
 \caption{Odwrotna dystrybuanta rozkładu średniej różnicy Giniego między scenariuszami}
