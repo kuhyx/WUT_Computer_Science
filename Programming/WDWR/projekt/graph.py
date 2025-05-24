@@ -30,11 +30,13 @@ df = pd.read_csv(StringIO(data_str), sep=';')
 
 # Create the scatter plot
 plt.figure(figsize=(10, 6))
-plt.scatter(df['averageProfit'], df['riskMeasureGini'], alpha=0.7, s=50)
+plt.scatter(df['averageProfit'], df['riskMeasureGini'], alpha=0.7, s=200)
 
 # Add labels and title
-plt.xlabel('Przeciętny Zysk')
-plt.ylabel('Ryzyko')
+plt.xlabel('Przeciętny Zysk', fontsize=16)
+plt.ylabel('Ryzyko', fontsize=16)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
 
 # Add grid for better readability
 plt.grid(True, alpha=0.3)

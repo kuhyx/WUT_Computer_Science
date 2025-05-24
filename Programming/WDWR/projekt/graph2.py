@@ -46,11 +46,13 @@ plt.plot(scenario1_sorted, y_values, 'b-o', label='Scenariusz 1', linewidth=2, m
 plt.plot(scenario2_sorted, y_values, 'g-s', label='Scenariusz 2', linewidth=2, markersize=4)
 plt.plot(scenario3_sorted, y_values, 'r-^', label='Scenariusz 3', linewidth=2, markersize=4)
 # Add labels and title
-plt.xlabel('Przeciętny Zysk')
-plt.ylabel('Odwrotna dystrybuanta')
+plt.xlabel('Przeciętny Zysk', fontsize=16)
+plt.ylabel('Odwrotna dystrybuanta', fontsize=16)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
 plt.ylim(0, 1)  # Set y-axis limits to cut off values outside 0-1 range
 plt.grid(True, alpha=0.3)
-plt.legend()
+plt.legend(fontsize=16)
 
 # Format the plot
 plt.tight_layout()
