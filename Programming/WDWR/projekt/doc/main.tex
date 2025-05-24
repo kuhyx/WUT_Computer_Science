@@ -1,5 +1,4 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[OT4]{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[inner=2.5cm,outer=2.5cm, tmargin=2.5cm,bmargin=2.5cm]{geometry}
 \usepackage{amsmath}
@@ -126,23 +125,23 @@ i macierzami, w nawiasach kwadratowych określono ich wymiary, odnosząc się do
     \hline
     Nazwa parametru      & Szczegółowy opis znaczenia \\
     \hline
-    nMachType & Ilość typów maszyn (procesów) dostępnych w fabryce \\
-nMonth & Ilość miesięcy uwzględnionych w symulacji  \\
-nProdType & Ilość typów produktów \\
-nScenarios & Ilość scenariuszy wygenerowanych do symulacji \\
-machines[nMachType] & Wektor typów maszyn (procesów)\\
-months[nMonth] & Wektor miesięcy symulacji\\
-products[nProdType] & Wektor typów produktów\\
-machineCount[nMachType] & Wektor ilości maszyn danego typu\\
-prodTime[nMachType][nProdType] & macierz czasów produkcji danego produktu na danej maszynie \\
-maxInMonth[nMonth][nProdType] & macierz maksymalnej ilości produktów, jakie można sprzedać w danym miesiącu\\
-nHours & Ilość godzin pracy fabryki w miesiącu\\
-mu[nProdType] & Wektor wartości oczekiwanych rozkładu t-Studenta do generacji scenariuszy\\
-sigma [nProdType][nProdType] & Macierz kowariancji dla rozkłady t-Studenta\\ 
-sellProfit[nScenarios][nProdType] & Macierz wygenerowanych sceniariuszy dochodów ze sprzedaży produktów\\
+    numberOfMachineTypes & Ilość typów maszyn (procesów) dostępnych w fabryce \\
+numberOfMonths & Ilość miesięcy uwzględnionych w symulacji  \\
+numberOfProductsTypes & Ilość typów produktów \\
+numberOfScenarios & Ilość scenariuszy wygenerowanych do symulacji \\
+machines[numberOfMachineTypes] & Wektor typów maszyn (procesów)\\
+months[numberOfMonths] & Wektor miesięcy symulacji\\
+products[numberOfProductsTypes] & Wektor typów produktów\\
+machineCount[numberOfMachineTypes] & Wektor ilości maszyn danego typu\\
+timeToProduce[numberOfMachineTypes][numberOfProductsTypes] & macierz czasów produkcji danego produktu na danej maszynie \\
+maxProductsInMonth[numberOfMonths][numberOfProductsTypes] & macierz maksymalnej ilości produktów, jakie można sprzedać w danym miesiącu\\
+numberOfHoursInFactory & Ilość godzin pracy fabryki w miesiącu\\
+mu[numberOfProductsTypes] & Wektor wartości oczekiwanych rozkładu t-Studenta do generacji scenariuszy\\
+sigma [numberOfProductsTypes][numberOfProductsTypes] & Macierz kowariancji dla rozkłady t-Studenta\\ 
+sellProfit[numberOfScenarios][numberOfProductsTypes] & Macierz wygenerowanych sceniariuszy dochodów ze sprzedaży produktów\\
 storageCost & Koszt trzymania jednej sztuki produktu w magazynie przez miesiąc \\
-storageMax[nProdType] & Wektor maksymalnej pojemności magazynu dla każdego typu produktu \\
-storageStart[nProdType] & Wektor ilości początkowej produktów w magazynie \\
+storageMax[numberOfProductsTypes] & Wektor maksymalnej pojemności magazynu dla każdego typu produktu \\
+storageStart[numberOfProductsTypes] & Wektor ilości początkowej produktów w magazynie \\
     \hline
 \end{tabular}
 \end{table}
@@ -157,12 +156,12 @@ Zmienne decyzyjne stanowią wartości kontrolowane przez podmiot podejmujący de
 	\hline
     Nazwa zmiennej      & Szczegółowy opis znaczenia \\
         \hline
-        produce[nMonth][nProdType] & Macierz zawierające ilości wytwarzanych sztuk danego typu produktu w danym miesiącu \\
-        sell[nMonth][nProdType] & Macierz zawierająca ilości sprzedawanych sztuk danego typu produktu w danym miesiącu \\
-        stock[nMonth][nProdType] & Macierz zawierająca ilości sztuk danego typu produktu znajdujących się w magazynie w danym miesiącu \\
-        workTime[nMonth][nMachType][nProdType] & Macierz zawierająca czas pracy każdej maszyny dla każdego typu produktu w kazdym miesiącu \\
-        if80prec[nMonth][nProdType] & Macierz zmiennych binarnych (1 jeśli sprzedaż danego produktu w danym miesiącu przekroczyła 80\% wartości maksymalnej, 0 - w przeciwnym wypadku)\\
-        lowerProfit[nScenarios][nMonth][nProdType] & Macierz przechowująca kwoty, jaką należy odjąć od zysków z poszczególnych typów produktów w poszczególnych miesiącach, ze względu na przekroczenie 80\% pojemności rynku. Zmienna niezbędna do wyeliminowania obecności zmiennej binarnej w funkcji oceny\\
+        produce[numberOfMonths][numberOfProductsTypes] & Macierz zawierające ilości wytwarzanych sztuk danego typu produktu w danym miesiącu \\
+        sell[numberOfMonths][numberOfProductsTypes] & Macierz zawierająca ilości sprzedawanych sztuk danego typu produktu w danym miesiącu \\
+        stock[numberOfMonths][numberOfProductsTypes] & Macierz zawierająca ilości sztuk danego typu produktu znajdujących się w magazynie w danym miesiącu \\
+        workTime[numberOfMonths][numberOfMachineTypes][numberOfProductsTypes] & Macierz zawierająca czas pracy każdej maszyny dla każdego typu produktu w kazdym miesiącu \\
+        if80prec[numberOfMonths][numberOfProductsTypes] & Macierz zmiennych binarnych (1 jeśli sprzedaż danego produktu w danym miesiącu przekroczyła 80\% wartości maksymalnej, 0 - w przeciwnym wypadku)\\
+        lowerProfit[numberOfScenarios][numberOfMonths][numberOfProductsTypes] & Macierz przechowująca kwoty, jaką należy odjąć od zysków z poszczególnych typów produktów w poszczególnych miesiącach, ze względu na przekroczenie 80\% pojemności rynku. Zmienna niezbędna do wyeliminowania obecności zmiennej binarnej w funkcji oceny\\
 	\hline
 \end{tabular}
 \end{table}
@@ -198,37 +197,37 @@ Zmienne decyzyjne stanowią wartości kontrolowane przez podmiot podejmujący de
 			p \in products}} lowerProfit[i][m][p] >=0
 	\end{equation}
 
-\item Ograniczenie czasowe pracy maszyn - Każda maszyna może pracować maksymalnie \textit{nHours} godzin w miesiącu, zatem łączny czas pracy wszystkich maszyn danego typu nie może przekroczyć iloczynu liczby dostępnych maszyn tego typu i czasu \textit{nHours}.
+\item Ograniczenie czasowe pracy maszyn - Każda maszyna może pracować maksymalnie \textit{numberOfHoursInFactory} godzin w miesiącu, zatem łączny czas pracy wszystkich maszyn danego typu nie może przekroczyć iloczynu liczby dostępnych maszyn tego typu i czasu \textit{numberOfHoursInFactory}.
 	\begin{equation}
 		\bigforall_{\substack{
 			m \in months\\ 
 			mc \in machines}}  \sum_{p \in products}
-		(workTime[m][mc][p] <= machineCount[mc]*nHours)
+		(workTime[m][mc][p] <= machineCount[mc]*numberOfHoursInFactory)
 	\end{equation}
     \item Ograniczenie wiążące czas pracy maszyn z produkcją - czas wykorzystania określonego typu maszyny jest równy sumie iloczynów liczby wytworzonych jednostek każdego produktu i czasu potrzebnego na obróbkę jednej jednostki tego produktu na danej maszynie:
 	\begin{equation}
 		\bigforall_{\substack{
 			m \in months\\ 
 			mc \in machines\\
-			p \in products}} workTime[m][mc][p] == produce[m][p]*prodTime[mc][p]
+			p \in products}} workTime[m][mc][p] == produce[m][p]*timeToProduce[mc][p]
 	\end{equation}
     \item Ograniczenie maksymalnej sprzedaży wynikające z pojemności rynku w danym miesiącu:
 	\begin{equation}
 		\bigforall_{\substack{
 			m \in months\\ 
-			p \in products}} sell[m][p] == maxInMonth[m][p]
+			p \in products}} sell[m][p] == maxProductsInMonth[m][p]
 	\end{equation}
 	
     \item Warunki definiujące zmienną binarną przy przekroczeniu 80 procent chłonności rynku:
 	\begin{equation}
 		\bigforall_{\substack{
 			m \in months\\ 
-			p \in products}}  sell[m][p] <= 0.8*maxInMonth[m][p] + 1000000 * if80prec[m][p]
+			p \in products}}  sell[m][p] <= 0.8*maxProductsInMonth[m][p] + 1000000 * if80prec[m][p]
 	\end{equation}
 	\begin{equation}
 		\bigforall_{\substack{
 			m \in months\\ 
-			p \in products}} sell[m][p] >= 0.8*maxInMonth[m][p] * if80prec[m][p]
+			p \in products}} sell[m][p] >= 0.8*maxProductsInMonth[m][p] * if80prec[m][p]
 	\end{equation}
 	
     \item Ograniczenia linearyzujące oddziaływanie zmiennych binarnych na funkcję celu:
@@ -305,19 +304,21 @@ Model zaimplementowano w środowisku IBM ILOG CPLEX Optimization Studio z wykorz
 \end{enumerate}
 
 \subsection{Rozwiązanie}
-Rozwiązanie optymalne modelu maksymalizacji wartości oczekiwanej zysku zostało wyznaczone przy użyciu solvera CPLEX. Maksymalna wartość oczekiwana zysku wynosi około 26023,63 zł. Optymalne wartości zmiennych decyzyjnych przedstawiają się następująco:
+Rozwiązanie optymalne modelu maksymalizacji wartości oczekiwanej zysku zostało wyznaczone przy użyciu solvera CPLEX. 
+Maksymalna wartość oczekiwana zysku wynosi około 11036,12 zł. 
+Optymalne wartości zmiennych decyzyjnych przedstawiają się następująco:
 \begin{displaymath}
 \mathbf{sell} = 
  \begin{pmatrix}
-  320 & 0 & 160 & 240 \\
-  700 & 320 & 500 & 0 \\ 
-  0 & 800 & 600 & 320 \\  
+  160 & 0 & 80 & 160 \\
+  240 & 80 & 160 & 160 \\ 
+  0 & 240 & 80 & 160 \\  
  \end{pmatrix},
  \mathbf{if80prec} = 
  \begin{pmatrix}
   0 & 1 & 0 & 0 \\
-  1 & 0 & 1 & 1 \\ 
-  1 & 1 & 1 & 0 \\  
+  0 & 0 & 0 & 0 \\ 
+  1 & 0 & 0 & 0 \\  
  \end{pmatrix},
 \end{displaymath}
 \begin{displaymath}
@@ -329,9 +330,9 @@ Rozwiązanie optymalne modelu maksymalizacji wartości oczekiwanej zysku został
  \end{pmatrix},
  \mathbf{produce} = 
  \begin{pmatrix}
-  270 & 0 & 110 & 190 \\
-  700 & 270 & 500 & 0 \\ 
-  50 & 850 & 650 & 370 \\  
+  110 & 0 & 30 & 110 \\
+  240 & 30 & 160 & 160 \\ 
+  50 & 290 & 130 & 210 \\  
  \end{pmatrix} 
 \end{displaymath}
 
@@ -339,29 +340,29 @@ Czasem pracy poszczególnych typów maszyn dla różnych typów produktów w ka�
 \begin{displaymath}
  \mathbf{workTime[1]} =
  \begin{pmatrix}
-  108 & 0 & 0 & 0 \\
-  54 & 0 & 0 & 114 \\ 
-  27 & 0 & 77 & 0 \\
-  16.2 & 0 & 0 & 9.5 \\
-  0 & 0 & 2.2 & 0 \\  
+	44 & 0 & 0 & 0 \\
+	22 & 0 & 0 & 66 \\ 
+	11 & 0 & 35 & 0 \\
+	6.6 & 0 & 0 & 5.5 \\
+	0 & 0 & 1 & 0 \\  
  \end{pmatrix},
  \mathbf{workTime[2]} =
  \begin{pmatrix}
-  280 & 162 & 0 & 0 \\
-  140 & 27 & 0 & 0 \\ 
-  70 & 0 & 350 & 0 \\
-  42 & 10.8 & 0 & 0 \\ 
-  0 & 13.5 & 10 & 0 \\
+	96 & 18 & 0 & 0 \\
+	48 & 3 & 0 & 96 \\ 
+	24 & 0 & 140 & 0 \\
+	14.4 & 1.2 & 0 & 8 \\ 
+	0 & 1.5 & 4 & 0 \\
  \end{pmatrix},
 \end{displaymath}
 \begin{displaymath}
  \mathbf{workTime[3]} =
  \begin{pmatrix}
-  20 & 510 & 0 & 0 \\
-  10 & 85 & 0 & 222 \\ 
-  5 & 0 & 455 & 0 \\
-  3 & 34 & 0 & 18.5 \\ 
-  0 & 42.5 & 13 & 0 \\
+	20 & 174 & 0 & 0 \\
+	10 & 29 & 0 & 126 \\ 
+	5 & 0 & 105 & 0 \\
+	3 & 11.6 & 0 & 10.5 \\ 
+	0 & 14.5 & 3 & 0 \\
  \end{pmatrix}
 \end{displaymath}
 
@@ -379,7 +380,7 @@ gdzie $r_{t'}(\mathbf{x})$ oznacza realizację zysku dla scenariusza $t'$, a $p_
 
 W kontekście przyjętych w projekcie oznaczeń, wyrażenie definiujące miarę ryzyka przyjmuje następującą postać:
 \begin{equation}
-giniRisk = \frac{1}{2}\cdot\sum_{t1 \in scenarios}\sum_{t2 \in scenarios} \lvert profit[t1]-profit[t2] \rvert \cdot \frac{1}{nScenarios} \cdot \frac{1}{nScenarios} 
+giniRisk = \frac{1}{2}\cdot\sum_{t1 \in scenarios}\sum_{t2 \in scenarios} \lvert profit[t1]-profit[t2] \rvert \cdot \frac{1}{numberOfScenarios} \cdot \frac{1}{numberOfScenarios} 
 \end{equation}
 
 \subsection{Model preferencji}
@@ -396,7 +397,7 @@ minAvgProfit stanowi dodatkowy parametr modelu. Załączniki 5 i 6 zawierają pl
 Na rysunku \ref{fig:profit-risk} zaprezentowano rozwiązania efektywne modelu w przestrzeni ryzyko-zysk. Niebieskie trójkąty oznaczają rozwiązania efektywne dla różnych wartości wymaganego poziomu zysku. Uwzględniając ograniczenia obliczeniowe komputera, wygenerowano 52 równomiernie rozmieszczone rozwiązania, z których każde bazuje na 30 scenariuszach. Wprowadzono ograniczenie czasowe działania solvera dla pojedynczego rozwiązania na poziomie 5 minut. Całkowity czas obliczeń przekroczył 3 godziny. Załączniki 7 i 8 obejmują pliki parametrów oraz modelu wraz ze skryptem dla solvera CPLEX, które zostały wykorzystane do uzyskania rozwiązań. Kolorem żółtym wyróżniono rozwiązanie maksymalnego zysku oraz minimalnego ryzyka. Wartości odpowiadające tym rozwiązaniom przedstawiono w tabeli \ref{tab:min-max}.
 \begin{figure}[ht!]
 \centering
-%\includegraphics[width=0.8\textwidth]{graphics/results-minAvgProfit-marker}
+\includegraphics[width=0.8\textwidth]{graphics/ryzyko_zysk_wykres.png}
 \caption{Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk}
 \label{fig:profit-risk}
 \end{figure}
@@ -414,7 +415,7 @@ Na wykresie \ref{fig:profit-risk} żółtymi punktami wyznaczono rozwiązania ch
   	\hline
               			& Miara zysku & Miara ryzyka \\
 	\hline
-	Maksymalizacja zysku	& 26553.9 zł & 796.113 zł \\
+	Maksymalizacja zysku	& 9515.80 zł & 360.18 zł \\
 	Minimalizacja ryzyka   	& -600.00 zł & 0.0 zł \\ 
 	\hline
 	
@@ -435,19 +436,24 @@ W celu analizy dominacji stochastycznej pierwszego rzędu (FSD) wybrano 3 rozwi�
   	\hline
               			& A & B & C \\
 	\hline
-	Ograniczenie minimalnego zysku	& 25488.1 zł & 26020.5 zł & 26552.9 zł\\
-	Średni zysk   	& 25488.3 zł & 26020.6 zł & 26553.9 zł\\
-	Miara ryzyka   	& 755.133 zł & 774.872 zł & 796.113 zł\\ 
+	Ograniczenie minimalnego zysku	& 8450.97 zł & 8983.38 zł & 9515.79 zł\\
+	Średni zysk   	& 8451.02 zł & 8983.40 zł & 9515.80 zł\\
+	Miara ryzyka   	& 306.38 zł & 332.93 zł & 360.18 zł\\ 
 	\hline
 	\end{tabular}
 \end{table}
 
 
-W celu weryfikacji wzajemnej dominacji wybranych rozwiązań w sensie FSD przygotowano odwrotne dystrybuanty dla obu kryteriów. Rysunek \ref{fig:FSD-profit} ilustruje odwrotną dystrybuantę rozkładu średniego zysku między scenariuszami dla trzech wybranych rozwiązań efektywnych. Analiza wykresu wskazuje, że rozwiązanie C wykazuje dominację nad rozwiązaniami A i B w sensie FSD, co oznacza, że w każdym scenariuszu miara zysku dla decyzji C przewyższa odpowiednie wartości dla decyzji A i B. Ponadto rozwiązanie B dominuje rozwiązanie A w sensie FSD.
+W celu weryfikacji wzajemnej dominacji wybranych rozwiązań w sensie FSD przygotowano odwrotne dystrybuanty 
+dla obu kryteriów. Rysunek \ref{fig:FSD-profit} ilustruje odwrotną dystrybuantę rozkładu średniego 
+zysku między scenariuszami dla trzech wybranych rozwiązań efektywnych. Analiza wykresu wskazuje, 
+że rozwiązanie C wykazuje dominację nad rozwiązaniami A i B w sensie FSD, co oznacza, że w 
+każdym scenariuszu miara zysku dla decyzji C przewyższa odpowiednie wartości dla decyzji A i B. 
+Ponadto rozwiązanie B dominuje rozwiązanie A w sensie FSD.
 
 \begin{figure}[ht!]
 \centering
-%\includegraphics[width=\textwidth]{graphics/results-FSD-profit}
+\includegraphics[width=\textwidth]{graphics/zysk_dystrybuanta.png}
 \caption{Odwrotna dystrybuanta rozkładu średniego zysku między scenariuszami}
 \label{fig:FSD-profit}
 \end{figure}
@@ -456,34 +462,10 @@ Rysunek \ref{fig:FSD-risk} przedstawia odwrotną dystrybuantę rozkładu średni
 
 \begin{figure}[ht!]
 \centering
-%\includegraphics[width=0.95\textwidth]{graphics/results-FSD-risk}
+\includegraphics[width=\textwidth]{graphics/ryzyko_dystrybuanta.png}
 \caption{Odwrotna dystrybuanta rozkładu średniej różnicy Giniego między scenariuszami}
 \label{fig:FSD-risk}
 \end{figure}
-
-
-\clearpage
-%%% SPIS TABEL %%%
-% \phantomsection
-\addcontentsline{toc}{chapter}{\listtablename}
-\listoftables
-
-%%% SPIS ZAŁĄCZNIKÓW %%%
-\addcontentsline{toc}{section}{Spis załączników} 
-\section*{Spis załączników}
-\begin{enumerate}
-\item t-Student.R - skrypt generujący wektory opisujące dochód ze sprzedaży produktów w poszczególnych scenariuszy,
-\item wdwr17421-1.dat - plik definiujący parametry modelu jednokryterialnego,
-\item wdwr17421-1.mod - plik implementujący model jednokryterialny,
-\item wdwr17421-1.log - pełne wyniki działania solvera dla modelu jednokryterialnego,
-\item wdwr17421-2.dat - plik definiujący parametry modelu dwukryterialnego,
-\item wdwr17421-2.mod - plik implementujący model dwukryterialny,
-\item wdwr17421-3.dat - plik definiujący parametry modelu dwukryterialnego,
-\item wdwr17421-3.mod - plik implementujący model oraz skrypt do uzyskania obrazu rozwiązań w przestrzeni ryzyko-zysk,
-\item wdwr17421-4.dat - plik definiujący parametry modelu,
-\item wdwr17421-4.mod - plik implementujący model oraz skrypt do uzyskania danych do analizy dominacji FSD.
-\end{enumerate}
-
 
 
 \end{document}

@@ -5,26 +5,26 @@
  *********************************************/
  
  /***************PARAMETRY********************/
-nMachType = 5;	//ilosc typow maszun
-nMonth = 3;		//ilosc symulowanych miesiecy
-nProdType = 4;	//ilosc typow produktow
+numberOfMachineTypes = 5;	//ilosc typow maszun
+numberOfMonths = 3;		//ilosc symulowanych miesiecy
+numberOfProductsTypes = 4;	//ilosc typow produktow
 
-nHours = 384;		//liczba godzin roboczych w miesiacu 2*8*24=384
-nScenarios = 30;	//ilosc scenariuszy w symulacji
+numberOfHoursInFactory = 384;		//liczba godzin roboczych w miesiacu 2*8*24=384
+numberOfScenarios = 30;	//ilosc scenariuszy w symulacji
 
 // Ilosc maszyn poszczegolnych typow
 machineCount = [4 2 3 1 1];
 
 // Koszty wykorzystania typow maszyn (wiersze) 
 //w wytwarzaniu poszczegolnych typow produktow (kolumny)
-prodTime = [[ 0.4   0.6    0         0]
+timeToProduce = [[ 0.4   0.6    0         0]
 			[ 0.2   0.1    0       0.6]
 			[ 0.1   0      0.7       0]
 			[ 0.06  0.04   0      0.05]
 			[ 0     0.05   0.02      0]];
 			
 // Pojemnosc rynku - typ produktu(kolumny) w miesiacu(wiersz)
-maxInMonth = [[ 200     0   100   200]
+maxProductsInMonth = [[ 200     0   100   200]
 			[ 300   100   200     200]
 			[   0   300   100   200]];
 

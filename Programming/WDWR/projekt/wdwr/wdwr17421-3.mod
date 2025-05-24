@@ -8,23 +8,23 @@
  //Paramatry zostaladniej opisane w pliku .dat oraz raporcie
  
 // Parametry liczbowe
-int nMachType = ...;
-int nMonth = ...;
-int nProdType = ...;
+int numberOfMachineTypes = ...;
+int numberOfMonths = ...;
+int numberOfProductsTypes = ...;
 
-int nHours = ...;
-int nScenarios = ...;
+int numberOfHoursInFactory = ...;
+int numberOfScenarios = ...;
 
 // Utworzenie wektorow indeksujacych
-{int} machines = asSet(1..nMachType);
-{int} months = asSet(1..nMonth);
-{int} products = asSet(1..nProdType);
-{int} scenarios = asSet(1..nScenarios);
+{int} machines = asSet(1..numberOfMachineTypes);
+{int} months = asSet(1..numberOfMonths);
+{int} products = asSet(1..numberOfProductsTypes);
+{int} scenarios = asSet(1..numberOfScenarios);
 
 //Parametry produkcji i sprzedazy
 int machineCount[machines] = ...;
-float prodTime[machines][products] = ...;
-int maxInMonth[months][products] = ...;
+float timeToProduce[machines][products] = ...;
+int maxProductsInMonth[months][products] = ...;
 
 //Parametry magazynowania
 int storageMax[products] = ...;
@@ -62,11 +62,11 @@ dexpr float profit[i in scenarios] = sum(m in months, p in products)
 (sell[m][p]*sellProfit[i][p]-lowerProfit[i][m][p]- stock[m][p]*storageCost);
 
 // wartosc oczekiwana zysku policzona jako srednia
-dexpr float avgProfit = sum(i in scenarios)(profit[i])/nScenarios;
+dexpr float avgProfit = sum(i in scenarios)(profit[i])/numberOfScenarios;
 
 // RYZYKO zdefiniowane srednia roznica Giniego
 dexpr float giniRisk = sum (t1 in scenarios, t2 in scenarios ) (
-			0.5 * abs(profit[t1] - profit[t2]) * 1/nScenarios * 1/nScenarios
+			0.5 * abs(profit[t1] - profit[t2]) * 1/numberOfScenarios * 1/numberOfScenarios
 		);
 
 // funkcja celu
@@ -85,20 +85,20 @@ subject to {
   }    
   // Ogranicznie czasu produkcji maszyn w miesiacu
 	forall(m in months, mc in machines) {
-	  sum(p in products) (workTime[m][mc][p]) <= (machineCount[mc]*nHours);
+	  sum(p in products) (workTime[m][mc][p]) <= (machineCount[mc]*numberOfHoursInFactory);
   }
   // Ograniczenie definiujace wykorzystany czas pracy maszyn	
  	forall(m in months, p in products, mc in machines) {
- 	  workTime[m][mc][p] == produce[m][p]*prodTime[mc][p];
+ 	  workTime[m][mc][p] == produce[m][p]*timeToProduce[mc][p];
   }
   // Ogranicznie maksymalnej pojemnosci rynku
  	forall(m in months, p in products) {
- 	  sell[m][p] <= maxInMonth[m][p];
+ 	  sell[m][p] <= maxProductsInMonth[m][p];
   }
   // Ogranicznie ustawiajace zmienna binarna po przekroczeniu 80 procent pojemnosci rynku
     forall(m in months, p in products) {
-  	  sell[m][p] <= 0.8*maxInMonth[m][p] + 1000000 * if80prec[m][p];
-  	  sell[m][p] >= 0.8*maxInMonth[m][p] * if80prec[m][p];
+  	  sell[m][p] <= 0.8*maxProductsInMonth[m][p] + 1000000 * if80prec[m][p];
+  	  sell[m][p] >= 0.8*maxProductsInMonth[m][p] * if80prec[m][p];
      }
   // Ograniczenia linearyzujace wplyw zmiennej binarnej na funkcje celu
     forall (i in scenarios,m in months, p in products) {
