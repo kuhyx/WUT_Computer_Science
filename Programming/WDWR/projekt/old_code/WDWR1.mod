@@ -83,7 +83,7 @@ var storage {m in MONTHS, p in PRODUCTS} =
 	startingStorage[p] + sum {m2 in MONTHS: ord(m2) <= ord(m)} stored[m2, p];  
 
 # Czas pracy narzedzi w danym miesi�cu
-var availableToolTime {t in TOOLS} =
+param availableToolTime {t in TOOLS} =
 	toolCount[t]*workHoursPerMonth;
 var usedToolTime {m in MONTHS, t in TOOLS} =
 	sum {p in PRODUCTS} produced[m,p]*toolTimePerUnit[t,p];

@@ -1,709 +1,489 @@
-\documentclass{article}
+\documentclass[11pt,a4paper]{article}
+\usepackage[OT4]{polski}
 \usepackage[utf8]{inputenc}
-\usepackage[polish]{babel} 
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{longtable}
+\usepackage[inner=2.5cm,outer=2.5cm, tmargin=2.5cm,bmargin=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{relsize,amsfonts}
 \usepackage{enumitem}
-\usepackage{float}
-\usepackage{minted}
+\usepackage{graphicx}
 
-\title{WDWR, sprawozdanie}
-\author{Krzysztof Rudnicki, 307585}
+\newcommand\bigexists{%
+  \mathop{\lower0.75ex\hbox{\ensuremath{%
+    \mathlarger{\mathlarger{\mathlarger{\mathlarger{\exists}}}}}}}%
+  \limits}
+  
+\newcommand\bigforall{%
+  \mathop{\lower0.75ex\hbox{\ensuremath{%
+    \mathlarger{\mathlarger{\mathlarger{\mathlarger{\forall}}}}}}}%
+  \limits}
+  
+\title{Wspomaganie Decyzji w Warunkach Ryzyka\\\large \medskip Projekt: WDWR 25406\\}
+\author{Krzysztof Rudnicki 307585}
 \date{\today}
 
 \begin{document}
 
 \maketitle
-\tableofcontents
 
-\section*{WDWR 25406}
-
-Rozważamy następujące zagadnienie planowania produkcji:
-
-\begin{itemize}
-\item Przedsiębiorstwo wytwarza 4 produkty P1, 
-\ldots, P4 na następujących maszynach: 
-4 szlifierkach, 2 wiertarkach pionowych, 
-3 wiertarkach poziomych, 1 frezarce i 1 tokarce. 
-Wymagane czasy produkcji 1 sztuki produktu (w godzinach) 
-w danym procesie obróbki zostały przedstawione w poniższej 
-tabeli:
-\end{itemize}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-                   & P1   & P2   & P3   & P4   \\
-\hline
-Szlifowanie       & 0,4  & 0,6  & —    & —    \\
-\hline
-Wiercenie pionowe & 0,2  & 0,1  & —    & 0,6  \\
-\hline
-Wiercenie poziome & 0,1  & —    & 0,7  & —    \\
-\hline
-Frezowanie        & 0,06 & 0,04 & —    & 0,05 \\
-\hline
-Toczenie          & —    & 0,05 & 0,02 & —    \\
-\hline
-\end{tabular}
-\end{table}
+\section*{Treść zadania}
+\addcontentsline{toc}{section}{Treść zadania}
+Rozważmy następujące zagadnienie planowania produkcji:
 
 \begin{itemize}
-\item Dochody ze sprzedaży produktów (w zł/sztukę) 
-modelują składowe wektora losowego 
-\textbf{R} = ($R_1, \ldots, R_4$)$^T$. 
-Wektor losowy \textbf{R} opisuje 4-wymiarowy rozkład 
-$t$-Studenta z 5 stopniami swobody, 
-którego wartości składowych zostały zawężone do przedziału 
-[5; 12]. Parametry $\mu$ oraz $\mathbf{\Sigma}$ 
-niezawężonego rozkładu $t$-Studenta są następujące:
+  \item Przedsiębiorstwo wytwarza 4 produkty P1,...,P4 na następujących maszynach: 4 szlifierkach, 
+  2 wiertarkach pionowych, 3 wiertarkach poziomych, 1 frezarce i 1 tokarce. Wymagane czasy produkcji 
+  1 sztuki produktu (w godzinach) w danym procesie obróbki zostały przedstawione w poniższej tabeli:\\
+  \begin{center}
+  \begin{tabular}{l*{4}{c}}
+  	\hline
+              			& P1 & P2 & P3 & P4 \\
+	\hline
+	Szlifowanie 		& 0,4 & 0,6 & - & - \\
+	Wiercenie pionowe   & 0,2 & 0,1 & - & 0,6 \\
+	Wiercenie poziome 	& 0,1 & - & 0,7 & -  \\
+	Frezowanie  	 	& 0,06 & 0,04 & - & 0,05 \\
+	Toczenie	     	& - & 0,05 & 0,02 & - \\
+	\hline
+	\end{tabular}
+	\end{center}
 
-$$
-\mu = \begin{pmatrix} 9 \\ 8 \\ 7 \\ 6 \end{pmatrix}, \qquad \Sigma = \begin{pmatrix} 16 & -2 & -1 & -3 \\ -2 & 9 & -4 & -1 \\ -1 & -4 & 4 & 1 \\ -3 & -1 & 1 & 1 \end{pmatrix}.
-$$
+  \item Dochody ze sprzedaży produktów (w zł/sztukę) określają składowe wektora 
+  $\mathbf{R} = (R_{1},...,R_{4})^{T}$. Wektor $\mathbf{R}$ opisuje 4-wymiarowy rozkład 
+  \textit{t}-Studenta z 4 stopniami swobody, którego wartości składowych zostały zawężone do 
+  przedziału $[5;12]$. Wektor wartości oczekiwanych $\mu$ oraz macierz kowariancji 
+  $\Sigma$ niezawężonego rozkładu \textit{t}-Studenta są następujące:
+  \begin{displaymath}
+\mathbf{\mu} = 
+ \begin{pmatrix}
+  9 \\ 8 \\ 7 \\ 6 \\  
+ \end{pmatrix},
+ \mathbf{\Sigma} = 
+ \begin{pmatrix}
+  16 & -2 & -1 & -3 \\
+  -2 & 9 & -4 & -1 \\ 
+  -1 & -4 & 4 & 1 \\
+  -3 & -1 & 1 & 1 \\  
+ \end{pmatrix}
+  \end{displaymath}
+  
+  \item Istnieją ograniczenia rynkowe na liczbę sprzedawanych produktów w danym miesiącu:
+  \begin{center}
+  \begin{tabular}{l*{4}{c}}
+  	\hline
+              			& P1 & P2 & P3 & P4 \\
+	\hline
+	Styczeń 			& 200 & 0 & 100 & 200 \\
+	Luty   				& 300 & 100 & 200 & 200 \\
+	Marzec 				& 0 & 300 & 100 & 200  \\
+	\hline
+	\end{tabular}
+	\end{center}
+	
+	\item Jeżeli sprzedaż danego produktu przekracza 80 procent ilości jaką może wchłonąć rynek, 
+    jego dochód spada o 20 procent.
+	
+	\item Istnieje możliwość składowania do 200 sztuk każdego produktu w danym czasie w cenie 1 zł/sztukę 
+    za miesiąc. W chwili obecnej (grudzień) w magazynach znajduje się po 50 sztuk każdego produkt. 
+    Istnieje wymaganie, aby tyle pozostało również pod koniec marca.
+	
+	\item Przedsiębiorstwo pracuje 6 dni w tygodniu w systemie dwóch zmian. Każda zmiana trwa 8 godzin. 
+    Można założyć, że każdy miesiąc składa się z 24 dni roboczych.
 \end{itemize}
 
-\begin{itemize}
-\item Istnieją ograniczenia rynkowe na liczbę sprzedawanych produktów w danym miesiącu:
-\end{itemize}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-         & P1  & P2  & P3  & P4  \\
-\hline
-Styczeń & 200 & 0   & 100 & 200 \\
-\hline
-Luty    & 300 & 100 & 200 & 200 \\
-\hline
-Marzec  & 0   & 300 & 100 & 200 \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{itemize}
-\item Jeżeli sprzedaż danego produktu przekracza 80 procent ilości jaką może wchłonąć rynek, jego
-dochód spada o 20 procent.
-\item Istnieje możliwość składowania do 200 sztuk każdego produktu w danym czasie w cenie 1 zł/sztukę za miesiąc. Aktualnie firma nie posiada żadnych zapasów, ale jest pożądane mieć po 50 sztuk każdego produktu pod koniec marca.
-\item Przedsiębiorstwo pracuje 6 dni w tygodniu w systemie dwóch zmian. Każda zmiana trwa 8 godzin. Można założyć, że każdy miesiąc składa się z 24 dni roboczych.
-\item 1. Zaproponować jednokryterialny model wyboru w warunkach ryzyka z wartością oczekiwaną jako miarą zysku. Wyznaczyć rozwiązanie optymalne.
-\item 2. Jako rozszerzenie powyższego zaproponować dwukryterialny model zysku i ryzyka z wartością średnią jako miarą zysku i średnią różnicą Giniego jako miarą ryzyka. Dla decyzji $\mathbf{x} \in Q$ średnia różnica Giniego jest definiowana jako $\Gamma(\mathbf{x}) = \frac{1}{2} \sum_{t'=1}^{T} \sum_{t''=1}^{T} |r^{t'}(\mathbf{x}) - r^{t''}(\mathbf{x})|p^{t'}p^{t''}$, gdzie $r^t(\mathbf{x})$ oznacza realizację dla scenariusza $t$, $p^t$ prawdopodobieństwo scenariusza $t$.
-    \begin{itemize}
-    \item a. Wyznaczyć obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko–zysk.
-    \item b. Wskazać rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku. Jakie odpowiadają im wartości w przestrzeni ryzyko–zysk?
-    \item c. Wybrać trzy dowolne rozwiązania efektywne. Sprawdzić czy zachodzi pomiędzy nimi relacja dominacji stochastycznej pierwszego rzędu. Wyniki skomentować, odnieść do ogólnego przypadku.
-    \end{itemize}
-\end{itemize}
-
-\section{Jednokryterialny model wyboru w warunkach ryzyka z wartością oczekiwaną jako miarą zysku}
-
-W celu rozwiązania postawionego zadania dokonano sformułowania modelu programowania liniowego całkowitoliczbowego. Poniżej przedstawiono zapis matematyczny modelu.
-
-\subsection{Zbiory indeksowe}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
-\hline
-Zbiór & Opis \\
-\hline
-P = P1, \ldots, P4 & Zbiór wytwarzanych produktów \\
-\hline
-T = T1, \ldots, T5 & Zbiór typów narzędzi wykorzystywanych przy produkcji \\
-\hline
-M = M1, M2, M3 & Zbiór kolejnych miesięcy produkcji \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Parametry}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|p{10cm}|}
-\hline
-Parametr & Opis \\
-\hline
-$tc_t$ & Liczba narzędzi typu t [szt] \\
-\hline
-$eppu_p$ & Oczekiwany zysk ze sprzedaży jednej sztuki produktu $p$ [zł] \\
-\hline
-$ttpu_{tp}$ & Czas wykorzystania maszyny typu $t$ przy produkcji jednej sztuki produktu $p$ [godz] \\
-\hline
-$smlm_p$ & Limit sprzedaży produktu $p$ w miesiącu $m$ [szt] \\
-\hline
-$stl_p$ & Limit pojemności magazynu na produkt $p$ [szt] \\
-\hline
-$stcp_u$ & Koszt magazynowania jednej sztuki dowolnego produktu [zł] \\
-\hline
-$st0_p$ & Początkowy stan magazynowy produktu $p$ [szt] \\
-\hline
-$dst_p$ & Porządany końcowy stan magazynowy produktu $p$ [szt] \\
-\hline
-$dp_m$ & Liczba dni roboczych w każdym miesiącu [d] \\
-\hline
-$sp_d$ & Liczba zmian w każdym dniu roboczym [j] \\
-\hline
-$whp_s$ & Liczba godzin roboczych w ciągu każdej zmiany [godz] \\
-\hline
-$whp_m = dp_m \cdot sp_d \cdot hp_s$ & Liczba godzin roboczych w ciągu każdego miesiąca [godz] \\
-\hline
-$att_t = tc_t \cdot whp_m$ & Dostępna liczba godzin roboczych maszyn typu $t$ w ciągu każdego miesiąca [godz] \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Zmienne}
-
-\renewcommand{\arraystretch}{1.5} % Increase row height
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|p{10cm}|}
-\hline
-Zmienna & Opis \\
-\hline
-$p_{mp}$ & Liczba sztuk produktu $p$ wyprodukowanych w miesiącu $m$ [szt] \\
-\hline
-$s_{mp}$ & Liczba sztuk produktu $p$ sprzedanych w miesiącu $m$ [szt] \\
-\hline
-$ts_p = \sum_{m \in M} s_{mp}$ & Całkowita liczba sprzedanych sztuk produktu $p$ \\
-\hline
-$std_{mp} = p_{mp} - s_{mp}$ & Liczba sztuk produktu $p$ zmagazynowanych w miesiącu $m$ [szt] \\
-\hline
-$stg_{mp} = st0_p + \sum\limits_{m2=1}^{m} std_{m2p}$ & Stan magazynowy produktu $p$ na koniec miesiąca $m$ [szt] \\
-\hline
-$uttm_t = \sum\limits_{p \in P} p_{mp} \cdot ttpu_{tp}$ & Wykorzystanie czasu pracy maszyny typu $t$ w miesiącu $m$ [godz] \\
-\hline
-$tstc = stcp_u \cdot \sum\limits_{m \in M} \sum\limits_{p \in P} stg_{mp}$ & Całkowity koszt wykorzystania magazynów [zł] \\
-\hline
-$b_{mp}$ & Zmienna binarna określająca czy sprzedaż produktu $p$ w miesiącu $m$ przekracza 80\% limitu rynkowego \\
-\hline
-$eppu_{mp} = eppu_p \cdot (1 - 0.2 \cdot b_{mp})$ & Skorygowany zysk jednostkowy dla produktu $p$ w miesiącu $m$ uwzględniający spadek o 20\% jeśli sprzedaż przekracza 80\% limitu rynkowego [zł] \\
-\hline
-$ep = \sum\limits_{m \in M} \sum\limits_{p \in P} (s_{mp} \cdot eppu_{mp}) - tstc$ & Wartość zysku całkowitego dla wartości oczekiwanych zysku ze sprzedaży produktów [zł] \\
-\hline
-\end{tabular}
-\end{table}
-\renewcommand{\arraystretch}{1} % Reset to default value
-
-\subsection{Ograniczenia}
-
-Ograniczenie rynkowe sprzedawanych produktów:
-
-$s_{mp} \leq smlm_p, \quad \forall m \in M, \forall p \in P$
-
-Ograniczenie sprzedaży produktów w pierszym miesiącu:
-
-$$s_{1p} \leqslant p_{1p}, \quad \forall p \in P$$
-
-Ograniczenie sprzedaży produktów w kolejnych miesiącach:
-
-$$s_{mp} \leqslant p_{mp} + stg_{mp}, \quad \forall m \in M \backslash \{1\}$$
-
-Ograniczenie pojemności magazynów:
-
-$$stg_{mp} \leqslant stl_p, \quad \forall p \in P$$
-
-Ograniczenie na pożądany stan magazynowy na koniec miesiąca 3:
-
-$$stg_{3p} \geqslant dst_p, \quad \forall p \in P$$
-
-Ograniczenie wykorzystania czasu pracy narzędzi w danym miesiącu:
-
-$uttm_t \leq att_t, \quad \forall t \in T, \forall m \in M$
-
-Ograniczenie identyfikujące przekroczenie 80\% limitu rynkowego:
-
-$$s_{mp} \leq 0.8 \cdot smlm_p + M \cdot b_{mp}, \quad \forall m \in M, \forall p \in P$$
-
-$$s_{mp} \geq 0.8 \cdot smlm_p - M \cdot (1 - b_{mp}) + \varepsilon, \quad \forall m \in M, \forall p \in P$$
-
-gdzie $M$ jest dostatecznie dużą liczbą, a $\varepsilon$ jest małą liczbą dodatnią.
-
-\subsection{Funkcja celu}
-
-Jako funkcję celu przyjęto maksymalizację wartości oczekiwanej zysku: $maximize \; ep$
-
-\section{Dwukryterialny model zysku i ryzyka z wartoscią oczekiwaną jako miarą zysku i odchyleniem maksymalnym jako miarą ryzyka}
-
-Model ten został zrealizowany jako rozszerzenie modelu jednokryterialnego o dodatkowe zbiory, parametry, zmienne, ograniczenia i nową funkcję celu.
-
-\subsection{Zbiory indeksowe}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
-\hline
-Zbiór & Opis \\
-\hline
-S = S1, \ldots, S1000 & Zbiór scenariuszy wygenerowanych z rozkładu t-Studenta \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Parametry}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
-\hline
-Parametr & Opis \\
-\hline
-$sppu_{ps}$ & Zysk ze sprzedaży jednej sztuki produktu $p$ w scenariuszu $s$ [zł] \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Zmienne}
-inputminted
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|p{10cm}|}
-\hline
-Zmienna & Opis \\
-\hline
-$sp_s = \sum_{p \in P} (ts_p \cdot sppu_{ps}) - tstc$ & Wartość zysku całkowitego dla scenariusza $s$ zysku ze sprzedaży produktów [zł] \\
-\hline
-$dev_s = ep - sp_s$ & Odchylenie zysku w danym scenariuszu [zł]. Jako, że funkcja wartości bezwzględnej jest nieliniowa zmienna została poddana linearyzacji z użyciem zmiennych $ldev_s$, $P_s$, $Q_s$ \\
-\hline
-$ldev_s = ep - sp_s$ & Zmienna pomocnicza wykorzystana w linearyzacji odchylenia zysku w scenariuszu $s$ \\
-\hline
-$P_s$ & Zmienna pomocnicza wykorzystana w linearyzacji zmiennejk $dev_s$ \\
-\hline
-$Q_s$ & Zmienna pomocnicza wykorzystana w linearyzacji zmiennej $dev_s$ \\
-\hline
-$mdev = \max_{s \in S} dev_s$ & Maksymalne odchylenie zysu [zł]. Jako, że funkcja max jest nie liniowa, zmienna została poddana linearyzacji z użyciem zmiennych $M$, $Z_s$ \\
-\hline
-$M$ & Zmienna pomocnicza wykorzystana w linearyzacji zmiennej $mdev$ \\
-\hline
-$Z_s$ & Zmienna pomocnicza binarna wykorzystana w linearyzacji zmiennej $mdev$ \\
-\hline
-$r = mdev$ & Miara ryzyka, równa maksymalnemu odchyleniu zysku \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{Ograniczenia}
-
-Ograniczenie związane z linearyzacją zmiennej $dev_s$:
-
-$$lde v_{s1} - lde v_{s2} + P_{s1} - Q_{s2} = 0, \quad \forall s_1, s_2 \in S$$
-
-Ograniczenie związane z linearyzację zmiennej $mdev$:
-
-$$mdev \geqslant dev_s, \quad \forall s \in S$$
-
-$$mdev \leqslant dev_s + M(1 - Z_s), \quad \forall s \in S$$
-
-$$\sum_{s \in S} Z_s = 1$$
-
-\subsection{Metoda punktu odniesienia}
-
-Jako model preferencji dla modelu dwukryterialnego została wybrana metoda punktu odniesienia. Wprowadza ona zestaw dodatkowych parametrów i zmiennych:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|p{10cm}|}
-\hline
-Parametr & Opis \\
-\hline
-$asp_{ep}$ & Poziom aspiracji oczekiwanego zysku \\
-\hline
-$asp_r$ & Poziom aspiracji ryzyka \\
-\hline
-$\lambda_{ep}$, $\lambda_r$ & Współczynniki normalizujące, odpowiednio dla zysku i ryzyka. Ze względu na ogólne sformułowanie metody punktu odniesienia jako problemu maksymalizacji, $\lambda_{ep}$ przyjmie wartość dodatnią, a $\lambda_r$ ujemną. \\
-\hline
-$\beta$ & Współczynnik pomniejszający wartość ocen wykraczających powyżej poziomu aspiracji \\
-\hline
-$\varepsilon$ & Współczynnik składnika regularyzacyjnego \\
-\hline
-\end{tabular}
-
-\begin{tabular}{|l|l|}
-\hline
-Zmienne & Opis \\
-\hline
-$oc_{ep}$, $oc_r$ & Wartości indywidualnych funkcji osiągnięć dla zysku i ryzyka \\
-\hline
-$v$ & Zmienna pomocnicza metody punktu odniesienia \\
-\hline
-\end{tabular}
-\end{table}
-
-Ograniczenia zmiennej $v$ przez wartości indywidualnych funkcji osiągnięć:
-
-$v \leq oc_{ep}$ oraz $v \leq oc_r$
-
-Ograniczenia indywidualnych funkcji osiągnięć:
-
-$$oc_r \leqslant \lambda_r (r - asp_r)$$
-
-$$oc_r \leqslant \beta \lambda_r (r - asp_r)$$
-
-$$oc_{ep} \leqslant \lambda_p (ep - asp_{ep})$$
-
-$$oc_{ep} \leqslant \beta \lambda_p (ep - asp_{ep})$$
-
-Funkcja celu metody punktu odniesienia w postaci dla programowania liniowego:
-
-$$\max \quad v + \varepsilon (oc_{ep} + oc_r)$$
-
-\section{Wyznaczenie parametrów zadania z rozkładu t-Studenta}
-
-W celu wyznaczenia wartości oczekiwanej wektora $R$ (odpowiadającą parametrowi modelu $eppu_p$) wykorzystano następującą zależność:
-
-$$E(R) = \mu + \sigma \cdot \frac{\Gamma(\frac{\nu - 1}{2})((\nu + a^2)^{-\frac{\nu - 1}{2}} - (\nu + b^2)^{\frac{\nu - 1}{2}})\nu^{\frac{\nu}{2}}}{2(F_{\nu}(b) - F_{\nu}(a))\Gamma(\frac{\nu}{2})\Gamma(\frac{1}{2})}$$
-
-gdzie:
-
-\begin{itemize}
-\item $\mu$ wartość oczekiwana dla $R$,
-\item $\Gamma$ funkcja gamma Eulera,
-\item $\nu$ liczba stopni swobody,
-\item $F$ dystrybuanta standardowego rozkładu t-Studenta $t(0, 1; \nu)$ z $\nu$ stopniami swobody,
-\item $a = \frac{\alpha-\mu}{\sigma}$, gdzie $\alpha$ to lewy kraniec przedziału,
-\item $b = \frac{\beta-\mu}{\sigma}$, gdzie $\beta$ to prawy kraniec przedziału.
-\end{itemize}
-
-Otrzymano wartości:
-
-$E(R)^T = [8.5094, 8.4710, 8.1319, 6.3944]$
-
-Do obliczenia wartości oczekiwanej oraz wyznaczenia scenariuszy wykorzystano skrypt napisany w języku $R$. Wygenerowano 100 scenariuszy testowtych. Użyty skrypt przedstawia Listing 1.
-
-Listing 1: Skrypt w języku $R$ do obliczania wartości oczekiwanej wektora $R$ i generowania scenariuszy z rozkładu t-Studenta.
-
-\inputminted[autogobble]{R}{../WDWR.r}
-
-\section{Model dla programu AMPL}
-
-\subsection{Plik z modelem (.mod)}
-
-\inputminted[autogobble]{R}{../WDWR1.mod}
-
-\subsection{Plik z danymi (.dat)}
-
-\begin{verbatim}
-1 # ##########################################################
-2 # WDWR 25406 #
-3 # Planowanie produkcj w warunkach ryzyka. #
-4 # DANE #
-5 # Autor : Krzysztof Rudnicki #
-6 # ##########################################################
-7
-8 # Narzedzia
-9 set TOOLS := GRINDER VDRILL HDRILL MILLER LATHE ;
-10
-11 # Miesiace
-12 set MONTHS := JAN FEB MAR ;
-13
-14 # Liczba narzedzi
-15 param toolCount :=
-16 GRINDER 4
-17 VDRILL 2
-18 HDRILL 3
-19 MILLER 1
-20 LATHE 1
-21 ;
-22
-23 # Czasy produkcji h
-24 param toolTimePerUnit :
-25 P1 P2 P3←-
-                                   P4 :=
-26 GRINDER 0 .4 0 .6 0 ←-
-              0
-27 VDRILL 0 .2 0 .1 0 ←-
-              0 .6
-28 HDRILL 0 .1 0 0 .7 ←-
-              0
-29 MILLER 0 .06 0 .04 0 0 .05
-30 LATHE 0 0 .05 0 .02 0
-31 ;
-32
-33 # Ograniczenia rynkowe liczby sprzedawanych produktow pcs
-34 param salesMarketLimit :
-35 P1 P2 P3 ←-
-                            P4 :=
-36 JAN 200 0 100 ←-
-              200
-37 FEB 300 100 200 ←-
-              200
-38 MAR 0 300 100 ←-
-              200
-39 ;
-40
-41 # Ograniczeine liczby magazynowanych produktow pcs
-42 param storageLimit :=
-43 P1 200
-44 P2 200
-45 P3 200
-46 P4 200
-\end{verbatim}
-
-\begin{verbatim}
-47 ;
-48
-49 # Koszt magazynowania produktow pln/pcs per month
-50 param storageUnitCost := 1;
-51
-52 # Aktualny stan magazynowy pcs
-53 param startingStorage :=
-54 P1 0
-55 P2 0
-56 P3 0
-57 P4 0
-58 ;
-59
-60 # Pozadany stan magazynowy na koniec marca pcs
-61 param desiredEndStorage :=
-62 P1 50
-63 P2 50
-64 P3 50
-65 P4 50
-66 ;
-67
-68 # Liczba dni roboczych w miesiacu d
-69 param daysPerMonth := 24;
-70
-71 # Liczba zmian w ciagu jednego dnia roboczego
-72 param shiftsPerDay := 2;
-73
-74 # Dlugosc zmiany h
-75 param hoursPerShift := 8;
-76
-77 # Zyski wartosc oczekiwana
-78 param expectedProfitPerUnit :=
-79 P1 8 .50944172786882
-80 P2 8 .47100593224391
-81 P3 8 .1319049712769
-82 P4 6 .39446520538826
-83 ;
-84
-85 # Metoda punktu odniesienia
-86 param epsilon = 0 .000025 ;
-87
-88 param beta = 0 .001 ;
-89
-90 param utopia :=
-91 PROFIT 11987
-92 RISK 1000
-93 ;
-94
-95 param nadir :=
-96 PROFIT -2400
-97 RISK 2815
-98 ;
-99
-100 param aspiration :=
-101 PROFIT 10000
-102 RISK 0
-\end{verbatim}
-
-
-\subsection{Skrypty uruchomieniowe (.run)}
-
-\inputminted[autogobble]{R}{../WDWR1.run}
-
-\section{Rozwiązanie zadania optymalizacji}
-
-\subsection{Wyniki dla modelu jednokryterialnego}
-
-$s_{mp}$ oraz wartość wyznaczonego rozwiązania optymalnego:
-
-$ep = 13943.26177[z]$
-
-Listing 7: Wynik działania skryptu wyznaczającego rozwiązanie optymalne modelu jednokryterialnego.
-
-\begin{verbatim}
-#################################################
-### Maximize profit for expected profit value ###
-#################################################
-CPLEX 22.1.2: optimal solution; objective 13943.26177
-7 simplex iterations
-produced :=
-JAN P1   200
-JAN P2     0
-JAN P3   100
-JAN P4   200
-FEB P1   300
-FEB P2   100
-FEB P3   200
-FEB P4   200
-MAR P1    50
-MAR P2   350
-MAR P3   150
-MAR P4   250
-;
-
-sold :=
-JAN P1   200
-JAN P2     0
-JAN P3   100
-JAN P4   200
-FEB P1   300
-FEB P2   100
-FEB P3   200
-FEB P4   200
-MAR P1     0
-MAR P2   300
-MAR P3   100
-MAR P4   200
-;
-
-stored :=
-JAN P1    0
-JAN P2    0
-JAN P3    0
-JAN P4    0
-FEB P1    0
-FEB P2    0
-FEB P3    0
-FEB P4    0
-MAR P1   50
-MAR P2   50
-MAR P3   50
-MAR P4   50
-;
-
-Profit: 13943.261775                                     
-\end{verbatim}
-
-52 Profit: 13943.261775
-
-\begin{figure}[H]
-\centering
-%\includegraphics[width=\linewidth]{_page_0_Figure_0.jpeg}
-\caption{Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk}
-\label{fig:solutions}
-\end{figure}
-
-\subsection{Wyniki dla modelu dwukryterialnego}
-
-\subsubsection{Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk}
-
-Obraz zbioru rozwiązań efektywnch w przestrzeni ryzyko-zysk został uzyskany poprzez rozwiązanie zadania metody punktu odniesienia dla różnych wartości aspiracji dla zysku oraz ryzyka. Do wykonania obliczeń posłużono się skryptem przedstawionym na Listing 7. Obliczenia przeprowadzono ustalając poziomy aspiracji w wyznaczonych granicach zmienności zysku i ryzyka (wektory nadiru i utopii wyznaczone w kolejnej sekcji). Dla każdego poziomu aspiracji wykorzystano po 10 równoodległych wartości znajdujących się w przedziałach definiowanych przez wektory nadiru i utopii.
-
-Ze względu na duży rozmiar zadania, a przez długi czas obliczeń przy 1000 scenariuszach, zdecydowano się ograniczyć ich liczbę do 50. Niestety nie jest to liczba wystarczająca do przeprowadzenia dokładnych obliczeń, jednak uzyskane wyniki powinny być wystarczające do przedstawienia działania metody.
-
-Fragment wyników działania skryptu obliczeniowego przedstawia Listing 8. Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk pokazuje Rysunek 1.
-
-Listing 8: Skrypt obliczający wartości do wyznaczenia obrazu zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk. Pełne wyniki dostępne w załączniku.
-
-\begin{verbatim}
-1 ### 39: Solving model for aspirations : 2395 .666667 , 312 .777778
-2 CPLEX 12 .8.0.0 : optimal integer solution within mipgap or absmipgap ; ←-
-      objective 5 .427722957e -07
-3 39 MIP simplex iterations
-4 0 branch -and - bound nodes
-5 absmipgap = 7 .81092e -07 , relmipgap = 1 .43881
-\end{verbatim}
-
-\begin{verbatim}
-6 Profit : 2417 .827519
-7 Risk : 311 .250020
-8 RPM : 0 .000001
-9 ### 40: Solving model for aspirations : 2395 .666667 , 0 .000000
-10 CPLEX 12 .8.0.0 :
-11 < BREAK > ( cplex )
-12 CPLEX solution status 13 with fixed integers :
-13 aborted in phase II
-14 aborted , integer solution exists ; objective -0 .06697476417
-15 116486 MIP simplex iterations
-16 103313 branch -and - bound nodes
-17 absmipgap = 6 .93933e -05 , relmipgap = 0 .00103611
-18 Profit : 1432 .148909
-19 Risk : 188 .510726
-20 RPM : -0 .066975
-\end{verbatim}
-
-Rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku
-
-Rozwiązania efektywne dla minimalnego ryzyka i maksymalnego zysku wyznaczono wykorzystując skrypt przedstawiony na listingu Listing 4. Na podstwaie wyników jego działania, które przedstawia Listing 9 można podać następujące rozwiązania:
-
-\begin{itemize}
-\item Minimalne ryzyko: $ep = -1000$, przy $r = 0$,
-\item Maksymalny zysk: $ep = 11987$, przy $r = 2569$
-\end{itemize}
-
-Dodatkowo poza zakresem zadania wyznaczonon pozostałe elementy potrzebne do wyznaczenia wektorów nadiru i utopii:
-
-\begin{itemize}
-\item Maksymalne ryzyko: $ep = 9193$, przy $r = 2815$,
-\item Minimalny zysk: $ep = -2400.00$, przy $r = 0.00$
-\end{itemize}
-
-$$\text{Wektor nadiru: } (-2400, 2815)$$
-
-Wektor utopii: $(0, 11987)$
-
-Listing 9: Skrypt wyznaczający rozwiązania optymalne modelu dwukryterialnego.
-
-\begin{verbatim}
-1 # ########################
-2 ### Minimizing profit ###
-3 # ########################
-4 CPLEX 12 .8.0.0 : optimal integer solution ; objective -2400
-5 7 MIP simplex iterations
-6 0 branch -and - bound nodes
-7 Profit : -2400
-8 Risk : 0
-9
-10 # ########################
-11 ### Maximizing profit ###
-12 # ########################
-13 CPLEX 12 .8.0.0 : optimal integer solution ; objective 11987 .41899
-14 32 MIP simplex iterations
-15 0 branch -and - bound nodes
-16 Profit : 11987
-17 Risk : 2569
-18
-\end{verbatim}
-
-\begin{verbatim}
-19 # ######################
-20 ### Minimizing risk ###
-21 # ######################
-22 CPLEX 12 .8.0.0 : optimal integer solution ; objective 0
-23 0 MIP simplex iterations
-24 0 branch -and - bound nodes
-25 Profit : -1000
-26 Risk : 0
-27
-28 # #######################
-29 ### Maximizing risk k###
-30 # #######################
-31 CPLEX 12 .8.0.0 : optimal integer solution ; objective 2815 .995263
-32 21837 MIP simplex iterations
-33 705 branch -and - bound nodes
-34 Profit : 9193
-35 Risk : 2815
-\end{verbatim}
-
-\subsubsection{Analiza relacji dominacji stochastycznej dla trzech wybranych rozwiązań efektywnych}
-
-Do analizy wybrano następujące scenariusze:
-
+\section*{Polecenia}
+\addcontentsline{toc}{section}{Polecenia}
 \begin{enumerate}
-\item Maksymalny zysk $ep = 11987.42$,
-\item Poziomy aspiracji $aspep = 8789.89$ oraz $asp^r = 1876.67$,
-\item Poziomy aspiracji $aspep = 10388.44$ oraz $asp^r = 938.33$.
+  \item Zaproponować jednokryterialny model wyboru w warunkach ryzyka z wartością oczekiwaną jako 
+  miarą zysku. Wyznaczyć rozwiązanie optymalne.
+  \item Jako rozszerzenie powyższego zaproponować dwukryterialny model zysku i ryzyka ze średnią 
+  jako miarą zysku i średnią różnicą Giniego jako miarą ryzyka. Dla decyzji 
+  $\mathbf{x}\in Q$ średnia różnica Giniego jest definiowana jako 
+  $\Gamma(\mathbf{x})=\frac{1}{2}\sum_{t'=1}^{T}\sum_{t"=1}^{T}\lvert r_{t'}(\mathbf{x})-r_{t"}(\mathbf{x})\rvert p_{t'}p_{t"}$, gdzie $r_{t'}(\mathbf{x})$ 
+  oznacza realizację dla scenariusza t, $p_{t}$ prawdopodobieństwo scenariusza t.
+  \begin{enumerate}
+    \item Wyznaczyć obraz zbioru rozwiązań efektywnych w przestrzeni zysk-ryzyko.
+    \item Wskazać rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku. Jakie odpowiadają im 
+    wartości w przestrzeni ryzyko-zysk?
+    \item Wybrać trzy dowolne rozwiązania efektywne. Sprawdzić, czy zachodzi pomiędzy nimi relacja 
+    dominacji stochastycznej pierwszego rzędu. Wyniki skomentować, odnieść do ogólnego przypadku.
+  \end{enumerate}
 \end{enumerate}
 
-Dane do analizy zostały wygenerowane w trakcie przeprowadzania obliczeń do poprzednich podpunktów i są dostępne w załącznikach.
+\section{Jednokryterialny model wyboru}
+Model jednokryterialny wyboru w warunkach ryzyka został zaprojektowany w celu identyfikacji rozwiązania 
+optymalnego poprzez maksymalizację oczekiwanej wartości zysku. Wartość oczekiwana jest kalkulowana na 
+podstawie scenariuszy generowanych zgodnie z rozkładem \textit{t}-Studenta wykorzystującym parametry 
+określone w zadaniu. W analizie założono równomierne prawdopodobieństwo występowania wszystkich 
+scenariuszy.
+\subsection{Parametry modelu}
+Wszystkie parametry modelu zostały przedstawione w tabeli poniżej wraz z ich szczegółowymi opisami. 
+Identyczne nazewnictwo zostało zastosowane w implementacji modelu. Dla parametrów będących wektorami 
+i macierzami, w nawiasach kwadratowych określono ich wymiary, odnosząc się do odpowiednich parametrów liczbowych.
+\begin{table}[ht!]
+\caption{Tabela zawierająca parametry modelu jednokryterialnego}
+\label{tab:param}
+\begin{tabular}{lp{9cm}}
+    \hline
+    Nazwa parametru      & Szczegółowy opis znaczenia \\
+    \hline
+    nMachType & Ilość typów maszyn (procesów) dostępnych w fabryce \\
+nMonth & Ilość miesięcy uwzględnionych w symulacji  \\
+nProdType & Ilość typów produktów \\
+nScenarios & Ilość scenariuszy wygenerowanych do symulacji \\
+machines[nMachType] & Wektor typów maszyn (procesów)\\
+months[nMonth] & Wektor miesięcy symulacji\\
+products[nProdType] & Wektor typów produktów\\
+machineCount[nMachType] & Wektor ilości maszyn danego typu\\
+prodTime[nMachType][nProdType] & macierz czasów produkcji danego produktu na danej maszynie \\
+maxInMonth[nMonth][nProdType] & macierz maksymalnej ilości produktów, jakie można sprzedać w danym miesiącu\\
+nHours & Ilość godzin pracy fabryki w miesiącu\\
+mu[nProdType] & Wektor wartości oczekiwanych rozkładu t-Studenta do generacji scenariuszy\\
+sigma [nProdType][nProdType] & Macierz kowariancji dla rozkłady t-Studenta\\ 
+sellProfit[nScenarios][nProdType] & Macierz wygenerowanych sceniariuszy dochodów ze sprzedaży produktów\\
+storageCost & Koszt trzymania jednej sztuki produktu w magazynie przez miesiąc \\
+storageMax[nProdType] & Wektor maksymalnej pojemności magazynu dla każdego typu produktu \\
+storageStart[nProdType] & Wektor ilości początkowej produktów w magazynie \\
+    \hline
+\end{tabular}
+\end{table}
 
-Dystrybuanty zysku przedstawia Rysunek 2.
+\subsection{Zmienne decyzyjne}
+Zmienne decyzyjne stanowią wartości kontrolowane przez podmiot podejmujący decyzje i są fundamentalne dla rozwiązywanego problemu. Zadaniem optymalizatora jest wyznaczenie takich wartości tych zmiennych, które umożliwią osiągnięcie optymalnego rozwiązania. W tabeli zawierającej zmienne decyzyjne modelu zaprezentowano zmienne decyzyjne zastosowane w modelu wraz z ich szczegółowymi opisami. Przyjęto tę samą konwencję nazewnictwa, co w przypadku parametrów modelu.
 
-Na podstawie wykresów możemy stwierdzić, że rozwiązanie dla scenariusza z maksymalnym zyskiem dominuje w sensie FSD pozostałe rozwiązania. Dodatkowo widzimy, że rozwiązanie ze scenariusza 3 dominuje w sensie FSD rozwiązanie scenariusza 2.
+\begin{table}[ht!]
+\caption{Tabela zawierająca zmienne decyzyjne modelu}
+\label{tab:var}
+\begin{tabular}{lp{7.5cm}}
+	\hline
+    Nazwa zmiennej      & Szczegółowy opis znaczenia \\
+        \hline
+        produce[nMonth][nProdType] & Macierz zawierające ilości wytwarzanych sztuk danego typu produktu w danym miesiącu \\
+        sell[nMonth][nProdType] & Macierz zawierająca ilości sprzedawanych sztuk danego typu produktu w danym miesiącu \\
+        stock[nMonth][nProdType] & Macierz zawierająca ilości sztuk danego typu produktu znajdujących się w magazynie w danym miesiącu \\
+        workTime[nMonth][nMachType][nProdType] & Macierz zawierająca czas pracy każdej maszyny dla każdego typu produktu w kazdym miesiącu \\
+        if80prec[nMonth][nProdType] & Macierz zmiennych binarnych (1 jeśli sprzedaż danego produktu w danym miesiącu przekroczyła 80\% wartości maksymalnej, 0 - w przeciwnym wypadku)\\
+        lowerProfit[nScenarios][nMonth][nProdType] & Macierz przechowująca kwoty, jaką należy odjąć od zysków z poszczególnych typów produktów w poszczególnych miesiącach, ze względu na przekroczenie 80\% pojemności rynku. Zmienna niezbędna do wyeliminowania obecności zmiennej binarnej w funkcji oceny\\
+	\hline
+\end{tabular}
+\end{table}
 
-\begin{figure}[H]
+\subsection{Ograniczenia}
+\begin{itemize}
+\item Ograniczenie dolne wartości zmiennych decyzyjnych – wartości nie mogą być mniejsze od zera:
+	\begin{equation}
+	\bigforall_{\substack{
+			m \in months \\ 
+			p \in products \\
+			mc \in machines}} workTime[m][mc][p] >=0
+	\end{equation}
+	\begin{equation}
+	\bigforall_{\substack{
+			m \in months \\ 
+			p \in products}} produce[m][p] >=0
+	\end{equation}
+	\begin{equation}
+	\bigforall_{\substack{
+			m \in months \\ 
+			p \in products}} sell[m][p] >=0
+	\end{equation}
+	\begin{equation}
+	\bigforall_{\substack{
+			m \in months \\ 
+			p \in products}} stock[m][p] >=0
+	\end{equation}
+	\begin{equation}
+	\bigforall_{\substack{
+			i \in scenarios \\
+			m \in months \\ 
+			p \in products}} lowerProfit[i][m][p] >=0
+	\end{equation}
+
+\item Ograniczenie czasowe pracy maszyn - Każda maszyna może pracować maksymalnie \textit{nHours} godzin w miesiącu, zatem łączny czas pracy wszystkich maszyn danego typu nie może przekroczyć iloczynu liczby dostępnych maszyn tego typu i czasu \textit{nHours}.
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			mc \in machines}}  \sum_{p \in products}
+		(workTime[m][mc][p] <= machineCount[mc]*nHours)
+	\end{equation}
+    \item Ograniczenie wiążące czas pracy maszyn z produkcją - czas wykorzystania określonego typu maszyny jest równy sumie iloczynów liczby wytworzonych jednostek każdego produktu i czasu potrzebnego na obróbkę jednej jednostki tego produktu na danej maszynie:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			mc \in machines\\
+			p \in products}} workTime[m][mc][p] == produce[m][p]*prodTime[mc][p]
+	\end{equation}
+    \item Ograniczenie maksymalnej sprzedaży wynikające z pojemności rynku w danym miesiącu:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] == maxInMonth[m][p]
+	\end{equation}
+	
+    \item Warunki definiujące zmienną binarną przy przekroczeniu 80 procent chłonności rynku:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}}  sell[m][p] <= 0.8*maxInMonth[m][p] + 1000000 * if80prec[m][p]
+	\end{equation}
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] >= 0.8*maxInMonth[m][p] * if80prec[m][p]
+	\end{equation}
+	
+    \item Ograniczenia linearyzujące oddziaływanie zmiennych binarnych na funkcję celu:
+	\begin{equation}
+		\bigforall_{\substack{
+			i \in scenarios\\			
+			m \in months\\ 
+			p \in products}} lowerProfit[i][m][p] <= 1000000 * if80prec[m][p]
+	\end{equation}
+	\begin{equation}
+		\bigforall_{\substack{
+			i \in scenarios\\			
+			m \in months\\ 
+			p \in products}} lowerProfit[i][m][p] <= 0.2 * sell[m][p]*sellProfit[i][p]
+	\end{equation}
+	\begin{multline}
+		\bigforall_{\substack{
+			i \in scenarios\\			
+			m \in months\\ 
+			p \in products}} 0.2 * sell[m][p]*sellProfit[i][p] - lowerProfit[i][m][p] +\\ 1000000 * if80prec[m][p] <= 1000000;
+	\end{multline}
+	
+    \item Ograniczenie sprzedaży do liczby sztuk wyprodukowanych oraz dostępnych w magazynie. Dla pierwszego miesiąca ograniczenie przyjmuje formę:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] <= produce[m][p]+storageStart[p]
+	\end{equation}
+	Dla każdego następnego miesiąca:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] <= produce[m][p] + stock[m-1][p]
+	\end{equation}
+	
+    \item Ograniczenie określające stan magazynu na koniec miesiąca jako różnicę między sumą produktów wyprodukowanych i dostępnych na początku miesiąca a liczbą sprzedanych jednostek. Dla pierwszego miesiąca:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}} stock[m][p]==(produce[m][p] + storageStart[p])-sell[m][p]
+	\end{equation}
+	Dla każdego następnego miesiąca:
+	\begin{equation}
+		\bigforall_{\substack{
+			m \in months\\ 
+			p \in products}} stock[m][p]==(produce[m][p] + stock[m-1][p])-sell[m][p]
+	\end{equation}
+
+\end{itemize}
+\subsection{Funkcja celu}
+Funkcja celu w modelu jednokryterialnym polega na maksymalizacji wartości oczekiwanej zysku ze wszystkich analizowanych scenariuszy. W każdym ze scenariuszy zastosowano funkcję zysku o następującej postaci
+\begin{multline}
+\bigforall_{\substack{
+			i<nScernarios\\ 
+			i \in N}}  
+	profit[i] =\sum_{m \in months} \sum_{p \in products}
+		(sell[m][p]\cdot sellProfit[i][p] \\ -lowerProfit[i][m][p]-stock[m][p]*storageCost)
+\end{multline}
+ 
+
+
+\subsection{Implementacja modelu}
+\subsubsection{Generacja scenariusz dochodów ze sprzedaży}
+Przychody ze sprzedaży poszczególnych typów produktów definiowane są przez wektor losowy opisany w treści zadania. W celu wygenerowania wektorów reprezentujących poszczególne scenariusze przychodów zastosowano bibliotekę MASS języka R. Implementacja została wykonana w środowisku R Studio IDE, a skrypt generujący dane zapisano w pliku dołączonym jako załącznik 1 - \textit{t-student.R}. W ramach przeprowadzonej symulacji wygenerowano 1000 scenariuszy realizacji przychodów.
+
+\subsubsection{Model}
+Model zaimplementowano w środowisku IBM ILOG CPLEX Optimization Studio z wykorzystaniem solvera CPLEX. Nazewnictwo parametrów oraz zmiennych decyzyjnych jest zgodne z opisem zawartym w tabelach \ref{tab:param} i \ref{tab:var}. Plik \textit{wdwr17421-1.dat} (załącznik 2) zawiera definicje parametrów modelu, natomiast plik \textit{wdwr17421-1.mod} (załącznik 3) obejmuje wczytywanie parametrów, definicje zmiennych decyzyjnych, funkcji celu oraz ograniczeń modelu. W celu uproszczenia implementacji przyjęto numeryczne oznaczenia dla miesięcy, produktów oraz procesów technologicznych. Miesiące numerowane są chronologicznie, produkty zgodnie z indeksem występującym w nazwie (P1-P4), natomiast procesy technologiczne według poniższej sekwencji:
+\begin{enumerate}
+\item Szlifowanie,
+\item Wiercenie pionowe,
+\item Wiercenie poziome,
+\item Frezowanie,
+\item Toczenie.
+\end{enumerate}
+
+\subsection{Rozwiązanie}
+Rozwiązanie optymalne modelu maksymalizacji wartości oczekiwanej zysku zostało wyznaczone przy użyciu solvera CPLEX. Maksymalna wartość oczekiwana zysku wynosi około 26023,63 zł. Optymalne wartości zmiennych decyzyjnych przedstawiają się następująco:
+\begin{displaymath}
+\mathbf{sell} = 
+ \begin{pmatrix}
+  320 & 0 & 160 & 240 \\
+  700 & 320 & 500 & 0 \\ 
+  0 & 800 & 600 & 320 \\  
+ \end{pmatrix},
+ \mathbf{if80prec} = 
+ \begin{pmatrix}
+  0 & 1 & 0 & 0 \\
+  1 & 0 & 1 & 1 \\ 
+  1 & 1 & 1 & 0 \\  
+ \end{pmatrix},
+\end{displaymath}
+\begin{displaymath}
+\mathbf{stock} = 
+ \begin{pmatrix}
+  0 & 50 & 0 & 0 \\
+  0 & 0 & 0 & 0 \\ 
+  50 & 50 & 50 & 50 \\  
+ \end{pmatrix},
+ \mathbf{produce} = 
+ \begin{pmatrix}
+  270 & 0 & 110 & 190 \\
+  700 & 270 & 500 & 0 \\ 
+  50 & 850 & 650 & 370 \\  
+ \end{pmatrix} 
+\end{displaymath}
+
+Czasem pracy poszczególnych typów maszyn dla różnych typów produktów w każdym miesiącu obrazują następujące macierze:
+\begin{displaymath}
+ \mathbf{workTime[1]} =
+ \begin{pmatrix}
+  108 & 0 & 0 & 0 \\
+  54 & 0 & 0 & 114 \\ 
+  27 & 0 & 77 & 0 \\
+  16.2 & 0 & 0 & 9.5 \\
+  0 & 0 & 2.2 & 0 \\  
+ \end{pmatrix},
+ \mathbf{workTime[2]} =
+ \begin{pmatrix}
+  280 & 162 & 0 & 0 \\
+  140 & 27 & 0 & 0 \\ 
+  70 & 0 & 350 & 0 \\
+  42 & 10.8 & 0 & 0 \\ 
+  0 & 13.5 & 10 & 0 \\
+ \end{pmatrix},
+\end{displaymath}
+\begin{displaymath}
+ \mathbf{workTime[3]} =
+ \begin{pmatrix}
+  20 & 510 & 0 & 0 \\
+  10 & 85 & 0 & 222 \\ 
+  5 & 0 & 455 & 0 \\
+  3 & 34 & 0 & 18.5 \\ 
+  0 & 42.5 & 13 & 0 \\
+ \end{pmatrix}
+\end{displaymath}
+
+Ze względu na znaczne rozmiary macierzy lowerProfit pominięto jej przedstawienie w niniejszym raporcie. Kompletne wyniki działania solvera zostały załączone do dokumentu jako załącznik 4.
+\subsection{Wnioski}
+Na podstawie przeprowadzonej analizy można stwierdzić, że zdolności produkcyjne przedsiębiorstwa znacznie przewyższają chłonność rynku. W kontekście maksymalizacji zysku, w określonych miesiącach ekonomicznie uzasadniona jest sprzedaż poszczególnych produktów mimo przekroczenia 80\% pojemności rynkowej. Optymalna strategia nie wymaga gromadzenia zapasów ponad obligatoryjne minimum magazynowe.
+
+\section{Model dwukryterialny zysku i ryzyka}
+\subsection{Model zadania}
+Model przedsiębiorstwa został zachowany w niezmienionej formie w porównaniu do pierwszej części zadania. Miarą zysku pozostaje wartość oczekiwana, która w przypadku scenariuszy o równym prawdopodobieństwie odpowiada wartości średniej. Miara ryzyka w niniejszym zadaniu jest reprezentowana przez średnią różnicę Giniego określoną następującym wzorem:
+\begin{equation}
+\Gamma(\mathbf{x})=\frac{1}{2}\sum_{t'=1}^{T}\sum_{t"=1}^{T}\lvert r_{t'}(\mathbf{x})-r_{t"}(\mathbf{x})\rvert p_{t'}p_{t"}, 
+\end{equation}
+gdzie $r_{t'}(\mathbf{x})$ oznacza realizację zysku dla scenariusza $t'$, a $p_{t}$ - prawdopodobieństwo wystąpienia scenariusza $t$.
+
+W kontekście przyjętych w projekcie oznaczeń, wyrażenie definiujące miarę ryzyka przyjmuje następującą postać:
+\begin{equation}
+giniRisk = \frac{1}{2}\cdot\sum_{t1 \in scenarios}\sum_{t2 \in scenarios} \lvert profit[t1]-profit[t2] \rvert \cdot \frac{1}{nScenarios} \cdot \frac{1}{nScenarios} 
+\end{equation}
+
+\subsection{Model preferencji}
+Model preferencji oparto na minimalizacji ryzyka przy zadanym poziomie średniego zysku.
+\begin{equation}
+avgProfit<minAvgProfit
+\end{equation}
+\begin{equation}
+minimize giniRisk
+\end{equation}
+minAvgProfit stanowi dodatkowy parametr modelu. Załączniki 5 i 6 zawierają pliki z parametrami i modelem zadania dwukryterialnego wyboru - pliki źródłowe przeznaczone dla solvera CPLEX. 
+
+\subsection{Zbiór rozwiązań efektywnych w przestrzeni ryzyko-zysk}
+Na rysunku \ref{fig:profit-risk} zaprezentowano rozwiązania efektywne modelu w przestrzeni ryzyko-zysk. Niebieskie trójkąty oznaczają rozwiązania efektywne dla różnych wartości wymaganego poziomu zysku. Uwzględniając ograniczenia obliczeniowe komputera, wygenerowano 52 równomiernie rozmieszczone rozwiązania, z których każde bazuje na 30 scenariuszach. Wprowadzono ograniczenie czasowe działania solvera dla pojedynczego rozwiązania na poziomie 5 minut. Całkowity czas obliczeń przekroczył 3 godziny. Załączniki 7 i 8 obejmują pliki parametrów oraz modelu wraz ze skryptem dla solvera CPLEX, które zostały wykorzystane do uzyskania rozwiązań. Kolorem żółtym wyróżniono rozwiązanie maksymalnego zysku oraz minimalnego ryzyka. Wartości odpowiadające tym rozwiązaniom przedstawiono w tabeli \ref{tab:min-max}.
+\begin{figure}[ht!]
 \centering
-%\includegraphics[width=\linewidth]{_page_0_Figure_0.jpeg}
-\caption{Wykres dystrybuant zysku dla poszczególnych rozwiązań}
+%\includegraphics[width=0.8\textwidth]{graphics/results-minAvgProfit-marker}
+\caption{Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-zysk}
+\label{fig:profit-risk}
 \end{figure}
+
+\subsection{Rozwiązania efektywne minimalnego ryzyka i maksymalnego zysku}
+
+Na wykresie \ref{fig:profit-risk} żółtymi punktami wyznaczono rozwiązania charakteryzujące się maksymalnym zyskiem oraz minimalnym ryzykiem. Wartości w przestrzeni ryzyko-zysk dla tych rozwiązań przedstawiono w tabeli \ref{tab:min-max}.
+
+\begin{table}[ht!]
+\label{tab:min-max}
+  \caption{Rozwiązania maksymalnego zysku i minimalnego ryzyka}
+  \centering
+  \begin{tabular}{l*{4}{c}}
+  
+  	\hline
+              			& Miara zysku & Miara ryzyka \\
+	\hline
+	Maksymalizacja zysku	& 26553.9 zł & 796.113 zł \\
+	Minimalizacja ryzyka   	& -600.00 zł & 0.0 zł \\ 
+	\hline
+	
+	\end{tabular}
+	\end{table}
+	
+Rozwiązanie zadania jednokryterialnego maksymalizacji zysku charakteryzuje się również maksymalizacją poziomu ryzyka, podczas gdy zadanie minimalizacji ryzyka bez nałożenia ograniczeń na poziom zysku prowadzi do ujemnego wyniku finansowego (straty) wynikającego z rezygnacji ze sprzedaży oraz ponoszenia kosztów utrzymania obligatoryjnych zapasów magazynowych.
+
+\subsection{Sprawdzenie dominacji stochastycznej wybranych rozwiązań efektywnych}
+
+W celu analizy dominacji stochastycznej pierwszego rzędu (FSD) wybrano 3 rozwiązania efektywne modelu, oznaczone jako A, B oraz C. Wartości średniego zysku oraz miary ryzyka dla tych rozwiązań zostały zaprezentowane w tabeli \ref{tab:abc}. Wybór objął rozwiązania charakteryzujące się zbliżonymi poziomami średniego zysku, przy różnicy wynoszącej około 500 zł. Załączniki 9 i 10 zawierają pliki parametrów oraz modelu wraz ze skryptem dla solvera CPLEX, wykorzystane do generowania danych dotyczących zysku i ryzyka w poszczególnych scenariuszach.
+
+\begin{table}[ht!]
+  \label{tab:abc}
+  \caption{Rozwiązania wybrane do analizy dominacji FSD}
+  \centering
+  \begin{tabular}{lccc}
+  	\hline
+              			& A & B & C \\
+	\hline
+	Ograniczenie minimalnego zysku	& 25488.1 zł & 26020.5 zł & 26552.9 zł\\
+	Średni zysk   	& 25488.3 zł & 26020.6 zł & 26553.9 zł\\
+	Miara ryzyka   	& 755.133 zł & 774.872 zł & 796.113 zł\\ 
+	\hline
+	\end{tabular}
+\end{table}
+
+
+W celu weryfikacji wzajemnej dominacji wybranych rozwiązań w sensie FSD przygotowano odwrotne dystrybuanty dla obu kryteriów. Rysunek \ref{fig:FSD-profit} ilustruje odwrotną dystrybuantę rozkładu średniego zysku między scenariuszami dla trzech wybranych rozwiązań efektywnych. Analiza wykresu wskazuje, że rozwiązanie C wykazuje dominację nad rozwiązaniami A i B w sensie FSD, co oznacza, że w każdym scenariuszu miara zysku dla decyzji C przewyższa odpowiednie wartości dla decyzji A i B. Ponadto rozwiązanie B dominuje rozwiązanie A w sensie FSD.
+
+\begin{figure}[ht!]
+\centering
+%\includegraphics[width=\textwidth]{graphics/results-FSD-profit}
+\caption{Odwrotna dystrybuanta rozkładu średniego zysku między scenariuszami}
+\label{fig:FSD-profit}
+\end{figure}
+
+Rysunek \ref{fig:FSD-risk} przedstawia odwrotną dystrybuantę rozkładu średniej różnicy Giniego jako miary ryzyka między scenariuszami dla tych samych trzech rozwiązań efektywnych. W kontekście miary ryzyka rozwiązanie A wykazuje dominację nad rozwiązaniami B i C, podczas gdy rozwiązanie B nie dominuje w sposób kategoryczny rozwiązania C. Przyczyna tego zjawiska jest związana z przecięciem się dystrybuant w punkcie oznaczonym kolorem żółtym na wykresie przedstawionym na rysunku \ref{fig:FSD-profit}.
+
+\begin{figure}[ht!]
+\centering
+%\includegraphics[width=0.95\textwidth]{graphics/results-FSD-risk}
+\caption{Odwrotna dystrybuanta rozkładu średniej różnicy Giniego między scenariuszami}
+\label{fig:FSD-risk}
+\end{figure}
+
+
+\clearpage
+%%% SPIS TABEL %%%
+% \phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+%%% SPIS ZAŁĄCZNIKÓW %%%
+\addcontentsline{toc}{section}{Spis załączników} 
+\section*{Spis załączników}
+\begin{enumerate}
+\item t-Student.R - skrypt generujący wektory opisujące dochód ze sprzedaży produktów w poszczególnych scenariuszy,
+\item wdwr17421-1.dat - plik definiujący parametry modelu jednokryterialnego,
+\item wdwr17421-1.mod - plik implementujący model jednokryterialny,
+\item wdwr17421-1.log - pełne wyniki działania solvera dla modelu jednokryterialnego,
+\item wdwr17421-2.dat - plik definiujący parametry modelu dwukryterialnego,
+\item wdwr17421-2.mod - plik implementujący model dwukryterialny,
+\item wdwr17421-3.dat - plik definiujący parametry modelu dwukryterialnego,
+\item wdwr17421-3.mod - plik implementujący model oraz skrypt do uzyskania obrazu rozwiązań w przestrzeni ryzyko-zysk,
+\item wdwr17421-4.dat - plik definiujący parametry modelu,
+\item wdwr17421-4.mod - plik implementujący model oraz skrypt do uzyskania danych do analizy dominacji FSD.
+\end{enumerate}
+
+
 
 \end{document}
