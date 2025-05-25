@@ -1,0 +1,6 @@
+First solution: 
+1 minimalAverageProfit: 8450.97 averageProfit: 8451.020747071, riskMeasureGini: 306.383357869
+Second solution: 
+31 minimalAverageProfit: 8983.38 averageProfit: 8983.400103901, riskMeasureGini: 332.936696297
+Third solution: 
+31 minimalAverageProfit: 9515.79 averageProfit: 9515.804890325, riskMeasureGini: 360.18213126
