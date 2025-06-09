@@ -3,56 +3,56 @@
   <folder name="Strategy" id="id-2fef36cddbea4d3aa2b3ecc8827377a9" type="strategy"/>
   <folder name="Business" id="id-379bef527554480aa5bbb7f877502a62" type="business">
     <folder name="Actors" id="id-50d9091955004365b625b9e9c90285f6">
-      <element xsi:type="archimate:BusinessActor" name="Administrator systemu" id="id-8a2fd7b952b442059e37b823e98ef9e8"/>
-      <element xsi:type="archimate:BusinessActor" name="Kierowca" id="id-4db17356989d4d27a5e944b7f1a96c29"/>
-      <element xsi:type="archimate:BusinessActor" name="Operator Centrum e-Toll" id="id-74dadecad28d4fa0ba623eea55fdff68"/>
-      <element xsi:type="archimate:BusinessActor" name="System CEPiK / EETS Provider" id="id-6225abecc0b1408aa3eb5209cbfa1eae"/>
-      <element xsi:type="archimate:BusinessActor" name="Zewnętrzny dostawca płatności" id="id-8abd46f220d04e4aa0c434c9da458230"/>
+      <element xsi:type="archimate:BusinessActor" name="System Administrator" id="id-8a2fd7b952b442059e37b823e98ef9e8"/>
+      <element xsi:type="archimate:BusinessActor" name="Driver" id="id-4db17356989d4d27a5e944b7f1a96c29"/>
+      <element xsi:type="archimate:BusinessActor" name="e-Toll Center Operator" id="id-74dadecad28d4fa0ba623eea55fdff68"/>
+      <element xsi:type="archimate:BusinessActor" name="CEPiK System / EETS Provider" id="id-6225abecc0b1408aa3eb5209cbfa1eae"/>
+      <element xsi:type="archimate:BusinessActor" name="External Payment Provider" id="id-8abd46f220d04e4aa0c434c9da458230"/>
     </folder>
     <folder name="Business Roles" id="id-1cf367318bc344399ddee2bdf2b0d5c1">
-      <element xsi:type="archimate:BusinessRole" name="Audytor" id="id-9306060577224b0f9cdfa4832c08eb05"/>
-      <element xsi:type="archimate:BusinessRole" name="Płatnik" id="id-07286e938ce7413a9154e05a04ba652b"/>
-      <element xsi:type="archimate:BusinessRole" name="Windykator" id="id-e5c4673a86544254af189b1fe7e9f5e1"/>
-      <element xsi:type="archimate:BusinessRole" name="Użytkownik systemu" id="id-d044d84669a146ad980ec4c2f41c355b"/>
-      <element xsi:type="archimate:BusinessRole" name="Administrator taryf" id="id-c1452ca84c86481fb9cda6dff3093d61"/>
+      <element xsi:type="archimate:BusinessRole" name="Auditor" id="id-9306060577224b0f9cdfa4832c08eb05"/>
+      <element xsi:type="archimate:BusinessRole" name="Payer" id="id-07286e938ce7413a9154e05a04ba652b"/>
+      <element xsi:type="archimate:BusinessRole" name="Debt Collector" id="id-e5c4673a86544254af189b1fe7e9f5e1"/>
+      <element xsi:type="archimate:BusinessRole" name="System User" id="id-d044d84669a146ad980ec4c2f41c355b"/>
+      <element xsi:type="archimate:BusinessRole" name="Tariff Administrator" id="id-c1452ca84c86481fb9cda6dff3093d61"/>
     </folder>
     <folder name="Business Processes" id="id-ad31d1e819924e199c2aa1dc7922b1e6">
-      <element xsi:type="archimate:BusinessProcess" name="Naliczanie i pobieranie opłat" id="id-321b501948c24072ae57b08d699bcea4"/>
-      <element xsi:type="archimate:BusinessProcess" name="Korekta opłat " id="id-67d2c3244a114c74bae6c3f23b78b6fd"/>
-      <element xsi:type="archimate:BusinessProcess" name="Raportowanie i analityka" id="id-edbad7711198479dbefac123f6057bf8"/>
-      <element xsi:type="archimate:BusinessProcess" name="Rejestracja użytkownika &amp; pojazdu" id="id-41937395311a43cb9caa3bb5e525ec6f"/>
-      <element xsi:type="archimate:BusinessProcess" name="Wykrywanie naruszeń i windykacja " id="id-57d364d3f1dd47d19a82b2ee52a412be"/>
-      <element xsi:type="archimate:BusinessProcess" name="Zarządzanie kontem i doładowania " id="id-9b52682e6ed24c26bf978f16ad8613fa"/>
+      <element xsi:type="archimate:BusinessProcess" name="Fee Calculation and Collection" id="id-321b501948c24072ae57b08d699bcea4"/>
+      <element xsi:type="archimate:BusinessProcess" name="Fee Correction" id="id-67d2c3244a114c74bae6c3f23b78b6fd"/>
+      <element xsi:type="archimate:BusinessProcess" name="Reporting and Analytics" id="id-edbad7711198479dbefac123f6057bf8"/>
+      <element xsi:type="archimate:BusinessProcess" name="User &amp; Vehicle Registration" id="id-41937395311a43cb9caa3bb5e525ec6f"/>
+      <element xsi:type="archimate:BusinessProcess" name="Violation Detection and Debt Collection" id="id-57d364d3f1dd47d19a82b2ee52a412be"/>
+      <element xsi:type="archimate:BusinessProcess" name="Account Management and Top-ups" id="id-9b52682e6ed24c26bf978f16ad8613fa"/>
     </folder>
     <folder name="Business Services" id="id-48d64d2ee1ff42288cfd7ea35f63d3ee">
-      <element xsi:type="archimate:BusinessService" name="Integracja z systemami zewnętrznymi" id="id-3820fe0cd73944c4975f5b74af1e3c04"/>
-      <element xsi:type="archimate:BusinessService" name="Obsługa konta" id="id-136c3bf396b44c0397d1c754dd726193"/>
-      <element xsi:type="archimate:BusinessService" name="Opłata za przejazd " id="id-60af1786416c4d31bb911f8c629c7d84"/>
-      <element xsi:type="archimate:BusinessService" name="Powiadomienia" id="id-c5209ce7a2e0484ca8714db4c63ab097"/>
-      <element xsi:type="archimate:BusinessService" name="Raporty administracyjne" id="id-0b9e950607ad41b99a82ede66b964f2e"/>
+      <element xsi:type="archimate:BusinessService" name="External System Integration" id="id-3820fe0cd73944c4975f5b74af1e3c04"/>
+      <element xsi:type="archimate:BusinessService" name="Account Management" id="id-136c3bf396b44c0397d1c754dd726193"/>
+      <element xsi:type="archimate:BusinessService" name="Toll Payment" id="id-60af1786416c4d31bb911f8c629c7d84"/>
+      <element xsi:type="archimate:BusinessService" name="Notifications" id="id-c5209ce7a2e0484ca8714db4c63ab097"/>
+      <element xsi:type="archimate:BusinessService" name="Administrative Reports" id="id-0b9e950607ad41b99a82ede66b964f2e"/>
     </folder>
     <folder name="Business Objects" id="id-469cf78f5a8741f187d9b25f085bdfac">
-      <element xsi:type="archimate:BusinessObject" name="Dane pojazdu" id="id-d8a10d32274e41afa4bd7b3f80cb0fc7"/>
-      <element xsi:type="archimate:BusinessObject" name="Raport ruchu" id="id-098ca104bac945d096982c5d5745bb91"/>
-      <element xsi:type="archimate:BusinessObject" name="Taryfa" id="id-0e4408d920594bb2a49405a1177bfd93"/>
-      <element xsi:type="archimate:BusinessObject" name="Transakcja płatnicza" id="id-d574c8abe5e44a07b54f01ca262b9119"/>
-      <element xsi:type="archimate:BusinessObject" name="Trasa przejazdu" id="id-b2be9d637cb6488f94f167ff4b56df60"/>
-      <element xsi:type="archimate:BusinessObject" name="Rekord naruszenia" id="id-909b924521804141a15edcd8d646ebb4"/>
+      <element xsi:type="archimate:BusinessObject" name="Vehicle Data" id="id-d8a10d32274e41afa4bd7b3f80cb0fc7"/>
+      <element xsi:type="archimate:BusinessObject" name="Traffic Report" id="id-098ca104bac945d096982c5d5745bb91"/>
+      <element xsi:type="archimate:BusinessObject" name="Tariff" id="id-0e4408d920594bb2a49405a1177bfd93"/>
+      <element xsi:type="archimate:BusinessObject" name="Payment Transaction" id="id-d574c8abe5e44a07b54f01ca262b9119"/>
+      <element xsi:type="archimate:BusinessObject" name="Travel Route" id="id-b2be9d637cb6488f94f167ff4b56df60"/>
+      <element xsi:type="archimate:BusinessObject" name="Violation Record" id="id-909b924521804141a15edcd8d646ebb4"/>
     </folder>
     <folder name="Outcome" id="id-6f20f0344f8744ed8296683295497588">
-      <element xsi:type="archimate:Product" name="Opłacony przejazd" id="id-4c1c1754c9a044149fada603c25196ac"/>
+      <element xsi:type="archimate:Product" name="Paid Journey" id="id-4c1c1754c9a044149fada603c25196ac"/>
     </folder>
     <folder name="Event" id="id-7911f43a8ca74a60b7fccf15e306bd98">
-      <element xsi:type="archimate:BusinessEvent" name="Pojazd wjechał na płatny odcinek" id="id-ad075de523b44b9da04c98b26f7a4873"/>
-      <element xsi:type="archimate:BusinessEvent" name="Saldo&lt;0" id="id-690724e36abf4b98b5c46ec8b81d6506"/>
+      <element xsi:type="archimate:BusinessEvent" name="Vehicle Entered Toll Section" id="id-ad075de523b44b9da04c98b26f7a4873"/>
+      <element xsi:type="archimate:BusinessEvent" name="Balance&lt;0" id="id-690724e36abf4b98b5c46ec8b81d6506"/>
     </folder>
-    <element xsi:type="archimate:BusinessRole" name="Dostawca płatności" id="id-cc2a574cc3ad47a386fc2dc00741162e"/>
-    <element xsi:type="archimate:BusinessRole" name="System zewnętrzny" id="id-131346f60e874db7b7f33fe110c2ef35"/>
-    <element xsi:type="archimate:BusinessService" name="Rejestracja użytkownika &amp; pojazdu" id="id-4d0e5b53b9c645d48840f595047a2ade"/>
-    <element xsi:type="archimate:BusinessService" name="Korekta opłat" id="id-343b7faab80b42d285dba8d26604b08b"/>
-    <element xsi:type="archimate:BusinessService" name="Wykrywanie naruszeń i windykacja" id="id-9a846da052c44cf5907fd8c0331cdeb9"/>
-    <element xsi:type="archimate:BusinessProcess" name="Integracja z systemami zewnętrznymi" id="id-2a8e920e2dd4415fa1271175c1685256"/>
-    <element xsi:type="archimate:BusinessProcess" name="Wysyłanie powiadomień" id="id-97864bae126a4a858e2c00d60237db5d"/>
+    <element xsi:type="archimate:BusinessRole" name="Payment Provider" id="id-cc2a574cc3ad47a386fc2dc00741162e"/>
+    <element xsi:type="archimate:BusinessRole" name="External System" id="id-131346f60e874db7b7f33fe110c2ef35"/>
+    <element xsi:type="archimate:BusinessService" name="User &amp; Vehicle Registration" id="id-4d0e5b53b9c645d48840f595047a2ade"/>
+    <element xsi:type="archimate:BusinessService" name="Fee Correction" id="id-343b7faab80b42d285dba8d26604b08b"/>
+    <element xsi:type="archimate:BusinessService" name="Violation Detection and Debt Collection" id="id-9a846da052c44cf5907fd8c0331cdeb9"/>
+    <element xsi:type="archimate:BusinessProcess" name="External System Integration" id="id-2a8e920e2dd4415fa1271175c1685256"/>
+    <element xsi:type="archimate:BusinessProcess" name="Notification Sending" id="id-97864bae126a4a858e2c00d60237db5d"/>
   </folder>
   <folder name="Application" id="id-80b7b914a8a34ff2bb188452bc8bb168" type="application"/>
   <folder name="Technology &amp; Physical" id="id-7d9dbc60cb904e12a3e41bdcd7f605cd" type="technology"/>
