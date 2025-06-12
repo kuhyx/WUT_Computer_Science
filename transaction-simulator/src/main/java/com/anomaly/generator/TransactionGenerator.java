@@ -21,7 +21,7 @@ public class TransactionGenerator {
     private static final int ANOMALY_FREQUENCY = 3;
 
     // Probability of generating an anomaly (1%)
-    private static final double ANOMALY_PROBABILITY = 0.5;
+    private static final double ANOMALY_PROBABILITY = 0.05;
 
     // Initialize card and user data
     static {
@@ -58,9 +58,9 @@ public class TransactionGenerator {
                                 anomalyType : ThreadLocalRandom.current().nextInt(1, 4);
         } else if (ThreadLocalRandom.current().nextDouble() < ANOMALY_PROBABILITY) {
             double roll = ThreadLocalRandom.current().nextDouble();
-            if (roll < 0.3) {
+            if (roll < 0.4) {
                 actualAnomalyType = ANOMALY_LOCATION;
-            } else if (roll < 0.8) {
+            } else if (roll < 0.7) {
                 actualAnomalyType = ANOMALY_AMOUNT;
             } else {
                 actualAnomalyType = ANOMALY_FREQUENCY;

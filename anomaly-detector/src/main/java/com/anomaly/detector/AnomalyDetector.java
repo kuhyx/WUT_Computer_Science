@@ -147,7 +147,7 @@ public class AnomalyDetector {
 
             // Check for anomalies (transactions that are more than 1.7 standard deviations from mean)
             for (Transaction transaction : transactionList) {
-                if (stdDeviation > 0 && Math.abs(transaction.getAmount() - averageAmount) > 2 * stdDeviation && transaction.getAmount() > averageAmount && transaction.getAmount() > 1000) {
+                if (stdDeviation > 0 && Math.abs(transaction.getAmount() - averageAmount) > 1.5 * stdDeviation && transaction.getAmount() > averageAmount && transaction.getAmount() > 1000) {
                     out.collect(new TransactionAlert(
                             "AMOUNT_ANOMALY",
                             transaction.getCardId(),
@@ -177,8 +177,8 @@ public class AnomalyDetector {
 
         private transient MapState<String, Set<LocationPoint>> knownLocations;
         private static final int MAX_KNOWN_LOCATIONS = 5; // Limit known locations to avoid memory issues
-        private static final double ANOMALY_DISTANCE_THRESHOLD = 50.0; // Threshold in km
-        private static final int MIN_LOCATIONS_FOR_DETECTION = 3; // Minimum known locations before detecting anomalies
+        private static final double ANOMALY_DISTANCE_THRESHOLD = 10.0; // Threshold in km
+        private static final int MIN_LOCATIONS_FOR_DETECTION = 2; // Minimum known locations before detecting anomalies
 
         @Override
         public void open(Configuration parameters) throws Exception {
@@ -359,7 +359,7 @@ public class AnomalyDetector {
             long windowSizeMinutes = (windowEnd - windowStart) / (1000 * 60);
 
             // If there are more than 5 transactions in 5 minutes for the same card, flag it
-            if (transactionList.size() > 5) {
+            if (transactionList.size() > 7) {
                 Transaction latestTransaction = transactionList.stream()
                         .max(Comparator.comparing(Transaction::getTimestamp))
                         .orElse(transactionList.get(0));
