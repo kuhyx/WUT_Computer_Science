@@ -1,0 +1,23 @@
+<!-- src/app/zamowienie/zamowienie.component.html -->
+<div>
+    <h2>Zamowienia List</h2>
+    <ul>
+      <li *ngFor="let zamowienie of zamowienia">
+        {{ zamowienie.status }}
+        <button (click)="startEdit(zamowienie)">Edit</button>
+        <button (click)="deleteZamowienie(zamowienie.id!)">Delete</button>
+      </li>
+    </ul>
+  
+    <h2>Create Zamowienie</h2>
+    <input [(ngModel)]="newZamowienie.status" placeholder="Status">
+    <button (click)="createZamowienie()">Create</button>
+  
+    <div *ngIf="editZamowienie">
+      <h2>Edit Zamowienie</h2>
+      <input [(ngModel)]="editZamowienie.status" placeholder="Status">
+      <button (click)="updateZamowienie()">Update</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+  

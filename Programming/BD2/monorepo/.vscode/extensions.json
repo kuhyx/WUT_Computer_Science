@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "firsttris.vscode-jest-runner",
+    "angular.ng-template",
+    "wesbos.theme-cobalt2",
+    "dbaeumer.vscode-eslint",
+    "wix.vscode-import-cost",
+    "prisma.prisma"
+  ]
+}

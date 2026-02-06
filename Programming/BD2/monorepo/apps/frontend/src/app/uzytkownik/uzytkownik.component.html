@@ -1,0 +1,29 @@
+<!-- src/app/uzytkownik/uzytkownik.component.html -->
+<div>
+    <h2>Uzytkownik List</h2>
+    <ul>
+      <li *ngFor="let uzytkownik of uzytkownicy">
+        {{ uzytkownik.imie }} {{ uzytkownik.nazwisko }} - {{ uzytkownik.adres }} (Historia Zamowien ID: {{ uzytkownik.Historia_zamowienId }})
+        <button (click)="startEdit(uzytkownik)">Edit</button>
+        <button (click)="deleteUzytkownik(uzytkownik.id!)">Delete</button>
+      </li>
+    </ul>
+  
+    <h2>Create Uzytkownik</h2>
+    <input [(ngModel)]="newUzytkownik.imie" placeholder="Imie">
+    <input [(ngModel)]="newUzytkownik.nazwisko" placeholder="Nazwisko">
+    <input [(ngModel)]="newUzytkownik.adres" placeholder="Adres">
+    <input [(ngModel)]="newUzytkownik.Historia_zamowienId" placeholder="Historia Zamowien ID" type="number">
+    <button (click)="createUzytkownik()">Create</button>
+  
+    <div *ngIf="editUzytkownik">
+      <h2>Edit Uzytkownik</h2>
+      <input [(ngModel)]="editUzytkownik.imie" placeholder="Imie">
+      <input [(ngModel)]="editUzytkownik.nazwisko" placeholder="Nazwisko">
+      <input [(ngModel)]="editUzytkownik.adres" placeholder="Adres">
+      <input [(ngModel)]="editUzytkownik.Historia_zamowienId" placeholder="Historia Zamowien ID" type="number">
+      <button (click)="updateUzytkownik()">Update</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+  

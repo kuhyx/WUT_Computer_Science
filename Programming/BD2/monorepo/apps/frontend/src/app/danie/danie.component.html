@@ -1,0 +1,27 @@
+<!-- src/app/danie/danie.component.html -->
+<div>
+    <h2>Dania List</h2>
+    <ul>
+      <li *ngFor="let danie of dania">
+        {{ danie.nazwa }} - {{ danie.kategoria }} - {{ danie.cena }} PLN
+        <button (click)="startEdit(danie)">Edit</button>
+        <button (click)="deleteDanie(danie.id!)">Delete</button>
+      </li>
+    </ul>
+  
+    <h2>Create Danie</h2>
+    <input [(ngModel)]="newDanie.nazwa" placeholder="Nazwa">
+    <input [(ngModel)]="newDanie.kategoria" placeholder="Kategoria">
+    <input [(ngModel)]="newDanie.cena" placeholder="Cena" type="number">
+    <button (click)="createDanie()">Create</button>
+  
+    <div *ngIf="editDanie">
+      <h2>Edit Danie</h2>
+      <input [(ngModel)]="editDanie.nazwa" placeholder="Nazwa">
+      <input [(ngModel)]="editDanie.kategoria" placeholder="Kategoria">
+      <input [(ngModel)]="editDanie.cena" placeholder="Cena" type="number">
+      <button (click)="updateDanie()">Update</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+  

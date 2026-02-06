@@ -1,0 +1,24 @@
+{
+  "name": "my-workspace",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/my-workspace/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "my-workspace:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "my-workspace:build:development"
+        },
+        "production": {
+          "buildTarget": "my-workspace:build:production"
+        }
+      }
+    }
+  }
+}
