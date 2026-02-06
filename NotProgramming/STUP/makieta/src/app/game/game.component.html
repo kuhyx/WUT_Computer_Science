@@ -1,0 +1,34 @@
+<div class="container">
+  <mat-card class="game-card">
+    <mat-card-title>Left Side</mat-card-title>
+    <mat-card-content>
+      <div class="items">
+        @for(item of leftSide; track item) {
+          <div class="item">
+            <img [src]="'assets/' + item + '.svg'" [alt]="item" class="item-image">
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="move('wolf')">Move Wolf</button>
+    <button mat-raised-button color="primary" (click)="move('goat')">Move Goat</button>
+    <button mat-raised-button color="primary" (click)="move('cabbage')">Move Cabbage</button>
+    <button mat-raised-button color="primary" (click)="move('alone')">Move Alone</button>
+  </div>
+
+  <mat-card class="game-card">
+    <mat-card-title>Right Side</mat-card-title>
+    <mat-card-content>
+      <div class="items">
+        @for(item of rightSide; track item) {
+          <div class="item">
+            <img [src]="'assets/' + item + '.svg'" [alt]="item" class="item-image">
+          </div>
+      }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
