@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0F805C2E-E01F-5394-4FAC-CE35930C7ACD" name="takes_place_in">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="STADIUM_ID" id="F2BC5178-91EA-C128-F287-9D326BBC445C">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="43FF2D2E-A4B3-2BDC-BBCB-8F9D62520A19" referredColumn="C31F54E7-0711-CA2D-FFB2-02400DFB420B"/>
+</associations>
+</Column>
+<Column name="COMPETITION_ID" id="1FED0950-36DC-BCEA-8485-EA40FFC202D4">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="63A56F9F-DE2E-E887-27D8-FC1240762272" referredColumn="89E983E9-902B-97F6-8204-D458BE0CAAF4"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="995862AE-4C1C-A07C-FE3F-FBFF7AD2B9F8" name="takes_place_in_PK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F2BC5178-91EA-C128-F287-9D326BBC445C"/>
+<colUsage columnID="1FED0950-36DC-BCEA-8485-EA40FFC202D4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B4F34868-3CF0-D618-6DE4-6079E1D6008E" name="takes_place_in_STADIUM_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>5BB2B03F-53C9-B0A1-6D44-537497A2D5F0</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F2BC5178-91EA-C128-F287-9D326BBC445C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="793244E6-EBB5-2FC7-EEF9-C9ADE147CD6C" name="takes_place_in_COMPETITION_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>5BB2B03F-53C9-B0A1-6D44-537497A2D5F0</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1FED0950-36DC-BCEA-8485-EA40FFC202D4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

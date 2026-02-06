@@ -1,0 +1,9 @@
+*.fdb_latexmk
+*.aux
+*.fls
+*.log
+*.synctex.gz
+*.xdv
+*.out
+
+textual-description/description.out

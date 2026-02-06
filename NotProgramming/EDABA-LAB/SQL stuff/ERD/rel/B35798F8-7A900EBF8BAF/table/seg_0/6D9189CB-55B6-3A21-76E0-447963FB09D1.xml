@@ -1,0 +1,148 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6D9189CB-55B6-3A21-76E0-447963FB09D1" name="CLUB">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>37CCF314-8958-C848-FE51-7615576768C2</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="E6E693A6-E552-E1F7-3DE0-FD476D83B09F">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>E1FA19BC-94DF-4805-354E-E903363BD3A3</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="budget" id="B52095CB-9DB5-3FD8-809D-B0CB9902D51F">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>38F400E9-1FF5-ACE2-ECC1-0242D1DF5FE6</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="training_ground_quality" id="CC872505-5198-0E1B-CF16-DD487D7EE96A">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>41DE137F-4FB1-7481-92A0-AA714224F084</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="reputation" id="DFBBECB5-88F4-E683-D8AA-F30773FE06EF">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>A8A52F86-1ECC-F07F-E155-5612A1FB8832</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="country_of_origin" id="FDED9DA4-BDD5-1FE1-33A1-628DBD25283E">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>B1B09588-41C3-B9E5-1479-E4D76BB3A0D6</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COMPETITION_ID" id="90CF1B6E-6DEE-1094-6EEA-B5B6C382B560">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>B0F6D941-8E00-5E51-8F24-A1A5311B00C6</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="DD06F835-6C22-0E4B-6687-7987DD00B033" referredColumn="89E983E9-902B-97F6-8204-D458BE0CAAF4"/>
+</associations>
+</Column>
+<Column name="MANAGER_ID" id="36E0A28B-D951-E834-B9C3-D57C4E6092FA">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>A0587CF4-DF8A-0EA6-9F51-E4FCF42FA3E6</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E0C89A41-0EC1-DBA4-FEA7-BA31E7DDAE8F" referredColumn="E2919CC2-3B28-447E-DC1D-BA8E9536A9EF"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="41C6A40E-318D-59ED-BFB9-4AA4125C2AB6" name="CLUB_ID_UN">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>7F8EBC6C-4E41-73B8-B148-DBC91D3BFA9B</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E6E693A6-E552-E1F7-3DE0-FD476D83B09F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="55B29134-CAD8-5993-6F7D-6D5BE54CE2AA" name="CLUB__IDX">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>6B8D43C3-809E-BB19-7EF7-D8531E4F21F8</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="36E0A28B-D951-E834-B9C3-D57C4E6092FA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CB83FA2A-347E-CE5D-A9BA-1F315F659F1D" name="CLUB_COMPETITION_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>61605123-73E2-570D-F1B4-93010E3AA5C2</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="90CF1B6E-6DEE-1094-6EEA-B5B6C382B560"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="004CFF6F-1601-0968-598A-86F42BF7D932" name="CLUB_MANAGER_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>6B8D43C3-809E-BB19-7EF7-D8531E4F21F8</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="36E0A28B-D951-E834-B9C3-D57C4E6092FA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,122 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="08F7FCE0-FB7D-0162-60B9-DEB2A78396E5" name="MANAGER">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>FD513D53-FF44-3471-8407-AE43D1A0D0BA</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="E2919CC2-3B28-447E-DC1D-BA8E9536A9EF">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>BE9644DF-EF1A-EEE7-8B41-33273E9CA718</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="skill" id="FFC38C6F-F74B-13D2-A319-0A6F2E14A8B4">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>1DEB5CAD-86BD-9C3E-17CB-0D4E322F27D3</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="reputation" id="933E75D2-569B-E058-0E4A-00272DAAF76D">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>64292D71-7570-FD26-E6F5-A5A2A3DC7C8E</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="age" id="6B2D04C8-326E-EE4D-009F-7ADA345C64C6">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>9A0675BF-B51B-EEB7-A37E-FC2025CE6403</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="wage" id="82D5C0E6-E57B-793E-1D7B-598D988FCCE5">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>EFCCC331-DB88-5E63-A5F0-EADE1128B3B2</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CLUB_ID" id="8641E8AF-4C80-1D56-AEE0-6F0BC6D342E4">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>EFC29F8A-089C-FE6A-77D9-5728B25FAC31</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="240AA4FE-29A5-F9F7-D42A-1B5A12F3EBFD" referredColumn="E6E693A6-E552-E1F7-3DE0-FD476D83B09F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2E4DF9B1-1A32-0353-0FDD-9213BAD93413" name="MANAGER_ID_UN">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>5E48BE38-6A08-138B-701B-A6DF1781A1A0</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E2919CC2-3B28-447E-DC1D-BA8E9536A9EF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FFFB80B9-F8CA-5560-688B-8CE013772336" name="MANAGER__IDX">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>6B8D43C3-809E-BB19-7EF7-D8531E4F21F8</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="8641E8AF-4C80-1D56-AEE0-6F0BC6D342E4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4F63CBF1-72AE-6FD1-11C2-D976155CF135" name="MANAGER_CLUB_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>6B8D43C3-809E-BB19-7EF7-D8531E4F21F8</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8641E8AF-4C80-1D56-AEE0-6F0BC6D342E4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

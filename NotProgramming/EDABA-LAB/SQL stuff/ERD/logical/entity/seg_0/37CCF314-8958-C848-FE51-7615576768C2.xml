@@ -1,0 +1,126 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="37CCF314-8958-C848-FE51-7615576768C2" name="CLUB">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:29:37 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID" id="E1FA19BC-94DF-4805-354E-E903363BD3A3">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:29:42 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="budget" id="38F400E9-1FF5-ACE2-ECC1-0242D1DF5FE6">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:29:43 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="training ground quality" id="41DE137F-4FB1-7481-92A0-AA714224F084">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:29:43 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="reputation" id="A8A52F86-1ECC-F07F-E155-5612A1FB8832">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:29:43 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="country of origin" id="B1B09588-41C3-B9E5-1479-E4D76BB3A0D6">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:29:44 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID1" id="B0F6D941-8E00-5E51-8F24-A1A5311B00C6">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:48:00 UTC</createdTime>
+<generatorID>61605123-73E2-570D-F1B4-93010E3AA5C2</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>EF3853D5-1AB5-F0C4-3E80-AF5C0FACABF8</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID2" id="A0587CF4-DF8A-0EA6-9F51-E4FCF42FA3E6">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:49:59 UTC</createdTime>
+<generatorID>6B8D43C3-809E-BB19-7EF7-D8531E4F21F8</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<referedAttribute>BE9644DF-EF1A-EEE7-8B41-33273E9CA718</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7F8EBC6C-4E41-73B8-B148-DBC91D3BFA9B" name="Key_1">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:53:40 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<newElementsIDs>E1FA19BC-94DF-4805-354E-E903363BD3A3</newElementsIDs>
+<usedAttributes>
+<attributeRef>E1FA19BC-94DF-4805-354E-E903363BD3A3</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

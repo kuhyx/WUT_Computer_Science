@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FF65C06B-FFEB-B730-F1C4-69541D31D577" name="takes_part_in">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CLUB_ID" id="460C211F-9E58-8ED7-F42E-D7D9137C282F">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="34462893-9CF0-6CA2-DEDC-65566391E152" referredColumn="E6E693A6-E552-E1F7-3DE0-FD476D83B09F"/>
+</associations>
+</Column>
+<Column name="MATCH_ID" id="B7CDFF65-9050-E7AE-C8CB-6193189ED97B">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="717F1C70-8DCD-09A6-E20C-4A983365ABB7" referredColumn="C814E1B7-82FB-783D-BDC6-086E30DB9D40"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D7DCB0E4-471F-2C3A-4F4B-966D9BEFCDEC" name="takes_part_in_PK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="460C211F-9E58-8ED7-F42E-D7D9137C282F"/>
+<colUsage columnID="B7CDFF65-9050-E7AE-C8CB-6193189ED97B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CD6861DB-9B4D-4FBA-486F-A8B5EDBB11CB" name="takes_part_in_CLUB_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>776243A6-FC9D-BF27-0B72-298D00996187</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="460C211F-9E58-8ED7-F42E-D7D9137C282F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6EA4CFAB-28DD-50CE-47B9-79BFD231DD8E" name="takes_part_in_MATCH_FK">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:58:16 UTC</createdTime>
+<generatorID>776243A6-FC9D-BF27-0B72-298D00996187</generatorID>
+<ownerDesignName>ERD</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B7CDFF65-9050-E7AE-C8CB-6193189ED97B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

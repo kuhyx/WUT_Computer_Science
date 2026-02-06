@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="taking part in" directorySegmentName="seg_0" id="61605123-73E2-570D-F1B4-93010E3AA5C2">
+<createdBy>macie</createdBy>
+<createdTime>2022-11-23 10:47:49 UTC</createdTime>
+<ownerDesignName>ERD</ownerDesignName>
+<engineerTo>
+<item key="B35798F8-215A-519F-543C-7A900EBF8BAF" value="true"/>
+</engineerTo>
+<sourceTransferable>false</sourceTransferable>
+<targetTransferable>false</targetTransferable>
+<sourcePk>9F37D7E8-3E61-5895-283A-12D27866E6E4</sourcePk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>C1EC188F-389F-8F6C-877C-5C976375F9A7</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>37CCF314-8958-C848-FE51-7615576768C2</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
