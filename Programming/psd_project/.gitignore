@@ -1,0 +1,129 @@
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse m2e generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+# Docker project generated files to ignore
+#  if you want to ignore files created by your editor/tools,
+#  please consider a global .gitignore https://help.github.com/articles/ignoring-files
+.vagrant*
+bin
+docker/docker
+.*.swp
+a.out
+*.orig
+build_src
+.flymake*
+.idea
+.DS_Store
+docs/_build
+docs/_static
+docs/_templates
+.gopath/
+.dotcloud
+*.test
+bundles/
+.hg/
+.git/
+vendor/pkg/
+pyenv
+Vagrantfile
+dist
+*classes
+*.class
+target/
+build/
+build_eclipse/
+out/
+.gradle/
+.vscode/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+patch-process/*
+.idea
+.svn
+.classpath
+/.metadata
+/.recommenders
+*~
+*#
+.#*
+rat.out
+TAGS
+*.iml
+.project
+.settings
+*.ipr
+*.iws
+.vagrant
+Vagrantfile.local
+/logs
+.DS_Store
+
+config/server-*
+config/zookeeper-*
+gradle/wrapper/*.jar
+gradlew.bat
+
+results
+tests/results
+.ducktape
+tests/.ducktape
+tests/venv
+.cache
+
+docs/generated/
+
+.release-settings.json
+
+kafkatest.egg-info/
+systest/
+*.swp
+jmh-benchmarks/generated
+jmh-benchmarks/src/main/generated
+**/.jqwik-database
+**/src/generated
+**/src/generated-test
+storage/kafka-tiered-storage/
+
+docker/test/report_*.html
+kafka.Kafka
+__pycache__
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*
