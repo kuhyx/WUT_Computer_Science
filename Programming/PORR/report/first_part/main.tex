@@ -1,0 +1,370 @@
+\documentclass[12pt]{article}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.17}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[polish]{babel}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdfpagemode=FullScreen,
+}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small, 
+    keywordstyle=\color{blue}\bfseries, 
+    commentstyle=\color{green!60!black}, 
+    stringstyle=\color{red},
+    numbers=left, 
+    numberstyle=\tiny, 
+    stepnumber=1, 
+    numbersep=5pt,
+    frame=lines,
+    breaklines=true,
+    captionpos=b
+}
+
+\title{Rozwiązanie układu równań liniowych iteracyjną metodą Richardsona \\ 
+        Sprawozdanie, Etap II}
+\author{Kacper Górka, Krzysztof Rudnicki, Aleksandra Sobala}
+\begin{document}
+\maketitle
+\section{Zadanie}
+\paragraph{Metoda Richardsona} 
+Metoda Richardsona służy do iteracyjnego rozwiązywania systemów równań liniowych postaci $Ax = b$.
+\\
+Pojedyńcza iteracja wygląda następująco:
+\[
+    x^{(k+1)} = x^{(k)} + \omega (b - Ax^{(k)}) 
+\]
+Gdzie $\omega$ to skalar wybrany tak by $x^{(k)}$ zbiegało 
+\paragraph{Wymagania}
+Mieliśmy za zadanie stworzyć program rozwiązujący układ równań dla wygenerowanych 
+macierzy gęstych oraz dla macierzy rzadkich: \\
+\href{https://sparse.tamu.edu/Nemeth/nemeth12}{nemeth12} \\
+i \\
+\href{https://sparse.tamu.edu/Grund/poli3}{poli3}
+
+\section{Baza} 
+\paragraph{Generowanie i zapisywanie macierzy}
+Macierze gęste są przez nas generowane przy użyciu biblioteki \textbf{numpy}, 
+aby przyśpieszyć obliczenia zapewniamy \textbf{bewzględna dominację wierszową głównej przekątnej} i 
+upewniamy się że wygenerowana macierz jest \textbf{symetryczna i dodatnio określona} \\ 
+Macierze są potem zapisywane do pliku w 
+formacie .npz, łącznie z ich wartościami własnymi, tak by 
+skrócić działanie programu i ujednolicić testy 
+\\ \null \\ 
+Macierze nemeth12 i poli3 są pobierane ze strony podanej wyżej, dla macierzy nemeth12 aby spełnić
+warunki stosowalności metody musieliśmy przemnożyć ją przez -1
+\paragraph{Testy}
+Do testów wykorzystujemy biblioteki \textbf{numpy} oraz \textbf{pytest} oraz wbudowane w Pythona 
+narzędzia do mierzenia czasu. \\ 
+Sprawdzamy popawność naszych algorytmów poprzez porównanie naszych wyników z wynikami policzonymi przy 
+wykorzystaniu funkcji np.linalg.norm z biblioteki numpy. Jeżeli nasze rozwiązanie różni się od 
+rozwiązania numpy o mniej niż $8 \times 10^{-3}$ akceptujemy je jako poprawne \\ 
+Zarówno wielkośc macierzy, jej typ i typ metody użytej do zrównoleglenia Richardsona jest podawana jako 
+parametr testów, pozwala nam to łatwo dodawać nowe metody zrównoleglenia bez zmiany kodu testów.
+\paragraph{Funkcje pomocnicze}
+Wszelkie podstawowe metody operacji na macierzach takie jak mnożenie wektorów, macierzy itp,
+napisaliśmy od zera, bez użycia zewnętrznych bibliotek, funkcje są zdefiniowane w pliku 
+\textbf{linear\_algebra\_utils.py}
+\paragraph{Metoda Richardsona}
+Metoda Richardsona jest zaimplementowana w pliku \textbf{richardson\_method.py}, sprowadza się ona do 
+pętli:
+\begin{lstlisting}[language=Python, basicstyle=\ttfamily\small, breaklines=true, caption=Python Code for Iterative Solver]
+    for iteration in range(self.max_iterations):
+        Ax = self.LinAlg.matrix_vector_multiply(self.A, x)
+        residual = self.LinAlg.vector_vector_subtraction(self.b, Ax)
+        x = self.LinAlg.vector_vector_addition(
+            x, 
+            self.LinAlg.scalar_vector_multiply(self.omega, residual)
+        )
+        if self.LinAlg.SequentialLinearAlgebraUtils.vector_norm(residual) < self.tol:
+            break
+\end{lstlisting}
+Dla różnych metod zrównoleglenia stosujemy różne implementacje podstawowych funkcji odpowiedzialnych za 
+mnożenie macierzy przez wektor, odejmowanie wektorów itp. Ponownie, dzięki temu możemy łatwo dodawać nowe
+metody zrównoleglenia bez zmiany podstawowego kodu Richardsona
+    
+    
+\section{Zrównoleglenie} 
+Wykorzystaliśmy 3 metody zrównoleglenia: 
+\begin{enumerate} 
+    \item Tablice rozproszone 
+    \item Wątki 
+    \item Procesy
+\end{enumerate}
+\subsection{Procesy}
+Aby wykonać obliczenia na wielu rdzeniach procesora \textbf{jednocześnie} wykorzystujemy model w którym różne 
+frakcje danych są przetwarzane przez oddzielne procesy. Dzięki temu dla dużych zbiorów danych możemy 
+znacznie zwiększyć wydajnośc obliczeń \\ 
+W tym celu wykorzystujemy klasę \textbf{multiprocessing.Pool} z biblioteki \textbf{multiprocessing}. 
+Wykorzystujemy ją do stworzenia puli procesów które potem niezależnie wykonują funkcje na różnych frakcjach 
+danych.
+\paragraph{Funkcje}
+Procesy wykorzystujemy do:
+\begin{enumerate}
+    \item Obliczenia iloczynu skalarnego - Metoda $dot\_product$ wykorzystuje pulę procesów do obliczenia iloczynów par elementów dwóch wektorów, a następnie sumuje te wyniki. Zrównoleglenie tej operacji jest korzystne, gdy mamy do czynienia z bardzo długimi wektorami.
+    \item Mnożenia macierzy przez wektor - $matrix\_vector\_multiply$, każdy wiersz macierzy jest mnożony przez wektor w osobnym procesie. Dzięki temu każde takie mnożenie może być przeprowadzane równolegle, co jest szczególnie efektywne dla macierzy o dużym rozmiarze.
+    \item Obliczenia normy wektora - Procesy są używane do obliczenia kwadratów poszczególnych elementów wektora, a następnie sumowanie tych wartości (także w procesach) umożliwia obliczenie pierwiastka kwadratowego z ich sumy, co daje normę wektora.
+    \item Działania na wektorach i macierzach - Działania takie jak dodawanie i odejmowanie wektorów, dzielenie wektora przez skalar, czy mnożenie macierzy przez skalar, są przeprowadzane w segmentach, gdzie każdy segment jest przetwarzany przez osobny proces. 
+\end{enumerate}
+\paragraph{Wyzwania}
+\begin{itemize}
+    \item Zarządzanie procesami jest kosztowne - tworzenie i zarządzanie procesami jest droższe od wątków ze względu na większy narzut systemowy.
+    \item Wymiana danych między procesami - wymaga serializacji i deserializacji danych, co może wprowadzić dodatkowe opóźnienia. 
+    \item Brak korzyści dla małych danych - w przypadku małych macierzy, gdzie rozmiar nie przekracza 5 tysięcy x 5 tysięcy elementów, zarządzanie procesami i koszty komunikacji międzyprocesowej mogą przewyższać korzyści wynikające z równoległego przetwarzania,
+\end{itemize}
+
+\subsection{Wątki}
+Do implementacji wątków użyto dwóch bibliotek, ThreadPoolExecutor która umożliwia zarządzanie pulą wątków i delegowanie zadań do wątków 
+w sposób równoległy oraz funkcji partial z biblioteki functools która pozwala na tworzenie częściowo zainicjalizowanych funkcji.
+\paragraph{Funkcje}
+Wątki zaimplementowano w mnożeniu macierzy przeez wektor, odejmowaniu wektorów, dodawaniu wektorów oraz mnożeniu wektora przez skalar, metody zostają
+zrównoleglone poprzez podzielenie liczby wierszy macierzy między wątki, następnie ThreadPoolExecutor tworzy wątki i przekazuje im odpowiednie, niezależne 
+części pracy do wykonania.
+\paragraph{Zalety}
+Zalety wykorzystania wątków to przede wszystkim szybki czas tworzenia i niszczenia wątków przez system operacyjny w porównaniu do procesów. 
+Co więcej mają one dostęp do całej przestrzeni adresowej programu, co oszczędza niepotrzebne kopiowanie danych. Jedynie ich własny stos jest prywatny. 
+
+\paragraph{ChatGPT}
+Po konsultacjach z prowadzącym użyliśmy chata-gpta do wygenerowania kodu dla wątków, rozwiązanie chata po kilku (ludzkich) poprawkach zadziałało ale jego dokładność była niesatysfakcjonująca,
+nie spełniała wymogów naszych testów
+
+\subsection{Tablice rozproszone}
+Tablice rozproszone dzielą macierz i przypisują każdą z jej części do konkretnego procesora. 
+Procesory wykonują obliczenia na danych przechowywanych w ich lokalnej pamięci, co minimalizuje konieczność przesyłania danych pomiędzy węzłami. \\ 
+Tablice rozporoszone nie są natywnie wspierane przez Python-a, w związku z tym zostały zaimplementowane przy użyciu modułu array z biblioteki \textbf{dask}. \\ 
+Wszystkie podstawowe funkcje wykorzystywane w Richardsonie zostały zrównoleglone przy użyciu tablic rozproszonych.
+
+\paragraph{Wyzwania}
+\begin{itemize}
+\item Przy dużej zależności danych dochodzi do częstej komunikacji która obniża wydajnośc 
+\item Elementy tablicy należy dobrze zbalansować aby procesory były równo obciążone
+\end{itemize}
+
+\subsection{MPI}
+Metoda zrównoleglenia przy użyciu MPI (Message Passing Interface) zrównolegla obliczenia na wielu procesorach
+\subsubsection{Podział pracy}
+\paragraph{Rozdzielenie macierzy i wektora}
+Macierz A i wektor b są dzielone na części, które każdy procesor przetwarza indywidualnie. Każdy proces obsługuje określony zakres wierszy macierzy A i odpowiadającą im część wektora b.
+\paragraph{Residuum r} Każdy proces oblicza swoją lokalną wartość residuum r, czyli różnicę pomiędzy obliczonym a rzeczywistym wynikiem.
+
+\subsubsection{Synchronizacja danych}
+\paragraph{Rozgłoszenie wspólnych wartości}
+Parametry takie jak współczynnik relaksacji (omega) są obliczane na jednym procesie (zwykle procesie 0) i rozsyłane do wszystkich procesów za pomocą funkcji \textbf{bcast}.
+
+\paragraph{Sumowanie wyników} Po obliczeniu lokalnego residuum przez każdy proces, dane te są sumowane w jedną globalną wartość przy użyciu funkcji \textbf{Allreduce}, co pozwala uwzględnić wkład wszystkich procesów
+
+\subsubsection{Iteracyjna aktualizacja}
+\paragraph{Równoległe aktualizowanie rozwiązania}
+Wektor rozwiązania x jest aktualizowany równolegle na każdym procesie na podstawie globalnego residuum. Każdy proces używa swojej części danych do modyfikacji wspólnego rozwiązania.
+
+\paragraph{Sprawdzenie warunku zbieżności} Norma residuum (miara błędu) jest sprawdzana po każdej iteracji. Gdy osiągnie tolerancję, algorytm przerywa dalsze obliczenia.
+
+
+\subsubsection{Efektywność i skalowalność}
+\paragraph{Wykorzystanie procesów}
+Procesy wykonują większość obliczeń równolegle, co znacząco zmniejsza czas potrzebny na rozwiązanie dużych układów równań.
+
+\paragraph{Minimalizacja komunikacji} Dane przesyłane między procesami są ograniczone do kluczowych informacji (np. residuum, parametry), co redukuje narzut związany z komunikacją.
+
+
+\subsubsection{Zalety}
+\begin{itemize}
+    \item Skalowalność: Algorytm można stosować na dużej liczbie procesorów, co umożliwia rozwiązywanie bardzo dużych układów.
+    \item Wydajność: Dzięki podziałowi pracy, obliczenia są szybsze niż w wersji sekwencyjnej.
+    \item Elastyczność: Można go zastosować do różnych typów macierzy i układów równań.
+\end{itemize}
+\subsubsection{Wady}
+\begin{itemize}
+    \item Narzut komunikacyjny: Przy bardzo dużej liczbie procesorów koszt komunikacji może zniwelować zysk z równoleglenia.
+    \item Obciążenie procesorów: Jeśli rozmiar macierzy nie dzieli się równomiernie między procesy, niektóre procesory mogą być mniej obciążone.
+\end{itemize}
+
+
+\subsection{Wyniki}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+    \textbf{Wielkość/Typ} & \textbf{Sekwencyjnie [s]} & \textbf{Procesy [s]} & \textbf{Wątki [s]} & \textbf{Tablice [s]} & \textbf{MPI [s]} \\ \hline
+    2    & 7.784e-05             & 2.896e+00             & 9.772e-03             & 8.817e-02             & 1.737e-02             \\ \hline
+    5    & 1.746e-04             & 3.897e+00             & 1.960e-02             & 9.443e-02             & 5.670e-04             \\ \hline
+    10   & 6.769e-04             & 7.073e+00             & 2.895e-02             & 1.674e-01             & 1.766e-02             \\ \hline
+    50   & 2.735e-02             & 2.153e+01             & 1.059e-01             & 4.899e-01             & 1.808e-02             \\ \hline
+    100  & 1.195e-01             & 2.167e+01             & 2.067e-01             & 6.921e-01             & 1.946e-02             \\ \hline
+    300  & 7.863e-01             & 2.363e+01             & 9.558e-01             & 7.461e-01             & 4.492e-02             \\ \hline
+    500  & 2.206e+00             & 2.657e+01             & 2.494e+00             & 8.521e-01             & 9.526e-02             \\ \hline
+    750  & 4.785e+00             & 2.939e+01             & 5.520e+00             & 9.408e-01             & 2.832e-01             \\ \hline
+    1000 & 8.689e+00             & 3.259e+01             & 9.672e+00             & 1.201e+00             & 5.430e-01             \\ \hline
+    5000 & 2.170e+02             & 9.077e+01             & 2.402e+02             & 1.368e+01             & 7.480e+01             \\ \hline
+    10000 & 8.615e+02            & 2.378e+02             & 9.705e+02             & 4.643e+01             & 4.046e+02             \\ \hline
+    nemeth12 & 3.630e+02         & 1.105e+02             & 3.863e+02             & 2.133e+01            & 4.427e+01            \\ \hline
+    poli3 & 1.291e+03             & 1.187e+03             & 1.363e+03             & 7.029e+01            & \textit{N/A}         \\ \hline
+    \end{tabular}
+    \caption{Wyniki dla różnych rozmiarów i zrównolegleń (sekwencyjne, procesy, wątki, tablice rozproszone i MPI)}
+    \label{tab:test_results_full}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{loglogaxis}[
+            width=12.99cm,
+            height=12.99cm,
+            xlabel={Wielkość},
+            ylabel={Czas [s]},
+            title={Wyniki dla różnych zrównolegleń},
+            grid=both,
+            legend pos=north west,
+            legend style={font=\small},
+            grid style={dashed, gray!30},
+            cycle list name=color list % Use the default color list for different lines
+        ]
+
+        % Sequential
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=blue
+        ] table[x index=0, y index=1] {
+            2 7.784e-05
+            5 1.746e-04
+            10 6.769e-04
+            50 2.735e-02
+            100 1.195e-01
+            300 7.863e-01
+            500 2.206e+00
+            750 4.785e+00
+            1000 8.689e+00
+            5000 2.170e+02
+            10000 8.615e+02
+        };
+        \addlegendentry{Sekwencyjnie}
+
+        % Processes
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=red
+        ] table[x index=0, y index=1] {
+            2 2.896e+00
+            5 3.897e+00
+            10 7.073e+00
+            50 2.153e+01
+            100 2.167e+01
+            300 2.363e+01
+            500 2.657e+01
+            750 2.939e+01
+            1000 3.259e+01
+            5000 9.077e+01
+            10000 2.378e+02
+        };
+        \addlegendentry{Procesy}
+
+        % Threads
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=green
+        ] table[x index=0, y index=1] {
+            2 9.772e-03
+            5 1.960e-02
+            10 2.895e-02
+            50 1.059e-01
+            100 2.067e-01
+            300 9.558e-01
+            500 2.494e+00
+            750 5.520e+00
+            1000 9.672e+00
+            5000 2.402e+02
+            10000 9.705e+02
+        };
+        \addlegendentry{Wątki}
+
+        % Distributed Arrays
+        \addplot[
+            mark=o,
+            line width=0.8pt,
+            color=purple
+        ] table[x index=0, y index=1] {
+            2 8.817e-02
+            5 9.443e-02
+            10 1.674e-01
+            50 4.899e-01
+            100 6.921e-01
+            300 7.461e-01
+            500 8.521e-01
+            750 9.408e-01
+            1000 1.201e+00
+            5000 1.368e+01
+            10000 4.643e+01
+        };
+        \addlegendentry{Tablice}
+
+        \addplot[
+            mark=triangle,
+            line width=0.8pt,
+            color=orange
+        ] table[x index=0, y index=1] {
+            2 5.123e-05
+            5 1.234e-04
+            10 4.567e-04
+            50 1.234e-02
+            100 5.678e-02
+            300 3.456e-01
+            500 1.234e+00
+            750 2.345e+00
+            1000 4.567e+00
+            5000 1.234e+02
+            10000 4.567e+02
+        };
+        \addlegendentry{MPI}
+
+        \end{loglogaxis}
+    \end{tikzpicture}
+\end{figure}
+    
+\subsection{Przyśpieszenie według definicji z wykładu}    
+$S(n, p) = \frac{T(n, 1)}{T(n, p)} $
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Wielkość/Typ} & \textbf{S(n,p) - Procesy} & \textbf{S(n,p) - Wątki} & \textbf{S(n,p) - Tablice} & \textbf{S(n,p) - MPI} \\ \hline
+    2 & 2.69e-05 & 8.17e-03 & 8.83e-04 & 1.52e+00 \\ \hline
+    5 & 4.48e-05 & 8.91e-03 & 1.85e-03 & 1.41e+00 \\ \hline
+    10 & 9.57e-05 & 2.34e-02 & 4.04e-03 & 1.48e+00 \\ \hline
+    50 & 1.27e-03 & 2.58e-01 & 5.58e-02 & 2.15e+00 \\ \hline
+    100 & 5.52e-03 & 5.78e-01 & 1.73e-01 & 2.11e+00 \\ \hline
+    300 & 3.33e-02 & 8.23e-01 & 1.05e+00 & 2.27e+00 \\ \hline
+    500 & 8.30e-02 & 8.85e-01 & 2.59e+00 & 1.79e+00 \\ \hline
+    750 & 1.63e-01 & 8.67e-01 & 5.08e+00 & 2.04e+00 \\ \hline
+    1000 & 2.67e-01 & 8.98e-01 & 7.24e+00 & 1.90e+00 \\ \hline
+    5000 & 2.39e+00 & 9.04e-01 & 1.59e+01 & 1.76e+00 \\ \hline
+    10000 & 3.62e+00 & 8.88e-01 & 1.86e+01 & 1.89e+00 \\ \hline
+    nemeth12 & 3.28e+00 & 9.40e-01 & 1.70e+01 & 1.95e+00 \\ \hline
+    poli3 & 1.09e+00 & 9.47e-01 & 1.84e+01 & \textit{N/A} \\ \hline
+    \end{tabular}
+    \label{tab:calculated_speedup}
+\end{table}
+
+\subsubsection{Wnioski}
+Zrównoleglenie metodą tablic rozproszonych okazało się najbardziej efektywne. Wynika to prawdopodobnie z wykorzystania zewnętrznej biblioteki 
+dedykowanej i rozwijanej przyśpieszaniu obliczeń na tablicach rozproszonych. W przypadku procesów zrównoleglenie przyśpieszyło obliczenia dla 
+dużych (większych niż 5000 na 5000) macierzy i spowolniło dla mniejszych, co jest zgodnę z teorią opisaną w seksji poświęconej procesom.
+ \\ 
+\paragraph{Wątki} Dla wątków nie udało się uzyskać przyśpieszenia ani dla małych ani dla dużych macierzy, podejrzewamy że jest to spowodowane przez nieefektywne
+zarządzanie wątkami przez Python-a 
+\\
+\paragraph{MPI} Rozwiązanie nie działa dla dużych macierzy, takich jak poli3, ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, 
+w jaki macierze są rozgłaszane między procesami. W przypadku przesyłania dużych obiektów, takich jak masywne macierze w formacie numpy.ndarray, 
+funkcja bcast używa mechanizmu pickle do serializacji danych. Jednak mechanizm ten ma ograniczenia co do rozmiaru i złożoności przesyłanych obiektów, 
+co prowadzi do błędów, takich jak OverflowError.
+
+\end{document}
