@@ -1,0 +1,3198 @@
+<sentence id="2" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="3" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="4" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+'2 3 4 <==> '2 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="5" status="">
+<alignment>
+5 15 5 5 <==> 5 5 15 5 5 // EQUI // 5
+5 25 5 5 <==> 5 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+5 5 5 <==> 5 5 05 5 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="6" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="7" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="8" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="9" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="10" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="11" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 9 10 <==> 7 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="12" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="13" status="">
+<alignment>
+9 19 9 9 <==> 9 9 19 9 9 // EQUI // 5
+9 89 9 9 <==> 9 9 89 9 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="14" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+10 11 12 <==> 10 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="15" status="">
+<alignment>
+14 314 14 114 314 14 14 314 14 14 314 14 <==> 14 314 14 14 314 14 114 314 14 14 314 14 14 314 14 // EQUI // 5
+14 314 14 214 314 14 14 314 14 14 314 14 <==> 14 314 14 14 314 14 214 314 14 14 314 14 14 314 14 // EQUI // 5
+14 314 14 14 314 14 14 314 14 <==> 14 314 14 14 314 14 014 314 14 14 314 14 // REL // 3
+14 314 14 14 314 14 14 314 14 <==> 14 314 14 14 314 14 014 314 14 14 314 14 // REL // 3
+</alignment>
+</sentence>
+
+<sentence id="16" status="">
+<alignment>
+8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 <==> 8 38 8 8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="17" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="18" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="19" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="20" status="">
+<alignment>
+8 18 8 28 8 8 <==> 8 8 18 8 28 8 8 // EQUI // 5
+8 38 8 48 8 8 <==> 8 8 38 8 48 8 8 // EQUI // 5
+8 58 8 68 8 8 <==> 8 8 58 8 68 8 8 // EQUI // 5
+8 78 8 8 <==> 8 8 78 8 8 // EQUI // 5
+8 8 8 <==> 8 8 08 8 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="21" status="">
+<alignment>
+5 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="22" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="23" status="">
+<alignment>
+9 19 9 29 9 39 9 49 9 59 9 69 9 9 <==> 9 9 19 9 29 9 39 9 49 9 59 9 69 9 9 // EQUI // 5
+9 79 9 9 <==> 9 9 79 9 9 // EQUI // 5
+9 89 9 9 <==> 9 9 89 9 9 // EQUI // 5
+9 9 9 <==> 9 9 09 9 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="24" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="25" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="26" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="27" status="">
+<alignment>
+9 19 9 29 9 39 9 9 <==> 9 9 19 9 29 9 39 9 9 // EQUI // 5
+9 49 9 9 <==> 9 9 49 9 9 // EQUI // 5
+9 59 9 69 9 9 79 9 89 9 9 <==> 9 9 59 9 69 9 9 79 9 89 9 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="28" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="29" status="">
+<alignment>
+7 17 7 27 7 7 <==> 7 7 17 7 27 7 7 // EQUI // 5
+7 37 7 7 <==> 7 7 37 7 7 // EQUI // 5
+7 47 7 57 7 67 7 7 <==> 7 7 47 7 57 7 67 7 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="30" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="31" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="32" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="33" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="34" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="35" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="36" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="37" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="38" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="39" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+'3 4 5 <==> '3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="40" status="">
+<alignment>
+9 19 9 29 9 9 <==> 9 9 19 9 29 9 9 // EQUI // 5
+9 39 9 9 <==> 9 9 39 9 9 // EQUI // 5
+9 49 9 59 9 69 9 9 <==> 9 9 49 9 59 9 69 9 9 // EQUI // 5
+9 79 9 89 9 9 <==> 9 9 79 9 89 9 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="41" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 <==> 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="42" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="43" status="">
+<alignment>
+14 114 014 14 614 114 014 14 14 114 014 14 114 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 214 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 314 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 <==> 14 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 114 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 214 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 314 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 // EQUI // 5
+14 114 014 14 614 114 014 14 14 114 014 14 414 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 514 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 <==> 14 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 414 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 514 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 14 114 014 14 614 114 014 14 14 114 014 14 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="44" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="45" status="">
+<alignment>
+8 18 8 8 <==> 8 8 18 8 8 // EQUI // 5
+8 28 8 38 8 8 <==> 8 8 28 8 38 8 8 // EQUI // 5
+8 48 8 58 8 8 <==> 8 8 48 8 58 8 8 // EQUI // 5
+8 68 8 78 8 8 <==> 8 8 68 8 78 8 8 // EQUI // 5
+8 08 8 <==> 8 8 =8 >8 8 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="46" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="47" status="">
+<alignment>
+7 47 7 7 <==> 7 7 47 7 7 // EQUI // 5
+7 57 7 67 7 7 <==> 7 7 57 7 67 7 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="48" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="49" status="">
+<alignment>
+7 17 7 27 7 7 <==> 7 7 17 7 27 7 7 // EQUI // 5
+7 37 7 47 7 7 <==> 7 7 37 7 47 7 7 // EQUI // 5
+7 57 7 67 7 7 <==> 7 7 57 7 67 7 7 // EQUI // 5
+7 47 97 7 <==> 7 7 47 97 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="50" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="51" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="52" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="53" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="54" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="55" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="56" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="57" status="">
+<alignment>
+5 15 5 5 25 5 35 5 45 5 5 <==> 5 5 15 5 5 25 5 35 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="58" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="59" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="60" status="">
+<alignment>
+10 610 10 110 610 10 10 610 10 10 610 10 <==> 10 610 10 10 610 10 110 610 10 10 610 10 10 610 10 // EQUI // 5
+10 610 10 210 610 10 10 610 10 310 610 10 10 610 10 10 610 10 <==> 10 610 10 10 610 10 210 610 10 10 610 10 310 610 10 10 610 10 10 610 10 // EQUI // 5
+10 610 10 410 610 10 10 610 10 510 610 10 10 610 10 10 610 10 <==> 10 610 10 10 610 10 410 610 10 10 610 10 510 610 10 10 610 10 10 610 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="61" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="62" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="63" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="64" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="65" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="66" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 4 <==> 3 4 // EQUI // 5
+ 5 <==> 5 // EQUI // 5
+ 6 <==> 6 // EQUI // 5
+ 7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="67" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="68" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="69" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="70" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="71" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 9 10 <==> 6 7 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="72" status="">
+<alignment>
+5 15 5 25 5 5 <==> 5 5 15 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="73" status="">
+<alignment>
+6 26 6 16 26 6 6 26 6 6 26 6 <==> 6 26 6 6 26 6 16 26 6 6 26 6 6 26 6 // EQUI // 5
+6 26 6 6 26 6 6 26 6 <==> 6 26 6 6 26 6 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="74" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="75" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="76" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="77" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 8 <==> 4 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="78" status="">
+<alignment>
+9 19 9 29 9 9 <==> 9 9 19 9 29 9 9 // EQUI // 5
+9 39 9 9 <==> 9 9 39 9 9 // EQUI // 5
+9 49 9 59 9 69 9 9 <==> 9 9 49 9 59 9 69 9 9 // EQUI // 5
+9 79 9 89 9 9 <==> 9 9 79 9 89 9 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="79" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 5 <==> 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="80" status="">
+<alignment>
+5 15 5 25 5 5 <==> 5 5 15 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+5 5 5 <==> 5 5 05 5 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="81" status="">
+<alignment>
+6 16 6 26 6 36 6 6 <==> 6 6 16 6 26 6 36 6 6 // EQUI // 5
+6 46 6 6 <==> 6 6 46 6 6 // EQUI // 5
+6 56 6 6 <==> 6 6 56 6 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="82" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="83" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="84" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="85" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="86" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="87" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="88" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="89" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="90" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="91" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="92" status="">
+<alignment>
+5 15 5 5 <==> 5 5 15 5 5 // EQUI // 5
+5 25 5 5 <==> 5 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+5 5 5 <==> 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="93" status="">
+<alignment>
+6 16 6 6 <==> 6 6 16 6 6 // EQUI // 5
+6 26 6 6 <==> 6 6 26 6 6 // EQUI // 5
+6 36 6 46 6 56 6 6 <==> 6 6 36 6 46 6 56 6 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="94" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="95" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="96" status="">
+<alignment>
+0 <==> 1 1 // EQUI // 5
+0 <==> 2 2 // EQUI // 5
+0 <==> 3 4 3 4 // EQUI // 5
+0 <==> 5 5 // EQUI // 5
+0 <==> 6 7 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="97" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="98" status="">
+<alignment>
+5 15 5 5 <==> 5 5 15 5 5 // EQUI // 5
+5 25 5 5 <==> 5 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="99" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="100" status="">
+<alignment>
+4 14 4 4 <==> 4 4 14 4 4 // EQUI // 5
+4 24 4 34 4 4 <==> 4 4 24 4 34 4 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="101" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="102" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="103" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="104" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="105" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="106" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="107" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="108" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="109" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="110" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="111" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="112" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="113" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="114" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="115" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="116" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="117" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="118" status="">
+<alignment>
+6 <==> 6 // EQUI // 5
+7 8 9 10 <==> 7 8 9 10 // EQUI // 5
+11 12 13 <==> 11 12 13 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="119" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="120" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="121" status="">
+<alignment>
+7 37 7 17 37 7 7 37 7 27 37 7 7 37 7 7 37 7 <==> 7 37 7 7 37 7 17 37 7 7 37 7 27 37 7 7 37 7 7 37 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="122" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="123" status="">
+<alignment>
+7 17 7 7 <==> 7 7 17 7 7 // EQUI // 5
+7 27 7 7 <==> 7 7 27 7 7 // EQUI // 5
+7 37 7 47 7 7 <==> 7 7 37 7 47 7 7 // EQUI // 5
+7 57 7 67 7 7 <==> 7 7 57 7 67 7 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="124" status="">
+<alignment>
+3 13 3 3 23 3 3 <==> 3 3 13 3 3 23 3 3 // EQUI // 5
+3 3 <==> 3 3 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="125" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 8 <==> 4 5 6 7 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="126" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 3 <==> 2 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 <==> 5 // EQUI // 5
+ 6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="127" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="128" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="129" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="130" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="131" status="">
+<alignment>
+0 <==> 1 2 == 1 2 // EQUI // 5
+0 <==> 3 4 5 == 3 4 5 // EQUI // 5
+0 <==> 6 == 6 // EQUI // 5
+0 <==> 7 8 == 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="132" status="">
+<alignment>
+11 311 11 111 311 11 11 311 11 211 311 11 11 311 11 11 311 11 <==> 11 311 11 11 311 11 111 311 11 11 311 11 211 311 11 11 311 11 11 311 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="133" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="134" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 3 <==> 2 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 <==> 5 // EQUI // 5
+ 6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="135" status="">
+<alignment>
+5 15 5 5 <==> 5 5 15 5 5 // EQUI // 5
+5 25 5 35 5 5 <==> 5 5 25 5 35 5 5 // EQUI // 5
+5 45 5 5 <==> 5 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="136" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="137" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="138" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="139" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="140" status="">
+<alignment>
+9 69 9 19 69 9 9 69 9 9 69 9 <==> 9 69 9 9 69 9 19 69 9 9 69 9 9 69 9 // EQUI // 5
+9 69 9 29 69 9 9 69 9 9 69 9 <==> 9 69 9 9 69 9 29 69 9 9 69 9 9 69 9 // EQUI // 5
+9 69 9 39 69 9 9 69 9 49 69 9 9 69 9 59 69 9 9 69 9 9 69 9 <==> 9 69 9 9 69 9 39 69 9 9 69 9 49 69 9 9 69 9 59 69 9 9 69 9 9 69 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="141" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+11 12 <==> 11 12 // EQUI // 5
+13 14 <==> 13 14 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="142" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+11 12 13 <==> 11 12 13 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="143" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="144" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="145" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="146" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="147" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="148" status="">
+<alignment>
+7 <==> 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+11 12 <==> 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="149" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="150" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="151" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 4 <==> 3 4 // EQUI // 5
+ 5 6 <==> 5 6 // EQUI // 5
+ 12 13 <==> 12 13 // EQUI // 5
+ 14 <==> 14 // EQUI // 5
+ 15 16 <==> 15 16 // EQUI // 5
+ 17 18 19 20 <==> 17 18 19 20 // EQUI // 5
+ 21 22 <==> 21 22 // EQUI // 5
+ 23 <==> 23 // EQUI // 5
+ 24 25 26 <==> 24 25 26 // EQUI // 5
+ 27 28 <==> 27 28 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="152" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="153" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="154" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="155" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="156" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="157" status="">
+<alignment>
+4 14 4 4 <==> 4 4 14 4 4 // EQUI // 5
+4 24 4 34 4 4 <==> 4 4 24 4 34 4 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="158" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 9 10 11 <==> 7 8 9 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="159" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+10 <==> 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="160" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5 
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="161" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+'2 3 <==> '2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="162" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="163" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="164" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="165" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="166" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 5 <==> 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="167" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="168" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="169" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="170" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="171" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 3 <==> 2 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="172" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 7 <==> 3 4 5 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="173" status="">
+<alignment>
+3 13 3 23 3 3 <==> 3 3 13 3 23 3 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="174" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="175" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="176" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="177" status="">
+<alignment>
+8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 <==> 8 38 8 8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="178" status="">
+<alignment>
+5 15 5 25 5 35 5 5 <==> 5 5 15 5 25 5 35 5 5 // EQUI // 5
+5 45 5 5 <==> 5 5 45 5 5 // EQUI // 5
+5 15 15 25 75 5 <==> 5 5 15 15 25 75 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="179" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 5 <==> 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="180" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="181" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="182" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 10 11 <==> 9 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="183" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="184" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="185" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="186" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="187" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="188" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="189" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="190" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="191" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 10 11 <==> 9 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="192" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 10 11 <==> 9 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="193" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="194" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="195" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 5 6 <==> 2 3 4 5 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="196" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="197" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="198" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="199" status="">
+<alignment>
+7 17 7 27 7 7 <==> 7 7 17 7 27 7 7 // EQUI // 5
+7 37 7 7 <==> 7 7 37 7 7 // EQUI // 5
+7 47 7 7 <==> 7 7 47 7 7 // EQUI // 5
+7 9 7 67 7 7 <==> 7 7 9 7 67 7 7 // EQUI // 5
+7 07 7 <==> 7 7 07 7 // NOALI // 5
+7 9 77 7 <==> 7 7 9 77 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="200" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="201" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 10 <==> 7 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="202" status="">
+<alignment>
+2 2 12 2 2 <==> 2 2 12 2 2 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="203" status="">
+<alignment>
+10 110 10 210 10 10 <==> 10 10 110 10 210 10 10 // EQUI // 5
+10 310 10 410 10 510 10 10 <==> 10 10 310 10 410 10 510 10 10 // EQUI // 5
+10 610 10 710 10 10 <==> 10 10 610 10 710 10 10 // EQUI // 5
+10 810 10 910 10 10 <==> 10 10 810 10 910 10 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="204" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="205" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="206" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="207" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="208" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="209" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+10 11 <==> 10 11 // EQUI // 5
+12 13 14 <==> 12 13 14 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="210" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="211" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="212" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="213" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="214" status="">
+<alignment>
+6 16 6 26 6 36 6 6 <==> 6 6 16 6 26 6 36 6 6 // EQUI // 5
+6 46 6 6 <==> 6 6 46 6 6 // EQUI // 5
+6 56 6 6 <==> 6 6 56 6 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="215" status="">
+<alignment>
+8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 <==> 8 38 8 8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="216" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="217" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="218" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="219" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="220" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="221" status="">
+<alignment>
+11 511 11 111 511 11 11 511 11 211 511 11 11 511 11 11 511 11 <==> 11 511 11 11 511 11 111 511 11 11 511 11 211 511 11 11 511 11 11 511 11 // EQUI // 5
+11 511 11 311 511 11 11 511 11 11 511 11 <==> 11 511 11 11 511 11 311 511 11 11 511 11 11 511 11 // EQUI // 5
+11 511 11 411 511 11 11 511 11 11 511 11 <==> 11 511 11 11 511 11 411 511 11 11 511 11 11 511 11 // EQUI // 5
+11 511 11 111 511 11 311 511 11 11 511 11 <==> 11 511 11 11 511 11 111 511 11 311 511 11 11 511 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="222" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="223" status="">
+<alignment>
+3 3 13 3 3 <==> 3 3 13 3 3 // EQUI // 5
+3 3 23 3 3 <==> 3 3 23 3 3 // EQUI // 5
+3 3 3 <==> 3 3 // EQUI // 5
+3 3 23 23 3 <==> 3 3 23 23 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="224" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="225" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+10 11 12 <==> 10 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="226" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 6 7 <==> 3 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="227" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="228" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="229" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="230" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="231" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+11 12 <==> 11 12 // EQUI // 5
+13 14 <==> 13 14 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="232" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="233" status="">
+<alignment>
+9 49 9 19 49 9 9 49 9 29 49 9 9 49 9 39 49 9 9 49 9 9 49 9 <==> 9 49 9 9 49 9 19 49 9 9 49 9 29 49 9 9 49 9 39 49 9 9 49 9 9 49 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="234" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="235" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="236" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="237" status="">
+<alignment>
+5 15 5 25 5 5 <==> 5 5 15 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+5 15 05 05 05 05 05 5 <==> 5 5 15 05 05 05 05 05 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="238" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="239" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="240" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="241" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="242" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 10 <==> 7 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="243" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="244" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="245" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="246" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+ 6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="247" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="248" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="249" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="250" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="251" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+'2 3 <==> '2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="252" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="253" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="254" status="">
+<alignment>
+5 15 5 25 5 5 <==> 5 5 15 5 25 5 5 // EQUI // 5
+5 35 5 45 5 5 <==> 5 5 35 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="255" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 5 <==> 4 5 // EQUI // 5
+ 6 7 <==> 6 7 // EQUI // 5
+ 8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="257" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="258" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="259" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="260" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="261" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="262" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="263" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+ 5 <==> 5 // EQUI // 5
+ 6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="264" status="">
+<alignment>
+3 13 3 23 3 3 <==> 3 3 13 3 23 3 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="265" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 10 11 12 <==> 7 8 9 10 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="266" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="267" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="268" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="269" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 4 5 6 7 <==> 3 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="270" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="271" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="272" status="">
+<alignment>
+3 4 <==> 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="273" status="">
+<alignment>
+7 <==> 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="274" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="275" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="276" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="277" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 9 10 <==> 7 8 9 10 // EQUI // 5
+11 <==> 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="278" status="">
+<alignment>
+7 17 7 27 7 7 <==> 7 7 17 7 27 7 7 // EQUI // 5
+7 37 7 7 <==> 7 7 37 7 7 // EQUI // 5
+7 47 7 57 7 67 7 7 <==> 7 7 47 7 57 7 67 7 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="279" status="">
+<alignment>
+7 17 7 27 7 7 <==> 7 7 17 7 27 7 7 // EQUI // 5
+7 37 7 7 <==> 7 7 37 7 7 // EQUI // 5
+7 47 7 7 <==> 7 7 47 7 7 // EQUI // 5
+7 57 7 67 7 7 <==> 7 7 57 7 67 7 7 // EQUI // 5
+7 7 7 <==> 7 7 07 7 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="280" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="281" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="282" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="283" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="284" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="285" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="286" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="287" status="">
+<alignment>
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="288" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="289" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="290" status="">
+<alignment>
+5 15 5 25 5 5 <==> 5 5 15 5 25 5 5 // EQUI // 5
+5 35 5 5 <==> 5 5 35 5 5 // EQUI // 5
+5 45 5 5 <==> 5 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="291" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="292" status="">
+<alignment>
+3 13 3 3 23 3 3 <==> 3 3 13 3 3 23 3 3 // EQUI // 5
+3 3 <==> 3 3 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="293" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 4 <==> 3 4 // EQUI // 5
+ 5 6 7 <==> 5 6 7 // EQUI // 5
+ 8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="294" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 9 <==> 6 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="295" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="296" status="">
+<alignment>
+6 36 6 16 36 6 6 36 6 6 36 6 <==> 6 36 6 6 36 6 16 36 6 6 36 6 6 36 6 // EQUI // 5
+6 36 6 26 36 6 6 36 6 6 36 6 <==> 6 36 6 6 36 6 26 36 6 6 36 6 6 36 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="297" status="">
+<alignment>
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="298" status="">
+<alignment>
+6 26 6 16 26 6 6 26 6 6 26 6 <==> 6 26 6 6 26 6 16 26 6 6 26 6 6 26 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="299" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="300" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+10 11 <==> 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="301" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="302" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="303" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 3 4 5 <==> 3 4 5 // EQUI // 5
+ 6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="304" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="305" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="306" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+10 11 <==> 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="307" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="308" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+ 3 4 5 <==> 3 4 5 // EQUI // 5
+ 6 <==> 6 // EQUI // 5
+ 7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="309" status="">
+<alignment>
+6 16 6 6 <==> 6 6 16 6 6 // EQUI // 5
+6 26 6 6 <==> 6 6 26 6 6 // EQUI // 5
+6 56 6 6 <==> 6 6 56 6 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="310" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="311" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="312" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="313" status="">
+<alignment>
+5 <==> 5 // EQUI // 5
+5 <==> 6 // NOALI // 0
+6 <==> 5 // NOALI // 0
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="314" status="">
+<alignment>
+3 4 3 3 23 3 3 <==> 3 3 4 3 3 23 3 3 // EQUI // 5
+3 4 3 3 <==> 3 3 4 3 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="315" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="316" status="">
+<alignment>
+5 15 5 25 5 35 5 5 <==> 5 5 15 5 25 5 35 5 5 // EQUI // 5
+5 45 5 5 <==> 5 5 45 5 5 // EQUI // 5
+5 5 <==> 5 5 05 5 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="317" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="318" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="319" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="320" status="">
+<alignment>
+4 14 4 24 4 4 <==> 4 4 14 4 24 4 4 // EQUI // 5
+4 34 4 4 <==> 4 4 34 4 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="321" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="322" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="323" status="">
+<alignment>
+1 2 3 4 <==> 1 2 3 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+10 11 <==> 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="324" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="325" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5 
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+9 10 11 12 <==> 9 10 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="326" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="327" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="328" status="">
+<alignment>
+2 12 2 2 <==> 2 2 12 2 2 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="329" status="">
+<alignment>
+10 910 10 610 910 10 10 910 10 110 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 <==> 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 110 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 // EQUI // 5
+10 910 10 610 910 10 10 910 10 210 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 <==> 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 210 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 // EQUI // 5
+10 910 10 610 910 10 10 910 10 310 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 <==> 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 310 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 // EQUI // 5
+10 910 10 610 910 10 10 910 10 410 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 510 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 <==> 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 410 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 510 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 10 910 10 610 910 10 10 910 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="330" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 5 <==> 5 // EQUI // 5
+ 6 <==> 6 // EQUI // 5
+ 7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="331" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="332" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+ 3 <==> 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 6 <==> 5 6 // EQUI // 5
+ 7 <==> 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="333" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="334" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+ 4 <==> 4 // EQUI // 5
+ 5 6 7 <==> 5 6 7 // EQUI // 5
+ 8 9 <==> 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="335" status="">
+<alignment>
+1 2 3 4 5 <==> 1 2 3 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 8 9 <==> 7 8 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="336" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="337" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="338" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 <==> 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="339" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="341" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="342" status="">
+<alignment>
+5 15 5 25 5 5 <==> 5 5 15 5 25 5 5 // EQUI // 5
+5 35 5 5 <==> 5 5 35 5 5 // EQUI // 5
+5 45 5 5 <==> 5 5 45 5 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="343" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="344" status="">
+<alignment>
+2 12 2 2 <==> 2 2 12 2 2 // EQUI // 5
+2 22 12 2 <==> 2 2 22 12 2 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="345" status="">
+<alignment>
+6 36 6 6 36 6 16 36 6 6 36 6 26 36 6 6 36 6 6 36 6 <==> 6 36 6 6 36 6 16 36 6 6 36 6 26 36 6 6 36 6 6 36 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="346" status="">
+<alignment>
+8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 <==> 8 38 8 8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="347" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 5 <==> 2 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="348" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="349" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="350" status="">
+<alignment>
+3 13 3 3 <==> 3 3 13 3 3 // EQUI // 5
+3 23 3 3 <==> 3 3 23 3 3 // EQUI // 5
+3 4 3 3 <==> 3 3 4 3 3 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="351" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="352" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="353" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="354" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="355" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="356" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 <==> 3 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 9 10 <==> 8 9 10 // EQUI // 5
+11 12 <==> 11 12 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="358" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="359" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 <==> 6 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="360" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 <==> 3 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+8 <==> 8 // EQUI // 5
+9 10 <==> 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="361" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 7 <==> 4 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="362" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 4 <==> 2 3 4 // EQUI // 5
+5 6 7 <==> 5 6 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="363" status="">
+<alignment>
+10 110 10 10 <==> 10 10 110 10 10 // EQUI // 5
+10 210 10 10 <==> 10 10 210 10 10 // EQUI // 5
+10 310 10 10 <==> 10 10 310 10 10 // EQUI // 5
+10 410 10 510 10 610 10 710 10 10 <==> 10 10 410 10 510 10 610 10 710 10 10 // EQUI // 5
+10 810 10 10 <==> 10 10 810 10 10 // EQUI // 5
+10 910 10 10 <==> 10 10 910 10 10 // EQUI // 5
+10 10 10 <==> 10 10 010 10 // NOALI // 0
+</alignment>
+</sentence>
+
+<sentence id="364" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 <==> 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="365" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="366" status="">
+<alignment>
+4 14 4 24 4 34 4 4 <==> 4 4 14 4 24 4 34 4 4 // EQUI // 5
+4 4 <==> 4 4 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="367" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+ 2 <==> 2 // EQUI // 5
+ 3 4 5 <==> 3 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="368" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="369" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 <==> 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 6 <==> 4 5 6 // EQUI // 5
+7 8 9 10 <==> 7 8 9 10 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="370" status="">
+<alignment>
+9 19 9 29 9 39 9 49 9 9 <==> 9 9 19 9 29 9 39 9 49 9 9 // EQUI // 5
+9 59 9 9 <==> 9 9 59 9 9 // EQUI // 5
+9 69 9 79 9 89 9 9 <==> 9 9 69 9 79 9 89 9 9 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="371" status="">
+<alignment>
+1 2 3 <==> 1 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 <==> 5 6 // EQUI // 5
+7 8 <==> 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="372" status="">
+<alignment>
+1 <==> 1 // EQUI // 5
+2 3 <==> 2 3 // EQUI // 5
+4 <==> 4 // EQUI // 5
+5 6 7 8 <==> 5 6 7 8 // EQUI // 5
+9 <==> 9 // EQUI // 5
+10 11 <==> 10 11 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="373" status="">
+<alignment>
+8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 <==> 8 38 8 8 38 8 18 38 8 8 38 8 28 38 8 8 38 8 8 38 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="374" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+6 7 8 <==> 6 7 8 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="375" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 4 5 6 <==> 3 4 5 6 // EQUI // 5
+7 <==> 7 // EQUI // 5
+</alignment>
+</sentence>
+
+<sentence id="376" status="">
+<alignment>
+1 2 <==> 1 2 // EQUI // 5
+3 <==> 3 // EQUI // 5
+4 5 <==> 4 5 // EQUI // 5
+</alignment>
+</sentence>
+

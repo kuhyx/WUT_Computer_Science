@@ -1,0 +1,5 @@
+'bulbs a and c <==> Bulbs A and C // EQUI // 5\nstill <==> still // EQUI // 5\nhave a closed path <==> in closed paths // REL // 3'
+'terminal 1 and the positive terminal <=> Terminal 1 and the positive terminal // EQUI // 5\nare connected <=> are separated // OPPO // 5\nare connected <=> by the gap // REL // 2\nNOALI <=> by the gap // NOALI // 0'
+'positive battery ==>Terminal 2 and the positive terminal // SIMI // 3\nis separated ==>are separated // EQUI // 5\nby a gap ==>by the gap // EQUI // 5\nfrom terminal 2 ==>NOALI // NOALI // 0'
+'There ==> The terminals // REL // 2\nis ==> are // EQUI // 5\nno difference ==> in the same state // REL // 3\nbetween the two terminals ==> NOALI // NOALI // NOALI'
+'switch ==> switch and bulb // EQUI // 3\nin the same path ==> in the same path // EQUI // 5\nthe bulb and the battery ==> switch and bulb // REL // 3\nhas to be contained ==> have to be // REL // 4\nas ==> // NOALI // 0'
