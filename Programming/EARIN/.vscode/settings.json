@@ -1,0 +1,15 @@
+{
+    "python.linting.pylintArgs": [
+        "--generate-members"
+    ],
+    "cSpell.words": [
+        "dtype",
+        "loadtxt",
+        "MNIST",
+        "optim",
+        "Xbatch",
+        "ybatch"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
+}

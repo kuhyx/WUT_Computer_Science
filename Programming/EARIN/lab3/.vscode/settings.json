@@ -1,0 +1,4 @@
+{
+  "cSpell.words": ["rastrigin"],
+  "python.linting.pylintArgs": ["--generated-members=cv2.*"],
+}
