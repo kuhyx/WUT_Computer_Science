@@ -1,0 +1,23 @@
+\babel@toc {polish}{}\relax 
+\contentsline {section}{\numberline {1}Wstęp}{1}{section.1}%
+\contentsline {paragraph}{Kontekst}{1}{section*.2}%
+\contentsline {paragraph}{Cel}{2}{section*.3}%
+\contentsline {paragraph}{Hipoteza}{2}{section*.4}%
+\contentsline {paragraph}{Metoda badawcza}{2}{section*.5}%
+\contentsline {section}{\numberline {2}Omówienie rozdziałów}{2}{section.2}%
+\contentsline {section}{\numberline {3}Opis literatury}{3}{section.3}%
+\contentsline {paragraph}{Decision trees: from efficient prediction to responsible AI}{3}{section*.6}%
+\contentsline {paragraph}{Application of Successful EU Funds Absorption Models to Sustainable Regional Development}{3}{section*.7}%
+\contentsline {paragraph}{It’s not about the money. EU funds, local opportunities, and Euroscepticism}{3}{section*.8}%
+\contentsline {section}{\numberline {4}Proces badawczy}{4}{section.4}%
+\contentsline {paragraph}{Zbieranie danych}{4}{section*.9}%
+\contentsline {paragraph}{Przygotowywanie danych}{7}{section*.10}%
+\contentsline {paragraph}{Analiza danych}{8}{section*.11}%
+\contentsline {paragraph}{Przedstawienie wyników}{8}{section*.12}%
+\contentsline {section}{\numberline {5}Wyniki}{9}{section.5}%
+\contentsline {section}{\numberline {6}Dyskusja}{12}{section.6}%
+\contentsline {paragraph}{Sukcesy}{12}{section*.13}%
+\contentsline {paragraph}{Weryfikacja hipotezy}{12}{section*.14}%
+\contentsline {paragraph}{Niskie wartości korelacji}{12}{section*.15}%
+\contentsline {paragraph}{Brak możliwości predykcji}{12}{section*.16}%
+\contentsline {section}{\numberline {7}Konkluzja}{13}{section.7}%
