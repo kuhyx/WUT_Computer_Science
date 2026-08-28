@@ -96,6 +96,14 @@ is mirrored into `~/utils/file_length/_tables.py`, `[tool.ruff] exclude` and
 
 - `ruff` runs with `select = ["ALL"]` and mypy with `strict = true`.
 - No `# noqa`, no `# type: ignore`. A pre-commit hook rejects both outright.
+- **No per-file-ignores either, including for tests.** `pyproject.toml` has no
+  `[tool.ruff.lint.per-file-ignores]` table at all, which is stricter than the
+  rest of the fleet. So a test asserts by raising:
+  `if x != y: msg = ...; raise AssertionError(msg)` -- never a bare `assert`,
+  which is `S101`. Test functions carry docstrings and full annotations like
+  any other code, `pytest.raises` always takes `match=`, and an expected value
+  gets a named constant rather than being a magic number. Decided by kuhy on
+  2026-08-28 against the alternative of mirroring testsAndMisc's test block.
 - Notebooks: `ruff` reads and formats `.ipynb` natively (cell-aware, so an
   import used two cells later is not reported unused), which is why there is
   no `nbqa` layer. It rewrites `source` only — outputs are left byte-identical.

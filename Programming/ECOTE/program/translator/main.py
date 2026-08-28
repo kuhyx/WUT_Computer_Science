@@ -1,68 +1,74 @@
 """Program for converting Latex files into html files."""
 
 import argparse
+import logging
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 
-def command_name_check(latex_string, command_name):
-    """Checks if command name given from latex was spelled correctly."""
+def command_name_check(latex_string: str, command_name: str) -> str:
+    """Check if command name given from latex was spelled correctly."""
     if latex_string[1 : (len(command_name) + 1)] != command_name:
-        print(latex_string + "Error! command misspeled!")
+        logger.error("%sError! command misspeled!", latex_string)
         return "Error!"
     return ""
 
 
-def generic_checks(latex_string):
-    """Checks if string is given and whether latex parameters
-    ends with curly bracket.
+def generic_checks(latex_string: str) -> str:
+    """Check that a string was given and that its parameters close.
+
+    "Close" means the latex parameter list ends with a curly bracket.
     """
     if latex_string == "":
-        print(latex_string + "Error! No input given to function")
+        logger.error("%sError! No input given to function", latex_string)
         return "Error!"
     if "}" not in latex_string:
-        print(latex_string + "Error! curly bracket not closed!")
+        logger.error("%sError! curly bracket not closed!", latex_string)
         return "Error!"
     return ""
 
 
-def generic_checks_command(latex_string):
-    """In additon to generic checks it also checks if command starts with \
-    """
+def generic_checks_command(latex_string: str) -> str:
+    r"""Run the generic checks, and also require a leading backslash."""
     if generic_checks(latex_string) == "Error!":
         return "Error!"
     if latex_string[0] != "\\":
-        print(latex_string + "Error! has no slash at begining")
+        logger.error("%sError! has no slash at begining", latex_string)
         return "Error!"
     return ""
 
 
-def document_class_only_checks(latex_string):
-    """Checks only errors connected to document class."""
+def document_class_only_checks(latex_string: str) -> str:
+    """Check only errors connected to document class."""
     if len(latex_string) < len("\\documentclass{"):
-        print(latex_string + "Error! latex string to short to be document class!")
+        logger.error(
+            "%sError! latex string to short to be document class!", latex_string
+        )
         return "Error!"
     if latex_string[len("\\documentclass{") - 1] != "{":
-        print(latex_string + "Error! curly bracket not opened!")
+        logger.error("%sError! curly bracket not opened!", latex_string)
         return "Error!"
     if command_name_check(latex_string, "documentclass") == "Error!":
         return "Error!"
     return ""
 
 
-def document_class(latex_string):
-    r"""Converts LaTeX documentclass method to html
+def document_class(latex_string: str) -> str:
+    r"""Convert LaTeX documentclass method to html.
+
     \documentclass{article}.
     """
     if generic_checks_command(latex_string) == "Error!":
         return "Error!"
     if document_class_only_checks(latex_string) == "Error!":
         return "Error!"
-    # document_type = latex_string[len(
-    #    "\\documentclass{"): (len(latex_string) - 1)]
     return "<!DOCTYPE html>"
 
 
-def begin_document(latex_string):
-    r"""Converts LaTeX begin document method to html
+def begin_document(latex_string: str) -> str:
+    r"""Convert LaTeX begin document method to html.
+
     \begin{document}.
     """
     if generic_checks_command(latex_string) == "Error!":
@@ -72,8 +78,8 @@ def begin_document(latex_string):
     return "<html>"
 
 
-def begin_tabular(latex_string):
-    r"""Checks if LaTeX begin tabular method is correct."""
+def begin_tabular(latex_string: str) -> str:
+    r"""Check if LaTeX begin tabular method is correct."""
     if generic_checks_command(latex_string) == "Error!":
         return "Error!"
     if command_name_check(latex_string, "begin") == "Error!":
@@ -81,8 +87,8 @@ def begin_tabular(latex_string):
     return "<table>"
 
 
-def tabular_parameters(latex_string):
-    r"""Checks if LaTeX tabular environment has any parameters."""
+def tabular_parameters(latex_string: str) -> str:
+    r"""Check if LaTeX tabular environment has any parameters."""
     if latex_string == "":
         return ""
     if latex_string == "[]":
@@ -90,15 +96,18 @@ def tabular_parameters(latex_string):
     return "Error!"
 
 
-def only_pipes_and_space(latex_string):
-    """Checks if latex string only contains | or " "
+def only_pipes_and_space(latex_string: str) -> bool:
+    """Check if latex string only contains | or " ".
+
     if yes returns True, if no returns false.
     """
     return all(char in ("|", " ", "{", "}") for char in latex_string)
 
 
-def handle_complicated_parameter(latex_string, return_array, i):
-    """Handles single complicated parameter from loop."""
+def handle_complicated_parameter(
+    latex_string: str, return_array: list[str], i: int
+) -> tuple[list[str], int, str]:
+    """Handle single complicated parameter from loop."""
     closing_bracket = latex_string.find("}", i + 1)
     columns_string = latex_string[i : closing_bracket + 1]
     result = tabular_columns_parameters(columns_string)
@@ -110,9 +119,12 @@ def handle_complicated_parameter(latex_string, return_array, i):
 
 
 def main_tabular_parameters_loop_inside(
-    latex_string, i, simple_parameters_dictionary, return_array
-):
-    """Handles single tabular parameter character."""
+    latex_string: str,
+    i: int,
+    simple_parameters_dictionary: dict[str, str],
+    return_array: list[str],
+) -> tuple[list[str], int, str]:
+    """Handle single tabular parameter character."""
     character = latex_string[i]
     if character in ["l", "c", "r", "|"]:
         return_array.append(simple_parameters_dictionary.get(latex_string[i]))
@@ -124,8 +136,10 @@ def main_tabular_parameters_loop_inside(
     return return_array, i, ""
 
 
-def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
-    """Converts simple and paragraph table parameters into html style code."""
+def main_tabular_parameters_loop(
+    latex_string: str, simple_parameters_dictionary: dict[str, str]
+) -> list[str] | str:
+    """Convert simple and paragraph table parameters into html style code."""
     return_array = []
     i = 0
     latex_string_length = len(latex_string)
@@ -138,50 +152,48 @@ def main_tabular_parameters_loop(latex_string, simple_parameters_dictionary):
     return return_array
 
 
-def tabular_required_errors(latex_string):
-    """Runs generic checks and
+def tabular_required_errors(latex_string: str) -> str:
+    """Run the generic checks and.
+
     checks if there are any parameters put to latex table.
     """
     if generic_checks(latex_string) == "Error!":
         return "Error!"
     if latex_string == "{}":
-        print(
-            """tabular_required_parameters
-            required table parameters are empty!:""",
+        logger.error(
+            "tabular_required_parameters: required table parameters are empty: %s",
             latex_string,
         )
         return "Error!"
     return ""
 
 
-def simple_parameters_dictionary_return():
-    """Defines html styles for simple tabular parameters."""
-    simple_parameters_dictionary = {
+def simple_parameters_dictionary_return() -> dict[str, str]:
+    """Return the html styles for the simple tabular parameters."""
+    return {
         "l": "align='left'",
         "c": "align='center'",
         "r": "align='right'",
         "|": "style='border-left: 1px solid black'",
     }
-    return simple_parameters_dictionary
 
 
-def tabular_required_parameters(latex_string):
-    """Converts simple tabular parameters to html style commands."""
+def tabular_required_parameters(latex_string: str) -> list[str] | str:
+    """Convert simple tabular parameters to html style commands."""
     if tabular_required_errors(latex_string) == "Error!":
         return "Error!"
     simple_parameters_dictionary = simple_parameters_dictionary_return()
     if only_pipes_and_space(latex_string):
-        print(
-            """tabular_required_parameters,
-            required table parameters are only pipes and spaces!:""",
+        logger.error(
+            "tabular_required_parameters: parameters are only pipes and spaces: %s",
             latex_string,
         )
         return "Error!"
     return main_tabular_parameters_loop(latex_string, simple_parameters_dictionary)
 
 
-def length_conversions(latex_length):
-    """Converts latex lengths to html lengths."""
+def length_conversions(latex_length: str) -> float | None:
+    """Convert latex lengths to html lengths."""
     length_dictionary = {
         "pt": [1.3, "px"],
         "mm": [1, "mm"],
@@ -193,9 +205,11 @@ def length_conversions(latex_length):
     return length_dictionary.get(latex_length, "Error!")
 
 
-def construct_return_string(vertical_align_type, final_length, conversed_unit):
+def construct_return_string(
+    vertical_align_type: str, final_length: float, conversed_unit: str
+) -> str:
     """Construsts entire html style of parameters."""
-    return_string = (
+    return (
         "style='"
         + vertical_align_type
         + " width: "
@@ -203,38 +217,40 @@ def construct_return_string(vertical_align_type, final_length, conversed_unit):
         + conversed_unit[1]
         + ";'"
     )
-    return return_string
 
 
-def return_parameter_dictionary():
-    """Returns html styles for each complicated latex parameter."""
-    parameter_dictionary = {
+def return_parameter_dictionary() -> dict[str, str]:
+    """Return html styles for each complicated latex parameter."""
+    return {
         "p": "vertical-align: top;",
         "m": "vertical-align: middle;",
         "b": "vertical-align: bottom;",
     }
-    return parameter_dictionary
 
 
-def tabular_columns_parameters_errors(latex_string, vertical_align_type):
-    """Checks for intermediate errors
+def tabular_columns_parameters_errors(
+    latex_string: str, vertical_align_type: str
+) -> str:
+    """Check for intermediate errors.
+
     Checks if parameter length starts with curly bracket.
     """
     if vertical_align_type == "Error!":
-        print("tabular_columns_parameters, unknown parameter: ", latex_string[0])
+        logger.error(
+            "tabular_columns_parameters: unknown parameter: %s", latex_string[0]
+        )
         return "Error!"
     if latex_string[1] != "{":
-        print(
-            """tabular_columns_parameters
-            parameter length does not start with {""",
+        logger.error(
+            "tabular_columns_parameters: parameter length does not start with {: %s",
             latex_string,
         )
         return "Error!"
     return ""
 
 
-def string_length_no_whitespace(length_parameter):
-    """Calculates string width without whitespace."""
+def string_length_no_whitespace(length_parameter: str) -> tuple[int, str]:
+    """Measure the string width, ignoring whitespace."""
     i = 0
     length_value = ""
     for character in length_parameter:
@@ -245,8 +261,8 @@ def string_length_no_whitespace(length_parameter):
     return i, length_value
 
 
-def tabular_columns_parameters(latex_string):
-    """Handles tabular paragraph parameters and translates them to html style."""
+def tabular_columns_parameters(latex_string: str) -> str:
+    """Handle tabular paragraph parameters and translates them to html style."""
     if generic_checks(latex_string) == "Error!":
         return "Error!"
     parameter_dictionary = return_parameter_dictionary()
@@ -259,44 +275,44 @@ def tabular_columns_parameters(latex_string):
     length_unit = length_parameter[i:]
     conversed_unit = length_conversions(length_unit)
     if conversed_unit == "Error!":
-        print(
-            """tabular_columns_parameters,
-        Unit could not be conversed!""",
-            latex_string,
+        logger.error(
+            "tabular_columns_parameters: unit could not be converted: %s", latex_string
         )
         return "Error!"
     final_length = round(float(length_value) * conversed_unit[0], 2)
     return construct_return_string(vertical_align_type, final_length, conversed_unit)
 
 
-def split_rows(latex_string):
-    """Splits table row string into separate strings and puts them in array."""
+def split_rows(latex_string: str) -> list[str]:
+    """Split table row string into separate strings and puts them in array."""
     double_backslash = "\\"
-    rows = latex_string.split(double_backslash)
-    return rows
+    return latex_string.split(double_backslash)
 
 
-def split_columns(table_row, column_count):
-    """Splits table row columns into separate strings and puts them in array."""
+def split_columns(table_row: str, column_count: int) -> list[str] | str:
+    """Split table row columns into separate strings and puts them in array."""
     columns = table_row.split("&")
     if len(columns) != column_count and columns != [""]:
-        print(
-            f"Error! extracted columns length: {columns} and columns_count: {column_count} is different!"
+        logger.error(
+            "Error! extracted columns length: %s and columns_count: %s is different!",
+            columns,
+            column_count,
         )
         return "Error!"
     return columns
 
 
-def translate_column(latex_column):
+def translate_column(latex_column: str) -> str:
     """Translate insides of a single latex tabular column to html."""
     hline_string_literal = "\\hline"
     replaced_hline = latex_column.replace(hline_string_literal, "<hr>")
-    replaced_newline = replaced_hline.replace("\newline", "<br>")
-    return replaced_newline
+    return replaced_hline.replace("\newline", "<br>")
 
 
-def handle_line_strings(line_string, column_style, column_number, return_string):
-    """Converts lines untill there are no more lines."""
+def handle_line_strings(
+    line_string: str, column_style: list[str], column_number: int, return_string: str
+) -> tuple[str, int]:
+    """Convert lines untill there are no more lines."""
     current_style = column_style[column_number]
     if current_style == line_string:
         while current_style == line_string:
@@ -307,14 +323,19 @@ def handle_line_strings(line_string, column_style, column_number, return_string)
 
 
 def handle_single_column(
-    column, column_style, column_number, line_string, return_string
-):
-    """Handles single column from columns loop."""
+    column: str,
+    column_style: list[str],
+    column_number: int,
+    line_string: str,
+    return_string: str,
+) -> tuple[str, int]:
+    """Handle single column from columns loop."""
     return_string += "<td "
     if column_number >= len(column_style):
-        print(
-            f"""Error! column_number index: {column_number}
-        is out of length of column_style: {column_style}"""
+        logger.error(
+            "Error! column_number index %s is past the end of column_style %s",
+            column_number,
+            column_style,
         )
         return "Error!", column_number
     return_string, column_number = handle_line_strings(
@@ -329,9 +350,13 @@ def handle_single_column(
 
 
 def handle_latex_columns(
-    columns, column_style, column_number, line_string, return_string
-):
-    """Goes through every column in a row and translates it to html."""
+    columns: list[str],
+    column_style: list[str],
+    column_number: int,
+    line_string: str,
+    return_string: str,
+) -> tuple[str, int]:
+    """Go through every column in a row and translates it to html."""
     if columns != "Error!":
         for column in columns:
             return_string, column_number = handle_single_column(
@@ -341,9 +366,13 @@ def handle_latex_columns(
 
 
 def go_through_latex_rows(
-    rows, return_string, column_amount, column_style, line_string
-):
-    """Goes through latex table insides row by row."""
+    rows: list[str],
+    return_string: str,
+    column_amount: int,
+    column_style: list[str],
+    line_string: str,
+) -> str:
+    """Go through latex table insides row by row."""
     for row in rows:
         return_string += "<tr>"
         columns = split_columns(row, column_amount)
@@ -356,8 +385,8 @@ def go_through_latex_rows(
     return return_string
 
 
-def translate_inside_to_html(latex_table_inside, column_style):
-    """Translates entire table insides to html."""
+def translate_inside_to_html(latex_table_inside: str, column_style: list[str]) -> str:
+    """Translate entire table insides to html."""
     return_string = "<table>"
     column_amount = 0
     line_string = "style='border-left: 1px solid black'"
@@ -372,21 +401,17 @@ def translate_inside_to_html(latex_table_inside, column_style):
     return return_string
 
 
-def read_file(tex_filename):
-    """opens, reads and saves latex file
-    content into python string, then closes file.
-    """
-    with open(tex_filename, encoding="UTF-8") as tex_file:
-        data = tex_file.read().replace("\n", "")
-        tex_file.close()
-    return data
+def read_file(tex_filename: str) -> str:
+    """Read a latex file into one string, with newlines stripped."""
+    with Path(tex_filename).open(encoding="UTF-8") as tex_file:
+        return tex_file.read().replace("\n", "")
 
 
-def read_document_class(latex_full_string):
-    """Finds documentclass in latex file and checks function correctness."""
+def read_document_class(latex_full_string: str) -> tuple[str, str] | str:
+    """Find documentclass in latex file and checks function correctness."""
     document_class_index = latex_full_string.find("\\documentclass")
     if document_class_index == -1:
-        print("Main function error! documentclass not found")
+        logger.error("Main function error! documentclass not found")
         return "Error!"
     document_class_close_bracket = latex_full_string.find("}", document_class_index)
     document_class_string = latex_full_string[
@@ -398,11 +423,11 @@ def read_document_class(latex_full_string):
     return document_class(document_class_string), latex_full_string
 
 
-def read_begin_document(latex_full_string):
-    """Finds LaTeX \begin{document} command and returns html counterpart to it."""
+def read_begin_document(latex_full_string: str) -> tuple[str, str]:
+    r"""Find the LaTeX \begin{document} command and return its html counterpart."""
     begin_document_index = latex_full_string.find(r"\begin{document}")
     if begin_document_index == -1:
-        print("read_begin_document error! begin{document not found")
+        logger.error("read_begin_document error! begin{document not found")
         return "Error!", latex_full_string
     begin_document_close_bracket = latex_full_string.find("}", begin_document_index)
     begin_document_string = latex_full_string[
@@ -415,8 +440,9 @@ def read_begin_document(latex_full_string):
     return return_string, latex_full_string
 
 
-def read_start(html_string, data):
-    """Finds, reads latex document class
+def read_start(html_string: str, data: str) -> tuple[str, str]:
+    """Find and read the latex document class.
+
     and begin document and translates them to html.
     """
     document_class_result, data = read_document_class(data)
@@ -431,8 +457,11 @@ def read_start(html_string, data):
     return html_string, data
 
 
-def handle_table_whole(html_string, data, table_start, table_end):
-    """Reads entire table, handles its parameters
+def handle_table_whole(
+    html_string: str, data: str, table_start: int, table_end: int
+) -> tuple[str, str] | str:
+    """Read entire table, handles its parameters.
+
     and insides and translates to html.
     """
     if table_start == -1 or table_end == -1:
@@ -448,8 +477,8 @@ def handle_table_whole(html_string, data, table_start, table_end):
     return html_string
 
 
-def handle_insides(html_string, data):
-    """Finds inside of table and translates them to html."""
+def handle_insides(html_string: str, data: str) -> tuple[str, str]:
+    """Find inside of table and translates them to html."""
     tabular_index = 0
     tabular_end_string = r"\end{tabular}"
     while tabular_index != -1:
@@ -467,23 +496,25 @@ def handle_insides(html_string, data):
     return html_string, data
 
 
-def main_function(tex_filename):
-    """Ran by default by program,
+def main_function(tex_filename: str) -> str:
+    """Ran by default by program,.
+
     gets latex file and translates to html.
     """
     data = read_file(tex_filename)
     html_string = ""
     html_string, data = read_start(html_string, data)
     if html_string == "Error!":
-        print("""main_function error!
-        when reading documentclass or begin document""")
+        logger.error(
+            "main_function error!\n        when reading documentclass or begin document"
+        )
         return "Error"
     html_string, data = handle_insides(html_string, data)
-    html_string = html_string.replace("}", "")
-    return html_string
+    return html_string.replace("}", "")
 
 
-def handle_arguments():
+def handle_arguments() -> str:
+    """Parse the command line and return the .tex filename to translate."""
     parser = argparse.ArgumentParser(description="Specify tex filename and path")
     parser.add_argument(
         "--filename",
@@ -499,5 +530,4 @@ def handle_arguments():
 if __name__ == "__main__":
     TEX_FILENAME = handle_arguments()
     FINAL_HTML = main_function(TEX_FILENAME)
-    with open(TEX_FILENAME + ".html", "w", encoding="UTF-8") as f:
-        f.write(FINAL_HTML)
+    Path(TEX_FILENAME + ".html").write_text(FINAL_HTML, encoding="UTF-8")

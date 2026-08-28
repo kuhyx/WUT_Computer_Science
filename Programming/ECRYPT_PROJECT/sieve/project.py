@@ -1,10 +1,11 @@
-"""Python program to print all Primes Smaller than or equal to N using Sieve of Eratosthenes."""
+"""Sieve of Eratosthenes: every prime up to and including N."""
 
 import math
+import sys
 
 
 def sieve_of_eratosthenes(num: int) -> list[int]:
-    """Finds all prime number from 1 to num.
+    """Return every prime from 1 to num.
 
     Args:
         num (int): Number up to which the prime numbers should be printed
@@ -14,12 +15,13 @@ def sieve_of_eratosthenes(num: int) -> list[int]:
 
     """
     if num <= 0:
-        raise ValueError("Number should not be negative.")
+        msg = "Number should not be negative."
+        raise ValueError(msg)
     # boolean list to store if a number is prime or not
     prime = [True] * (num + 1)
     p = 2  # starting prime number
-    # we will iterate till square root of num because
-    # if a number is not prime then it will have a factor less than or equal to square root of that number
+    # Stop at sqrt(num): a composite always has a factor at or below its
+    # square root, so anything still marked prime past that point stays prime.
     while p <= math.sqrt(num):
         # If prime[p] is not
         # changed, then it is a prime
@@ -34,18 +36,20 @@ def sieve_of_eratosthenes(num: int) -> list[int]:
 
 
 def print_sieve(num: int) -> None:
-    """Prints all prime number from 1 to num.
+    """Print every prime from 1 to num, space separated.
 
     Args:
         num (int): Number up to which the prime numbers should be printed
 
     """
-    for number in sieve_of_eratosthenes(num):
-        print(number, end=" ")
+    sys.stdout.write(" ".join(str(n) for n in sieve_of_eratosthenes(num)))
+    sys.stdout.write("\n")
 
 
 # Driver code
 if __name__ == "__main__":
-    num = int(input("Enter a number: "))
-    print(f"Following are the prime numbers smaller than or equal to {num}")
-    print_sieve(num)
+    bound = int(input("Enter a number: "))
+    sys.stdout.write(
+        f"Following are the prime numbers smaller than or equal to {bound}\n"
+    )
+    print_sieve(bound)
