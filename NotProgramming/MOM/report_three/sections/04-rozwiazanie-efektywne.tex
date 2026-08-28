@@ -1,0 +1,78 @@
+\section{Rozwiązanie efektywne}
+Aby zdefiniować rozwiązanie efektywne sprawdzamy sumaryczy obu funkcji celu dla wartości $\alpha$ i $beta$ od 1 do 10 \\ 
+w tym celu napisany został kod który modyfikuje wartości $\alpha$ i $\beta$ w pętli 
+
+\begin{lstlisting}[language=Python, caption={Wyznaczanie alpha i beta}]
+    koszt_wyniki = []
+    zadowolenie_wyniki = []
+    wyniki_funkcji = []
+    maksymalny_wynik = 0;
+    for alpha in range(0, 11):
+        beta = 10 - alpha + sys.float_info.epsilon
+        alpha /= 10.0
+        beta /= 10.0
+        # Update objective function
+        model.objective = alpha * koszt_dystrybucji
+        - beta * suma_satysfakcji
+    
+        # Solve the model
+        model.solve()
+        print(alpha)
+    
+        # Record the wyniki
+        calkowity_koszt = pulp.value(koszt_dystrybucji)
+        calkowite_zadowolenie = pulp.value(suma_satysfakcji)
+        wynik_funkcji = pulp.value(alpha * koszt_dystrybucji
+        - beta * suma_satysfakcji)
+        koszt_wyniki.append(calkowity_koszt)
+        zadowolenie_wyniki.append(calkowite_zadowolenie)
+        if wynik_funkcji > maksymalny_wynik:
+            maksymalny_wynik = wynik_funkcji
+        wyniki_funkcji.append(wynik_funkcji)
+        
+    print("maksymalny_wynik", maksymalny_wynik, wyniki_funkcji)
+
+\end{lstlisting}
+Najwyższy wynik zostął uzyskany dla $\alpha = 10$ i $\beta = 0$ i wynosił on \textbf{156.5}
+
+\paragraph{Symulacja procesu podejmowania decyzji}
+Przeprowadzone zostały symulacje dla 5 sytuacji:
+\begin{enumerate}
+    \item Tylko minimalizacja kosztów $\alpha = 1.0$ $\beta = 0.0$
+    \item Priorytet na minimalizacji kosztów $\alpha = 0.8$ $\beta = 0.2$
+    \item Równy podział $\alpha = 0.5$ $\beta = 0.5$
+    \item Priorytet na satysfakcji klientów $\alpha = 0.2$ $\beta = 0.8$
+    \item Tylko satysfakcja klientów $\alpha = 0.0$ $\beta = 1.0$
+\end{enumerate}
+
+Ponownie w celu przeprowadzenia symulacji napisano kod w pythonie 
+\begin{lstlisting}[language=Python]
+# Pseudo-code, assuming model setup as previously discussed
+scemariusze = [
+    (1.0, sys.float_info.epsilon),
+    (0.8, 0.2),
+    (0.5, 0.5),
+    (0.2, 0.8),
+    (sys.float_info.epsilon, 1.0)]
+wyniki = []
+
+for alpha, beta in scemariusze:
+    model.objective = alpha * koszt_dystrybucji
+        - beta * suma_satysfakcji
+
+    model.solve()
+
+    calkowity_koszt = pulp.value(koszt_dystrybucji)
+    calkowite_zadowolenie = pulp.value(suma_satysfakcji)
+    wyniki.append(
+        (alpha, beta, calkowity_koszt, calkowite_zadowolenie)
+        )
+
+for idx, (alpha, beta, koszt, zadowolenie) in enumerate(wyniki):
+    print(f"Krok {idx+1}:")
+    print(f"  koszt: {alpha}, zadowolenie: {beta}")
+    print(f" 
+     Calkowity koszt: {koszt}, 
+     zadowolenie klienta: {zadowolenie}\n")
+\end{lstlisting}
+

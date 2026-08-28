@@ -1,0 +1,53 @@
+\section{Wyniki}
+Model z takimi ograniczeniami \textbf{nie znajduje} rozwiązania \\
+Problemem jest tu ogranicznie mówiące o tym że należy dostaczyć co najmniej \textbf{5000} ton \textbf{każdego} produktu \\
+To ograniczenie jest niewykonywalne gdyż nawet zakładając dostarczenie maksymalnej liczby ton surowców (12000 + 8000 = 20000) ton, i ignorując ograniczenie przepustowośći przygotowalni 16000 ton, nie jesteśmy w stanie wytworzyć wystarczająco półproduktu D1 aby wytworzyć wystarczająco wyrobu W1 \\ 
+gdybyśmy całość dostępnych surowców (znowu, ignorując przepustowość przygotowalni), zużyli na wytwarzanie tylko i wyłącznie półproduktu D1 z którego potem uzyskujemy wyrób W1, otrzymalibyśmy: 
+\[ (12000 + 8000) * 0.1 = 20000 * 0.1 = 2000 \]
+maksymalna liczba ton wyrobu W1 którą możemy uzyskać, ignorując przepustowość przygotowywalni oraz wymagania dotyczące W2 wynosi 2000 ton, czyli mniej niż 5000 wymaganych ton \\
+W związku z tym wyniki przedstawione niżej dotyczącą przypadku w którym \textbf{ignorujemy} ograniczenie związane z minimalną liczbą ton każdego produktu który musimy dostarczyć (ograniczenie 20) \\
+\begin{figure}[H]
+\caption{}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+ & 	z & S1 & S2 & G1 & P1 & P2 & O2 & D1 & D2 & W1 & W2 \\
+\hline
+z &	0 & 12000 & 8000 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+S1 &	0 & 0 & 0 & 12000 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+S2 &	0 & 0 & 0 & 0 & 0 & 2000 & 6000 & 0 & 0 & 0 & 0 \\
+\hline
+G1 &	0 & 0 & 0 & 0 & 12000 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+P1 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 1200 & 10800 & 0 & 0 \\
+\hline
+P2 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 200 & 1800 & 0 & 0 \\
+\hline
+O2 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 6000 \\
+\hline
+D1 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1400 & 0 \\
+\hline
+D2 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 12600 \\
+\hline
+W1 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+W2 &	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\hline
+
+\end{tabular}
+\end{figure}
+
+\[ a_1 = 9613 \]
+\[ a_2 = 5341 \]
+\[ b_1 = 5910 \]
+\[ b_2 = 3651 \]
+\[ w_1 = 56 \]
+\[ c_{P1} = 667 \]
+\[ e_{P2} = 80 \]
+\[ e_{O2} = 240 \]
+\[ e_1 = 0 \]
+\[ e_2 = 0 \]
+\[ l = 94 \]
+Ponownie, wyniki powyżej są prawdziwe wyłącznie dla przypadku w którym \textbf{ignorujemy ograniczenie numer 20}
+

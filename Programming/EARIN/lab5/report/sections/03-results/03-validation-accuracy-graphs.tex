@@ -1,0 +1,117 @@
+\subsection{Validation Accuracy Graphs}
+Validation Accuracy Graphs look similar to Train accuracy so in order not to repeat ourselves we ommited analysis of them
+
+
+\subsubsection{Learning Rate}
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/def.png}
+        \caption{Default settings + learning rate = 0.001}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.01-bs64-hl2-w128-Adam.png}
+        \caption{Default settings + learning rate = 0.01}
+        \endminipage
+    \end{figure}
+        \begin{figure}[H]
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/def.png}
+        \caption{Default settings + learning rate = 0.1}
+        \endminipage
+    \end{figure}
+
+\subsubsection{Mini-Batch size}
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/def.png}
+        \caption{Default settings + batching size = 64}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy1batch.png}
+        \caption{Default settings + batching size = 1}
+        \endminipage
+    \end{figure}
+        \begin{figure}[H]
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs128-hl2-w128-Adam.png}
+        \caption{Default settings + batching size = 128}
+        \endminipage
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs256-hl2-w128-Adam.png}
+        \caption{Default settings + batching size = 256}
+        \endminipage
+    \end{figure}
+
+\subsubsection{Number of Hidden Layers}
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracyhl0.png}
+        \caption{Default settings + hidden layers = 0}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl1-w128-Adam.png}
+        \caption{Default settings + hidden layers = 1}
+        \endminipage
+    \end{figure}
+        \begin{figure}[H]
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/def.png}
+        \caption{Default settings + hidden layers = 2}
+        \endminipage
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl3-w128-Adam.png}
+        \caption{Default settings + hidden layers = 3}
+        \endminipage
+    \end{figure}
+    \newpage
+\subsubsection{Width}
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/def.png}
+        \caption{Default settings + width = 128}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w64-Adam.png}
+        \caption{Default settings + width = 64}
+        \endminipage
+    \end{figure}
+        \begin{figure}[H]
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w256-Adam.png}
+        \caption{Default settings + width = 256}
+        \endminipage
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w512-Adam.png}
+        \caption{Default settings + width = 512}
+        \endminipage
+    \end{figure}
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w1024-Adam.png}
+        \caption{Default settings + width = 1024}
+        \endminipage
+    \end{figure}
+
+\subsubsection{Optimizer Type}
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/def.png}
+        \caption{Default settings + Adam optimizer}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w128-SGD.png}
+        \caption{Default settings + learning rate = 0.01}
+        \endminipage
+    \end{figure}
+        \begin{figure}[H]
+        \minipage{0.5\textwidth}%
+        \includegraphics[width=\linewidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w128-SGD_Momentum.png}
+        \caption{Default settings + SGD\_Momentum optimizer}
+        \endminipage
+    \end{figure}
+

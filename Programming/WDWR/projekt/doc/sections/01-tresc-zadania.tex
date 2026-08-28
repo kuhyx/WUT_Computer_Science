@@ -1,0 +1,65 @@
+\section*{Treść zadania}
+\addcontentsline{toc}{section}{Treść zadania}
+Rozważmy następujące zagadnienie planowania produkcji:
+
+\begin{itemize}
+  \item Przedsiębiorstwo wytwarza 4 produkty P1,...,P4 na następujących maszynach: 4 szlifierkach, 
+  2 wiertarkach pionowych, 3 wiertarkach poziomych, 1 frezarce i 1 tokarce. Wymagane czasy produkcji 
+  1 sztuki produktu (w godzinach) w danym procesie obróbki zostały przedstawione w poniższej tabeli:\\
+  \begin{center}
+  \begin{tabular}{l*{4}{c}}
+  	\hline
+              			& P1 & P2 & P3 & P4 \\
+	\hline
+	Szlifowanie 		& 0,4 & 0,6 & - & - \\
+	Wiercenie pionowe   & 0,2 & 0,1 & - & 0,6 \\
+	Wiercenie poziome 	& 0,1 & - & 0,7 & -  \\
+	Frezowanie  	 	& 0,06 & 0,04 & - & 0,05 \\
+	Toczenie	     	& - & 0,05 & 0,02 & - \\
+	\hline
+	\end{tabular}
+	\end{center}
+
+  \item Dochody ze sprzedaży produktów (w zł/sztukę) określają składowe wektora 
+  $\mathbf{R} = (R_{1},...,R_{4})^{T}$. Wektor $\mathbf{R}$ opisuje 4-wymiarowy rozkład 
+  \textit{t}-Studenta z 4 stopniami swobody, którego wartości składowych zostały zawężone do 
+  przedziału $[5;12]$. Wektor wartości oczekiwanych $\mu$ oraz macierz kowariancji 
+  $\Sigma$ niezawężonego rozkładu \textit{t}-Studenta są następujące:
+  \begin{displaymath}
+\mathbf{\mu} = 
+ \begin{pmatrix}
+  9 \\ 8 \\ 7 \\ 6 \\  
+ \end{pmatrix},
+ \mathbf{\Sigma} = 
+ \begin{pmatrix}
+  16 & -2 & -1 & -3 \\
+  -2 & 9 & -4 & -1 \\ 
+  -1 & -4 & 4 & 1 \\
+  -3 & -1 & 1 & 1 \\  
+ \end{pmatrix}
+  \end{displaymath}
+  
+  \item Istnieją ograniczenia rynkowe na liczbę sprzedawanych produktów w danym miesiącu:
+  \begin{center}
+  \begin{tabular}{l*{4}{c}}
+  	\hline
+              			& P1 & P2 & P3 & P4 \\
+	\hline
+	Styczeń 			& 200 & 0 & 100 & 200 \\
+	Luty   				& 300 & 100 & 200 & 200 \\
+	Marzec 				& 0 & 300 & 100 & 200  \\
+	\hline
+	\end{tabular}
+	\end{center}
+	
+	\item Jeżeli sprzedaż danego produktu przekracza 80 procent ilości jaką może wchłonąć rynek, 
+    jego dochód spada o 20 procent.
+	
+	\item Istnieje możliwość składowania do 200 sztuk każdego produktu w danym czasie w cenie 1 zł/sztukę 
+    za miesiąc. W chwili obecnej (grudzień) w magazynach znajduje się po 50 sztuk każdego produkt. 
+    Istnieje wymaganie, aby tyle pozostało również pod koniec marca.
+	
+	\item Przedsiębiorstwo pracuje 6 dni w tygodniu w systemie dwóch zmian. Każda zmiana trwa 8 godzin. 
+    Można założyć, że każdy miesiąc składa się z 24 dni roboczych.
+\end{itemize}
+

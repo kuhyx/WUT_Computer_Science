@@ -1,0 +1,113 @@
+\subsection{Ograniczenia}
+Przetłumaczono ograniczenia z języka naturalnego na język matematyczny
+\addcontentsline{toc}{subsection}{Ograniczenia}
+\begin{itemize}
+\item Ograniczenie dolne wartości zmiennych decyzyjnych – wartości nie mogą być mniejsze od zera:
+	\begin{equation}
+	\forall{\substack{
+			m \in months \\ 
+			p \in products \\
+			mc \in machines}} workTime[m][mc][p] >=0
+	\end{equation}
+	\begin{equation}
+	\forall{\substack{
+			m \in months \\ 
+			p \in products}} produce[m][p] >=0
+	\end{equation}
+	\begin{equation}
+	\forall{\substack{
+			m \in months \\ 
+			p \in products}} sell[m][p] >=0
+	\end{equation}
+	\begin{equation}
+	\forall{\substack{
+			m \in months \\ 
+			p \in products}} stock[m][p] >=0
+	\end{equation}
+	\begin{equation}
+	\forall{\substack{
+			i \in scenarios \\
+			m \in months \\ 
+			p \in products}} lowerProfit[i][m][p] >=0
+	\end{equation}
+
+\item Ograniczenie czasowe pracy maszyn - Każda maszyna może pracować maksymalnie \textit{numberOfHoursInFactory} godzin w miesiącu, zatem łączny czas pracy wszystkich maszyn danego typu nie może przekroczyć iloczynu liczby dostępnych maszyn tego typu i czasu \textit{numberOfHoursInFactory}.
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			mc \in machines}}  \sum_{p \in products}
+		(workTime[m][mc][p] <= machineCount[mc]*numberOfHoursInFactory)
+	\end{equation}
+    \item Ograniczenie wiążące czas pracy maszyn z produkcją - czas wykorzystania określonego typu maszyny jest równy sumie iloczynów liczby wytworzonych jednostek każdego produktu i czasu potrzebnego na obróbkę jednej jednostki tego produktu na danej maszynie:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			mc \in machines\\
+			p \in products}} workTime[m][mc][p] == produce[m][p]*timeToProduce[mc][p]
+	\end{equation}
+    \item Ograniczenie maksymalnej sprzedaży wynikające z pojemności rynku w danym miesiącu:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] == maxProductsInMonth[m][p]
+	\end{equation}
+	
+    \item Warunki definiujące zmienną binarną przy przekroczeniu 80 procent chłonności rynku:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}}  sell[m][p] <= 0.8*maxProductsInMonth[m][p] + 1000000 * if80prec[m][p]
+	\end{equation}
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] >= 0.8*maxProductsInMonth[m][p] * if80prec[m][p]
+	\end{equation}
+	
+    \item Ograniczenia linearyzujące oddziaływanie zmiennych binarnych na funkcję celu:
+	\begin{equation}
+		\forall{\substack{
+			i \in scenarios\\			
+			m \in months\\ 
+			p \in products}} lowerProfit[i][m][p] <= 1000000 * if80prec[m][p]
+	\end{equation}
+	\begin{equation}
+		\forall{\substack{
+			i \in scenarios\\			
+			m \in months\\ 
+			p \in products}} lowerProfit[i][m][p] <= 0.2 * sell[m][p]*sellProfit[i][p]
+	\end{equation}
+	\begin{multline}
+		\forall{\substack{
+			i \in scenarios\\			
+			m \in months\\ 
+			p \in products}} 0.2 * sell[m][p]*sellProfit[i][p] - lowerProfit[i][m][p] +\\ 1000000 * if80prec[m][p] <= 1000000;
+	\end{multline}
+	
+    \item Ograniczenie sprzedaży do liczby sztuk wyprodukowanych oraz dostępnych w magazynie. Dla pierwszego miesiąca ograniczenie przyjmuje formę:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] <= produce[m][p]+storageStart[p]
+	\end{equation}
+	Dla każdego następnego miesiąca:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}} sell[m][p] <= produce[m][p] + stock[m-1][p]
+	\end{equation}
+	
+    \item Ograniczenie określające stan magazynu na koniec miesiąca jako różnicę między sumą produktów wyprodukowanych i dostępnych na początku miesiąca a liczbą sprzedanych jednostek. Dla pierwszego miesiąca:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}} stock[m][p]==(produce[m][p] + storageStart[p])-sell[m][p]
+	\end{equation}
+	Dla każdego następnego miesiąca:
+	\begin{equation}
+		\forall{\substack{
+			m \in months\\ 
+			p \in products}} stock[m][p]==(produce[m][p] + stock[m-1][p])-sell[m][p]
+	\end{equation}
+
+\end{itemize}

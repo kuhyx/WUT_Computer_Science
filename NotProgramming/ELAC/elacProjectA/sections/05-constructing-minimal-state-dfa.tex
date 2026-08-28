@@ -1,0 +1,83 @@
+\section{Constructing minimal state DFA}
+
+\begin{tabular}{|*{7}{c|}}
+                               \cline{1-1}
+  $\underline{A}$                     \\ \cline{1-2}
+  $\underline{B}$ & $x_1$                 \\ \cline{1-3}
+  C & $x_1$ & $x_1$           \\ \cline{1-4}
+  D & $x_1$ & $x_1$ & $x_2$         \\ \cline{1-5}
+  $\underline{E}$ & $x_1$ & $x_1$ & $x_1$ & $x_1$    \\ \cline{1-6}
+  $\emptyset$ & $x_1$ & $x_1$ & $x_2$ & $x_2$ & $x_1$ \\ \hline
+    & $\underline{A}$ & $\underline{B}$ & C & D & $\underline{E}$ & $\emptyset$ \\ \hline
+\end{tabular}
+
+\begin{enumerate}
+  \item First I marked (with $x_1$) all the pairs in which at least one of them were final state:
+  \[ ([\underline{A}, \emptyset], [\underline{A}, \underline{E}], [\underline{A}, D], [\underline{A}, C], [\underline{A}, \underline{B}]) \]
+    \[ ([\underline{B}, \emptyset], ([\underline{B}, \underline{E}], ([\underline{B}, D], ([\underline{B}, C]) \]
+    \[ ([\underline{E}, \emptyset], [\underline{E}, C], [\underline{E}, D])\]
+
+  \item We are left with the pairs:
+  \[ ([\emptyset , C], [\emptyset , D], [D , C] ) \]
+  For pair: $ [\emptyset , C] $ C goes to final state $\underline{E}$ on transition 'b' therefore we mark it with $x_2$
+  For pair: $ [\emptyset , D] $ D goes to final state $\underline{E}$ on transition 'b' therefore we mark it with $x_2$
+  For pair: $ [D , C] $ both C and D go to final state $\underline{E}$ on transition 'b' therefore we mark it with $x_2$
+\end{enumerate}
+
+No states could be minimized! Therefore our final minimal state DFA looks like this:
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture} [node distance = 2cm, on grid, auto]
+
+\node (q0) [state, accepting, initial, initial text = {}] {A};
+\node (q1) [state, accepting, above right = of q0] {B};
+\node (q2) [state, below right = of q0] {C};
+\node (q3) [state, accepting, above right = of q2] {E};
+\node (q4) [state, below right = of q2] {D};
+\node (q5) [state, right = of q1] {$\emptyset$};
+
+\path [-stealth, thick]
+(q0) edge node {$a$}   (q1);
+
+\path [-stealth, thick]
+(q0) edge node {$b$}   (q2);
+
+\path [-stealth, thick]
+(q1) edge [loop] node {$a$}   (q1);
+
+\path [-stealth, thick]
+(q2) edge node {$a$}   (q4);
+
+\path [-stealth, thick]
+(q2) edge node {$b$}   (q3);
+
+\path [-stealth, thick]
+(q4) edge node {$b$}   (q3);
+
+\path [-stealth, thick]
+(q1) edge [bend left] node {$a, b$}   (q5);
+
+\path [-stealth, thick]
+(q3) edge [below loop] node {$a$}   (q3);
+
+\path [-stealth, thick]
+(q3) edge node {$a$}   (q5);
+
+\path [-stealth, thick]
+(q4) edge [bend right] node {$a$}   (q5);
+
+\path [-stealth, thick]
+(q5) edge [loop] node {$a, b$}   (q5);
+
+
+
+
+
+\end{tikzpicture}
+\caption{DFA graph after minimalization} \label{dfaMinimalization}
+\end{figure}
+
+
+
+

@@ -1,0 +1,77 @@
+\section{Wymagania funkcjonalne}
+
+\subsection{Kluczowy proces biznesowy: Naliczanie i pobieranie opłat za przejazd}
+
+\subsubsection{Cel procesu}
+\begin{enumerate}
+    \item Wykrywanie pojazdów na płatnych odcinkach dróg
+    \item Naliczanie należności zgodnie z taryfami
+    \item Pobieranie opłat od użytkowników
+\end{enumerate}
+
+\subsubsection{Stan początkowy}
+Pojazd niezarejestrowany w systemie jako znajdujący się na płatnym odcinku drogi, z kontem użytkownika posiadającym określony stan środków (prepaid) lub limitem kredytowym (postpaid).
+
+\subsubsection{Stan końcowy}
+Prawidłowo naliczona i pobrana opłata za przejazd, zaksięgowana w systemie finansowym, z wygenerowanym potwierdzeniem dla użytkownika oraz aktualizacją stanu konta.
+
+\subsubsection{Kroki procesu}
+\begin{enumerate}
+    \item Identyfikacja pojazdu wjeżdżającego na płatny odcinek (poprzez urządzenie OBU, aplikację mobilną lub kamery ANPR) [Dla redundancji, im więcej systemów tym większa szansa na identyfikację]
+    \item Zebranie danych o pojeździe (kategoria, klasa emisji spalin, masa)
+    \item Rozpoczęcie śledzenia przejazdu i rejestracja czasu wjazdu
+    \item Monitorowanie trasy przejazdu przez punkty kontrolne
+    \item Identyfikacja zjazdu z płatnego odcinka
+    \item Obliczenie należności na podstawie przebytej trasy i charakterystyki pojazdu
+    \item Weryfikacja dostępności środków na koncie użytkownika
+    \item Pobranie opłaty z konta użytkownika
+    \item Wygenerowanie potwierdzenia transakcji
+    \item Aktualizacja salda konta użytkownika
+\end{enumerate}
+
+\paragraph{Obsługa sytuacji wyjątkowych:}
+\begin{itemize}
+    \item Jeśli identyfikacja pojazdu nie jest możliwa: uruchomienie procedury rejestracji incydentu z dokumentacją wizualną (zdjęcia niezidentyfikowanego pojazdu)
+    
+    \item W przypadku niewystarczających środków na koncie:
+    \begin{enumerate}
+        \item Zablokowanie konta do momentu zapłacenia
+        \item W przypadku braku zapłaty w określonym czasie, uruchomienie procedury windykacyjnej
+    \end{enumerate}
+    
+    \item Przy awarii urządzenia OBU: automatyczne przełączenie na identyfikację przez system kamer ANPR
+    
+    \item W razie przerwy w komunikacji: lokalne buforowanie danych i synchronizacja po przywróceniu łączności
+    
+    \item Jeśli zidentyfikowano omijanie bramek:
+    \begin{enumerate}
+        \item Poinformowanie użytkownika
+        \item Uruchomienie procedury kontrolnej
+        \item Naliczenie kary
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Lista wymagań funkcjonalnych}
+
+\begin{enumerate}
+    \item \textbf{System rejestracji użytkowników} - System musi umożliwiać rejestrację nowych użytkowników z weryfikacją tożsamości, zbieraniem danych o pojazdach (w tym masa, klasa emisji, kategoria) oraz wyborem metody płatności (prepaid lub postpaid).
+
+    \item \textbf{Moduł geolokalizacji pojazdów} - System musi określać pozycję pojazdów z dokładnością do 10 metrów, wykorzystując dane GPS z urządzeń OBU lub aplikacji mobilnej, aktualizowane nie rzadziej niż co 30 sekund podczas przejazdu.
+
+    \item \textbf{System rozpoznawania tablic rejestracyjnych (ANPR)} - System musi identyfikować pojazdy poprzez kamery ANPR z dokładnością co najmniej 98\% w różnych warunkach pogodowych i oświetleniowych, jako dopełnienie jeśli wszystkie systemy działają poprawnie lub alternatywa dla urządzeń OBU w razie awarii.
+
+    \item \textbf{Elastyczny system taryfowy} - System musi obsługiwać zróżnicowane taryfy opłat w zależności od: typu pojazdu, masy całkowitej, klasy emisji spalin, pory dnia, dnia tygodnia oraz stopnia zatłoczenia drogi.
+
+    \item \textbf{Moduł rozliczeń i płatności} - System musi obsługiwać różne metody płatności (karty płatnicze, przelewy, płatności mobilne, blik) z możliwością automatycznego doładowania konta prepaid oraz wystawiania faktur elektronicznych zgodnych z przepisami prawa.
+
+    \item \textbf{System powiadomień dla użytkowników} - System musi wysyłać automatyczne powiadomienia do użytkowników (aplikacja, mail + sms) o: niskim stanie konta, zbliżającym się terminie płatności, dokonanych transakcjach oraz zmianach w taryfach i regulaminie.
+
+    \item \textbf{Moduł raportowania i analityki} - System musi generować raporty dotyczące natężenia ruchu, generowanych przychodów, incydentów oraz efektywności egzekwowania opłat, z możliwością eksportu danych w formatach CSV i PDF.
+
+    \item \textbf{System wykrywania naruszeń} - System musi identyfikować próby obejścia opłat (np. manipulacja urządzeniem OBU, podawanie fałszywych danych o pojeździe) i automatycznie uruchamiać procedury weryfikacyjne.
+
+    \item \textbf{Portal samoobsługowy dla użytkowników} - System musi udostępniać portal internetowy oraz aplikację mobilną umożliwiającą użytkownikom zarządzanie kontem, przeglądanie historii przejazdów i opłat, generowanie raportów oraz aktualizację danych pojazdu.
+
+    \item \textbf{System korekty opłat} - System musi umożliwiać ręczną korektę naliczonej opłaty przez operatora w przypadku zgłoszenia błędu przez użytkownika. Zakładając, że system źle naliczył opłatę np. Użytkownik został obciążony za trasę, której nie przejechał lub przypisano niewłaściwą kategorię pojazdu. Użytkownik zgłasza błąd do obsługi systemu. W takim przypadku operator musi mieć możliwość ręcznej korekty naliczonej opłaty np. Anulowanie opłaty, zmniejszenie jej lub ponowne przeliczenie, jeżeli zgłoszenie użytkownika okaże się zasadne. Zasadność zgłoszenia musi być weryfikowalna poprzez fizyczne zdjęcia pojazdu.
+\end{enumerate}
+

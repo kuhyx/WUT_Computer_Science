@@ -1,0 +1,84 @@
+\section{Transforming NFA into DFA using subset algorithm}
+I will use $\epsilon_{cl}$ instead of $\epsilon$-closure for brevity sake.
+Final state - $\underline{q_{19}}$ was marked with an $\underline{underline}$ and so did all the states of DFA that contain it.
+\[ A = \epsilon_{cl}(q_0) = (q_0, q_1, q_3, q_4, q_6, q_{12}, q_{18}, \underline{q_{19}}) = \underline{A} \]
+\[ \epsilon_{cl}(move(\underline{A}, a)) = (\epsilon_{cl}(move(q_0, q_1, q_3, q_4, q_6, q_{12}, q_{18}, \underline{q_{19}}, a))) = \epsilon_{cl}(q_9) = (q_6, q_9, q_{12}, q_{18}, \underline{q_{19}}) = \underline{B}  \]
+\[ A = \epsilon_{cl}(move(\underline{A}, b)) = \epsilon_{cl}(move(q_0, q_1, q_3, q_4, q_6, q_{12}, q_{18}, \underline{q_{19}}, b))) = \epsilon_{cl}(q_2, q_7) = (q_2, q_7, q_{10}, q_{15}) = C \]
+\[ \epsilon_{cl}(move(\underline{B}, a)) = \epsilon_{cl}(move(q_6, q_9, q_{12}, q_{18}, \underline{q_{19}}), a) = \epsilon_{cl}(q_9) = (q_6, q_9, q_{12}, q_{18}, \underline{q_{19}}) = \underline{B} \]
+\[ \epsilon_{cl}(move(\underline{B}, b)) = \epsilon_{cl}(move(q_6, q_9, q_{12}, q_{18}, \underline{q_{19}}), b) = \emptyset \]
+\[ \epsilon_{cl}(move(C, a)) = \epsilon_{cl}(move(q_2, q_7, q_{10}, q_{15}), a) = \epsilon_{cl}(q_{13}) = (q_{10}, q_{13}, q_{15}) = D \]
+\[ \epsilon_{cl}(move(C, b)) = \epsilon_{cl}(move((q_2, q_7, q_{10}, q_{15}), b) = \epsilon_{cl}(q_{17}) = (q_{17}, q_{18}, \underline{q_{19}}) = \underline{E}  \]
+\[ \epsilon_{cl}(move(D, a)) = \epsilon_{cl}(move((q_{10}, q_{13}, q_{15}), a) = \epsilon_{cl}(q_{13}) = (q_{10}, q_{13}, q_{15}) = D  \]
+\[ \epsilon_{cl}(move(D, b)) = \epsilon_{cl}(move(q_{10}, q_{13}, q_{15}, b) = \epsilon_{cl}(q_{17}) = (q_{17}, q_{18}, \underline{q_{19}}) = \underline{E} \]
+\[ \epsilon_{cl}(move(\underline{E}, a)) = \epsilon_{cl}(move(q_{17}, q_{18}, \underline{q_{19}}), a) = \epsilon_{cl}(\emptyset) = \emptyset \]
+\[ \epsilon_{cl}(move(\underline{E}, b)) = \epsilon_{cl}(move(q_{17}, q_{18}, \underline{q_{19}}), b) = \epsilon_{cl}(\emptyset) = \emptyset \]
+
+\subsection{State table}
+\begin{center}
+\begin{tabular}{||c c c||}
+ \hline
+ State & a & b \\
+ \hline
+$\underline{A}$ & $\underline{B}$ & C\\
+ \hline
+ $\underline{B}$ & $\underline{B}$  & $\emptyset$ \\
+ \hline
+ C & D & $\underline{E}$\\
+ \hline
+ D & D & $\underline{E}$\\
+ \hline
+ $\underline{E}$ & $\emptyset$ & $\emptyset$\\
+ \hline
+$\emptyset$ & $\emptyset$ & $\emptyset$\\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{figure}[!htb]
+\centering
+\begin{tikzpicture} [node distance = 2cm, on grid, auto]
+
+  \node (q0) [state, accepting, initial, initial text = {}] {A};
+  \node (q1) [state, accepting, above right = of q0] {B};
+  \node (q2) [state, below right = of q0] {C};
+  \node (q3) [state, accepting, above right = of q2] {E};
+  \node (q4) [state, below right = of q2] {D};
+  \node (q5) [state, right = of q1] {$\emptyset$};
+
+  \path [-stealth, thick]
+  (q0) edge node {$a$}   (q1);
+
+  \path [-stealth, thick]
+  (q0) edge node {$b$}   (q2);
+
+  \path [-stealth, thick]
+  (q1) edge [loop] node {$a$}   (q1);
+
+  \path [-stealth, thick]
+  (q2) edge node {$b$}   (q4);
+
+  \path [-stealth, thick]
+  (q2) edge node {$b$}   (q3);
+
+  \path [-stealth, thick]
+  (q4) edge [bend right] node {$b$}   (q3);
+
+  \path [-stealth, thick]
+  (q4) edge [loop] node {$a$}   (q4);
+
+  \path [-stealth, thick]
+  (q1) edge [bend left] node {$a$}   (q5);
+
+  \path [-stealth, thick]
+  (q3) edge node {$a, b$}   (q5);
+
+  \path [-stealth, thick]
+  (q5) edge [loop] node {$a, b$}   (q5);
+
+
+
+
+\end{tikzpicture}
+\caption{DFA graph before minimalization} \label{dfaNominimalization}
+\end{figure}
+

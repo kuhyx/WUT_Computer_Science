@@ -1,0 +1,24 @@
+\subsection{Implementacja}
+\addcontentsline{toc}{subsection}{Implementacja}
+\subsubsection{Scneariusz dochodów ze sprzedaży}
+\addcontentsline{toc}{subsubsection}{Scneariusz dochodów ze sprzedaży}
+Przychody ze sprzedaży poszczególnych typów produktów definiowane są przez wektor losowy opisany w treści zadania. W celu wygenerowania wektorów 
+reprezentujących poszczególne scenariusze przychodów zastosowano bibliotekę MASS języka R. Implementacja została wykonana w środowisku R Studio IDE, a 
+skrypt generujący dane zapisano w pliku \textit{t-student.R}. W ramach przeprowadzonej symulacji wygenerowano 
+1000 scenariuszy realizacji przychodów.
+
+\subsubsection{Model}
+\addcontentsline{toc}{subsubsection}{Model}
+Model zaimplementowano w środowisku IBM ILOG CPLEX Optimization Studio z wykorzystaniem solvera CPLEX. Nazewnictwo parametrów oraz zmiennych decyzyjnych 
+jest zgodne z opisem zawartym w tabelach \ref{tab:param} i \ref{tab:var}. Plik \textit{wdwr25406-1.dat} zawiera definicje parametrów modelu, 
+natomiast plik \textit{wdwr25406-1.mod} obejmuje wczytywanie parametrów, definicje zmiennych decyzyjnych, funkcji celu oraz ograniczeń modelu. 
+W celu uproszczenia implementacji przyjęto numeryczne oznaczenia dla miesięcy, produktów oraz procesów technologicznych. Miesiące numerowane są chronologicznie, 
+produkty zgodnie z indeksem występującym w nazwie (P1-P4), natomiast procesy technologiczne według poniższej sekwencji:
+\begin{enumerate}
+\item Szlifowanie,
+\item Wiercenie pionowe,
+\item Wiercenie poziome,
+\item Frezowanie,
+\item Toczenie.
+\end{enumerate}
+

@@ -1,0 +1,61 @@
+\section{Two processes}
+\subsection{Summary Results file}
+
+
+\begin{lstlisting}
+Scheduling Type: Batch (Nonpreemptive)
+Scheduling Name: First-Come First-Served
+Simulation Run Time: 4000
+Mean: 2000
+Standard Deviation: 0
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{| c | c | c | c | c |}
+\hline
+Process\# &	CPU Time &	IO Blocking & CPU Completed & CPU Blocked \\
+\hline
+0&		2000 (ms)&	500 (ms)&	2000 (ms)&	3 times \\
+\hline
+1&		2000 (ms)&	500 (ms)&	2000 (ms)&	3 times \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Summary Processes file}
+\begin{lstlisting}
+Process: 0 registered... (2000 500 0 0)
+Process: 0 I/O blocked... (2000 500 500 500)
+Process: 1 registered... (2000 500 0 0)
+Process: 1 I/O blocked... (2000 500 500 500)
+Process: 0 registered... (2000 500 500 500)
+Process: 0 I/O blocked... (2000 500 1000 1000)
+Process: 1 registered... (2000 500 500 500)
+Process: 1 I/O blocked... (2000 500 1000 1000)
+Process: 0 registered... (2000 500 1000 1000)
+Process: 0 I/O blocked... (2000 500 1500 1500)
+Process: 1 registered... (2000 500 1000 1000)
+Process: 1 I/O blocked... (2000 500 1500 1500)
+Process: 0 registered... (2000 500 1500 1500)
+Process: 0 completed... (2000 500 2000 2000)
+Process: 1 registered... (2000 500 1500 1500)
+Process: 1 completed... (2000 500 2000 2000)
+\end{lstlisting}
+\subsection{Comments}
+Scheduling type was Batch since I did not change it in SchedulingAlgorithm.java
+file \\
+Scheduling Name was First-Come First-Served since this is what what we use as
+described in README for this laboratory \\
+Simulation Run time is 4000 ms and NOT 10000 ms since the simulation finished
+before it exceeded this max time \\
+Mean is 2000 since this is a value I set in conf value according to laboratory
+task description, same with standard deviation equal to 0 and CPU Time equal to
+2000 ms \\
+IO Blocking is equal to 500 ms, this is a value which we specified in
+configuration file and since we did not exceeded the runtime parameter it stayed
+equal to 500 ms \\
+CPU completed is equal to 2000 since this is deviation we set in configuration
+settings and the runtime was not exceeded \\
+All processes blocked 3 times, analysing summary processes we can see that they
+blocked at 500 ms, 1000 ms and 1500 ms and at 2000 seconds they completed 
+ 

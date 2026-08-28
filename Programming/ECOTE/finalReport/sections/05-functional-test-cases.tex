@@ -1,0 +1,202 @@
+\section{Functional test cases}
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+    \hline 
+    Title  &  Input (\LaTeX) & Output \\
+    \hline
+
+    empty file &
+    \begin{lstlisting}
+
+    \end{lstlisting}&
+    \begin{lstlisting}
+Error! expected \documentclass at the begining of LaTeX file 
+    \end{lstlisting} \\
+    \hline
+
+    Document class &
+    \begin{lstlisting}
+\documentclass[options]{class}
+    \end{lstlisting}&
+    \begin{lstlisting}
+Error! expected \begin{document} after document class
+    \end{lstlisting} \\
+    \hline
+
+    \begin{lstlisting}
+Extra text between document class and begin document
+    \end{lstlisting}&
+    \begin{lstlisting}
+\documentclass[options]{class}
+"extra text"
+\begin{document}
+    \end{lstlisting}&
+    \begin{lstlisting}
+Error! unexpected text between document class and begin document
+    \end{lstlisting}  \\
+    \hline 
+
+\begin{lstlisting}
+Just document class and begin document
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! no \end{document} at the end of LaTeX code
+\end{lstlisting}  \\
+\hline 
+
+    \end{tabular} 
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+\hline 
+Title  &  Input (\LaTeX) & Output \\
+\hline
+
+\begin{lstlisting}
+Just document class and begin/end document
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+Plain text inside
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+Lorem ipsum dolor sit amet.
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+Lorem ipsum dolor sit amet.
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+Reduntant \end{document} (ignored)
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+Lorem ipsum dolor sit amet.
+\end{document}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+Lorem ipsum dolor sit amet.
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+LaTeX comments
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+Lorem ipsum dolor sit amet.
+% some comment
+\end{document}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! LaTeX comment detected at line 3
+\end{lstlisting}  \\
+\hline 
+
+
+
+\end{tabular}
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+    \hline
+Title  &  Input (\LaTeX) & Output \\
+\hline
+
+\begin{lstlisting}
+Table with vertical lines
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\begin{tabular}{ l | c | r }
+test & 2 & test \\
+4 & 5 & 6 \\
+\end{tabular}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+<html>
+<table>
+<tr>
+<td align='left'>test</td>
+<td align='center' style="border-left: 1px solid black;">2</td>
+<td align='right'>test</td>
+</tr>
+<tr>
+<td align='left'>4</td>
+<td align='center' style="border-left: 1px solid black;">5</td>
+<td align='right'>6</td>
+</tr>
+</table>
+</html>
+\end{lstlisting}  \\
+\hline 
+
+\begin{lstlisting}
+Missing &
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\begin{tabular}{ l c r }
+1 & 2 & 3 \\
+4 & 5 6 \\
+\end{tabular}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! Missing third column in second row 
+\end{lstlisting}  \\
+\hline 
+
+\end{tabular}
+
+\begin{tabular}{|p{3cm}|p{6cm}|p{6cm}|}
+    \hline
+Title  &  Input (\LaTeX) & Output \\
+\hline
+
+\begin{lstlisting}
+Too much columns
+\end{lstlisting}&
+\begin{lstlisting}
+\documentclass[options]{class}
+\begin{document}
+\begin{tabular}{ l c r }
+1 & 2 & 3 & 4 & 5 \\
+4 & 5 6 \\
+\end{tabular}
+\end{document}
+\end{lstlisting}&
+\begin{lstlisting}
+Error! Too much columns in row 1, expected 3, got 5
+\end{lstlisting}  \\
+\hline 
+
+\end{tabular}
+    

@@ -1,0 +1,142 @@
+\section{Implementation}
+I decided to use Python as a language in which I will implement my solution \\ 
+The reasons for using python are as follow:
+\begin{enumerate}
+    \item It is the easiest language among those that I know
+    \item I know it enough to be confident in my ability to implement this solution in python
+    \item I want to learn python more through this project
+\end{enumerate}
+Negative aspects of python which is that it is very slow language do not bother me as I believe the project scope will not be big enough for this to become an issue
+  
+\subsection{General architecture}
+\begin{tabular}{|l|p{10cm}|}
+    \hline 
+    Module & Description \\ 
+    \hline 
+    Main & Handles texfile, puts it to a function translating to html and saves output html file \\
+    \hline
+    FileHandler & Handles reading latex file and transforming it to string in python  \\ 
+    \hline 
+    ReadStart & Checks documentclass and begin document functions of latex file and if they are correct outputs starting html tags \\
+    \hline
+    HandleInside & Goes through inside of LaTeX document and transforms each of its part to HTML
+    \\
+    \hline
+    HandleTable & Reads table, including table parameters and actual contents and transforms it to html \\ 
+    \hline
+    TabInsideHandler & Handles actual content of table and translates them to html \\
+\end{tabular}
+
+
+
+
+
+
+\subsection{Data structures}
+\begin{itemize}
+\item File entered by user is represented by python File class 
+\item Parsed \LaTeX \, code is represented by data structure based on node classes 
+\item Tabular environment parameters are stored in an array, if the parameter contains additional optional parameters they are stored in a pair of the parent argument and array of all optional arguments 
+\item Generated HTML code is stored in node classes 
+\item Final HTML code is stored in plain text and then written to File
+\end{itemize}
+
+\subsection{Module descriptions}
+\subsubsection{Main}
+Puts latex filename to filehandler, sends retrieved string to function translating tex to html and then saves final html file 
+\subsubsection{FileHandler}
+Handles texfile and transforms it to python string \\ 
+Input: \\ 
+tex\_filename - LaTeX file filename \\ 
+Functions: 
+\begin{itemize}
+    \item Handle arguments - Checks if arguments are correct, reads file and saves it to python string
+    \item Invoke Latex Handler - Sends file from file handler to LatexHandler 
+\end{itemize}
+\subsubsection{LatexHandler}
+Transforms tex string to html
+Input: tex string
+Functions: 
+\begin{itemize}
+    \item ReadStart - Checks begininig of tex file and returns html code if the begining is correct
+    \item HandleInside - Handles insides of tex file, both tables and loose text and translates it to html
+\end{itemize}
+\subsubsection{ReadStart}
+Checks begininig of tex file and returns html code if the begining is correct \\ 
+Input: tex string \\ 
+Output: html\_string
+
+\begin{itemize}
+\item read\_document\_class - Checks if document class exists and is written according to tex rules, returns <!DOCTYPE html> if yes
+\item read\_begin\_document - (optional) Checks if begin\{document\} function was written in tex file if yes adds <html> to html\_string
+\item HandleInside - Passes parsed tex data and html\_string to function handling inside of tex document 
+\end{itemize}
+
+\subsubsection{HandleInside}
+Translates tex string starting at begin document and ending at end document, returns final html\_string \\ 
+Parameters: \\ 
+\begin{itemize}
+\item tex\_data - String read from tex file
+\item html\_string - Final output string to which table data and loose text will be added 
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item HandleTable - Converts tex tables to html tables
+    \item HandleLoose - Goes through text that is not in table and converts it to html  
+\end{itemize}
+
+\subsubsection{HandleTable}
+Converts tex tables to html tables \\ 
+Parameters: \\ 
+\begin{itemize}
+\item tex\_data - String read from tex file
+\item html\_string - Final output string to which table data and loose text will be added 
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item TabArgHandler - Reads tex table parameters and translates them to html style
+    \item TabInsideHandler - Reads inside of tex table and together with parse parameters outputs correct table layout and look
+\end{itemize}
+
+\subsubsection{TabInsideHandler}
+Together with html table parameters translates inside of tex table to html  \\ 
+Parameters: \\ 
+\begin{itemize}
+\item TableContents - Latex string containing only inside of table
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item ReadTableContent - Parses table content and checks for errors 
+    \item ConvertToHTML - Converts table inside to html
+\end{itemize}
+
+\subsubsection{TabArgHandler}
+Reads tex table parameters and translates them to html style  \\ 
+Parameters: \\ 
+\begin{itemize}
+\item TableArguments - Arguments provided with $\backslash$begin\{tabular\} environment
+\end{itemize}
+Functions: 
+\begin{itemize}
+    \item ReadTableARguments - Parses table arguments and checks for errors 
+    \item ConvertToHTML - Converts table arguments to html style
+\end{itemize}
+
+\subsection{Input/output description}
+Input is a .tex file (\LaTeX \, file) \\ 
+Outpus is an .html file \\ 
+In case of errors error message will be outputed on the terminal \\
+Input File path is entered as an argument to terminal with "-i" or "--input" flag for example:
+\begin{lstlisting}[language=bash]
+python main.py -i texFile.tex
+\end{lstlisting}
+Output file path can be named by user by using "-o" or "--output" flag:
+\begin{lstlisting}[language=bash]
+python main.py -i texFile.tex -o htmlFile.html
+\end{lstlisting}
+If no "-o" flag is issued the output file will have the same name as input file with changed extension to html (so in this example texFile.tex will become texFile.html) \\ 
+If the path to file name consists of spaces, path name needs to be but in ""
+\begin{lstlisting}[language=bash]
+python main.py -i "My Folder/input.tex"
+\end{lstlisting}
+\subsection{Others}

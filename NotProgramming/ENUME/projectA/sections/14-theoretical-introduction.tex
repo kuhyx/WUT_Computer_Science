@@ -1,0 +1,35 @@
+\section{Theoretical introduction}
+\subsection{Eigenvalues}
+Eigenvalues of matrix \textbf{A} are defined as a pair of number $\lambda$ and vector \textbf{v} such that:
+\[ \mathbf{A}\mathbf{v} = \lambda\mathbf{v} \]
+This can be rewritten as:
+\[ (\mathbf{A} - \lambda\mathbf{I})\mathbf{v} = 0 \]
+And further we get characteristic equation:
+\[ det(\mathbf{A} - \lambda\mathbf{I}) = 0 \]
+
+\newpage
+\subsection{QR method for finding eigenvalues}
+First we start by transforming matrix \textbf{A} into tridiagonal form. It increases the effectiveness of calculations.
+
+Single step of QR method consists of:
+\[ \textbf{A}^{(k)} = \textbf{Q}^{(k)}\textbf{R}^{(k)} \]
+\[ \textbf{A}^{(k+1)} = \textbf{R}^{(k)}\textbf{Q}^{(k)} \]
+$\textbf{Q}^{(k)}$ being orthogonal, therefore:
+\[ \textbf{R}^{(k)} = (\textbf{Q}^{(k)}))^{-1}\textbf{A}^{(k)} = \textbf{Q}^{(k)T}\textbf{A}^{(k)}\textbf{Q}^{(k)} \]
+therefore:
+\[ \textbf{A}^{(k+1)} = \textbf{Q}^{(k)T}\textbf{A}^{(k)}\textbf{Q}^{(k)} \]
+If we have symmetric matrix \textbf{A} it converges to the diagonal matrix $diag(\lambda_i)$
+
+Since this method can be slowly convergent we use shifts. Single iteration of QR method with shifts looks like this:
+\begin{equation}
+\begin{split}
+\textbf{A}^{(k)} - p_k\textbf{I} &= \textbf{Q}^{(k)}\textbf{R}^{(k)} \\
+\textbf{A}^{(k+1)} &= \textbf{R}^{(k)}\textbf{Q}^{(k)} + p_k\textbf{I} \\
+&= \textbf{Q}^{(k)T}(\textbf{A}^{(k)} - p_k\textbf{I})\textbf{Q}^{(k)} + p_k\textbf{I} \\
+&=\textbf{Q}^{(k)T}\textbf{A}^{(k)}\textbf{Q}^{(k)} \\
+\end{split}
+\end{equation}
+
+Wher $p_k$ should be chosen as a best estimate of $\lambda_{i+1}$
+
+\newpage

@@ -1,0 +1,90 @@
+    \subsection{Speed}
+    We also checked how different parameters impact speed of the neural network learning 
+
+    \paragraph{Changing learning rate}
+    \begin{center}
+        \begin{tabular}{ | c | c |  }
+            \hline
+         Learning rate & Execution Time [s] \\ 
+         \hline
+         0.001 (default) & 49.3 \\  
+         \hline
+         0.01 & 53.9 \\    
+         \hline
+         0.1 & 50.1 \\    
+         \hline
+    \end{tabular}
+    \end{center}
+
+    \paragraph{Changing batch size}
+    \begin{center}
+        \begin{tabular}{ | c | c |  }
+            \hline
+         Batch Size & Execution Time [s] \\ 
+         \hline
+         1 & 567.2 (!) \\  
+         \hline
+         64 (default) & 49.3 \\    
+         \hline
+         128 & 48.1 \\    
+         \hline
+         256 & 42.8 \\    
+         \hline
+         
+    \end{tabular}
+    \end{center}
+
+    \paragraph{Changing number of hidden layers}
+    \begin{center}
+        \begin{tabular}{ | c | c |  }
+            \hline
+         Hidden layers & Execution Time [s] \\ 
+         \hline
+         0 & 44.5 \\  
+         \hline
+         1 & 48.8 \\    
+         \hline
+         2 (default) & 49.3 \\    
+         \hline
+         3 & 48.7 \\    
+         \hline
+    \end{tabular}
+    \end{center}
+
+    \paragraph{Changing width}
+    \begin{center}
+        \begin{tabular}{ | c | c |  }
+            \hline
+         Width & Execution Time [s] \\ 
+         \hline
+         64 & 46.7 \\  
+         \hline
+         128 (default) & 49.3 \\    
+         \hline
+         256 & 49.0 \\    
+         \hline
+         512 & 52.1 \\    
+         \hline
+         1024 & 73.9 \\    
+         \hline
+    \end{tabular}
+    \end{center}
+
+    \paragraph{Changing optimizer type}
+    \begin{center}
+        \begin{tabular}{ | c | c |  }
+            \hline
+         Learning rate & Execution Time [s] \\ 
+         \hline
+         Adam (default) & 49.3 \\  
+         \hline
+         SGD & 45.1 \\    
+         \hline
+         SGD Momentum & 45.5 \\    
+         \hline
+    \end{tabular}
+    \end{center}
+
+    \paragraph{Analysis}
+    Two parameters that had the biggest impact on execution time was setting batch size to extremely low value (1) and increasing width (jump between 512 width and 1024 is equal to 20 seconds more execution time)
+

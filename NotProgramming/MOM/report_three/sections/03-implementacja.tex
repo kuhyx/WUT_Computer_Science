@@ -1,0 +1,104 @@
+\section{Implementacja}
+Do implementacji użyty został python z biblioteką pulp \href{https://coin-or.github.io/pulp/index.html}{https://coin-or.github.io/pulp/index.html} \\ 
+Dzięki temu wykorzystujemy zarówno łatwość pythona jak i możliwości używania różnych solverów (CBC, GLPK, CPLEX, Gurobi...) przez pulpa \\ 
+\begin{lstlisting}[language=Python, caption={Import bilbioteki pulp i bibliotek używanych do wykresu}]
+    import pulp
+    import sys
+\end{lstlisting}
+\begin{lstlisting}[language=Python, caption={Iniicjalizacja modelu}]
+    model = pulp.LpProblem("Optimal_Distribution", pulp.LpMinimize)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Zdefiniowanie zmiennych i parametrów}]
+    fabryki = ['F1', 'F2']
+    magazyny = ['M1', 'M2', 'M3', 'M4']
+    dostawcy = fabryki + magazyny 
+    
+    klienci = ['K1', 'K2', 'K3', 'K4', 'K5', 'K6']
+    
+    koszt = {
+        'F1': {'M1': 0.3, 'M2': 0.5, 'M3': 1.2, 'M4': 0.8,
+        'K1': 1.2, 'K2': 999, K3': 1.2, 'K4': 2.0,
+        'K5': 999, 'K6': 1.1},
+        'F2': {'M1': 999, 'M2': 0.4, 'M3': 0.5, 'M4': 0.3,
+        'K1': 1.8, 'K2': 999, 'K3': 999, 'K4': 999,
+        'K5': 999, 'K6': 999},
+        'M1': {'K1': 999, 'K2': 1.2, 'K3': 0.2, 'K4': 1.7,
+        'K5': 999, 'K6': 2.0},
+        'M2': {'K1': 1.4, 'K2': 0.3, 'K3': 1.8, 'K4': 1.3,
+        'K5': 0.5, 'K6': 999},
+        'M3': {'K1': 999, 'K2': 1.3, 'K3': 2.0, 'K4': 999,
+        'K5': 0.3, 'K6': 1.4},
+        'M4': {'K1': 999, 'K2': 999, 'K3': 0.4, 'K4': 2.0,
+        'K5': 0.5, 'K6': 1.6}
+    }
+    P = pulp.LpVariable.dicts(
+        "P", [(i, j) for i in dostawcy for j in klienci],
+        cat='Binary')
+    maksymalne_zamowienie = 60
+    poziom_satysfakcji = {
+        'K1': 50 / maksymalne_zamowienie,
+        'K2': 10 / maksymalne_zamowienie,
+        'K3': 40 / maksymalne_zamowienie,
+        'K4': 35 / maksymalne_zamowienie,
+        'K5': 60 / maksymalne_zamowienie,
+        'K6': 20 / maksymalne_zamowienie}
+    preferencja_klienta = {
+        'K1': ['F2'], 'K2': ['M1'], 'K3': ['M2', 'M3'],
+        'K4': ['F1'], 'K5': [], 'K6': ['M3', 'M4']}
+    suma_satysfakcji = pulp.lpSum(
+        [poziom_satysfakcji[j] * P[(i, j)]
+        for i in dostawcy for j in klienci])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Zmienne decyzyjne}]
+    x = pulp.LpVariable.dicts(
+        "x",
+        [(i, j) for i in dostawcy for j in klienci],
+        lowBound=0, cat='Integer')
+    y = pulp.LpVariable.dicts("y",
+    [(i, k) for i in fabryki for k in magazyny],
+    lowBound=0, cat='Integer')
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Funkcje celu}]
+    koszt_dystrybucji = pulp.lpSum(
+        [koszt[i][j] * x[(i, j)]
+        for i in dostawcy for j in klienci])
+    koszt_magazynowania = pulp.lpSum(
+        [koszt[i][k] * y[(i, k)]
+        for i in fabryki for k in magazyny])
+    alpha = 0.5
+    beta = 0.5
+    model += alpha
+    * (koszt_dystrybucji + koszt_magazynowania)
+    - beta * suma_satysfakcji
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Ograniczenia}]
+for i in fabryki:
+    model += pulp.lpSum(
+        [x[(i, j)] for j in klienci]
+        + [y[(i, k)] for k in magazyny])
+        <= mozliwosci_fabryki[i]
+
+for k in magazyny:
+    model += pulp.lpSum(
+        [x[(k, j)] for j in klienci]
+        ) <= pojemnosc_magazynu[k]
+
+for j in klienci:
+    model += pulp.lpSum(
+        [x[(i, j)] for i in dostawcy]) == zamowienia_klientow[j]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption={Rozwiązanie problemu}]
+    model.solve()
+\end{lstlisting}
+\
+
+\begin{lstlisting}[language=Python, caption={Przedstawienie wyników}]
+for v in model.variables():
+    print(v.name, "=", v.varValue)
+\end{lstlisting}
+

@@ -1,0 +1,22 @@
+\subsection{Procesy}
+Aby wykonać obliczenia na wielu rdzeniach procesora \textbf{jednocześnie} wykorzystujemy model w którym różne 
+frakcje danych są przetwarzane przez oddzielne procesy. Dzięki temu dla dużych zbiorów danych możemy 
+znacznie zwiększyć wydajnośc obliczeń \\ 
+W tym celu wykorzystujemy klasę \textbf{multiprocessing.Pool} z biblioteki \textbf{multiprocessing}. 
+Wykorzystujemy ją do stworzenia puli procesów które potem niezależnie wykonują funkcje na różnych frakcjach 
+danych.
+\paragraph{Funkcje}
+Procesy wykorzystujemy do:
+\begin{enumerate}
+    \item Obliczenia iloczynu skalarnego - Metoda $dot\_product$ wykorzystuje pulę procesów do obliczenia iloczynów par elementów dwóch wektorów, a następnie sumuje te wyniki. Zrównoleglenie tej operacji jest korzystne, gdy mamy do czynienia z bardzo długimi wektorami.
+    \item Mnożenia macierzy przez wektor - $matrix\_vector\_multiply$, każdy wiersz macierzy jest mnożony przez wektor w osobnym procesie. Dzięki temu każde takie mnożenie może być przeprowadzane równolegle, co jest szczególnie efektywne dla macierzy o dużym rozmiarze.
+    \item Obliczenia normy wektora - Procesy są używane do obliczenia kwadratów poszczególnych elementów wektora, a następnie sumowanie tych wartości (także w procesach) umożliwia obliczenie pierwiastka kwadratowego z ich sumy, co daje normę wektora.
+    \item Działania na wektorach i macierzach - Działania takie jak dodawanie i odejmowanie wektorów, dzielenie wektora przez skalar, czy mnożenie macierzy przez skalar, są przeprowadzane w segmentach, gdzie każdy segment jest przetwarzany przez osobny proces. 
+\end{enumerate}
+\paragraph{Wyzwania}
+\begin{itemize}
+    \item Zarządzanie procesami jest kosztowne - tworzenie i zarządzanie procesami jest droższe od wątków ze względu na większy narzut systemowy.
+    \item Wymiana danych między procesami - wymaga serializacji i deserializacji danych, co może wprowadzić dodatkowe opóźnienia. 
+    \item Brak korzyści dla małych danych - w przypadku małych macierzy, gdzie rozmiar nie przekracza 5 tysięcy x 5 tysięcy elementów, zarządzanie procesami i koszty komunikacji międzyprocesowej mogą przewyższać korzyści wynikające z równoległego przetwarzania,
+\end{itemize}
+

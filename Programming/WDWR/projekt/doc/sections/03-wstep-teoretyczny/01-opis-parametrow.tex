@@ -1,0 +1,37 @@
+\subsection{Opis parametrów}
+\addcontentsline{toc}{subsection}{Opis parametrów}
+
+\textbf{numberOfMachineTypes} - Ilość typów maszyn (procesów) dostępnych w fabryce
+
+\textbf{numberOfMonths} - Ilość miesięcy uwzględnionych w symulacji
+
+\textbf{numberOfProductsTypes} - Ilość typów produktów
+
+\textbf{numberOfScenarios} - Ilość scenariuszy wygenerowanych do symulacji
+
+\textbf{machines[numberOfMachineTypes]} - Wektor typów maszyn (procesów)
+
+\textbf{months[numberOfMonths]} - Wektor miesięcy symulacji
+
+\textbf{products[numberOfProductsTypes]} - Wektor typów produktów
+
+\textbf{machineCount[numberOfMachineTypes]} - Wektor ilości maszyn danego typu
+
+\textbf{timeToProduce[numberOfMachineTypes][numberOfProductsTypes]} - Macierz czasów produkcji danego produktu na danej maszynie
+
+\textbf{maxProductsInMonth[numberOfMonths][numberOfProductsTypes]} - Macierz maksymalnej ilości produktów, jakie można sprzedać w danym miesiącu
+
+\textbf{numberOfHoursInFactory} - Ilość godzin pracy fabryki w miesiącu
+
+\textbf{mu[numberOfProductsTypes]} - Wektor wartości oczekiwanych rozkładu t-Studenta do generacji scenariuszy
+
+\textbf{sigma[numberOfProductsTypes][numberOfProductsTypes]} - Macierz kowariancji dla rozkładu t-Studenta
+
+\textbf{sellProfit[numberOfScenarios][numberOfProductsTypes]} - Macierz wygenerowanych scenariuszy dochodów ze sprzedaży produktów
+
+\textbf{storageCost} - Koszt trzymania jednej sztuki produktu w magazynie przez miesiąc
+
+\textbf{storageMax[numberOfProductsTypes]} - Wektor maksymalnej pojemności magazynu dla każdego typu produktu
+
+\textbf{storageStart[numberOfProductsTypes]} - Wektor ilości początkowej produktów w magazynie
+

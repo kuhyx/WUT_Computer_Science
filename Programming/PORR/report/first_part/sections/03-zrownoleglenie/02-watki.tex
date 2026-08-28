@@ -1,0 +1,15 @@
+\subsection{Wątki}
+Do implementacji wątków użyto dwóch bibliotek, ThreadPoolExecutor która umożliwia zarządzanie pulą wątków i delegowanie zadań do wątków 
+w sposób równoległy oraz funkcji partial z biblioteki functools która pozwala na tworzenie częściowo zainicjalizowanych funkcji.
+\paragraph{Funkcje}
+Wątki zaimplementowano w mnożeniu macierzy przeez wektor, odejmowaniu wektorów, dodawaniu wektorów oraz mnożeniu wektora przez skalar, metody zostają
+zrównoleglone poprzez podzielenie liczby wierszy macierzy między wątki, następnie ThreadPoolExecutor tworzy wątki i przekazuje im odpowiednie, niezależne 
+części pracy do wykonania.
+\paragraph{Zalety}
+Zalety wykorzystania wątków to przede wszystkim szybki czas tworzenia i niszczenia wątków przez system operacyjny w porównaniu do procesów. 
+Co więcej mają one dostęp do całej przestrzeni adresowej programu, co oszczędza niepotrzebne kopiowanie danych. Jedynie ich własny stos jest prywatny. 
+
+\paragraph{ChatGPT}
+Po konsultacjach z prowadzącym użyliśmy chata-gpta do wygenerowania kodu dla wątków, rozwiązanie chata po kilku (ludzkich) poprawkach zadziałało ale jego dokładność była niesatysfakcjonująca,
+nie spełniała wymogów naszych testów
+

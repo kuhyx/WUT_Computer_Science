@@ -1,0 +1,134 @@
+\section{Selection and description of the data-sets}
+The quality and size of the dataset may greatly affect the performance of the collaborative filtering algorithm. This is why we decided to choose a dataset that was newer and bigger than the one provided in the task.
+We will be using the Anime Recommendations Database from Kaggle \href{https://www.kaggle.com/datasets/hernan4444/anime-recommendation-database-2020}{LINK}. The data-set contains information about over 17,000 anime's and over 300,000 users. \\ 
+\subsection{Why this data set}
+There are multiple reasons to use this specific data set over different ones available on Kaggle (including the one proposed in task description) \\ 
+\begin{itemize}
+\item It is considered to have 100 \% usability by Kaggle
+\begin{itemize}
+\item It is tagged, has subtitle, description and cover image
+\item It has a source, is public and was updated recently (2020)
+\item It has the most permissive (CC0) license, good file format, and all files and columns are described
+\end{itemize}
+\item It is one of the biggest anime databases on kaggle (605 MB)
+\item It has over 60 code examples of use
+\end{itemize}
+\subsection{Data-set description}
+
+The data-set contains: 
+\begin{itemize}
+    \item The anime list per user (dropped, complete, plan to watch, currently watching and on hold)
+    \item Ratings given by users to the anime's that they has watched completely.
+    \item Information about anime (exactly 35 columns!), most importantly: 
+    \begin{itemize}
+        \item Name
+        \item User score 
+        \item Popularity
+        \item Members
+        \item Favourites
+        \item Number of each particular score (from 1 to 10)
+    \end{itemize}
+    \item HTML files containing reviews, synopsis, staff info etc.
+\end{itemize}
+There are 5 csv files in total and one HTML folder 
+\subsection{anime.csv}
+It contains information about all anime scraped \\ 
+In total it contains \textbf{35} columns \\ 
+Information's that might be in our opinion use-full and are not contained within rest of the files are:
+Information's that might be use full for our algorithm:
+\begin{itemize}
+\item Number of episodes - Some users might prefer shorter/longer anime's
+\item When it was aired - Some users might prefer older/newer anime styled
+\item When it was premiered - Same as above
+\item Studios - Some users might favourite specific Studios style
+\item Duration  - Some users might prefer anime's with shorter single episode length
+\item Ranked - Anime that might not be a hit with a certain user but is still considered to be very good can still be a good recommendation
+\item Popularity - Anime that might not be a hit with a certain user but is very popular can still be a good recommendation
+\item Members - Same as above
+\item Favorites - Same as above
+\item Number of exact amount of scores from 1 to 10 - This can tell how "controversial" the anime is, anime with lots of '1' and '10 might have the exact same rating as anime with mostly '6' but it is much more controversial (hit or miss)
+\end{itemize}
+
+In formations that might be use-full to display:
+\begin{itemize}
+\item Type - Usually whether it is a series (TV or OVA) or movie
+\item Number of episodes - How much time does it take to watch it
+\item When it was aired - Start of anime being shown and end of it
+\item When it was premiered - When the anime started
+\item Studios - What studio produced it
+\item Duration - How much time does it take to watch single episode
+\item Ranked - How good it is in relation to all other anime's on my anime list
+\end{itemize}
+\subsection{anime\_with\_synopsis.csv}
+CSV file containing anime info for humans \\ 
+It contains 5 columns:
+\begin{itemize}
+    \item (key) mal\_id - used to identify the anime
+    \item name - either English or R\=omaji version of the title 
+    \item score - average anime score
+    \item genres - list of genres associated with this anime
+    \item synopsis - description of anime
+\end{itemize}
+This file will be use-full for displaying the recommendation to user with additional info
+\subsection{animelist.csv}
+This file contains information about all users anime lists, no matter their watching status \\ 
+In total it contains over 105 million rows \\ 
+There are over 60 million ratings given by users (compared with over 55 for only completed series)
+It contains 5 columns:
+\begin{itemize}
+    \item (key) user\_id - random (but persistent through database) user id 
+    \item (key) anime\_id - used to identify the anime 
+    \item rating - what score this user set for this anime (zero is set if user did not set any score)
+    \item watching\_status - state ID for this anime in the anime list of the user (see \ref{watchingStatus} watching\_status.csv)
+    \item watched\_episodes - how many episodes have been watched by the user
+\end{itemize}
+This file can be potentially use full especially to determine what users with similar interest are planning to watch 
+\subsection{rating\_complete.csv}
+This file contains information about all ratings given to animes by users who selected watching\_status 2 option (complete) \\ 
+In total it contains over 55 million ratings \\ 
+It contains 3 columns:
+\begin{itemize}
+    \item (key) user\_id - random (but persistent through database) user id 
+    \item (key) anime\_id - used to identify the anime 
+    \item rating - what score this user set for this anime (1-10 scale)
+\end{itemize}
+This is probably the most important file regarding our project
+\subsection{watching\_status.csv}
+\label{watchingStatus}
+\begin{figure}[h]
+\caption{Entire contents of watching\_status.csv file}
+\centering
+\begin{tabular}{| c | c |}
+\hline
+status & description \\ 
+\hline
+1 & Currently Watching \\
+\hline
+2 & Completed \\
+\hline
+3 & On Hold \\
+\hline
+4 & Dropped \\
+\hline
+6 & Plan to Watch \\
+\hline
+\end{tabular}
+\end{figure}
+
+Watching status file is used to relate numerical id of watching status to actual textual description of this status \\ 
+Status number 5 is missing, possibly referring to "re-watching" status? \\ 
+Meaning of particular descriptions:
+\begin{itemize}
+    \item Currently Watching - Actively keeping up with the series
+    \item Completed - Watched the entire series/film
+    \item On Hold - Stopped watching it but possibly wanting to return to it
+    \item Dropped - Stopped watching it and decided not to return it 
+    \item Plan to Watch  - Not watched it yet but plan to
+\end{itemize}
+For most purposes we will be only interested in status 2 (completed) which tells us that the user checked the anime as already watched \\ 
+Plan to watch is also interesting since it can be used to recommend anime based on what similar users are interested in
+\subsection{HTML folder}
+HTML folder contains HTML scraped info about specific anime's, we will ignore this folder as parsing HTML is a much bigger challenge and outside of the scope of our project
+\subsection{Summary}
+There are two most important files, for program inner workings: rating\_complete.csv and anime\_with\_synopsis.csv for showing the recommended anime to user
+

@@ -1,0 +1,60 @@
+\section{Introduction}
+\subsection{Page replacement algorithms}
+\paragraph{First in First out}
+What page replacament algorithm is being used? \\
+We use FIFO (First in First out) page replacement algorithm for those laboratories as indicated
+by the PageFault.java file line 18
+\begin{figure}[H]
+\caption{PageFault.java file}
+\begin{lstlisting}[language=Java]
+[...]
+public class PageFault {
+
+  /**
+   * The page replacement algorithm for the memory management sumulator.
+   * This method gets called whenever a page needs to be replaced.
+   * <p>
+   * The page replacement algorithm included with the simulator is 
+   * FIFO (first-in first-out).  A while or for loop should be used 
+   * to search through the current memory contents for a canidate 
+   * replacement page.  In the case of FIFO the while loop is used 
+   * to find the proper page while making sure that virtPageNum is 
+   * not exceeded.
+[...]
+\end{lstlisting}
+\end{figure}
+All pages are stored in memory in a queue. Oldest page (First that came in) is
+in front of this queue. \\ When we need to replace the page we remove the page that
+is first in queue (so the one that came in as a first one, first in, first out)
+\\
+It is easy to explain and implement but in practical application it performs
+poorly. It is still used but usually we use modified version of it.
+\cite{Page Replacement Algorithms}
+\paragraph{Optimal Page Replacement}
+We replace pages which in the future will not be used for the longest time.
+This is purely theoretical algorithm. It is perfect but not doable in practice
+since operating systems can not know future requests. \\
+It is used as a benchmark against which we compare other algorithms. 
+\cite{Page Replacement Algorithms}
+\paragraph{Least Recently Used}
+We replace page which was not used for the longest time. \\
+It is based on the idea that we will in future work on pages which we used
+heavily in the past. In theory its performance can be close to optimal one but
+in practice it is expensive to implement. \\
+Most expensive way of implementing this algorithm is using linked lists. Most
+recently used pages in front, least recently used in the back. Every time we
+reference memory we have to move elements in list which takes a lot of time. \\
+We can also use operating system counter \\
+This algorithm is often used in different cheaper modified versions.
+\cite{Page Replacement Algorithms}
+\cite{pageWiki}
+\subsection{Other}
+\paragraph{Memory Management Unit} 
+Hardware unit which translates virtual memory to physical one.
+\cite{mmuWiki}
+\paragraph{Page fault}
+Exception raised when process wants to access page without preparations.
+Preparation consists of adding the mapping to process's virtual address space
+and/or loading page from a disk. MMU detects the fault but it is up to kernel
+and/or loading page from a disk. 
+

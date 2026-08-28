@@ -1,0 +1,18 @@
+\section{Definition of quality measures that will be used}
+In order to evaluate the quality of our recommendation system, we will use a combination of precision, recall, F1 score, and MAP. Precision measures the proportion of relevant items among the recommended items, while recall measures the proportion of relevant items that were actually recommended. F1 score is the harmonic mean of precision and recall, providing a balanced measure of the system's performance.
+
+MAP is calculated by taking the average of the average precision (AP) for each user. AP is calculated as the mean of the precision values obtained at each relevant item position in the ranked list of recommended items.
+
+To calculate MAP, we need to define a threshold for relevance, which can be either binary (relevant or not relevant) or graded (assigning a relevance score to each anime). In our case, we will use a binary threshold, where an anime is considered relevant if has been rated 8 or higher. We will also calculate MAP for different values of K (number of recommended items), as the quality of the recommendations may vary depending on the number of items displayed to the user.
+
+%Quality Measures:
+
+%We will use the following quality measures to evaluate the performance of the model:
+
+%    Precision: the ratio of true positive predictions to the total number of predicted positives.
+%    Recall: the ratio of true positive predictions to the total number of actual positives.
+%    F1-score: the harmonic mean of precision and recall.
+
+%We will also use the mean average precision (MAP) as an additional quality measure to evaluate the model's performance.
+
+

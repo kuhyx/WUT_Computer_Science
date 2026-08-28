@@ -1,0 +1,216 @@
+\section{Decyzje architektoniczne}
+
+\subsection{Podział na warstwy}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{wybor_architektury.png}
+\caption{Diagram podziału na warstwy}
+\label{fig:layers}
+\end{figure}
+
+\begin{itemize}
+\item Warstwa prezentacji: trzy różne aplikacje klienckie — aplikacja webowa, mobilna i aplikacja na urządzenia embedded.
+\item Warstwa logiki biznesowej: centralna aplikacja serwerowa (serverApp), w której znajdują się komponenty takie jak UserService, PaymentService, PositionService itd.
+\item Warstwa dostępu do danych: komponenty UserRepository, PaymentRepository.
+\item Warstwa danych: baza danych Oracle z mechanizmem failover.
+\end{itemize}
+
+\textbf{Decyzja:} Rozdzielenie odpowiedzialności na warstwy zwiększa modularność i ułatwia zarządzanie kodem oraz jego testowanie.
+
+\textbf{Alternatywa:} Architektura mikroserwisowa
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Lepsza skalowalność poszczególnych komponentów
+\item Możliwość niezależnego wdrażania i rozwijania usług
+\item Lepsza odporność na awarie (awaria jednego serwisu $\neq$ awaria całego systemu)
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Większa złożoność wdrożeniowa (DevOps, CI/CD, monitoring)
+\item Konieczność rozwiązywania problemów związanych z komunikacją między serwisami
+\item Trudniejsze debugowanie i testowanie end-to-end
+\end{itemize}
+
+\subsection{Modularność i komponenty (Component-based Design)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{organizacja_aplikacji_serwerowej.png}
+\caption{Diagram komponentów}
+\label{fig:components}
+\end{figure}
+
+\begin{itemize}
+\item Serwerowa aplikacja została podzielona na komponenty pełniące konkretne role (SigninController, TollController, MainComponent, itd.).
+\item Każdy komponent ma jasno zdefiniowaną odpowiedzialność, zgodnie z zasadą Single Responsibility Principle.
+\end{itemize}
+
+\textbf{Decyzja:} Wprowadzenie komponentów umożliwia łatwe rozszerzanie i testowanie poszczególnych fragmentów systemu.
+
+\textbf{Alternatywa:} Monolityczna aplikacja serwerowa
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Prostsza implementacja i wdrożenie
+\item Mniejsza liczba zależności i konfiguracji
+\item Mniej złożone środowisko developerskie
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Trudniejsza skalowalność i refaktoryzacja
+\item Każda zmiana wymaga redeploy całej aplikacji
+\item Trudniejsze testowanie izolowanych funkcji
+\end{itemize}
+
+\subsection{Wielokanałowy dostęp (Multi-Platform Clients)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{dostep_do_systemu.png}
+\caption{Diagram wielokanałowego dostępu}
+\label{fig:multichannel}
+\end{figure}
+
+\begin{itemize}
+\item Użytkownicy mogą korzystać z systemu za pomocą aplikacji mobilnej, webowej lub urządzeń embedded.
+\end{itemize}
+
+\textbf{Decyzja:} Umożliwienie różnym grupom użytkowników (np. administratorzy vs kierowcy) dostępu do funkcji systemu w najbardziej dogodny sposób.
+
+\textbf{Alternatywa:} Tylko aplikacja mobilna (np. PWA lub natywna)
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Uproszczony interfejs użytkownika
+\item Jedna platforma do utrzymania
+\item Lepsze dopasowanie do kontekstu użytkownika (kierowcy)
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Brak wygodnego interfejsu dla administratorów lub analityków
+\item Mniejsza elastyczność użytkowania
+\item Trudności z dostępem do systemu z urządzeń stacjonarnych
+\end{itemize}
+
+\subsection{Rozdzielenie ról i uprawnień}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{uprawnienia_dla_uzytkownikow.png}
+\caption{Diagram ról i uprawnień}
+\label{fig:roles}
+\end{figure}
+
+\begin{itemize}
+\item Administrator ma dostęp tylko przez aplikację webową.
+\item Kierowca może korzystać z trzech różnych interfejsów — w zależności od potrzeb.
+\end{itemize}
+
+\textbf{Decyzja:} Jasny podział ról zwiększa bezpieczeństwo i ergonomię systemu.
+
+\textbf{Alternatywa:} Jeden zunifikowany interfejs z uprawnieniami na poziomie konta
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Mniejsze zróżnicowanie UI
+\item Mniej kodu i testów związanych z różnymi platformami
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Mniejsza przejrzystość
+\item Możliwość przypadkowego ujawnienia funkcji nieprzeznaczonych dla danego typu użytkownika
+\end{itemize}
+
+\subsection{Integracja z zewnętrznymi systemami}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{realizacja_obslugi_platnosci_i_archiwizacji_danych.png}
+\caption{Diagram integracji z systemami zewnętrznymi}
+\label{fig:integration}
+\end{figure}
+
+\begin{itemize}
+\item System płatności (systemPlatnosci) oraz system archiwizacji danych (archiwum) są zewnętrznymi systemami zintegrowanymi z systemem e-Toll.
+\end{itemize}
+
+\textbf{Decyzja:} Wydzielenie tych odpowiedzialności do zewnętrznych systemów pozwala na lepsze skalowanie oraz wykorzystanie istniejących rozwiązań.
+
+\textbf{Alternatywa:} Wszystko w ramach jednej aplikacji (np. własny moduł płatności i archiwizacji)
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Większa kontrola nad logiką
+\item Mniejsze zależności zewnętrzne
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Większe ryzyko błędów w obszarach regulowanych prawnie (np. płatności)
+\item Większe koszty utrzymania i certyfikacji
+\item Brak skalowalności i elastyczności
+\end{itemize}
+
+\subsection{Wysoka dostępność i odporność na awarie}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{zapewnienie_dostepnosci_i_odpornosci_na_awarie.png}
+\caption{Diagram wysokiej dostępności}
+\label{fig:high-availability}
+\end{figure}
+
+\begin{itemize}
+\item Baza danych jest replikowana (primary–secondary).
+\item Oddzielne deployment node'y dla różnych typów urządzeń oraz dla aplikacji serwerowej i bazy danych.
+\item Failover serwera bazy danych — Oracle - Secondary.
+\end{itemize}
+
+\textbf{Decyzja:} Architektura uwzględnia mechanizmy zapewniające ciągłość działania systemu nawet w przypadku awarii.
+
+\textbf{Alternatywa:} Deployment w chmurze
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Duża skalowalność
+\item Bezpieczeństwo i redundancja
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Wyższe koszty
+\item Przetwarzanie danych przez inne podmioty
+\end{itemize}
+
+\subsection{Wybór technologii wdrożeniowych}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{wybor_technologii_wdrozeniowej.png}
+\caption{Diagram technologii wdrożeniowych}
+\label{fig:deployment-tech}
+\end{figure}
+
+\begin{itemize}
+\item System hostowany na serwerach z Ubuntu 24.04 LTS.
+\item Serwer aplikacji oparty o Apache Tomcat 8.x.
+\item Baza danych Oracle 12c.
+\end{itemize}
+
+\textbf{Decyzja:} Użycie sprawdzonych technologii o długoterminowym wsparciu i wysokiej wydajności.
+
+\textbf{Alternatywa:} Cloud-native stack – np. AWS/GCP
+
+\textbf{Zalety alternatywy:}
+\begin{itemize}
+\item Automatyczne skalowanie, monitoring, CI/CD
+\item Niższe koszty utrzymania fizycznej infrastruktury
+\item Łatwiejsze zarządzanie kontenerami i usługami
+\end{itemize}
+
+\textbf{Wady alternatywy:}
+\begin{itemize}
+\item Uzależnienie od chmury (vendor lock-in)
+\item Potrzeba opanowania nowych technologii
+\item Potencjalne wyższe koszty początkowe
+\end{itemize}
+

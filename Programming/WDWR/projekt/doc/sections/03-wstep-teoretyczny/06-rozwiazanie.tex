@@ -1,0 +1,65 @@
+\subsection{Rozwiązanie}
+\addcontentsline{toc}{subsection}{Rozwiązanie}
+Rozwiązanie optymalne modelu maksymalizacji wartości oczekiwanej zysku zostało wyznaczone przy użyciu solvera CPLEX. 
+Maksymalna wartość oczekiwana zysku wynosi około 11036,12 zł. 
+Optymalne wartości zmiennych decyzyjnych przedstawiają się następująco:
+\begin{displaymath}
+\mathbf{sell} = 
+ \begin{pmatrix}
+  160 & 0 & 80 & 160 \\
+  240 & 80 & 160 & 160 \\ 
+  0 & 240 & 80 & 160 \\  
+ \end{pmatrix},
+ \mathbf{if80prec} = 
+ \begin{pmatrix}
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 0 & 0 \\ 
+  1 & 0 & 0 & 0 \\  
+ \end{pmatrix},
+\end{displaymath}
+\begin{displaymath}
+\mathbf{stock} = 
+ \begin{pmatrix}
+  0 & 50 & 0 & 0 \\
+  0 & 0 & 0 & 0 \\ 
+  50 & 50 & 50 & 50 \\  
+ \end{pmatrix},
+ \mathbf{produce} = 
+ \begin{pmatrix}
+  110 & 0 & 30 & 110 \\
+  240 & 30 & 160 & 160 \\ 
+  50 & 290 & 130 & 210 \\  
+ \end{pmatrix} 
+\end{displaymath}
+
+Czasem pracy poszczególnych typów maszyn dla różnych typów produktów w każdym miesiącu obrazują następujące macierze:
+\begin{displaymath}
+ \mathbf{workTime[1]} =
+ \begin{pmatrix}
+	44 & 0 & 0 & 0 \\
+	22 & 0 & 0 & 66 \\ 
+	11 & 0 & 35 & 0 \\
+	6.6 & 0 & 0 & 5.5 \\
+	0 & 0 & 1 & 0 \\  
+ \end{pmatrix},
+ \mathbf{workTime[2]} =
+ \begin{pmatrix}
+	96 & 18 & 0 & 0 \\
+	48 & 3 & 0 & 96 \\ 
+	24 & 0 & 140 & 0 \\
+	14.4 & 1.2 & 0 & 8 \\ 
+	0 & 1.5 & 4 & 0 \\
+ \end{pmatrix},
+\end{displaymath}
+\begin{displaymath}
+ \mathbf{workTime[3]} =
+ \begin{pmatrix}
+	20 & 174 & 0 & 0 \\
+	10 & 29 & 0 & 126 \\ 
+	5 & 0 & 105 & 0 \\
+	3 & 11.6 & 0 & 10.5 \\ 
+	0 & 14.5 & 3 & 0 \\
+ \end{pmatrix}
+\end{displaymath}
+
+Kompletne wyniki działania solvera (wraz z macierzą lowerProfit) znajdują się w pliku solutions1.txt

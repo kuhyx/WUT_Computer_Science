@@ -1,0 +1,9 @@
+\section{Theoretical Introduction}
+Laguerre's method is defined by a single formula:
+
+\[ x_{k+1} = x_k - \frac{nf(x_k)}{f^{'}(x_k) \pm \sqrt{(n-1)[(n-1)( (f^{'}(x_k))^2 - nf(x_k)f^{''}(x_k) )]}} \]
+Where:
+$n$ - order of the polynomial
+
+This formula is similar to the one from MM2 but also takes order of the polynomial into consideration. In general this method is better. For polynomials with real roots it is globally convergent. It does not have formal analysis for complex roots but it usually shows good numerical properties, although divergence may happen.
+

@@ -1,0 +1,16 @@
+\section{Implementacja modelu}
+
+\subsection{Środowisko implementacji}
+
+Do rozwiązania problemu wykorzystuję język R z bibliotekami:
+\begin{itemize}
+  \item \texttt{lpSolveAPI} - do rozwiązania problemu optymalizacji liniowej
+  \item \texttt{mvtnorm} - do generowania próbek z wielowymiarowego rozkładu t-Studenta
+  \item \texttt{truncdist} - do implementacji rozkładu t-Studenta ograniczonego do przedziału [5; 12]
+  \item \texttt{ggplot2} - do wizualizacji wyników
+\end{itemize}
+
+\subsection{Kod źródłowy}
+
+\lstinputlisting[language=R, caption=Implementacja modelu w R]{../code/model.R}
+

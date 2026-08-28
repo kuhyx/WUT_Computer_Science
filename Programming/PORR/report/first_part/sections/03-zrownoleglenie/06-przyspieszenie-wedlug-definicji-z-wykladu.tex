@@ -1,0 +1,37 @@
+\subsection{Przyśpieszenie według definicji z wykładu}    
+$S(n, p) = \frac{T(n, 1)}{T(n, p)} $
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Wielkość/Typ} & \textbf{S(n,p) - Procesy} & \textbf{S(n,p) - Wątki} & \textbf{S(n,p) - Tablice} & \textbf{S(n,p) - MPI} \\ \hline
+    2 & 2.69e-05 & 8.17e-03 & 8.83e-04 & 1.52e+00 \\ \hline
+    5 & 4.48e-05 & 8.91e-03 & 1.85e-03 & 1.41e+00 \\ \hline
+    10 & 9.57e-05 & 2.34e-02 & 4.04e-03 & 1.48e+00 \\ \hline
+    50 & 1.27e-03 & 2.58e-01 & 5.58e-02 & 2.15e+00 \\ \hline
+    100 & 5.52e-03 & 5.78e-01 & 1.73e-01 & 2.11e+00 \\ \hline
+    300 & 3.33e-02 & 8.23e-01 & 1.05e+00 & 2.27e+00 \\ \hline
+    500 & 8.30e-02 & 8.85e-01 & 2.59e+00 & 1.79e+00 \\ \hline
+    750 & 1.63e-01 & 8.67e-01 & 5.08e+00 & 2.04e+00 \\ \hline
+    1000 & 2.67e-01 & 8.98e-01 & 7.24e+00 & 1.90e+00 \\ \hline
+    5000 & 2.39e+00 & 9.04e-01 & 1.59e+01 & 1.76e+00 \\ \hline
+    10000 & 3.62e+00 & 8.88e-01 & 1.86e+01 & 1.89e+00 \\ \hline
+    nemeth12 & 3.28e+00 & 9.40e-01 & 1.70e+01 & 1.95e+00 \\ \hline
+    poli3 & 1.09e+00 & 9.47e-01 & 1.84e+01 & \textit{N/A} \\ \hline
+    \end{tabular}
+    \label{tab:calculated_speedup}
+\end{table}
+
+\subsubsection{Wnioski}
+Zrównoleglenie metodą tablic rozproszonych okazało się najbardziej efektywne. Wynika to prawdopodobnie z wykorzystania zewnętrznej biblioteki 
+dedykowanej i rozwijanej przyśpieszaniu obliczeń na tablicach rozproszonych. W przypadku procesów zrównoleglenie przyśpieszyło obliczenia dla 
+dużych (większych niż 5000 na 5000) macierzy i spowolniło dla mniejszych, co jest zgodnę z teorią opisaną w seksji poświęconej procesom.
+ \\ 
+\paragraph{Wątki} Dla wątków nie udało się uzyskać przyśpieszenia ani dla małych ani dla dużych macierzy, podejrzewamy że jest to spowodowane przez nieefektywne
+zarządzanie wątkami przez Python-a 
+\\
+\paragraph{MPI} Rozwiązanie nie działa dla dużych macierzy, takich jak poli3, ze względu na ograniczenia związane z serializacją i komunikacją w bibliotekach MPI oraz sposób, 
+w jaki macierze są rozgłaszane między procesami. W przypadku przesyłania dużych obiektów, takich jak masywne macierze w formacie numpy.ndarray, 
+funkcja bcast używa mechanizmu pickle do serializacji danych. Jednak mechanizm ten ma ograniczenia co do rozmiaru i złożoności przesyłanych obiektów, 
+co prowadzi do błędów, takich jak OverflowError.
+

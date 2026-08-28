@@ -1,0 +1,15 @@
+\subsection{Zmienne decyzyjne}
+\addcontentsline{toc}{subsection}{Zmienne decyzyjne}
+
+\textbf{produce[numberOfMonths][numberOfProductsTypes]} - Macierz zawierająca ilości wytwarzanych sztuk danego typu produktu w danym miesiącu
+
+\textbf{sell[numberOfMonths][numberOfProductsTypes]} - Macierz zawierająca ilości sprzedawanych sztuk danego typu produktu w danym miesiącu
+
+\textbf{stock[numberOfMonths][numberOfProductsTypes]} - Macierz zawierająca ilości sztuk danego typu produktu znajdujących się w magazynie w danym miesiącu
+
+\textbf{workTime[numberOfMonths][numberOfMachineTypes][numberOfProductsTypes]} - Macierz zawierająca czas pracy każdej maszyny dla każdego typu produktu w każdym miesiącu
+
+\textbf{if80prec[numberOfMonths][numberOfProductsTypes]} - Macierz zmiennych binarnych (1 jeśli sprzedaż danego produktu w danym miesiącu przekroczyła 80\% wartości maksymalnej, 0 - w przeciwnym wypadku)
+
+\textbf{lowerProfit[numberOfScenarios][numberOfMonths][numberOfProductsTypes]} - Macierz przechowująca kwoty, jaką należy odjąć od zysków z poszczególnych typów produktów w poszczególnych miesiącach, ze względu na przekroczenie 80\% pojemności rynku. Zmienna niezbędna do wyeliminowania obecności zmiennej binarnej w funkcji oceny
+

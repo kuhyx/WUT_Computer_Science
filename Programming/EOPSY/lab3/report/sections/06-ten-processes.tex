@@ -1,0 +1,93 @@
+\section{Ten processes}
+\subsection{Summary Results file}                                              
+\begin{lstlisting}
+Scheduling Type: Batch (Nonpreemptive)
+Scheduling Name: First-Come First-Served
+Simulation Run Time: 10000
+Mean: 2000
+Standard Deviation: 0
+\end{lstlisting}
+\begin{center}                                                                 
+\begin{tabular}{| c | c | c | c | c |}                                         
+\hline                                                                         
+Process\# &     CPU Time &      IO Blocking & CPU Completed & CPU Blocked \\
+\hline
+0		&2000 (ms)	&500 (ms)&	2000 (ms)&	3 times \\
+\hline
+1		&2000 (ms)	&500 (ms)&	2000 (ms)&	3 times \\
+\hline
+2		&2000 (ms)	&500 (ms)&	2000 (ms)&	3 times \\
+\hline
+3		&2000 (ms)	&500 (ms)&	2000 (ms)&	3 times \\
+\hline
+4		&2000 (ms)	&500 (ms)&	1000 (ms)&	2 times \\ 
+\hline
+5		&2000 (ms)	&500 (ms)&	1000 (ms)&	1 times \\
+\hline
+6		&2000 (ms)	&500 (ms)&	0 (ms)&		0 times \\
+\hline
+7		&2000 (ms)	&500 (ms)&	0 (ms)&		0 times \\
+\hline
+8		&2000 (ms)	&500 (ms)&	0 (ms)&		0 times \\
+\hline
+9		&2000 (ms)	&500 (ms)&	0 (ms)&		0 times \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Summary Processes file}
+\begin{lstlisting}         
+Process: 0 registered... (2000 500 0 0)
+Process: 0 I/O blocked... (2000 500 500 500)
+Process: 1 registered... (2000 500 0 0)
+Process: 1 I/O blocked... (2000 500 500 500)
+Process: 0 registered... (2000 500 500 500)
+Process: 0 I/O blocked... (2000 500 1000 1000)
+Process: 1 registered... (2000 500 500 500)
+Process: 1 I/O blocked... (2000 500 1000 1000)
+Process: 0 registered... (2000 500 1000 1000)
+Process: 0 I/O blocked... (2000 500 1500 1500)
+Process: 1 registered... (2000 500 1000 1000)
+Process: 1 I/O blocked... (2000 500 1500 1500)
+Process: 0 registered... (2000 500 1500 1500)
+Process: 0 completed... (2000 500 2000 2000)
+Process: 1 registered... (2000 500 1500 1500)
+Process: 1 completed... (2000 500 2000 2000)
+Process: 2 registered... (2000 500 0 0)
+Process: 2 I/O blocked... (2000 500 500 500)
+Process: 3 registered... (2000 500 0 0)
+Process: 3 I/O blocked... (2000 500 500 500)
+Process: 2 registered... (2000 500 500 500)
+Process: 2 I/O blocked... (2000 500 1000 1000)
+Process: 3 registered... (2000 500 500 500)
+Process: 3 I/O blocked... (2000 500 1000 1000)
+Process: 2 registered... (2000 500 1000 1000)
+Process: 2 I/O blocked... (2000 500 1500 1500)
+Process: 3 registered... (2000 500 1000 1000)
+Process: 3 I/O blocked... (2000 500 1500 1500)
+Process: 2 registered... (2000 500 1500 1500)
+Process: 2 completed... (2000 500 2000 2000)
+Process: 3 registered... (2000 500 1500 1500)
+Process: 3 completed... (2000 500 2000 2000)
+Process: 4 registered... (2000 500 0 0)
+Process: 4 I/O blocked... (2000 500 500 500)
+Process: 5 registered... (2000 500 0 0)
+Process: 5 I/O blocked... (2000 500 500 500)
+Process: 4 registered... (2000 500 500 500)
+Process: 4 I/O blocked... (2000 500 1000 1000)
+Process: 5 registered... (2000 500 500 500)
+\end{lstlisting}     
+\subsection{Comments}
+Scheduling type was Batch since I did not change it in SchedulingAlgorithm.java
+file \\
+Scheduling Name was First-Come First-Served since this is what what we use as
+described in README for this laboratory \\
+Simulation run time is 10000 ms since it run untill the limit I set in conf file
+according to task description \\
+IO Blocking set to 500 ms as in config file \\
+Mean is 2000 since this is a value I set in conf value according to laboratory
+task description, same with standard deviation equal to 0 and CPU Time equal to
+2000 ms \\
+CPU completed this time is equal to 2000 up to 4th process and then is equal to
+1000 ms for 5th and 6th and then it is equal to 0 ms, this means that the
+simulation exceeded the runtime before it had a chance to run all processes
+

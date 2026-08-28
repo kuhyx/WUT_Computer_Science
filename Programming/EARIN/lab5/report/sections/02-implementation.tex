@@ -1,0 +1,47 @@
+\section{Implementation}
+Program can be ran by installing python, moving to project directory and issuing command:
+\begin{lstlisting}[language=bash]
+python main.py
+\end{lstlisting}
+Results will be displayed on three 2d scatter plots. \\ 
+Plots Title is filled with parameters used abbreviated for space sake \\ 
+Abbreviatons meaning: 
+\begin{itemize} 
+    \item lr - Learning Rate
+    \item bs - Batch Size 
+    \item hl - Number of Hidden Layers 
+    \item w - Width 
+    \item Adam or SGD or SGD\_Momentum - Optimizer type
+\end{itemize}
+Plot types: 
+\begin{itemize}
+    \item Loss value for learning step
+    \item Train Accuracy for epoch
+    \item Validation Accuracy for epoch
+\end{itemize}
+
+\begin{figure}[H]
+    \caption{Exemplary plot of loss for learning Step \\ lr0.001-bs64-hl1-w128-Adam }
+    \includegraphics[width=\textwidth]{testsResults/loss/def.png}
+    \centering
+    \end{figure}
+\begin{figure}[H]
+    \caption{Exemplary plot of Validation Accuracy for epoch \\ lr0.001-bs64-hl1-w128-Adam }
+    \includegraphics[width=\textwidth]{testsResults/validationAccuracy/validationAccuracy-lr0.001-bs64-hl2-w64-Adam.png}
+    \centering
+    \end{figure}
+\begin{figure}[H]
+\caption{Exemplary plot of Train Accuracy for epoch \\ lr0.001-bs64-hl1-w128-Adam }
+\includegraphics[width=\textwidth]{testsResults/trainAccuracy/trainAccuracy-lr0.001-bs64-hl2-w64-Adam.png}
+\centering
+\end{figure}
+Results will be displayed and saved in the same folder as code directory for further inspection, with file name containing information about input parameters \\
+Additionaly speed it took for neural network to run will be saved to results.txt along with what parameters were used \\ 
+We decided to run 19 tests in total:
+\begin{enumerate} 
+    \item learning rate [0.1, 0.01, 0.001] (3 tests)
+    \item mini-batch size [1, 64, 128, 256] (4 tests)
+    \item number of hidden layers [0, 1, 2, 3] (4 tests)
+    \item width [64, 128, 256, 512, 1024] (5 tests)
+    \item optimizer type [SGD, SGD\_Momentum, Adam] (3 tests)
+\end{enumerate} 

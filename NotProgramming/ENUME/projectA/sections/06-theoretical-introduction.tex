@@ -1,0 +1,118 @@
+\section{Theoretical Introduction}
+Gaussian elimination with partial pivoting consists of 3 main steps:
+\subsection{Transform matrix into upper-triangular matrix}
+
+\subsubsection{Starting conditions}
+We start with the system of linear equations looking like this:
+
+\[
+\begin{matrix}
+
+&a_{11}x_1 &{}+&a_{12}x_2&+&\dots&+&a_{1n}x_n &=&b_1,\\
+
+&a_{21}x_1 &{}+&a_{22}x_2&+&\dots&+&a_{2n}x_n &=&b_2,\\
+
+&\vdots    &&\vdots      & &     & &  \vdots  & &\vdots\\
+
+&a_{n1}x_1&{}+&a_{n2}x_2&+&\dots &+&a_{nn}x_n&=&b_n.
+
+\end{matrix}
+\]
+
+In order for this method to work all the elements of "diagonal" line:
+\[ a_{11}, a_{22}, \dots, a_{nn} \]
+Must be different from zero since We will be dividing by them.
+
+We will denote rows as '$w_i$' where 'i' is number of the row.
+
+\subsubsection{Zeroing first column}
+We start transforming the system by "zeroing" elements in first column excluding first row element. We do it by multiplying first row by $l_{i1}$, where:
+\[ l_{i1} = \frac{ a_{i1}^{(1)} }
+{ a_{11}^{(1)} }  \]
+And then substracting what we got ($ l_{i1}w_1 $), from \textit{i} row.
+
+Doing so we obtain a system of linear equations:
+
+\[
+\begin{matrix}
+
+&a_{11}x_1 &{}+&a_{12}x_2&+&\dots&+&a_{1n}x_n &=&b_1,\\
+
+&0 &{}+&(a_{22} - a_{12}l_{21})x_2&{}+&\dots&{}+&(a_{2n} - a_{1n}l_{21})x_n &=&b_2 - b_{1}l_{21},\\
+
+&\vdots    &&\vdots      & &     & &  \vdots  & &\vdots\\
+
+&0&{}+&(a_{n2} - a_{12}l_{n1})x_2&+&\dots &+&(a_{nn} - a_{1n}l_{n1})x_n&=&b_n - b_{1}l_{n1}.
+
+\end{matrix}
+\]
+
+\subsubsection{Zeroing second column}
+We continue onto the second column, this time we will zero all elements except first and second rows.
+Row multiplier becomes:
+\[ l_{i2} = \frac{ a_{i2}^{(2)} }{ a_{22}^{(2)} } \]
+Where:
+\[ a_{22}^{(2)} = (a_{22} - a_{12}l_{21}) \]
+And:
+\[ a_{i2}^{(2)} = (a_{i2} - a_{12}l_{i1}) \]
+\newpage
+They are modified values obtained from previous step.
+We continue as in the first step and we end up with:
+
+\[
+\begin{matrix}
+
+&a_{11}x_1 &{}+&a_{12}x_2&+&\dots&+&a_{1n}x_n &=&b_1,\\
+
+&0 &{}+& a_{22}^{(2)}x_2&{}+&\dots&{}+& a_{2n}^{(2)}x_n &=&b_2^{(2)},\\
+
+&\vdots    &&\vdots      & &     & &  \vdots  & &\vdots\\
+
+&0 &{}+& 0 &{}+&\dots&{}+& a_{nn}^{(3)}x_n &=&b_2^{(3)},
+
+\end{matrix}
+\]
+
+\subsubsection{Zeroing next columns}
+We repeat this process $n-1$ times and we end up with upper triangular matrix:
+
+\[
+\begin{matrix}
+
+&a_{11}x_1 &{}+&a_{12}x_2&+&\dots&+&a_{1n}x_n &=&b_1,\\
+
+&0 &{}+& a_{22}^{(2)}x_2&{}+&\dots&{}+& a_{i2}^{(2)}x_n &=&b_2^{(2)},\\
+
+&\vdots    &&\vdots      & &     & &  \vdots  & &\vdots\\
+
+&0 &{}+& 0 &{}+&\dots&{}+& a_{nn}^{(n)}x_n &=&b_2^{(n)},
+
+\end{matrix}
+\]
+
+\subsection{Backward substitution}
+After transforming the system we solve the system from last to first. \\
+First we calculate value of last element:
+\[ x_n = \frac{b_n}{a_{nn}} \]
+Then one "above":
+\[ x_{n-1} = \frac{ b_{n-1} - a_{n-1, n}x_n}{a_{n-1, n-1}} \]
+And so on, for $x_k$:
+\[ x_{k} = \frac{b_k - \sum_{j = k + 1}^n a_{kj}x_j}{a_{kk}} \]
+
+\newpage
+\subsection{Partial Pivoting}
+Gaussian elimination method has one flaw, where it can come into halt if:
+\[ a_{kk}^{(k)} = 0 \]
+To avoid it we use method of pivoting, in our case we will use partial pivoting method.
+We do it before each Gaussian elimination step since this will lead to smaller error.
+\\We first find a row $i$ such that:
+\[ |{a_{ik}^{k}}| = \underset{j}{max} \{ |{a_{kk}^{k}}|, |{a_{k+1, k}^{k}}|, \cdots, |{a_{nk}^{k}}|\} \]
+
+Then we swap this row with k-th row. Since the matrix we use is assumed to be nonsingular then $|{a_{ik}^{k}}| \neq 0$ will be always true. After that we continue with the Gaussian elimination method.
+
+Let's compare full pivoting to partial pivoting.
+Full pivoting carries more computational load. It comes from the fact that:
+In full pivoting we need to compare absolute values of the matrix elements. (Which gives us $ k^2-1$ comparisons every step as opposed to $k-1$ for partial pivoting). We also have column interchanges and corresponsing interchanges in the order of elements of \textbf{x}.
+Therefore when it comes to speed, partial pivoting is faster than full pivoting.
+
+\newpage

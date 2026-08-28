@@ -1,0 +1,11 @@
+\section{General overview and assumptions}
+My task was to create a translator of \LaTeX \, subset to selected text format with focus on \LaTeX \, tables \\ 
+I decided to change to translator of \LaTeX \, subset to HTML since I know \LaTeX \, very well and HTML relatively well, I decide to translate \LaTeX into HTML since HTML is easy, a little bit different than \LaTeX and popular which makes this translator a practical tool.
+\subsection{Assumptions}
+\begin{itemize}
+    \item "Tables" will be represented using \LaTeX \, \emph{table} environment 
+    \item All changes influenced by different \LaTeX \, document class are ignored in html 
+    \item Everything between documentclass and begin document is ignored when generating html
+    \item Program tries to generate final html even if encountering errors which would make final html not complete
+    \item Only commands defined in \LaTeX \, subset are translated, rest is translated literally as raw text to html
+\end{itemize}

@@ -1,0 +1,29 @@
+\section{Functional requirements}
+The goal of the project is to transform .tex file to (working ) .html file if the subset of .tex file is within project scope or output error message explaining why the html could not be outputed
+\subsection{\LaTeX \, subset}
+This project will focus almost exclusively on \emph{tabular} environment \\
+\begin{itemize}
+    \item $\backslash$documentclass\{class\}: Defines what layout standard \LaTeX will use 
+    \item $\backslash$begin\{document\}: Ends (in our case empty) preamble
+    \item $\backslash$end\{document\}: Ends \LaTeX \, document
+    \item $\backslash$begin\{tabular\}[pos]\{table spec\}: Opens environment used to typeset tables 
+    \item $\backslash$end\{tabular\}: Closes environment used to typeset tables 
+\end{itemize}
+Supported tabular arguments:
+\begin{itemize}
+    \item l, c, r - respectively left-justified, centered and right-justified column
+    \item  | - single vertical line 
+    \item  || - double vertical line 
+    \item p\{'width'\} - paragraph column (that wraps), aligned at the top 
+    \item m\{'width'\} - paragraph column (that wraps), aligned at the middle 
+    \item b\{'width'\} - paragraph column (that wraps), aligned at the bottom 
+\end{itemize}
+
+Supported commands inside tabular environment
+\begin{itemize}
+    \item \& - separate columns
+    \item $\backslash$$\backslash$ - start new row
+    \item $\backslash$hline - horizontal line
+    \item $\backslash$cline\{i-j\} horizontal line beginning in column i and ending in column j
+    \item $\backslash$newline - new line \emph{inside} the cell
+\end{itemize}

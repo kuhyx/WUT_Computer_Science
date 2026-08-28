@@ -1,0 +1,229 @@
+\section{Theoretical introduction}
+
+Itertaive methods differ from the Gauss elimination method since they will improve with each iteration and we don't have the guarantee of how many iterations will be neeeded before we reach the solution. Increasing iterations, decreases error of solution.
+
+In general:
+We start with:
+ \textbf{$x^{(0)}$ } - being the best known approximation of the solution point
+
+And we generate next vectors  \textbf{$x^{i+1}$}  in such way:
+\[ \mathbf{x^{i+1}} = \mathbf{M}\mathbf{x^{(i)}} + \mathbf{w} \]
+
+Where $\mathbf{M}$ is some matrix.
+
+\subsection{Procedure}
+
+\subsubsection{Decomposing matrix}
+For both Jacobi and Gauss-Seidel method we first decompose starting matrix $ \mathbf{A} $ to:
+\[ \mathbf{A} = \mathbf{L} + \mathbf{D} + \mathbf{U} \]
+where:
+$ \mathbf{L} $ - Subdiagonal matrix
+$ \mathbf{D} $ - Diagonal matrix
+$ \mathbf{U} $ - Matrix with entries over the diagonal.
+
+For example:
+For:
+\[ \mathbf{A} = \begin{bmatrix}
+2 & 3 & 3\\
+1 & 2 & 3\\
+1 & 1 & 2
+\end{bmatrix}
+\]
+
+We can get:
+\[ \mathbf{L} = \begin{bmatrix}
+0 & 0 & 0\\
+1 & 0 & 0\\
+1 & 1 & 0
+\end{bmatrix}
+\]
+\[ \mathbf{D} = \begin{bmatrix}
+2 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 2
+\end{bmatrix}
+\]
+\[ \mathbf{U} = \begin{bmatrix}
+0 & 3 & 3\\
+0 & 0 & 3\\
+0 & 0 & 0
+\end{bmatrix}
+\]
+
+so:
+
+\[ \mathbf{A} = \mathbf{L} + \mathbf{D} + \mathbf{U} \]
+
+\[
+\begin{bmatrix}
+2 & 3 & 3\\
+1 & 2 & 3\\
+1 & 1 & 2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 0 & 0\\
+1 & 0 & 0\\
+1 & 1 & 0
+\end{bmatrix}
++
+\begin{bmatrix}
+2 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 2
+\end{bmatrix}
++
+\begin{bmatrix}
+0 & 3 & 3\\
+0 & 0 & 3\\
+0 & 0 & 0
+\end{bmatrix}
+\]
+
+\subsubsection{Jacobi's method}
+After decomposing matrix we can write the system of equations
+\[ \mathbf{A}\mathbf{x} = \mathbf{b} \]
+in the form:
+\[ \mathbf{D}\mathbf{x} = -(\mathbf{L}+\mathbf{U})\mathbf{x}+\mathbf{b}
+\]
+
+If we assume that diagonal entries of matrix \textbf{A} are nonzero, then matrix \textbf{D} is nonsingular therefore we can propose such an iterative method:
+\[ \mathbf{x}^{i+1} = -\mathbf{D}^{-1}(\mathbf{L}+\mathbf{U})\mathbf{x}^{(i)}+\mathbf{D}^{-1}\mathbf{x}
+\]
+This is the Jacobi's method.
+We can rewritte this equation in the form of \textit{n} independent scalar equations:
+
+\[
+{x}_j^{i+1} = -\frac{1}{d_{jj}}(
+\sum^n_{k=1} (l_{jk} + u_{jk})x_k^{(i)}+b_j)
+) \]
+Where $d_{jj}$; $l_{jk}$;  $u_{jk}$ are the elements of the respective matrixes \textbf{D}, \textbf{L}, \textbf{U}
+
+Thanks to this we can do those computations in paraller, totally or partially if we are using a computer that enables a parallelization of the computations.
+
+\paragraph{Converging}
+Jacobi's method is convergent if we have strong diagonal dominance of the matrix \textbf{A}. (More on that in discussion of results)
+
+
+\subsubsection{Gauss-Seidel method}
+After decomposing matrix we can write the system of equations
+\[ \mathbf{A}\mathbf{x} = \mathbf{b} \]
+in the form:
+\[ (\mathbf{L}+\mathbf{D})\mathbf{x} = -\mathbf{U}\mathbf{x}+\mathbf{b}
+\]
+Again, we assume that \textbf{D} is nonsingular, in doing so we propose following iterative method:
+\[ \mathbf{D}\mathbf{x}^{(i+1)} = -\mathbf{L}\mathbf{x}^{(i+1)}-\mathbf{U}\mathbf{x}^{(i)}+\mathbf{b}
+\]
+Since matrix \textbf{L} is subdiagonal, provided that we organise the calculation of elements of the vector $x^{(i_1)}$ in a proper way, it does not hurt that $x^{(i_1)}$ is on the right side of the equation.
+\newpage
+In order to organise the calculation in the correct way we:
+First take into account the structure of matrixes \textbf{D} and \textbf{L}:
+\[
+\begin{bmatrix}
+d_{11}x_1^{(i_1)}\\
+d_{22}x_2^{(i_1)}\\
+d_{33}x_3^{(i_1)}\\
+\vdots\\
+d_{nn}x_n^{(i_1)}
+\end{bmatrix}
+=
+-
+\begin{bmatrix}
+0 & 0 & 0 & \cdots & 0\\
+l_{21} & 0 & 0 & \cdots & 0\\
+l_{32} & l_{32} & 0 & \cdots & 0\\
+\vdots & \vdots & \vdots & \vdots & \vdots\\
+l_{n1} & l_{n2} & l_{n3} & \cdots & 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1^{(i_1)}\\
+x_2^{(i_1)}\\
+x_3^{(i_1)}\\
+\vdots\\
+x_n^{(i_1)}
+\end{bmatrix}
+-
+\mathbf{w}^{(i)}
+\]
+Where
+\[ \mathbf{w}^{(i)} = \mathbf{U}\mathbf{x}^{(i)} - \mathbf{b} \]
+So the order of calculations is as follows:
+\[ x_1^{(i+1)} = -\frac{w_1^{(i)}}{d_{11}} \]
+\[ x_2^{(i+1)} = -\frac{-l_{21}x_1^{(i+1)} - w_2^{(i)}}{d_{22}} \]
+\[ x_3^{(i+1)} = -\frac{-l_{31}x_1^{(i+1)} -l_{32}x_2^{(i+1)} - w_3^{(i)}}{d_{33}} \]
+
+And so on
+
+As opposed to Jacobi's method, Gauss-Seidel method computations must be performed sequentially. Every subsequent scalar equations uses results from the computation of the previous equations.
+\paragraph{Converging}
+Gauss-Seidel method is convergent if the matrix \textbf{A} is strongly row or column diagonnaly dominant. If the matrix is symmetric, the method is also convergent if the matrix \textbf{A} is positive definite. This method is also usually faster convergent compared to Jacobi's method.
+
+\newpage
+\subsubsection{Stop tests}
+There are two ways to check when to terminate iterations of the methods we just discussed:
+\begin{enumerate}
+\item Check differences between two subsequent iteration points
+\[
+\| \mathbf{x}^{(i+1)} - \mathbf{x}^{(i)} \| \leq \delta
+\]
+Where $\delta$ is an assumed tolerance, (in our case $10^{-10}$). What we are really interested in though is whether the solution of the system of equation has required accuracy. If we want to check that we can additionaly check (higher level, more computationally demanding test):
+\item Check differences between two subsequent iteration points
+\[
+\| \mathbf{A}\mathbf{x}^{(i+1)} - \mathbf{b}\| \leq \delta_2
+\]
+Where $\delta_2$ is an assumed tolerance. If this test is not passed then we can diminish the value of $\delta_2$ and continue with the iterations. Value of $\delta_2$ can not be too small since we are limited by the numerical errors.
+\end{enumerate}
+
+\newpage
+\subsubsection{\textbf{A} and \textbf{b}}
+We have been given the following system:
+\[
+\systeme{10x_1-4x_2+x_3+2x_4=-8, 2x_1-6x_2+3x_3-x_4=-12, x_1+4x_2-12x_3+x_4=4, 2x_1+3x_2-3x_3-10x_4=1}
+\]
+Therefore our matrices will look like this:
+\[
+\textbf{A} = \begin{bmatrix}
+10 & -4 & 1 & 2 \\
+2 & -6 & 3 & -1 \\
+1 & 4 & -12 & 1 \\
+2 & 3 & -3 & -10
+\end{bmatrix}
+\textbf{b} = \begin{bmatrix}
+-8 \\
+-12 \\
+4 \\
+11 \\
+\end{bmatrix}
+\]
+
+So:
+\[
+\textbf{L} = \begin{bmatrix}
+0 & 0 & 0 & 0 \\
+2 & 0 & 0 & 0 \\
+1 & 4 & 0 & 0 \\
+2 & 3 & -3 & 0
+\end{bmatrix}
+\textbf{D} = \begin{bmatrix}
+10 & 0 & 0 & 0 \\
+0 & -6 & 0 & 0 \\
+0 & 0 & -12 & 0 \\
+0 & 0 & 0 & -10
+\end{bmatrix}
+\textbf{U} = \begin{bmatrix}
+0 & -4 & 1 & 2 \\
+0 & 0 & 3 & -1 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0
+\end{bmatrix}
+\]
+\[
+\textbf{D}^{-1} = \begin{bmatrix}
+\frac{1}{10} & 0 & 0 & 0 \\
+0 & - \frac{1}{6} & 0 & 0 \\
+0 & 0 & - \frac{1}{12} & 0 \\
+0 & 0 & 0 & - \frac{1}{10}
+\end{bmatrix}
+\]
+
+\newpage

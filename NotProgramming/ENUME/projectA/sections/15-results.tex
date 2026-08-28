@@ -1,0 +1,80 @@
+\section{Results}
+\subsection{Starting matrix}
+I decided to generate random symmetric matrix using following code:
+\hyperlink{function4_matrix_generation}{code for matrix generation.}
+I got the following matrix:
+\[
+\begin{bmatrix}
+171  &  48  & 133  &  81  &  93 \\
+ 48  & 108  &  63  &  35  &  30 \\
+133  &  63  & 131  &  64  &  91 \\
+ 81  &  35  &  64  &  41  &  37 \\
+ 93  &  30  &  91  &  37  & 106
+\end{bmatrix}
+\]
+
+Putting it through Matlab eig function I got eigen values equal to:
+\[
+10^{2} *
+\begin{bmatrix}
+  0.000050598692964 \\
+  0.105696602175690 \\
+  0.454589544003707 \\
+  0.870708987227002 \\
+  4.138954267900641
+\end{bmatrix}
+\]
+
+\newpage
+\subsection{QR method with no shifts}
+Putting this matrix to my functions QRNoShifts and QRShifts I got:
+for qr method with no shifts:
+Final matrix:
+\[
+\begin{bmatrix}
+413.8954  &  0.0000  & -0.0000  &  0.0000  &  0.0000 \\
+ 0.0000  & 87.0709  &  -0.0000  &  -0.0000  &  0.0000 \\
+0.0000  &  -0.0000  & 45.4590  &  -0.0000  &  -0.0000 \\
+ -0.0000  &  0.0000  &  -0.0000  &  10.5697  &  -0.0000 \\
+ 0.0000  &  -0.0000  &  0.0000  &  0  & 0.0051
+\end{bmatrix}
+\]
+
+Eigen values:
+\[
+10^{2} *
+\begin{bmatrix}
+  4.138954267900639 \\
+   0.870708987227001 \\
+   0.454589544003706 \\
+   0.105696602175689 \\
+   0.000050598692964 \\
+\end{bmatrix}
+\]
+
+It took \textbf{26} iterations to get those values.
+
+\subsection{QR method with shifts}
+For qr method with shiftts:
+Final matrix:
+\[
+\begin{bmatrix}
+413.8954
+\end{bmatrix}
+\]
+
+Eigen values:
+\[
+10^{2} *
+\begin{bmatrix}
+  0.454589544003706 \\
+  0.870708987227001 \\
+  0.105696602175689 \\
+  0.000050598692964 \\
+  4.138954267900639
+\end{bmatrix}
+\]
+
+It took \textbf{12} iterations to get those values.
+
+\newpage

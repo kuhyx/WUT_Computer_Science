@@ -1,0 +1,30 @@
+\section{Getting process to be blocked 4 times}
+Up untill now process got blocked for maximum of 3 times. This makes sense since
+since they get blocked every 500 ms and the runtime for single process is 2000
+ms, so they get blocked first time at 500 ms, second time at 1000 ms and third
+time at 1500 ms, at 2000 ms they finish execution so they do not get blocked. \\
+If we change runtime of process to 2001 ms we should get as the result them
+getting blocked 4 times! \\
+I changed meandev in scheduling.conf to 2001 and observed results:
+\subsection{Summary Results file}
+\begin{lstlisting}
+Scheduling Type: Batch (Nonpreemptive)
+Scheduling Name: First-Come First-Served
+Simulation Run Time: 6003
+Mean: 2001
+Standard Deviation: 0
+\end{lstlisting}
+\begin{center}
+	\begin{tabular}{| c | c | c | c | c |}
+		\hline
+		Process \#&	CPU Time&	IO Blocking&	CPU Completed&
+		CPU Blocked \\ \hline
+		0	&	2001 (ms)&	500 (ms)&	2001 (ms)&
+		4 times  \\ \hline
+		1	&	2001 (ms)&	500 (ms)&	2001 (ms)&
+		4 times \\ \hline
+		2	&	2001 (ms)&	500 (ms)&	2001 (ms)&
+		4 times \\ \hline
+\end{tabular}
+\end{center}
+Sure enough we got all of the processes blocked 4 times!

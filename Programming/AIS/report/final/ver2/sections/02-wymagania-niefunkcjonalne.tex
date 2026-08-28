@@ -1,0 +1,42 @@
+\section{Wymagania niefunkcjonalne}
+
+\begin{enumerate}
+    \item \textbf{Wydajność systemu} - System musi obsługiwać jednoczesne przetwarzanie danych z co najmniej 200,000 pojazdów w godzinach szczytu\footnote{\url{https://forsal.pl/transport/drogi/artykuly/8295957,najbardziej-obciazone-drogi-w-polsce-s8-s2-a4-s86-mapa.html}}, z czasem odpowiedzi dla transakcji poniżej 1s oraz przetwarzaniem danych geolokalizacyjnych w czasie rzeczywistym.
+
+    \item \textbf{Dostępność systemu} - System musi zapewniać dostępność na poziomie 99,9\% (maksymalny czas niedostępności: $\sim$9 godzin rocznie), z planowanymi oknami serwisowymi w godzinach nocnych (1:00-4:00) i z odpowiednim wyprzedzeniem komunikowanym użytkownikom.
+
+    \item \textbf{Bezpieczeństwo danych} - System musi zapewniać:
+    \begin{enumerate}
+        \item Szyfrowanie danych w spoczynku i podczas transmisji (minimum AES-256)
+        \item Zgodność z normą ISO/IEC 27001
+        \item Wielopoziomową autoryzację użytkowników (hasło + kod sms)
+        \item Pełną zgodność z RODO, włączając automatyczne mechanizmy anonimizacji danych historycznych starszych niż 5 lat.
+    \end{enumerate}
+
+    \item \textbf{Skalowalność} - System musi posiadać architekturę umożliwiającą skalowanie w celu obsługi wzrostu liczby użytkowników o 30\% rocznie bez pogorszenia wydajności\footnote{\url{https://kpmg.com/pl/pl/home/media/press-releases/2024/02/liczba-rejestracji-nowych-samochodow-osobowych-wzrosla-o-13-2-procent-w-2023-roku.html}}, z automatycznym zwiększeniem zasobów w odpowiedzi na zwiększone obciążenie w ciągu dnia.
+
+    \item \textbf{Niezawodność i odporność na awarie} - System musi zawierać rozwiązania wysokiej dostępności z nadmiarowością komponentów krytycznych, automatycznym przełączaniem awaryjnym poniżej 10 sekund oraz mechanizmem ciągłej replikacji danych między geograficznie odległymi centrami danych, zapewniając RPO (Recovery Point Objective) poniżej 5 minut i RTO (Recovery Time Objective) poniżej 30 minut.
+
+    \item \textbf{Interoperacyjność} - System musi obsługiwać standardy interoperacyjności z europejskimi systemami elektronicznego poboru opłat (zgodnie z dyrektywą EETS\footnote{\url{https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX\%3A32019L0520}}), zapewniając pełną wymianę danych poprzez standardowe API (REST/SOAP) z minimum 99,5\% dostępnością interfejsów integracyjnych.
+
+    \item \textbf{Użyteczność i dostępność interfejsów} - Interfejsy użytkownika (portal i aplikacja mobilna) muszą spełniać standardy WCAG 2.1 na poziomie AA, obsługiwać minimum 5 języków (polski, angielski, niemiecki, ukraiński, rosyjski), zapewniać responsywność na urządzeniach mobilnych oraz wykazywać wskaźnik satysfakcji użytkowników (CSAT) na poziomie minimum 85\%.
+
+    \item \textbf{Audytowanie i śledzenie aktywności} - System musi rejestrować wszystkie operacje w niezmienialne logi z zachowaniem zgodności z wymogami prawnymi dotyczącymi dowodów elektronicznych, umożliwiać niemodyfikowalny ślad audytu dla wszystkich transakcji finansowych oraz zapewniać przechowywanie logów przez minimum 5 lat z możliwością szybkiego wyszukiwania.
+
+    \item \textbf{Efektywność zarządzania danymi} - System musi umożliwiać archiwizację i zarządzanie cyklem życia danych zgodnie z polityką retencji, zapewniać kompresję danych historycznych na poziomie minimum 80\% oraz optymalizację zapytań do bazy danych z czasem odpowiedzi poniżej 10 sekund dla 90\% zapytań raportowych.
+
+    \item \textbf{Utrzymywalność i modyfikowalność} - System musi być zaprojektowany z wykorzystaniem architektury modułowej i mikroserwisowej, umożliwiającej niezależną aktualizację poszczególnych komponentów bez przerywania działania całości systemu, z automatycznymi testami regresji pokrywającymi minimum 90\% kodu oraz pełną dokumentacją techniczną aktualizowaną przy każdej \textbf{dużej} (takiej która sprawia że system nie jest kompatybilny z poprzednią wersją) zmianie.
+
+    \item \textbf{System integracji z zewnętrznymi bazami danych} - System musi komunikować się z zewnętrznymi bazami danych (np. CEPiK, rejestry pojazdów innych krajów) w celu weryfikacji danych pojazdów oraz wymiany informacji o użytkownikach z zagranicznymi systemami poboru opłat.
+
+    \item \textbf{Zgodność prawna i regulacyjna} - System musi spełniać wszystkie obowiązujące przepisy prawa krajowego oraz unijnego dotyczące elektronicznego poboru opłat. Ustawę o drogach publicznych, dyrektywę EETS, przepisy podatkowe oraz przepisy dotyczące ochrony konkurencji i konsumentów.
+
+    \item \textbf{Czas wdrożenia poprawek krytycznych} - w przypadku wykrycia krytycznego błędu (np. Uniemożliwiającego naliczenie opłaty lub przetwarzanie przejazdów) poprawka musi zostać wdrożona w ciągu maksymalnie 24 godzin od momentu potwierdzenia błędu.
+
+    \item \textbf{Transparentność naliczanych opłat} - system musi umożliwiać użytkownikom końcowym wgląd w szczegółowe informacje dotyczące każdej naliczonej opłaty. Czas przejazdu, odcinki dróg, taryfy oraz podstawy naliczenia.
+
+    \item \textbf{Elastyczność taryf} - system musi obsługiwać dynamiczne taryfy drogowe (np. Zmienne w zależności od natężenia ruchu czy poziomu emisji pojazdu) z możliwoścą wdrażania nowych taryf bez konieczności przerywania działania systemu.
+
+    \item \textbf{Personalizacja powiadomień dla użytkowników} - system musi umożliwić użytkownikom wybór otrzymywania powiadomień np. (sms, e-mail, powiadomienie push w aplikacji) z opcją definiowania progów powiadomień (np. Przekroczenie salda, opłata powyżej X zł etc.)
+\end{enumerate}
+

@@ -1,0 +1,14 @@
+\section{General plan of tests/experiments}
+
+To evaluate and compare the performance of our collaborative filtering model with different parameter configurations, we will use grid search and 5-fold cross-validation.
+
+Grid search will allow us to systematically test different combinations of hyperparameters, such as the number of nearest neighbors in KNN and the regularization strength in the matrix factorization algorithm, to find the best combination that maximizes the model's performance.
+
+Cross-validation will help us to estimate the model's generalization performance and reduce the risk of overfitting to the training data.
+% Notka dla nas: Hyperparameters: Parameters that are set before training a machine learning model and cannot be learned from the data. Examples of hyperparameters include the learning rate, the number of hidden layers in a neural network, and the regularization strength.
+% Notka dla nas: Overfitting is a common problem in machine learning where a model is trained too well on the training data and performs poorly on the testing or validation data. In other words, the model learns the patterns and noise in the training data to such a degree that it loses the ability to generalize and predict accurately on new data.
+
+To measure the quality of our model's recommendations, we will use precision, recall, and F1-score metrics. Precision measures the proportion of relevant items among the recommended items, recall measures the proportion of relevant items that are recommended, and F1-score is the harmonic mean of precision and recall, providing a balanced measure of the model's performance. We will compute these metrics on the test set and report the average scores across the 5-fold cross-validation.
+
+%Our main goal is to evaluate the performance of the recommendation model. We will perform a 5-fold cross-validation to estimate the generalization performance of the model. We will also use precision, recall, and F1-score metrics to evaluate the model's performance. We will experiment with different values of K (number of neighbors) to find the optimal value.
+

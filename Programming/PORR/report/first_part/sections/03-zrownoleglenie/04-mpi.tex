@@ -1,0 +1,40 @@
+\subsection{MPI}
+Metoda zrównoleglenia przy użyciu MPI (Message Passing Interface) zrównolegla obliczenia na wielu procesorach
+\subsubsection{Podział pracy}
+\paragraph{Rozdzielenie macierzy i wektora}
+Macierz A i wektor b są dzielone na części, które każdy procesor przetwarza indywidualnie. Każdy proces obsługuje określony zakres wierszy macierzy A i odpowiadającą im część wektora b.
+\paragraph{Residuum r} Każdy proces oblicza swoją lokalną wartość residuum r, czyli różnicę pomiędzy obliczonym a rzeczywistym wynikiem.
+
+\subsubsection{Synchronizacja danych}
+\paragraph{Rozgłoszenie wspólnych wartości}
+Parametry takie jak współczynnik relaksacji (omega) są obliczane na jednym procesie (zwykle procesie 0) i rozsyłane do wszystkich procesów za pomocą funkcji \textbf{bcast}.
+
+\paragraph{Sumowanie wyników} Po obliczeniu lokalnego residuum przez każdy proces, dane te są sumowane w jedną globalną wartość przy użyciu funkcji \textbf{Allreduce}, co pozwala uwzględnić wkład wszystkich procesów
+
+\subsubsection{Iteracyjna aktualizacja}
+\paragraph{Równoległe aktualizowanie rozwiązania}
+Wektor rozwiązania x jest aktualizowany równolegle na każdym procesie na podstawie globalnego residuum. Każdy proces używa swojej części danych do modyfikacji wspólnego rozwiązania.
+
+\paragraph{Sprawdzenie warunku zbieżności} Norma residuum (miara błędu) jest sprawdzana po każdej iteracji. Gdy osiągnie tolerancję, algorytm przerywa dalsze obliczenia.
+
+
+\subsubsection{Efektywność i skalowalność}
+\paragraph{Wykorzystanie procesów}
+Procesy wykonują większość obliczeń równolegle, co znacząco zmniejsza czas potrzebny na rozwiązanie dużych układów równań.
+
+\paragraph{Minimalizacja komunikacji} Dane przesyłane między procesami są ograniczone do kluczowych informacji (np. residuum, parametry), co redukuje narzut związany z komunikacją.
+
+
+\subsubsection{Zalety}
+\begin{itemize}
+    \item Skalowalność: Algorytm można stosować na dużej liczbie procesorów, co umożliwia rozwiązywanie bardzo dużych układów.
+    \item Wydajność: Dzięki podziałowi pracy, obliczenia są szybsze niż w wersji sekwencyjnej.
+    \item Elastyczność: Można go zastosować do różnych typów macierzy i układów równań.
+\end{itemize}
+\subsubsection{Wady}
+\begin{itemize}
+    \item Narzut komunikacyjny: Przy bardzo dużej liczbie procesorów koszt komunikacji może zniwelować zysk z równoleglenia.
+    \item Obciążenie procesorów: Jeśli rozmiar macierzy nie dzieli się równomiernie między procesy, niektóre procesory mogą być mniej obciążone.
+\end{itemize}
+
+

@@ -1,0 +1,230 @@
+\section{Task 1}
+
+\subsection{task1Bisection.m}
+
+\subsubsection{Top of task1Bisection.m}
+\begin{simplechar}
+\begin{lstlisting}
+interval = [-5, 10];
+rootBrackets = rootBracketing(@taskFunction, interval(1), interval(2));
+
+printGraph(@taskFunction, 'False Position', @falsePosition, interval, rootBrackets, 'Approximate zeros of function for method of ');
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{taskFunction}
+\begin{simplechar}
+\begin{lstlisting}
+function y = taskFunction(x)
+    y = -2.1 + 0.3*x - x*exp(1)^(-x);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{falsePosition}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = falsePosition(taskFunction, a, b, tolerance)
+
+    [iterations, lastTwoA, lastTwoB, i] = initialize();
+    [zero, iterations, a, b, lastTwoA, lastTwoB] = firstTwoIterations(a, b, taskFunction, iterations, lastTwoA, lastTwoB);
+    [zero, iterations] = falsePositionLoop(taskFunction, zero, tolerance, lastTwoA, lastTwoB, i, a, b, iterations);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{initialize}
+\begin{simplechar}
+\begin{lstlisting}
+function [iterations, lastTwoA, lastTwoB, i] = initialize()
+    iterations = double.empty(2, 0);
+    lastTwoA = double.empty(2, 0);
+    lastTwoB = double.empty(2, 0);
+    i = 0;
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{taskFunction}
+\begin{simplechar}
+\begin{lstlisting}
+function y = taskFunction(x)
+    y = -2.1 + 0.3*x - x*exp(1)^(-x);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{firstTwoIterations}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations, a, b, lastTwoA, lastTwoB] = firstTwoIterations(a, b, taskFunction, iterations, lastTwoA, lastTwoB)
+    for j = 1 : 2
+        zero = (a*taskFunction(b) - b * taskFunction(a)) / (taskFunction(b) - taskFunction(a));
+        iterations(:, size(iterations, 2) + 1) = [zero, taskFunction(zero)];
+        if sign(taskFunction(a)) ~= sign(taskFunction(zero))
+            b = zero;
+        else
+            a = zero;
+        end
+        lastTwoA(j) = a;
+        lastTwoB(j) = b;
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{falsePositionLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = falsePositionLoop(taskFunction, zero, tolerance, lastTwoA, lastTwoB, i, a, b, iterations)
+    while abs(taskFunction(zero)) > tolerance
+        [lastTwoA, i, a, lastTwoB, b, tolerance, zero, iterations] = insideLoop(lastTwoA, i, a, lastTwoB, b, tolerance, taskFunction, iterations);
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{insideLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [lastTwoA, i, a, lastTwoB, b, tolerance, zero, iterations] = insideLoop(lastTwoA, i, a, lastTwoB, b, tolerance, taskFunction, iterations)
+    [lastTwoA, lastTwoB] = changeLastTwoAB(lastTwoA, lastTwoB, i, a, b);
+    zero = calculateZero(lastTwoB, tolerance, a, b, lastTwoA, taskFunction);
+    iterations(:, size(iterations, 2) + 1) = [zero, taskFunction(zero)];
+    [a, b] = newSubInterval(taskFunction, a, b, zero);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{changeLastTwoAB}
+\begin{simplechar}
+\begin{lstlisting}
+function [lastTwoA, lastTwoB] = changeLastTwoAB(lastTwoA, lastTwoB, i, a, b)
+    lastTwoA(mod(i, 2) + 1) = a;
+    lastTwoB(mod(i, 2) + 1) = b;
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{calculateZero}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero] = calculateZero(lastTwoB, tolerance, a, b, lastTwoA, taskFunction)
+    if(abs(lastTwoB(1) - lastTwoB(2)) < tolerance)
+        zero = (a*(taskFunction(b) / 2) - b * taskFunction(a)) / (taskFunction(b) / 2 - taskFunction(a));
+    elseif (abs(lastTwoA(1) - lastTwoA(2)) < tolerance)
+        zero = (a*taskFunction(b) - b * (taskFunction(a) / 2)) / (taskFunction(b) - (taskFunction(a) / 2));
+    else
+        zero = (a*taskFunction(b) - b * taskFunction(a)) / (taskFunction(b) - taskFunction(a));
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{newSubInterval}
+\begin{simplechar}
+\begin{lstlisting}
+function [a, b] = newSubInterval(taskFunction, a, b, zero)
+    if sign(taskFunction(a)) ~= sign(taskFunction(zero))
+        b = zero;
+    else
+        a = zero;
+    end
+end
+
+\end{lstlisting}
+\end{simplechar}
+
+
+
+\subsection{task1Newton.m}
+
+\subsubsection{Top of task1Newton.m}
+\begin{simplechar}
+\begin{lstlisting}
+interval = [-5, 10];
+rootBrackets = rootBracketing(@taskFunction, interval(1), interval(2));
+
+printGraph(@taskFunction, 'Newton', @newtonMethod, interval, rootBrackets, 'Approximate zeros of function for method of ');
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{taskFunction}
+\begin{simplechar}
+\begin{lstlisting}
+function y = taskFunction(x)
+    y = -2.1 + 0.3*x - x*exp(1)^(-x);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{newtonMethod}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = newtonMethod(taskFunction, a, b, tolerance)
+    [iterations, iteration, zero] = initialize(a, b);
+    [zero, iterations] = newtonLoop(iterations, iteration, zero, a, b, tolerance, taskFunction);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{initialize}
+\begin{simplechar}
+\begin{lstlisting}
+function [iterations, step, zero] = initialize(a, b)
+    iterations = double.empty(2, 0);
+    step = sqrt(eps);
+    zero = (a + b) / 2;
+    iterations(:, size(iterations, 2) + 1) = [zero, taskFunction(zero)];
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{newtonLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = newtonLoop(iterations, iteration, zero, a, b, tolerance, taskFunction)
+    while abs(taskFunction(zero)) > tolerance
+        [zero, iterations] = insideLoop(taskFunction, zero, iteration, iterations, a, b);
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{insideLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = insideLoop(taskFunction, zero, iteration, iterations, a, b)
+    [zero, iterations] = calculateZeroIterations(taskFunction, zero, iteration, iterations);
+    checkForDivergence(zero, a, b);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{calculateZeroIterations}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = calculateZeroIterations(taskFunction, zero, iteration, iterations)
+    derivative = (taskFunction(zero + iteration) - taskFunction(zero - iteration)) / (2 * iteration);
+    zero = zero - taskFunction(zero) / derivative;
+    iterations(:, size(iterations, 2) + 1) = [zero, taskFunction(zero)];
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{checkForDivergence}
+\begin{simplechar}
+\begin{lstlisting}
+function checkForDivergence(zero, a, b)
+    if zero < a || zero > b
+        error('Divergent iteration');
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage

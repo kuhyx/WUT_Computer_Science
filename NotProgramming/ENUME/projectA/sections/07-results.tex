@@ -1,0 +1,100 @@
+\section{Results}
+\subsection{2a)}
+Solutions vectors for matrix A and vector A and n = 10 \\
+Without residual correction:
+\[ x_{algorithm} = \left(\begin{array}{cc}
+-0.930024655110760 \\
+-1.223407298665613 \\
+-1.273530574219411 \\
+-1.230517757325955 \\
+-1.151356031091789 \\
+-1.056883669282743 \\
+-0.952628310089775 \\
+-0.834334594319914 \\
+-0.683708806203301 \\
+-0.450125157623323
+\end{array} \right)
+\]
+With residual correction:
+\[ x_{algorithm} = \left(\begin{array}{cc}
+-0.930024655110760 \\
+-1.223407298665613 \\
+-1.273530574219411 \\
+-1.230517757325955 \\
+-1.151356031091788 \\
+-1.056883669282743 \\
+-0.952628310089775 \\
+-0.834334594319914 \\
+-0.683708806203301 \\
+-0.450125157623323
+\end{array} \right)
+\]
+Matlab method:
+\[
+x_{Matlab Method} = \left(  = \begin{array}{cc}
+-0.930024655110760 \\
+-1.223407298665612 \\
+-1.273530574219411 \\
+-1.230517757325956 \\
+-1.151356031091789 \\
+-1.056883669282743 \\
+-0.952628310089775 \\
+-0.834334594319914 \\
+-0.683708806203301 \\
+-0.450125157623323
+\end{array} \right)
+\]
+Error for 'A' system of equations for algorithm before residual correction: \[ 1.986027322597818e-15 \]
+Error for 'A' system of equations for algorithm after residual correction: \[ 1.986027322597818e-15 \]
+Error for 'A' system of equations for matlab method: \[ 3.383918772654241 \]
+\newpage
+\subsection{2b)}
+Solutions vectors for matrix B and vector B and n = 10
+Without residual correction:
+\[ x_{algorithm} = 10^{14} * \left(\begin{array}{cc}
+-0.000050600471710 \\
+ 0.001764889142984 \\
+-0.022358533990003 \\
+ 0.142964542843099 \\
+-0.526425616773059 \\
+ 1.184552423606169 \\
+-1.655429692441864 \\
+ 1.402099618098568 \\
+-0.659000958954395 \\
+ 0.131884594651908 \\
+\end{array} \right)
+\]
+With residual correction:
+\[ x_{algorithm} = 10^{14} * \left(\begin{array}{cc}
+-0.000050600463347 \\
+ 0.001764888849422 \\
+-0.022358530253741 \\
+ 0.142964518868662 \\
+-0.526425528251739 \\
+ 1.184552223980917 \\
+-1.655429412965713 \\
+ 1.402099381042299 \\
+-0.659000847398248 \\
+ 0.131884572303072 \\
+\end{array} \right)
+\]
+Matlab method:
+\[
+x_{Matlab Method} = 10^{14} * \left(  = \begin{array}{cc}
+-0.000050613652388 \\
+0.001765340333555 \\
+-0.022364164880105 \\
+0.143000107689097 \\
+-0.526555232536911 \\
+1.184841538613606 \\
+-1.655830695338199 \\
+1.402437027506887 \\
+-0.659158629093553 \\
+0.131915987214953 \\
+\end{array} \right)
+\]
+Error for 'B' system of equations for algorithm before residual correction: \[ 3.775702543583306e-04 \]
+Error for 'B' system of equations for algorithm after residual correction: \[ 7.395459186003887e-04 \]
+Error for 'B' system of equations for matlab method: \[ 2.611906929269057e-04 \]
+
+\newpage

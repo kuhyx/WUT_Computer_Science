@@ -1,0 +1,12 @@
+\section{General overview and assumptions}
+My task is to create a translator of \LaTeX \, subset to selected text format with focus on \LaTeX \, tables \\ 
+I decided to change to translator of \LaTeX \, subset to HTML since I know \LaTeX \, very well and HTML relatively well, I decide to translate \LaTeX into HTML since HTML is easy, a little bit different than \LaTeX and popular which makes this translator a practical tool.
+\subsection{Assumptions}
+\begin{itemize}
+    \item No \LaTeX \, (\%) comments in the script 
+    \item There are no extra packages in \LaTeX \, script (provided with \\ \textbackslash usepackage keyword) besides ones distributed with \LaTeX
+    \item There are no extra classes in \LaTeX \, script besides ones distributed with \LaTeX
+    \item There is nothing between \textbackslash documentclass keyword and \\ \textbackslash begin\{document\} keyword 
+    \item No standard \LaTeX \, instructions are modified in the script
+    \item "Tables" will be represented using \LaTeX \, \emph{table} environment 
+\end{itemize}

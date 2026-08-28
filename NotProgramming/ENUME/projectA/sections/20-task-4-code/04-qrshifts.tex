@@ -1,0 +1,209 @@
+\subsection{QRShifts}
+\begin{simplechar}
+\begin{lstlisting}
+function [eigenValues, whatIterationAreWeOn, Matrix] = QRShifts(Matrix)
+    eigenFromMatlab = eig(Matrix);
+    initialMatrix = Matrix;
+    [eigenValues, whatIterationAreWeOn, matrixSize, minThreshold] = initiateValues(Matrix);
+    [Matrix, whatIterationAreWeOn, eigenValues] = QRShiftLoop(matrixSize, Matrix, eigenValues, minThreshold, whatIterationAreWeOn);
+    dispResults(eigenValues, Matrix, whatIterationAreWeOn, eigenFromMatlab, initialMatrix);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{initiateValues}
+\begin{simplechar}
+\begin{lstlisting}
+function [eigenValues, whatIterationAreWeOn, matrixSize, minThreshold] = initiateValues(Matrix)
+    eigenValues = double.empty(1, 0);
+    whatIterationAreWeOn = 0;
+    matrixSize = size(Matrix, 1);
+    minThreshold = 1e-6;
+end
+
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{QRShiftLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [Matrix, whatIterationAreWeOn, eigenValues] = QRShiftLoop(matrixSize, Matrix, eigenValues, minThreshold, whatIterationAreWeOn)
+    while matrixSize >= 2
+        flag = 0;
+        [Matrix, matrixSize, whatIterationAreWeOn, eigenValues] = findEigenValue(Matrix, matrixSize, whatIterationAreWeOn, eigenValues, minThreshold, flag);
+        [matrixSize, Matrix] = deflateMatrix(Matrix, matrixSize);
+    end
+    eigenValues(size(eigenValues, 2) + 1) = Matrix(1, 1);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{findEigenValue}
+\begin{simplechar}
+\begin{lstlisting}
+function [Matrix, matrixSize, whatIterationAreWeOn, eigenValues] = findEigenValue(Matrix, matrixSize, whatIterationAreWeOn, eigenValues, minThreshold, flag)
+    while flag == 0
+        eigenValueCorner = getEigenValueFromCorner(Matrix, matrixSize);
+        [Matrix, whatIterationAreWeOn] = shiftAndIterate(matrixSize, Matrix, eigenValueCorner, whatIterationAreWeOn);
+        [flag, eigenValues] = thresholdBreached(Matrix, matrixSize, minThreshold, eigenValues);
+    end
+end
+
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{getEigenValueFromCorner}
+\begin{simplechar}
+\begin{lstlisting}
+function eigenValueCorner = getEigenValueFromCorner(Matrix, matrixSize)
+    corner = Matrix((matrixSize - 1) : matrixSize, (matrixSize - 1) : matrixSize);
+    % get 2 x 2 corner of the matrix
+    eigenValueCorner = solveCharactersticEquation(corner);
+end
+
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{shiftAndIterate}
+\begin{simplechar}
+\begin{lstlisting}
+function [Matrix, whatIterationAreWeOn] = shiftAndIterate(matrixSize, Matrix, eigenValueCorner, whatIterationAreWeOn)
+    % shift and iterate algorithm
+    identityMatrix = eye(matrixSize);
+    Matrix = Matrix - identityMatrix * eigenValueCorner;
+    [Q, R] = gramSchmidtAlgorithm(Matrix);
+    Matrix = R * Q + identityMatrix * eigenValueCorner;
+    whatIterationAreWeOn = whatIterationAreWeOn + 1;
+end
+
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{deflateMatrix}
+\begin{simplechar}
+\begin{lstlisting}
+function [matrixSize, Matrix] = deflateMatrix(Matrix, matrixSize)
+    matrixSize = matrixSize - 1;
+    Matrix = Matrix(1:matrixSize, 1:matrixSize);
+end
+
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{thresholdBreached}
+\begin{simplechar}
+\begin{lstlisting}
+function [flag, eigenValues] = thresholdBreached(Matrix, matrixSize, minThreshold, eigenValues)
+    flag = 0;
+    threshold = max(abs(Matrix(matrixSize, 1:(matrixSize - 1))));
+
+     % once we zero the row (or rather get close enough to zero) exit loop
+    if (threshold <= minThreshold)
+        eigenValues(size(eigenValues, 2) + 1) = Matrix(matrixSize, matrixSize);
+        flag = 1;
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{solveCharactersticEquation}
+\begin{simplechar}
+\begin{lstlisting}
+% finds the eigenvalue of a 2x2 matrix that is closer to the lower right corner
+function eigen = solveCharactersticEquation(Matrix)
+    [eigenOne, eigenTwo] = calculateZeros(Matrix);
+    eigen = valueCloserToLowerRightCorner(eigenOne, eigenTwo, Matrix);
+end
+
+function eigen = valueCloserToLowerRightCorner(eigenOne, eigenTwo, Matrix)
+    if abs(Matrix(4) - eigenOne) < abs(Matrix(4) - eigenTwo)
+        eigen = eigenOne;
+    else
+        eigen = eigenTwo;
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{calculateZeros}
+\begin{simplechar}
+\begin{lstlisting}
+function [zeroOne, zeroTwo] = calculateZeros(Matrix)
+    b = Matrix(1) + Matrix(4);
+    ac = Matrix(1) * Matrix(4) - Matrix(2) * Matrix(3);
+    delta = (b) ^ 2 - 4 * ac;
+    % get delta of quadratic equation
+    squareRootDelta = sqrt(delta);
+    % square delta
+    zeroOne = (b - squareRootDelta) / 2;
+    zeroTwo = (b + squareRootDelta) / 2;
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{dispResults}
+\begin{simplechar}
+\begin{lstlisting}
+function dispResults(eigenValues, Matrix, whatIterationAreWeOn, eigenFromMatlab, initialMatrix)
+    disp("Initial matrix: ");
+    disp(initialMatrix);
+    disp("Final matrix: ");
+    disp(Matrix);
+    disp("Number of iterations: ");
+    disp(whatIterationAreWeOn);
+    disp("Eigen values from eig(Matrix):");
+    disp(eigenFromMatlab);
+    disp("Our eigen values: ");
+    disp(eigenValues);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\hypertarget{function4}{\subsection{task4Plot}}
+\begin{simplechar}
+\begin{lstlisting}
+function task4Plot(maxMatrixSize)
+    iterationsNoShiftsVector = zeros(maxMatrixSize);
+    iterationsShiftsVector = zeros(maxMatrixSize);
+    for i = 1 : maxMatrixSize
+        [~, iterationsNoShifts, ~, ~, iterationsShifts, ~] = task4(matrix4(i));
+        iterationsNoShiftsVector(i) = iterationsNoShifts;
+        iterationsShiftsVector(i) = iterationsShifts;
+    end
+    nexttile
+    plot(iterationsNoShiftsVector, '.');
+    title('Number of iterations for different sizes of matrices for no shift method');
+    xlabel('Size of matrix A');
+    ylabel('Number of iterations');
+    nexttile
+    plot(iterationsShiftsVector, '.');
+    title('Number of iterations for different sizes of matrices for shift method');
+    xlabel('Size of matrix A');
+    ylabel('Number of iterations');
+end
+\end{lstlisting}
+\end{simplechar}
+
+\hypertarget{function4_matrix_generation}{\subsection{Matrix generation}}
+\begin{simplechar}
+\begin{lstlisting}
+function A = matrix4()
+    A = 10 * rand(5); % rand generates 5x5 matrix filled with random numbers
+    % we multiply by 10 to get at lest one digit in front of the dot
+    A = floor(A); % we floor the matrix we got to get nice natural numbers matrix
+    A = A * A'; % we get symmetric matrix
+    disp(issymmetric(A)); % we check if matrix is symmetric
+end
+\end{lstlisting}
+\end{simplechar}
+
+
+\begin{thebibliography}{9}
+\bibitem{texbook}
+Piotr Tatjewski (2014) \emph{Numerical Methods}, Oficyna Wydawnicza Politechniki Warszawskiej
+\end{thebibliography}
+

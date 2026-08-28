@@ -1,0 +1,117 @@
+\section{b) Runge-Kutta method of $4^{th}$ order with variable step size automatically adjusted}
+\subsection{Problem}
+We are given following equations:
+\[ \frac{dx_1}{dt} = x_2 + x_1(0.5 - x_1^2 - x_2^2) \]
+\[ \frac{dx_2}{dt} = -x_1 + x_2(0.5 - x_1^2 - x_2^2) \]
+And we have to determine the trajectory of the motion on interval $[0, 15]$ with following initial conditions:
+$ x_1(0) = 8; x_2(0) = 9 $
+In this section we will use Runge-Kutta method of $4^{th}$ order with step size automatically adjusted by the algorithm, with error estimation made according to the step-doubling rule.
+\subsection{Theoretical Introdution}
+Since Runge-Kutta method was explained in previous task I will focus on step-doubling rule.
+Everytime we increase step size we receive less accurate results at the benefit of less calculations cost, this means that we need to have reasonable approach to setting step size to maximise accuracy and minimize calculations cost. We will use step-doubling rule in this example.
+
+\subsubsection{Error estimation using step doubling-approach}
+For every step of size $h$ we perform two additional steps of size $\frac{h}{2}$. We denote: \\
+$y_n^{1}$ as a new point obtained using the original step-size $h$ \\
+$y_n^{2}$ as a new point obtained using steps of the size $\frac{h}{2}$ \\
+$r^{(1)}$ - approximation error affter the single step $h$ \\
+$r^{(2)}$ - summed approximation errors after the two smaller steps of length $\frac{h}{2}$ each. \\
+We have: \\
+\newpage
+After a single step:
+\[ y(x_n + h) = y_n^{(1)} + \frac{r_n^{p+1}(0)}{(p+1)!}h^{p+1} + O(h^{p+2}) \]
+After a double step:
+\[  y(x_n+h) \simeq y_n^{(2)} + 2\frac{r_n^{p+1}(0)}{(p+1)!}(\frac{h}{2})^{p+1} + O(h^{p+2}) \]
+
+We evaluate unknown coefficient from the first equation $ \frac{r_n^{p+1}(0)}{(p+1)!} $ and insert it into second one:
+\[ y(x_n+h) = y_n^{(2)} + \frac{h^{p+1}}{2^p}\frac{(x_n+h) - y_n^{(1)}}{h^{p+1} + O(h^{p+2})} \]
+We continue further and receive:
+\[ y(x_n + h)(1-\frac{1}{2^p}) = y_n^{(2)}(1-\frac{1}{2^p}) + \frac{y_n^{2}}{2^p} - \frac{y_n^{(1)}}{2^p} + O(h^{p+2}) \]
+We multiply by $\frac{2^p}{2^p - 1}$ and get:
+\begin{equation}
+y(x_n+h) = y_n^{(2)} + \frac{ y_n^{(2)} - y_n^{(1)} }{ 2^p - 1 } + O(h^{p+2})
+\end{equation}
+We also obtain for first equation in a similar way:
+ \[ y(x_n+h) = y_n^{(1)} + 2^p\frac{y_n^{(2)} - y_n^{(1)}}{2^p - 1} + O(h^{p+2}) \]
+Assuming we take the main part of the error we get error estimate:
+\[ \delta_n(h) = \frac{2^p}{2^p-1}(y_n^{(2)} - y_n^{(1)}) \]
+But from the equation (2.1) we can treat expression:
+\[ \delta_n(2 \times \frac{h}{2}) = \frac{ y_n^{(2)} - y_n^{(1)}}{2^p - 1} \]
+as en estimate of the error of two consecutive steps of size $\frac{h}{2}$
+\subsubsection{Actual correction of the step size}
+In general formula for main part of the approximation error where:
+\\ $h$ - length of a step
+\[ \gamma = \frac{r_n^{(p+1)}(0)}{(p+1)!} \]
+Looks like this:
+\[ \delta_n(h) = \gamma h^{p+1} \]
+If we change step-size to $\alpha h$ then we get:
+\[ \delta_n(\alpha h) = \gamma (\alpha h)^{p+1} \]
+Then:
+\[ \delta_n(\alpha h) = \alpha^{p+1} \delta_n (h) \]
+We assume tolerance $\epsilon$:
+\[ |\delta_n(\alpha h)| = \epsilon \]
+We get:
+\[ \alpha^{p+1}|\delta_n(h)| = \epsilon \]
+Coefficient $\alpha$ for the step-size correction can be evaluated in such a way:
+\[ \alpha = (\frac{\epsilon}{|\delta_n (h)|})^{\frac{1}{p+1}} \]
+
+This method is also correct for RK4 method when $\delta_n(h) = \delta_n(2 \times \frac{h}{2}) $
+We should also take into considertaion lack of accuracy we do so by using safety factor $s$:
+\[ h_{n+1} = s \alpha h_n \]
+where $ s < 1 $
+For RK4 we use $ s \approx 0.9 $ \\
+We define accuracy parameters in such a way:
+\[ \epsilon = |y_n| \epsilon_r + \epsilon_a \]
+where $\epsilon_r$ is relative tolerance and $\epsilon_a$ is absolute tolerance. \\
+In case of set of more than on differential equations we must use worst case approach so the equations that need smallest step-size define step-size for all other equations.
+\newpage
+For RK methods we have following parameters:
+\[ \delta_n(h)_i = \frac{(y_i)_n^{(2)} - (y_i)_n^{(1)}}{2^p - 1} \]
+\[ \epsilon_i = |(y_i)_n^{(2)}| \epsilon_r + \epsilon_a \]
+\[ \alpha = \min_{1 \leq i \leq m} (\frac{\epsilon_i}{|\delta_n(h)_i}|)^{\frac{1}{p+1}} \]
+
+\subsection{Flow diagram}
+\begin{tikzpicture}[node distance=5cm]
+  \node (start) [startstop, align=center]
+  {
+        START
+  \begin{itemize}
+
+    \item Functions from task
+    \item Initial values
+    \item Initial step size
+    \item Integration interval
+    \item Absolute error
+    \item Relative error
+  \end{itemize}
+  };
+  \node (solution) [align=center, startstop, below of = start]
+  {
+  Calculate solution:
+  \[ x_{n+1} = x_n + h_n \]
+  \[ y_{n+1} = y_n + h \phi_f(x_n; y_n; h) \]
+  };
+  \node (interval) [align=center, io, below of = solution]
+  {
+  $x_n$ > integration interval?
+  };
+  \node (finish) [startstop, align=center, , right=3cm of interval] {Finish};
+  \node (error) [startstop, align=center, , below of = interval]
+  {
+  Estimate error and update step size:
+  \[ h_{n+1} = s\alpha h_n \]
+  };
+
+\path [-stealth, thick]
+    (start) edge   (solution);
+\path [-stealth, thick]
+  (solution) edge   (interval);
+\path [-stealth, thick]
+  (interval) edge node[anchor=south] {YES}  (finish);
+\path [-stealth, thick]
+  (interval) edge node[anchor=east] {NO}   (error);
+\path [-stealth, thick]
+  (error) edge [bend left = 90]   (solution);
+
+\end{tikzpicture}
+

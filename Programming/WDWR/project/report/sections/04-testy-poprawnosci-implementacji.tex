@@ -1,0 +1,24 @@
+\section{Testy poprawności implementacji}
+
+Przeprowadzono następujące testy poprawności implementacji:
+
+\subsection{Weryfikacja modelu jednokryterialnego}
+\begin{enumerate}
+  \item \textbf{Test ograniczeń pojemności maszyn} - sprawdzono, czy dla każdego miesiąca i typu maszyny całkowity czas produkcji nie przekracza dostępnego czasu.
+  \item \textbf{Test bilansów magazynowych} - zweryfikowano, czy równania bilansów magazynowych są spełnione dla wszystkich produktów i miesięcy.
+  \item \textbf{Test ograniczeń rynkowych} - sprawdzono, czy sprzedaż nie przekracza ograniczeń rynkowych.
+  \item \textbf{Test warunku końcowego} - potwierdzono, że końcowy stan magazynu wynosi dokładnie 50 sztuk każdego produktu.
+\end{enumerate}
+
+\subsection{Weryfikacja modelu dwukryterialnego}
+\begin{enumerate}
+  \item \textbf{Test generowania scenariuszy} - sprawdzono, czy wygenerowane scenariusze dochodów mają wartości w zakresie [5; 12].
+  \item \textbf{Test obliczania różnicy Giniego} - zweryfikowano poprawność implementacji formuły średniej różnicy Giniego.
+  \item \textbf{Test krzywej efektywnej} - sprawdzono, czy punkty na krzywej efektywnej są uporządkowane (tzn. czy większemu zyskowi odpowiada większe ryzyko).
+  \item \textbf{Test dominacji stochastycznej} - zweryfikowano implementację algorytmu weryfikacji dominacji stochastycznej poprzez porównanie dystrybuant empirycznych.
+\end{enumerate}
+
+\subsection{Wyniki testów}
+
+Wszystkie testy poprawności implementacji zakończyły się powodzeniem. Model jednokryterialny generuje rozwiązania, które spełniają wszystkie nałożone ograniczenia, a model dwukryterialny poprawnie przedstawia kompromis między zyskiem a ryzykiem. Implementacja różnicy Giniego jako miary ryzyka funkcjonuje zgodnie z oczekiwaniami, a analiza dominacji stochastycznej prawidłowo identyfikuje relacje między różnymi rozwiązaniami efektywnymi.
+

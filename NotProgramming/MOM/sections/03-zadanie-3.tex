@@ -1,0 +1,42 @@
+\section{Zadanie 3}
+\paragraph{Model programowania liniowego}
+\begin{enumerate}
+\item Parametry \\
+m - liczba różnych zasobów, i $\in$ N \\ 
+n - liczba różnych produktów, j $\in$ N \\
+$c_{i}^{max}$ - Maksymalna przepustowość dla zasobu i \\
+$A_{ij}$ - Użycie zasobu i przez produkt j \\ 
+$q_j$ - Limit produkcji dla produktu j, po którym zmniejsza się przychód na jednostce \\
+$p_j$ - Normalny przychód na pojedyńczej sztuce produktu j \\ 
+$p_j^{disc}$ - Pomniejszony przychód na sztuce produktu j 
+
+\item Zmienne decyzyjne 
+$x_j$ - Wolumin produkcji produktu j 
+\item Zmienne pomocnicze 
+$r_j(u)$ - Funkcja wyliczająca przychód dla produktu j bazując na poziomie produkcji u \\ 
+$c_i$ - Całkowite zużycie zasobu typu i 
+
+\item Funkcja celu 
+\[ \max Z = \sum_{j=1}^n r_j u_j \] 
+\[ r_j(u) = \{ \]
+\[    p_{j} u \qquad \qquad \qquad \qquad u <= q_j  \]
+\[    p_j q_j + p_{j}^{disc}(u-q_j), \qquad u => q_j \]
+\[ \} \]
+
+\item Ograniczenia 
+\setcounter{equation}{0}
+Całkowite zużycie zasobów nie może przekraczać dostępnośli dla żadnego zasobu
+\begin{equation}
+\sum_{j=1}^n A_{ij} \cdot x_j \leq c_i^{max}, \qquad i \in N
+\end{equation}
+Produkcja każdego produktu j, jest powiżana z właściwym $u_j$
+\begin{equation}
+u_j = x_j, \qquad j \in N
+\end{equation}
+Wolumin produkcji nie może być mniejszy od zera
+\begin{equation}
+x_j \geq 0, \qquad j \in N
+\end{equation}
+
+
+\end{enumerate}

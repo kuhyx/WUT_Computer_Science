@@ -1,0 +1,13 @@
+\section{Theoretical Introduction}
+\subsection{Definition of machine epsilion}
+Machine epsilion is the maximal possible relative error of the floating-point representation. (Tatjewski, p.14)
+Machine epsilion is equal to $2^{-t}$ where t is number of bits in the mantissa.
+In our case where we use IEEE Standard 754, mantissa is 53 bits long with first bit omitted as it is always equal to '1', so we technicaly work with 52 bits mantissa which makes the machine epsilion equal to: $2^{-52} = 2.220446\mathrm{e}{-16}$
+
+\newpage
+\subsection{Practical applications of machine epsilion}
+Since macheps is connected to IEEE754 standard it is always equal to the same number, which means that we can safely compare results from different machines without worrying about their individual errors. Before standards, everyone could use any way of representing floats.
+
+Macheps is also essential when we calculate cumulation of errors of given mathematical operation.
+
+\newpage

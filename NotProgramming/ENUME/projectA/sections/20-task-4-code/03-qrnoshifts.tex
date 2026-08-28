@@ -1,0 +1,79 @@
+\subsection{QRNoShifts}
+\begin{simplechar}
+\begin{lstlisting}
+function [eigenValues, whichIterationAreWeOn, Matrix] = QRNoShifts(Matrix)
+
+    [whichIterationAreWeOn, threshold, startingMatrix, matlabEigen] = initializeValues(Matrix);
+    [Matrix, whichIterationAreWeOn] = QRNoShiftsLoop(threshold, Matrix, whichIterationAreWeOn);
+    eigenValues = diag(Matrix)';
+    displayResults(eigenValues, whichIterationAreWeOn, Matrix, startingMatrix, matlabEigen);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{QRNoShiftsLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [Matrix, whichIterationAreWeOn] = QRNoShiftsLoop(threshold, Matrix, whichIterationAreWeOn)
+    while threshold > 1e-6
+        [Matrix, whichIterationAreWeOn, threshold] = QRNoShiftsInsideLoop(Matrix, whichIterationAreWeOn);
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{QRNoShiftsInsideLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [Matrix, whichIterationAreWeOn, threshold] = QRNoShiftsInsideLoop(Matrix, whichIterationAreWeOn)
+    [Q, R] = gramSchmidtAlgorithm(Matrix);
+    Matrix = R * Q;
+    whichIterationAreWeOn = whichIterationAreWeOn + 1;
+
+    % iterate until all non-diagonal elements are below the threshold
+    matrixWithoutDiagonal = Matrix - diag(diag(Matrix)); % first diag converts Matrix
+    % into vector consisting of values on the diagonal of matrix,
+    % second diag converts this vector into matrix with zeros on
+    % everything except diagonal
+    % If we substract it from Matrix we get original Matrix with zeros
+    % on a diagonal
+    threshold = max(max(abs(matrixWithoutDiagonal)));
+    % first max returns vector of elements
+    % second max returns max element from this vector
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{displayResults}
+\begin{simplechar}
+\begin{lstlisting}
+function displayResults(eigenValues, whichIterationsAreWeOn, Matrix, startingMatrix, matlabEigen)
+    disp("How many iterations it took:")
+    disp(whichIterationsAreWeOn)
+    disp("Starting Matrix:")
+    disp(startingMatrix)
+    disp("Final Matrix:")
+    disp(Matrix)
+    disp("eig(Matrix) eigen values:")
+    disp(matlabEigen)
+    disp("Our eigen values:")
+    disp(eigenValues);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{initializeValues}
+\begin{simplechar}
+\begin{lstlisting}
+function [whichIterationAreWeOn, threshold, startingMatrix, matlabEigen] = initializeValues(Matrix)
+    whichIterationAreWeOn = 0;
+    threshold = inf;
+    startingMatrix = Matrix;
+    matlabEigen = eig(Matrix);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage

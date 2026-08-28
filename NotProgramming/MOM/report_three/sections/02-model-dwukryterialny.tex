@@ -1,0 +1,67 @@
+\section{Model Dwukryterialny}
+\paragraph{Zbiory}
+\begin{itemize}
+    \item $i, k \in F$ - Fabryki 
+    \item $i, l \in M$ - Magazyny 
+    \item $j \in K$ - Klienci
+\end{itemize}
+\paragraph{Parametery}
+\begin{itemize}
+    \item $C_{i, j}$ - Koszty transportu dóbr z punktów $i$ (fabryka lub magazyn) do klienta $j$
+    \item $C_{k, l}$ - Koszty transportu dóbr z fabryki $i$ do magazynu $k$ 
+    \item $P_{i, j}$ - Binarnie określa czy preferencja klienta zostąła spełniona (1) czy nie (0)
+    \item $S_j$ - Poziom satysfakcji klienta $j$ - poziom satysfakcji liczymy w zależności od tego ile dany klient zamówił towaru \\ 
+    Zadowolenie klientów którzy zamawiają więcej towarów jest traktowane priorytetowo:
+    \[ S_1 = \frac{50}{60}  \]
+    \[ S_2 = \frac{10}{60}  \]
+    \[ S_3 = \frac{40}{60}  \]
+    \[ S_4 = \frac{35}{60}  \]
+    \[ S_5 = \frac{60}{60}  \]
+    \[ S_6 = \frac{20}{60}  \]
+    \item $D_j$ - Zapotrzebowanie klienta $j$
+\end{itemize}
+\paragraph{Zmienne decyzyjne}
+\begin{itemize}
+    \item $x_{i,j}$ - Liczba dóbr (w tys. ton) przetransportowana z punktu $i$ (fabryka lub magazyn) do klienta $j$
+    \item $y_{k, l}$ - Liczba dóbr (w tys. ton) przetransportowana z fabryki $k$ do magazynu $l$
+\end{itemize} 
+\paragraph{Funkcja celu}
+\begin{enumerate}
+    \item Minimalizacja kosztów dystrybucji \\ 
+    \[ Min(\sum_{i, j} C_{i, j} * x_{i, j} + \sum{i, k} C_{i, k} * y_{i, k}) \]
+    \item Maksymalizacja satysfakcja klienta \\ 
+    W celu maksymalizacji satysfakcji klienta policzymy ile z dostaw do klientów odbyło się z preferencyjnych źródeł \\
+    \[ Max(\sum_{j} S_j * P_{i,j} * x_{i, j}) \] 
+\end{enumerate}
+\paragraph{Funkcja celu alpha beta}
+\[ \alpha * (Min(\sum_{i, j} C_{i, j} * x_{i, j} + \sum{i, k} C_{i, k} * y_{i, k})) + \beta * (Max(\sum_{j} S_j * P_{i,j} * x_{i, j}))  \]
+\paragraph{Ograniczenia}
+Miesięczne możliwości produkcyjne fabryk
+\begin{equation}
+    \sum_j x_{F1, j} + \sum_k y_{F1, k} \leq 150
+\end{equation}
+\begin{equation}
+    \sum_j x_{F2, j} + \sum_k y_{F2, k} \leq 200
+\end{equation}
+Miesięczna ilośc obsługiwanego towaru przez magazyny 
+\begin{equation}
+    \sum_j x_{M1, j} \leq 70
+\end{equation}
+\begin{equation}
+    \sum_j x_{M2, j} \leq 50
+\end{equation}
+\begin{equation}
+    \sum_j x_{M3, j} \leq 100
+\end{equation}
+\begin{equation}
+    \sum_j x_{M4, j} \leq 40
+\end{equation}
+Spełnienie preferencji klienta 
+\begin{equation}
+    \sum_i x_{i, j} = D_j
+\end{equation}
+Wartości niezerowe 
+\begin{equation}
+    x_{i, j}, y_{i, k} \geq 0
+\end{equation}
+

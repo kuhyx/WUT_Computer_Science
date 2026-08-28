@@ -1,0 +1,5 @@
+\section{Solution}
+
+
+\hyperlink{function1_macheps}{Code for finding macheps} shifts macheps one bit to the right each iteration (by dividing by 2), it ends when we run out of mantissa bits which renders us unable to save smaller number. Due to underflow the value of macheps becomes 0 and therefore 1.0 > (macheps / 2) > 1.0 will become false.
+\newpage

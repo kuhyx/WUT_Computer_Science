@@ -1,0 +1,236 @@
+\section{Results}
+\subsection{Jacobi method result}
+For system of equations we got in this task we got following results:
+\\
+Without the change in demanded tolerance:
+\[ x = \left( \begin{array}{cc}
+  -0.076776098668341 \\
+   2.105784262642568 \\
+   0.395344797635474 \\
+   0.397776619764909
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 1.154375287358407e-10 \]
+We managed to do this in \textbf{38} iterations of our loop, and the demanded tolerance did not change. (This required small change in code where I ommited the part of code responsible for changing demandedTolerance if $ \| \mathbf{A}x-b \| > \delta_2) $ )
+
+With the change in demanded tolerance:
+\[ x = \left( \begin{array}{cc}
+  -0.076776098668341 \\
+   2.105784262642568 \\
+   0.395344797635474 \\
+   0.397776619764909
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 5.770361548895147e-11 \]
+We got this result in \textbf{37} iterations and demanded tolerance was equal to $2*10^{-10}$
+
+Compared to matlab function
+\[ x_{matlab} = \left( \begin{array}{cc}
+  -0.076776098662498 \\
+   2.105784262636790 \\
+   0.395344797637659 \\
+   0.397776619767240 \\
+\end{array} \right)
+\]
+Matlab error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 4.070144838902081e-15 \]
+
+\newpage
+For data from task 2a we got: \\
+Without change in demanded tolerance:
+\[ x_a = \left( \begin{array}{cc}
+-0.930024655108186 \\
+-1.223407298660663 \\
+-1.273530574212508 \\
+-1.230517757317628 \\
+-1.151356031082747 \\
+-1.056883669273682 \\
+-0.952628310081466 \\
+-0.834334594312996 \\
+-0.683708806198363 \\
+-0.450125157620744 \\
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 6.955194519943778e-11 \]
+We managed to do this in \textbf{59} iterations of our loop, and the demanded tolerance did not change.
+
+With change in demanded tolerance:
+\[ x_a = \left( \begin{array}{cc}
+-0.930024655104470 \\
+-1.223407298653515 \\
+-1.273530574202540 \\
+-1.230517757305602 \\
+-1.151356031069692 \\
+-1.056883669260597 \\
+-0.952628310069469 \\
+-0.834334594303006 \\
+-0.683708806191233 \\
+-0.450125157617020 \\
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 1.699812218689508e-10 \]
+We managed to do this in \textbf{57} iterations of our loop, and the demanded tolerance changed to $4*10^{-10}$
+
+Compared to matlab function
+\[ x_{matlab} = \left( \begin{array}{cc}
+  -0.930024655110760 \\
+  -1.223407298665612 \\
+  -1.273530574219411 \\
+  -1.230517757325956 \\
+  -1.151356031091789 \\
+  -1.056883669282743 \\
+  -0.952628310089775 \\
+  -0.834334594319914 \\
+  -0.683708806203301 \\
+  -0.450125157623323 \\
+\end{array} \right)
+\]
+Matlab error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 3.662053438817790e-15 \]
+
+For Matrix and Vector from task 2b) error of
+\[ \| x^{(i+1)} - x^{(i)} \| \]
+grew to infinity, therefore we could never achieve demanded tolerance, therefore the program executed infinite loop.
+
+\subsubsection{Minimizing the demanded error}
+I tried to minimize the demanded error using this steps:
+\begin{enumerate}
+\item I copied error from matlab function and pasted it into demanded tolerance.
+\item If I did not get infinite loop I copied the newly acquired error and pasted it into demanded tolerance.
+\item If I got inifinite loop I used the previous error as "minimal" demanded error.
+\end{enumerate}
+\newpage
+\paragraph{For original system of equations:}
+We managed to get results with error as low as $1.776356839400250e-15$ with demanded tolerance = $3.202372833989376e-15$ for lower values program went into infinite loop.
+Results for demanded tolerance = $3.202372833989376e-15$
+For given matrix:
+\[ x = \left( \begin{array}{cc}
+  -0.076776098662498 \\
+   2.105784262636790 \\
+   0.395344797637659 \\
+   0.397776619767240
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 3.108624468950438e-15 \]
+We got this result in \textbf{53} iterations and demanded tolerance did not change.
+
+\newpage
+\paragraph{For task 2a) system of equations:}
+We managed to get results with error as low as
+\[ 3.108624468950438e-15 \] with demanded tolerance:
+\[ 3.202372833989376e-15 \]
+for lower values program went into infinite loop.
+
+For demanded tolerance = $3.202372833989376e-15$:
+Results for 2a) system of equation
+
+\[ x_a = \left( \begin{array}{cc}
+-0.930024655110760 \\
+-1.223407298665613 \\
+-1.273530574219411 \\
+-1.230517757325955 \\
+-1.151356031091788 \\
+-1.056883669282743 \\
+-0.952628310089775 \\
+-0.834334594319914 \\
+-0.683708806203301 \\
+-0.450125157623323
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 3.108624468950438e-15 \]
+We managed to do this in \textbf{84} iterations of our loop, and the demanded tolerance did not change.
+We managed to achieve slightly better (as in, the error was smaller) results than Matlab custom function.
+
+\newpage
+\subsection{Gauss-Seidel method result}
+For system of equations we got in this task we got following results:
+\\
+\[ x = \left( \begin{array}{cc}
+  -0.076776098752996 \\
+   2.105784262542701 \\
+   0.395344797589652 \\
+   0.397776619735316
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 6.999102842719934e-10 \]
+We managed to do this in \textbf{19} iterations of our loop, and the demanded tolerance did not change.
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 6.999102842719934e-10 \]
+We got this result in \textbf{19} iterations and demanded tolerance was equal to $2*10^{-10}$
+
+For data from task 2a we got: \\
+\[ x_a = \left( \begin{array}{cc}
+-0.930024655049330 \\
+-1.223407298590161 \\
+-1.273530574151901 \\
+-1.230517757273947 \\
+-1.151356031055568 \\
+-1.056883669259564 \\
+-0.952628310076145 \\
+-0.834334594312669 \\
+-0.683708806199986 \\
+-0.450125157622217 \\
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 5.311669113699570e-10 \]
+We managed to do this in \textbf{28} iterations of our loop, and the demanded tolerance did not change.
+
+For Matrix and Vector from task 2b) error of
+\[ \| x^{(i+1)} - x^{(i)} \| \]
+grew to infinity, therefore we could never achieve demanded tolerance, therefore the program executed infinite loop.
+
+\subsubsection{Minimizing the demanded error}
+I tried to minimize the demanded error using procedure from before
+\paragraph{For original system of equations:}
+We managed to get results with error as low as $1.776356839400250e-15$ with demanded tolerance = $ 1.986027322597818e-15 $ for lower values program went into infinite loop.
+Results for demanded tolerance = $1.986027322597818e-15$
+For given matrix:
+\[ x = \left( \begin{array}{cc}
+  -0.076776098662498 \\
+   2.105784262636790 \\
+   0.395344797637659 \\
+   0.397776619767240
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 1.776356839400250e-15 \]
+We got this result in \textbf{30} iterations and demanded tolerance did not change.
+
+\newpage
+\paragraph{For task 2a) system of equations:}
+We managed to get results with error as low as
+\[ 1.538370149106851e-15 \] with demanded tolerance:
+\[ 1.538370149106851e-15 \]
+for lower values program went into infinite loop.
+
+For demanded tolerance = $1.538370149106851e-15$:
+Results for 2a) system of equation
+
+\[ x_a = \left( \begin{array}{cc}
+-0.930024655110760 \\
+-1.223407298665613 \\
+-1.273530574219411 \\
+-1.230517757325955 \\
+-1.151356031091788 \\
+-1.056883669282743 \\
+-0.952628310089775 \\
+-0.834334594319914 \\
+-0.683708806203301 \\
+-0.450125157623323 \\
+\end{array} \right)
+\]
+Error:
+\[ r = \| \mathbf{A}\mathbf{x} - \mathbf{b}\| = 1.538370149106851e-15 \]
+We managed to do this in \textbf{42} iterations of our loop, and the demanded tolerance did not change.
+We managed to achieve slightly better (as in, the error was smaller) results than Matlab custom function.
+
+
+\newpage

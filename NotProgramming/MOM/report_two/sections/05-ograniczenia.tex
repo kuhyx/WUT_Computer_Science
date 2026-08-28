@@ -1,0 +1,96 @@
+\section{Ograniczenia}
+\subsection{Ogólne}
+Przepływ musi być nieujemny oraz mniejszy przepustowości
+\begin{equation}
+0 \leq f_{ij} \leq u_{ij}, \qquad (i,j) \in N \\
+\end{equation}
+Wszystko co przypłyneło do stanu k musi stamtąd "odpłynąć"
+\begin{equation}
+\sum_{i \in N \backslash \{z\}} f_{ki} = \sum_{i \in N \backslash \{W\}} f_{jk}, \qquad k \in N \backslash \{z, W\}
+\end{equation}
+
+\subsection{Dostępne surowce}
+Nie możemy kupić więcej surowca S1 niż jest dostępne
+\begin{equation}
+f_{zS1} \leq 12000
+\end{equation}
+Nie możemy kupić więcej surowca S2 niż jest dostępne
+\begin{equation}
+f_{zS2} \leq 8000
+\end{equation}
+
+\subsection{Koszt zakupu surowców}
+Nie możemy kupić mniej niż 0 surowców
+\begin{equation}
+a_1 \geq 0
+\end{equation}
+\begin{equation}
+a_2 \geq 0
+\end{equation}
+\begin{equation}
+b_1 \geq 0
+\end{equation}
+\begin{equation}
+b_2 \geq 0
+\end{equation}
+Ograniczamy ile ton ponad dany limit kupiliśmy
+\begin{equation}
+a_1 \leq f_{zS1} - 2387
+\end{equation}
+liczba powyżej 2056 ton
+\begin{equation}
+a_2 \leq f_{zS1} - 6659
+\end{equation}
+liczba powyżej 2056 ton
+\begin{equation}
+b_1 \leq f_{zS2} - 2090
+\end{equation}
+liczba powyżej 2056 ton
+\begin{equation}
+b_2 \leq f_{zS2} - 4349
+\end{equation}
+\subsection{Transport surowca S1 do przygotowalni}
+wagon może przetransportować maks. 18 ton surowca S1
+\begin{equation}
+b_{P1} \geq [\frac{ f_{S1, G1} }{18}]
+\end{equation}
+\subsection{Transport surowca S2 do przygtowalni}
+ciężarówka może przetransportować maks. 25 ton surowca S2
+\begin{equation}
+c_{P2} \geq [ \frac{ f_{S2, P2} }{ 25 } ]
+\end{equation}
+\subsection{Praca przygotowalni}
+Przygotowalnia nie może mieć więcej surowców niż przepustowości
+\begin{equation}
+\sum_{i \in N, p \in P} f_{ip} \leq 16000
+\end{equation}
+ilość półproduktów w zależności od surowca
+\begin{equation}
+(\sum_{i \in N} f_{ip}) m_{pd} = f_{pd}, \qquad i \in N, p \in P, d \in D
+\end{equation}
+\subsection{Koszt pracy przygotowalni}
+3 pracowników może obsługiwać maksymalnie 150 ton całkowitej ilości przerabianych surowców
+\begin{equation}
+l \geq [ \frac{ \sum_{i\in N, p \in P} f_{ip} }{150} ]
+\end{equation}
+\subsection{Transport S2 do zakładu obróbki cieplnej}
+ciężarówka może przetransportować maks. 25 ton surowca S2
+\begin{equation}
+c_{O2} \geq [\frac{ f_{S2, O2} }{25}]
+\end{equation}
+\subsection{Praca zakładu obróbki cieplnej}
+ilość surowca S2 w zakładzie obróbki cieplnej nie może być większa od 6000
+\begin{equation}
+f_{S2, O2} \leq 6000
+\end{equation}
+\subsection{Minimalna dostarczona ilość wyrobów}
+Zgodnie z umową musimy dostarczyć przynajmniej 5000 ton wyrobów
+\begin{equation}
+\sum_{i \in N f_{iw}} \geq 5000, \qquad w \in W
+\end{equation}
+\subsection{Maksymalna liczba wagonow}
+Na jedna lokomotywę, nie może przypadać więcej niż 12 wagonów
+\begin{equation}
+12wl \geq c_{P1}
+\end{equation}
+

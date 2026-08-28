@@ -1,0 +1,28 @@
+\section{Analityczne sformułowanie modelu}
+
+\subsection{Założenia modelu}
+
+Rozpatrujemy problem planowania produkcji w przedsiębiorstwie wytwarzającym 4 produkty (P1-P4) na 5 typach maszyn (szlifierki, wiertarki pionowe, wiertarki poziome, frezarki i tokarki) w perspektywie 3 miesięcy (styczeń, luty, marzec).
+
+Podstawowe założenia modelu:
+\begin{itemize}
+  \item Czas dostępny na każdej maszynie: 24 dni robocze $\times$ 8 godzin $\times$ 2 zmiany = 384 godzin/miesiąc/maszynę
+  \item Dochody ze sprzedaży są zmiennymi losowymi o rozkładzie t-Studenta (5 stopni swobody) ograniczonym do przedziału [5; 12]
+  \item Obniżka dochodu o 20\% przy sprzedaży przekraczającej 80\% pojemności rynku
+  \item Koszt magazynowania: 1 zł/sztukę/miesiąc
+  \item Limit magazynowy: 200 sztuk każdego produktu
+  \item Stan początkowy magazynu: 0 sztuk każdego produktu
+  \item Pożądany stan końcowy: 50 sztuk każdego produktu na koniec marca
+\end{itemize}
+
+\subsection{Podstawy teoretyczne}
+
+Model opiera się na następujących podstawach teoretycznych:
+\begin{itemize}
+  \item \textbf{Programowanie liniowe} - do formułowania ograniczeń produkcyjnych i bilansów magazynowych
+  \item \textbf{Optymalizacja wielokryterialna} - do modelowania kompromisu między zyskiem a ryzykiem
+  \item \textbf{Programowanie stochastyczne} - do uwzględnienia niepewności dochodów ze sprzedaży
+  \item \textbf{Dominacja stochastyczna} - do oceny relacji między różnymi rozwiązaniami efektywnymi
+  \item \textbf{Różnica Giniego} - jako miara ryzyka oparta na odległościach między realizacjami
+\end{itemize}
+

@@ -1,0 +1,25 @@
+\section{RK4Phi.m}
+\subsection{RK4Phi}
+\begin{simplechar}
+\begin{lstlisting}
+function Phi = RK4Phi(algorithm, stepValue, stepSize)
+    k1 = algorithm(stepValue);
+    k2 = algorithm(stepValue + 0.5 * stepSize * k1);
+    k3 = algorithm(stepValue + 0.5 * stepSize * k2);
+    k4 = algorithm(stepValue + stepSize * k3);
+    Phi = (k1 + 2 * k2 + 2 * k3 + k4) / 6;
+end
+% calculates the Phi used in RK4 algorithms
+
+\end{lstlisting}
+\end{simplechar}
+
+
+
+
+\begin{thebibliography}{9}
+\bibitem{texbook}
+Piotr Tatjewski (2014) \emph{Numerical Methods}, Oficyna Wydawnicza Politechniki Warszawskiej
+\end{thebibliography}
+
+

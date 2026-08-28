@@ -1,0 +1,121 @@
+\section{Task 3}
+
+\subsubsection{Top of Task 3}
+\begin{simplechar}
+\begin{lstlisting}
+interval = [-5, 10];
+rootBrackets = rootBracketing(@polynomial, interval(1), interval(2));
+
+printGraph(@polynomial, 'Laguerre', @laguerre, interval, rootBrackets, 'Approximate zeros of function for method of ');
+
+printComplexGraph(@polynomial, 'Laguerre', @laguerre, [-1 - i, 1 + i], 'Aproximate complex roots of polynomial');
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{polynomial}
+\begin{simplechar}
+\begin{lstlisting}
+function y = polynomial(x)
+    y = -2 * x^4 + 12 * x^3 + 4* x^2 + 1 * x + 3;
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{laguerre}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = laguerre(polynomial, a, b, tolerance)
+    [degree, zero, iterations] = initialize(a, b, polynomial);
+    [zero, iterations] = laguerreLoop(polynomial, zero, tolerance, iterations, degree);
+
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{initialize}
+\begin{simplechar}
+\begin{lstlisting}
+function [degree, zero, iterations] = initialize(a, b, polynomial)
+    degree = 4;
+    zero = (a + b) / 2;
+    iterations = [zero; polynomial(zero)];
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{laguerreLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = laguerreLoop(polynomial, zero, tolerance, iterations, degree)
+    while abs(polynomial(zero)) > tolerance
+        [iterations, zero] = insideLoop(polynomial, zero, degree, iterations);
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{insideLoop}
+\begin{simplechar}
+\begin{lstlisting}
+function [iterations, zero] = insideLoop(polynomial, zero, degree, iterations)
+    [derrivative0, derrivative1, derrivative2] = calculateDerrivatives(polynomial, zero);
+    [zPlus, zMinus] = calculateZ(degree, derrivative0, derrivative1, derrivative2);
+    newZero = chooseNewZero(zPlus, zMinus, zero);
+    [zero, iterations] = updateZeros(newZero, iterations, polynomial);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{calculateDerrivatives}
+\begin{simplechar}
+\begin{lstlisting}
+function [derrivative0, derrivative1, derrivative2] = calculateDerrivatives(polynomial, zero)
+    derrivative0 = polynomial(zero);
+    derrivative1 = derivative(polynomial, zero, 1);
+    derrivative2 = derivative(polynomial, zero, 2);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{calculateZ}
+\begin{simplechar}
+\begin{lstlisting}
+function [zPlus, zMinus] = calculateZ(degree, derrivative0, derrivative1, derrivative2)
+    expressionUnderSquareRoot = (degree - 1) * ((degree - 1) * derrivative1 ^ 2 - degree * derrivative0 * derrivative2);
+    lagsqrt = sqrt(expressionUnderSquareRoot);
+
+    zPlus = degree * derrivative0 / (derrivative1 + lagsqrt);
+    zMinus = degree * derrivative0 / (derrivative1 - lagsqrt);
+end
+\end{lstlisting}
+\end{simplechar}
+
+\subsubsection{chooseNewZero}
+\begin{simplechar}
+\begin{lstlisting}
+function newZero = chooseNewZero(zPlus, zMinus, zero)
+    if abs(zPlus) < abs(zMinus)
+        newZero = zero - zPlus;
+    else
+        newZero = zero - zMinus;
+    end
+end
+\end{lstlisting}
+\end{simplechar}
+
+\newpage
+\subsubsection{updateZeros}
+\begin{simplechar}
+\begin{lstlisting}
+function [zero, iterations] = updateZeros(newZero, iterations, polynomial)
+    zero = newZero;
+    iterations(:, size(iterations, 2) + 1) = [zero, polynomial(zero)];
+end
+\end{lstlisting}
+\end{simplechar}
+
+	\input{sections/11-task-3/01-rootbrackering-m}
+	\input{sections/11-task-3/02-printgraph-m}
+	\input{sections/11-task-3/03-printcomplexgraph-m}

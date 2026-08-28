@@ -1,0 +1,13 @@
+\subsection{Funkcja celu}
+\addcontentsline{toc}{subsection}{Funkcja celu}
+Funkcja celu w modelu jednokryterialnym polega na maksymalizacji wartości oczekiwanej zysku ze wszystkich analizowanych scenariuszy. W każdym ze scenariuszy zastosowano funkcję zysku o następującej postaci
+\begin{multline}
+\forall{\substack{
+			i<nScernarios\\ 
+			i \in N}}  
+	profit[i] =\sum_{m \in months} \sum_{p \in products}
+		(sell[m][p]\cdot sellProfit[i][p] \\ -lowerProfit[i][m][p]-stock[m][p]*storageCost)
+\end{multline}
+ 
+
+

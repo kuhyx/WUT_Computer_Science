@@ -1,0 +1,64 @@
+\section{Theoretical Introduction}
+M{\"u}ller's method revoles around the idea of approximating the polynomial locally close to the root by a quadratic function. Based on three different points we can use quadratic interpolation and develop our method. This means that we can treat it as a generalization of secant method. That being said we can also realize it in an efficient way if we use just one point. We can use for this case values of polynomial, and its first and second derrivative at current point.
+
+Accordingly there are two versions of M{\"u}ller's method: \textbf{MM1} and \textbf{MM2}.
+
+\subsection{MM1}
+Given three points: $x_0; x_1; x_2$ and their polynomial values: $f(x_0), f(x_1), f(x_2)$ we construct a (quadratic) function passing through these points. Then we find roots of this parabola and we choose one of these rots for the approximation of the result.
+
+For example:
+Assume that $x_2$ is the approximation of the root.
+Let's introduce variable $z$ such that:
+\[ z = x - x_2 \]
+And differences:
+\[ z_0 = x_0 - x_2 \]
+\[ z_1 = x_1 - x_2 \]
+
+We have quadratic function:
+\[ y(z) = az^2 + bz + c \]
+
+Using three points from above we get:
+\[ y(z_0) = az_0^2 + bz_0 + c = f(x_0) \]
+\[ y(z_1) = az_1^2 + bz_1 + c = f(x_1) \]
+\[ y(z_2) = c = f(x_2) \]
+
+And then we get system of equation that we can solve to find $a$ and $b$:
+\[ az_0^2 + bz_0 = f(x_0) - f(x_2) \]
+\[ az_1^2 + bz_1 = f(x_1) - f(x_2) \]
+
+Roots are equal to:
+\[ z_+ = \frac{-2c}{b+\sqrt{b^2 - 4ac}} \]
+\[ z_- = \frac{-2c}{b-\sqrt{b^2 - 4ac}} \]
+
+We choose a root with smaller absolute value for next iteration:
+\[ z_{min} = \min{|z_+, z_-|} \]
+\[ x_3 = x_2 + z_{min} \]
+
+Then we choose new point $x_3$ and two selected from $x_0, x_1, x_2$ which were closer to $x_3$.
+
+This method should also work for $\Delta < 0 $
+
+
+\subsection{MM2}
+This method being numerically more effective is usually recommended.
+We calculate values of a polynomial and its first and second derrivatives at one point.
+
+from definition of quadratic function:
+\[ y(z) = az^2 + bz + c \]
+we can get:
+\[ z = x - x_k \]
+If $z = 0$ then:
+\[ y(0) = c = f(x_k) \]
+\[ y^{'}(0) = b = f^{'}(x_k) \]
+\[ y^{''}(0) = 2a = f^{''}(x_k) \]
+
+We can derive from that formula for roots:
+
+\[ z_{\pm} = \frac{-2f(x_k)}{f^{'}(x_k) \pm \sqrt{ (f^{'}(x_k))^2 - 2f(x_k)f^{''}(x_k)}}\]
+
+Then we choose root with smaller absolute value for next iteration:
+\[ x_{k+1} = x_k + z_{min} \]
+
+Again this method should be implemented in complex number arithmetic.
+This method is locally convergent with order of convergence equal to 1.84. It is locally more effective that secant method and it is almost as fast as Newton's method while being capable of finding complex roots. It can be used to find roots of polynomials or another nonlinear functions.
+

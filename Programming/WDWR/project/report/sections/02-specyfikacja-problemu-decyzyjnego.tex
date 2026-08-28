@@ -1,0 +1,123 @@
+\section{Specyfikacja problemu decyzyjnego}
+
+\subsection{Zmienne decyzyjne}
+
+Definiujemy następujące zmienne decyzyjne:
+\begin{itemize}
+  \item $x_{i,t}$ - liczba wyprodukowanych jednostek produktu $i$ w miesiącu $t$
+  \item $s_{i,t}$ - liczba sprzedanych jednostek produktu $i$ w miesiącu $t$
+  \item $inv_{i,t}$ - stan magazynowy produktu $i$ na koniec miesiąca $t$
+  \item $over_{i,t}$ - zmienna binarna określająca czy sprzedaż produktu $i$ w miesiącu $t$ przekracza 80\% pojemności rynku
+\end{itemize}
+
+gdzie:
+\begin{itemize}
+  \item $i \in \{1,2,3,4\}$ - indeks produktu
+  \item $t \in \{1,2,3\}$ - indeks miesiąca (1: styczeń, 2: luty, 3: marzec)
+\end{itemize}
+
+\subsection{Ograniczenia}
+
+\subsubsection{Ograniczenia czasowe maszyn}
+
+Dla każdego miesiąca $t \in \{1,2,3\}$:
+
+\begin{enumerate}
+  \item Szlifierki (4 sztuki):
+  \begin{equation}
+  0.4 \cdot x_{1,t} + 0.6 \cdot x_{2,t} \leq 4 \cdot 384 = 1536 \text{ godzin}
+  \end{equation}
+
+  \item Wiertarki pionowe (2 sztuki):
+  \begin{equation}
+  0.2 \cdot x_{1,t} + 0.1 \cdot x_{2,t} + 0.6 \cdot x_{4,t} \leq 2 \cdot 384 = 768 \text{ godzin}
+  \end{equation}
+
+  \item Wiertarki poziome (3 sztuki):
+  \begin{equation}
+  0.1 \cdot x_{1,t} + 0.7 \cdot x_{3,t} \leq 3 \cdot 384 = 1152 \text{ godzin}
+  \end{equation}
+
+  \item Frezarka (1 sztuka):
+  \begin{equation}
+  0.06 \cdot x_{1,t} + 0.04 \cdot x_{2,t} + 0.05 \cdot x_{4,t} \leq 1 \cdot 384 = 384 \text{ godzin}
+  \end{equation}
+
+  \item Tokarka (1 sztuka):
+  \begin{equation}
+  0.05 \cdot x_{2,t} + 0.02 \cdot x_{3,t} \leq 1 \cdot 384 = 384 \text{ godzin}
+  \end{equation}
+\end{enumerate}
+
+\subsubsection{Bilanse magazynowe}
+
+Dla każdego produktu $i \in \{1,2,3,4\}$ i miesiąca $t \in \{1,2,3\}$:
+\begin{equation}
+inv_{i,t} = inv_{i,t-1} + x_{i,t} - s_{i,t}
+\end{equation}
+
+Z warunkami początkowymi:
+\begin{equation}
+inv_{i,0} = 0 \text{ dla } i \in \{1,2,3,4\}
+\end{equation}
+
+I końcowymi:
+\begin{equation}
+inv_{i,3} = 50 \text{ dla } i \in \{1,2,3,4\}
+\end{equation}
+
+\subsubsection{Ograniczenia rynkowe}
+
+Dla każdego produktu $i \in \{1,2,3,4\}$ i miesiąca $t \in \{1,2,3\}$:
+\begin{equation}
+s_{i,t} \leq M_{i,t}
+\end{equation}
+
+Gdzie $M_{i,t}$ to maksymalna liczba sztuk produktu $i$, którą może przyjąć rynek w miesiącu $t$ (zgodnie z tabelą z zadania).
+
+\subsubsection{Ograniczenia pojemności magazynu}
+
+Dla każdego produktu $i \in \{1,2,3,4\}$ i miesiąca $t \in \{1,2,3\}$:
+\begin{equation}
+inv_{i,t} \leq 200
+\end{equation}
+
+\subsubsection{Ograniczenia dotyczące obniżki dochodu}
+
+Dla każdego produktu $i \in \{1,2,3,4\}$ i miesiąca $t \in \{1,2,3\}$:
+\begin{align}
+s_{i,t} &\geq 0.8 \cdot M_{i,t} - M \cdot (1 - over_{i,t}) \\
+s_{i,t} &\leq 0.8 \cdot M_{i,t} + M \cdot over_{i,t}
+\end{align}
+
+Gdzie $M$ to duża liczba (tzw. big-M).
+
+\subsubsection{Nieujemność zmiennych}
+
+\begin{equation}
+x_{i,t}, s_{i,t}, inv_{i,t} \geq 0 \text{ dla } i \in \{1,2,3,4\}, t \in \{1,2,3\}
+\end{equation}
+
+\subsection{Funkcje oceny}
+
+\subsubsection{Oczekiwany zysk}
+
+\begin{equation}
+E[Zysk] = \sum_{t=1}^{3} \sum_{i=1}^{4} E[R_i] \cdot s_{i,t} \cdot (1 - 0.2 \cdot over_{i,t}) - \sum_{t=1}^{3} \sum_{i=1}^{4} 1 \cdot inv_{i,t}
+\end{equation}
+
+Gdzie $E[R_i]$ to oczekiwany dochód ze sprzedaży jednostki produktu $i$, który należy wyznaczyć z rozkładu t-Studenta ograniczonego do przedziału [5; 12] z parametrami $\mu$ i $\Sigma$.
+
+\subsubsection{Średnia różnica Giniego (miara ryzyka)}
+
+\begin{equation}
+\Gamma(x) = \frac{1}{2} \sum_{t'=1}^{T} \sum_{t''=1}^{T} |r^{t'}(x) - r^{t''}(x)| \cdot p^{t'} \cdot p^{t''}
+\end{equation}
+
+Gdzie:
+\begin{itemize}
+  \item $r^t(x)$ - realizacja zysku w scenariuszu $t$ dla decyzji $x$
+  \item $p^t$ - prawdopodobieństwo scenariusza $t$
+  \item $T$ - liczba rozważanych scenariuszy
+\end{itemize}
+
