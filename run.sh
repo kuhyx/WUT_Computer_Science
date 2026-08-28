@@ -22,6 +22,16 @@ readonly SCRIPT_DIR
 readonly RUNNABILITY_DOC="${SCRIPT_DIR}/DOCS-runnability.md"
 
 # Exit codes a per-directory run.sh uses to report itself.
+# Resource ceiling for `run`. A course build is background work and must never
+# be what makes an interactive machine stutter -- PORR's suite solves
+# 10000x10000 systems and happily eats every core it is given.
+#
+# Same mechanism as the pre-push hook in testsAndMisc: a transient systemd
+# scope, so the limit is enforced by the kernel rather than by good intentions.
+# MemorySwapMax=0 means it gets OOM-killed instead of thrashing swap.
+readonly RUN_MEMORY_MAX="${RUN_MEMORY_MAX:-2G}"
+readonly RUN_CPU_QUOTA="${RUN_CPU_QUOTA:-200%}"
+
 readonly EXIT_BLOCKED=78
 readonly EXIT_NO_CODE=79
 
@@ -142,8 +152,22 @@ cmd_run() {
     [[ -n "$target" ]] || { err "run needs a directory"; usage 1; }
     local runner="${SCRIPT_DIR}/${target}/run.sh"
     [[ -x "$runner" ]] || { err "no executable run.sh in $target"; return 1; }
-    log "running $target"
-    "$runner"
+    log "running $target (capped at ${RUN_MEMORY_MAX} RAM, ${RUN_CPU_QUOTA} CPU)"
+    _run_capped "$runner"
+}
+
+# Run a command under a memory/CPU cap, niced so it yields to anything
+# interactive. Falls back to plain nice if systemd-run is unavailable.
+_run_capped() {
+    if command -v systemd-run > /dev/null 2>&1; then
+        systemd-run --user --scope --quiet \
+            -p "MemoryMax=${RUN_MEMORY_MAX}" \
+            -p MemorySwapMax=0 \
+            -p "CPUQuota=${RUN_CPU_QUOTA}" \
+            nice -n 19 ionice -c 3 "$@"
+    else
+        nice -n 19 ionice -c 3 "$@"
+    fi
 }
 
 cmd_sync_vendored() {

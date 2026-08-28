@@ -33,7 +33,15 @@ Work directly on `main`; commit and push straight there.
 ./install.sh          # deps + pre-commit hooks, then verifies and fails loudly
 ./run.sh check        # the full local gate
 ./run.sh status       # probe every course dir, regenerate DOCS-runnability.md
+./run.sh run <dir>    # build/run one course, capped at 2G RAM and 2 cores
 ```
+
+`run` executes inside a transient systemd scope (`MemoryMax=2G`,
+`MemorySwapMax=0`, `CPUQuota=200%`, `nice -n 19`, `ionice -c 3`), so a course
+build cannot make an interactive machine stutter. This is not caution, it is a
+kernel-enforced ceiling -- PORR's suite solves 10000x10000 systems and will
+take every core it is given. Raise it deliberately for a single run with
+`RUN_MEMORY_MAX=8G RUN_CPU_QUOTA=800% ./run.sh run <dir>`.
 
 Never `--no-verify`. If a gate fails, fix the cause.
 

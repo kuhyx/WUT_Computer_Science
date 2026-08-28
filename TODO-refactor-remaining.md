@@ -70,6 +70,16 @@ tests exist** -- splitting untested code is the highest-risk action here.
 will touch hundreds of submitted coursework files, so they want their own
 reviewed commit rather than being buried in a config change.
 
+### 6. Two courses still fail `run`
+
+- `Programming/PORR` -- its pytest suite solves systems up to 10000x10000 and
+  runs for many minutes at full CPU. Under the 2G/2-core cap it will be
+  OOM-killed rather than finish. It needs either a smaller default parameter
+  set for `run`, or to be marked as a deliberately heavy target.
+- `Programming/ZPOB` -- latexmk exits 12 from bibtex even though `esej.pdf` is
+  produced. Probably a missing/!stale .bib entry; needs a clean-room rebuild
+  to see the first real error rather than the cached one.
+
 ## Standing rule
 
 A gate lands only once the thing it gates is clean, so
