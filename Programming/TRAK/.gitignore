@@ -1,4 +1,7 @@
-.vscode/
+# .vscode/ -- this repo tracks editor config (extensions.json is committed).
+# Excluding the DIRECTORY stops git descending, so a root-level "!" cannot
+# re-include its contents; the rule has to go here.
+#.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -163,4 +166,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-*.exr
+# *.exr -- the environment map below is tracked; see root .gitignore
+!*.exr

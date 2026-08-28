@@ -406,3 +406,72 @@ nb-configuration.xml
 ## Miscellaneous
 ##############################
 *.log
+# ============================================================================
+# Build output and environments -- added 2026-08-28 with the gate refactor.
+#
+# The LaTeX section above already covered .aux/.class and was doing its job;
+# the 157 artifacts untracked in this commit predate it. What follows is the
+# set it did NOT cover, found by auditing `git ls-files` rather than guessed.
+# ============================================================================
+
+# Compiled objects and libraries. .class is covered above; these are not.
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.a
+*.out
+!*.tex.out
+
+# .NET / MSBuild output. EGUI/lab2 had 32 files of obj/Debug/net6.0 committed,
+# including three copies of lab2.dll and four generated .cs files.
+obj/
+bin/
+!**/wwwroot/**/bin/
+
+# Python virtualenvs. ECOTE/program/ecote was a full committed venv
+# (python 3.10.10, 18 tracked files). The venv is created by that course's
+# run.sh, never committed.
+.venv/
+venv/
+ecote/
+__pycache__/
+*.py[cod]
+
+# Nx build cache -- BD2 had a 9 MB native .node binary in here.
+.nx/
+
+# Node
+node_modules/
+
+# Java build dirs
+target/
+
+# ============================================================================
+# Un-ignore rules for content that IS tracked on purpose.
+#
+# A tracked file matched by an ignore rule fails SILENTLY on `git add` -- it
+# is not an error, the change just never lands. Every entry below is a file
+# this repo really does track, found by:
+#   git ls-files | git check-ignore --stdin --no-index -v
+# Re-run that after editing this file; it must print nothing.
+# ============================================================================
+
+# Vendored web libraries live in dist/ dirs, which `dist/` above ignores.
+!**/wwwroot/lib/**
+
+# The LaTeX template's man-page patterns (*.[1-9], *.[1-9][0-9]) match EPFU's
+# date-named report directories -- doc/21.11/ reads as a man page section --
+# and the manufacturer schematic exports named <PART>.1.
+!Programming/EPFU/penguins/doc/**
+# Only the <PART>.1 schematic exports need the override -- a blanket
+# !NotProgramming/EMISY/** also re-enabled that course's own LaTeX
+# artifacts (declaration.aux, report.fls, ...), which must stay ignored.
+!NotProgramming/EMISY/**/*.1
+
+# Editor configuration is committed in this repo so a clone opens correctly.
+!**/.vscode/
+!**/.vscode/*
+!**/.idea/
+!**/.idea/**
