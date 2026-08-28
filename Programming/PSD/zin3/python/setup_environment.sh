@@ -3,7 +3,9 @@
 # Configuration
 VENV_NAME="psd_env"
 VENV_PATH="$(pwd)/${VENV_NAME}"
-PYTHON_VERSION="3.8"  # Specify the Python version you want to use
+# Recorded for reference: the interpreter this project was developed against.
+# Not used by the script, which takes whatever python3 is on PATH.
+export PYTHON_VERSION="3.8"
 REQUIREMENTS=(
     "confluent-kafka"
     "apache-flink"
@@ -21,8 +23,7 @@ fi
 # Create virtual environment if it doesn't exist
 if [ ! -d "$VENV_PATH" ]; then
     echo "Creating virtual environment at $VENV_PATH..."
-    python3 -m venv "$VENV_PATH"
-    if [ $? -ne 0 ]; then
+    if ! python3 -m venv "$VENV_PATH"; then
         echo "Failed to create virtual environment. Please check your Python installation."
         exit 1
     fi
@@ -33,8 +34,8 @@ fi
 
 # Activate virtual environment
 echo "Activating virtual environment..."
-source "${VENV_PATH}/bin/activate"
-if [ $? -ne 0 ]; then
+# shellcheck source=/dev/null
+if ! source "${VENV_PATH}/bin/activate"; then
     echo "Failed to activate virtual environment."
     exit 1
 fi
@@ -48,8 +49,7 @@ echo "Checking and installing required packages..."
 for package in "${REQUIREMENTS[@]}"; do
     if ! pip show "$package" &> /dev/null; then
         echo "Installing $package..."
-        pip install "$package"
-        if [ $? -ne 0 ]; then
+        if ! pip install "$package"; then
             echo "Failed to install $package."
             exit 1
         fi

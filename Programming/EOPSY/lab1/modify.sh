@@ -4,7 +4,7 @@
 
 # the name of the script without a path
 
-name=`basename $0`
+name="$(basename "$0")"
 
 help()
 {
@@ -21,7 +21,7 @@ help()
 
 uppercase()
 {
-	if test "$1" = $name
+	if test "$1" = "$name"
 	then
 		error_msg "you cannot modify name of this script!"
 		exit 3
@@ -42,7 +42,7 @@ uppercase()
                 fi
         fi
 
-	mv "$1" $(echo "$1" | sed -r -e 's/.*/\U&/');
+	mv "$1" "$(echo "$1" | sed -r -e 's/.*/\U&/')";
 
 		
 
@@ -50,7 +50,7 @@ uppercase()
 
 lowercase()
 {
-	if test "$1" = $name
+	if test "$1" = "$name"
         then
                 error_msg "you cannot modify name of this script!"
                 exit 3
@@ -68,12 +68,12 @@ lowercase()
 			exit 2
 		fi
 	fi
-	mv "$1" $(echo "$1" | sed -r -e 's/.*/\L&/');
+	mv "$1" "$(echo "$1" | sed -r -e 's/.*/\L&/')";
 }
 
 sneed()
 {
-	if test "$2" = $name
+	if test "$2" = "$name"
         then
                 error_msg "you cannot modify name of this script!"
                 exit 3
@@ -97,7 +97,7 @@ sneed()
                 fi
         fi
 
-	mv "$2" $(echo "$2" | sed $1)
+	mv "$2" "$(echo "$2" | sed "$1")"
 }
 
 recursionSneed()
@@ -124,8 +124,8 @@ recursionSneed()
 	fi
 	filename="$2"
 	sneed "$1" "$filename" 
-	filename="$(echo "$filename" | sed $1)"
-	echo $filename
+	filename="$(echo "$filename" | sed "$1")"
+	echo "$filename"
         for item in "$filename"/*
         do
                 if test -d "$item"

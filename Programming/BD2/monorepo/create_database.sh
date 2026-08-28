@@ -35,7 +35,7 @@ $INSTALL_CMD postgresql
 
 # Initialize the database cluster (Arch only)
 if [[ $INSTALL_CMD == *"pacman"* ]]; then
-    sudo -iu postgres initdb --locale $LANG -E UTF8 -D "$CONFIG_DIR"
+    sudo -iu postgres initdb --locale "$LANG" -E UTF8 -D "$CONFIG_DIR"
 fi
 
 # Start and enable PostgreSQL service
@@ -62,5 +62,5 @@ $SERVICE_CMD restart postgresql
 export DATABASE_URL="postgresql://$DB_USER:$DB_PASSWORD@localhost:$DB_PORT/$DB_NAME?schema=$DB_SCHEMA"
 
 # Print the DATABASE_URL to verify
-echo "DATABASE_URL="$DATABASE_URL""
+echo "DATABASE_URL=$DATABASE_URL"
 echo "PostgreSQL setup is complete. The database is accessible at the specified URL."

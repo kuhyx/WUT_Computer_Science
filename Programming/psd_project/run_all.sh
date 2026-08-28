@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set working directory to script location
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 1
 
 # Check if Docker daemon is running
 if ! docker info &>/dev/null; then
@@ -33,31 +33,23 @@ echo "Starting all applications..."
 
 # Start Flink job (Anomaly Detector)
 echo "Starting Anomaly Detector..."
-cd anomaly-detector
-java --add-opens java.base/java.time=ALL-UNNAMED -jar target/anomaly-detector-1.0-SNAPSHOT.jar &
+( cd anomaly-detector && exec java --add-opens java.base/java.time=ALL-UNNAMED -jar target/anomaly-detector-1.0-SNAPSHOT.jar ) &
 ANOMALY_PID=$!
-cd ..
 
 # Start Alert Visualizer
 echo "Starting Alert Visualizer..."
-cd alarm-visualizer
-java --add-opens java.base/java.time=ALL-UNNAMED -jar target/alarm-visualizer-1.0-SNAPSHOT.jar &
+( cd alarm-visualizer && exec java --add-opens java.base/java.time=ALL-UNNAMED -jar target/alarm-visualizer-1.0-SNAPSHOT.jar ) &
 ALARM_PID=$!
-cd ..
 
 # Start Transaction Consumer/Visualizer
 echo "Starting Transaction Consumer..."
-cd kafka-consumer-visualizer
-java --add-opens java.base/java.time=ALL-UNNAMED -jar target/kafka-consumer-visualizer-1.0-SNAPSHOT.jar &
+( cd kafka-consumer-visualizer && exec java --add-opens java.base/java.time=ALL-UNNAMED -jar target/kafka-consumer-visualizer-1.0-SNAPSHOT.jar ) &
 CONSUMER_PID=$!
-cd ..
 
 # Start Transaction Producer last
 echo "Starting Transaction Producer..."
-cd transaction-simulator
-java --add-opens java.base/java.time=ALL-UNNAMED -jar target/transaction-simulator-1.0-SNAPSHOT.jar &
+( cd transaction-simulator && exec java --add-opens java.base/java.time=ALL-UNNAMED -jar target/transaction-simulator-1.0-SNAPSHOT.jar ) &
 PRODUCER_PID=$!
-cd ..
 
 echo "All applications are running!"
 echo "Press Ctrl+C to stop all applications"

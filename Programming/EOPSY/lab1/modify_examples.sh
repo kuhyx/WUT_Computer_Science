@@ -6,33 +6,19 @@ touch SED
 mkdir foldera
 mkdir FOLDERB
 mkdir FOLDERSED
-mkdir upperfoldermain
-cd upperfoldermain
-touch upperfilesub
-mkdir upperfoldersub
-cd upperfoldersub
-touch upperfilesubsub
-cd ..
-cd ..
+# Build the fixture tree with paths rather than cd/cd .., so a failed cd
+# cannot silently create the next level in the wrong directory.
+mkdir -p upperfoldermain/upperfoldersub
+touch upperfoldermain/upperfilesub
+touch upperfoldermain/upperfoldersub/upperfilesubsub
 
+mkdir -p LOWERCASEFOLDERMAIN/LOWERFOLDERSUB
+touch LOWERCASEFOLDERMAIN/LOWERFILESUB
+touch LOWERCASEFOLDERMAIN/LOWERFOLDERSUB/LOWERFILESUBSUB
 
-mkdir LOWERCASEFOLDERMAIN 
-cd LOWERCASEFOLDERMAIN
-touch LOWERFILESUB
-mkdir LOWERFOLDERSUB
-cd LOWERFOLDERSUB
-touch LOWERFILESUBSUB
-cd ..
-cd ..
-
-mkdir SEDLOWERCASEFOLDERMAIN
-cd SEDLOWERCASEFOLDERMAIN
-touch SEDLOWERFILESUB
-mkdir SEDLOWERFOLDERSUB
-cd SEDLOWERFOLDERSUB
-touch SEDLOWERFILESUBSUB
-cd ..
-cd ..
+mkdir -p SEDLOWERCASEFOLDERMAIN/SEDLOWERFOLDERSUB
+touch SEDLOWERCASEFOLDERMAIN/SEDLOWERFILESUB
+touch SEDLOWERCASEFOLDERMAIN/SEDLOWERFOLDERSUB/SEDLOWERFILESUBSUB
 
 touch recursefile
 touch RECURSELOWERFILE

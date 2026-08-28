@@ -2,7 +2,7 @@
 
 # Function to run a script in the background and save its PID
 run_script() {
-    python $1 &
+    python "$1" &
     echo $!
 }
 
@@ -25,9 +25,7 @@ install_flink() {
             echo "yay is not installed. Installing yay..."
             sudo pacman -S --noconfirm git
             git clone https://aur.archlinux.org/yay.git
-            cd yay
-            makepkg -si --noconfirm
-            cd ..
+            ( cd yay && makepkg -si --noconfirm )
             rm -rf yay
         fi
         yay -S --noconfirm apache-flink
@@ -80,10 +78,10 @@ echo "Started Flask alarm reader with PID $flask_pid"
 # Function to handle script termination
 terminate_scripts() {
     echo "Shutting down..."
-    kill $producer_pid
-    kill $consumer_pid
-    kill $flink_pid
-    kill $flask_pid
+    kill "$producer_pid"
+    kill "$consumer_pid"
+    kill "$flink_pid"
+    kill "$flask_pid"
     echo "All processes terminated."
     # Optionally stop Kafka and Flink services
     sudo systemctl stop kafka

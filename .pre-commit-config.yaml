@@ -1,0 +1,71 @@
+# Install:    ./install.sh   (or: pre-commit install && pre-commit install --hook-type pre-push)
+# Fast lint:  pre-commit run --all-files
+#
+# Ordering rule for this repo: a hook lands only once the thing it gates is
+# already clean, so `pre-commit run --all-files` is green at every commit.
+# Hooks still to come, each blocked on its own cleanup:
+#   - file-length      blocked on the .tex/code splits and TODO-file-length-250.md
+#   - ruff / mypy      blocked on the root pyproject.toml (Milestone 4)
+#   - dependency-freshness  blocked on the upgrade itself; the gate and the
+#                      upgrade must land in the SAME commit or the repo is
+#                      instantly and permanently red
+#   - trailing-whitespace / end-of-file-fixer  these REWRITE files, so they get
+#                      their own reviewed cleanup commit first
+default_language_version:
+  python: python3
+default_stages: [pre-commit]
+fail_fast: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      # Structural checks only -- none of these rewrite a file.
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      # tsconfig*.json and .vscode/*.json are JSONC -- both TypeScript and
+      # VS Code document comments and trailing commas as valid there, and
+      # check-json uses a strict RFC parser. This is the wrong parser for
+      # those files, not a defect being suppressed; every other .json is
+      # still checked. (The one real failure this hook found, a committed
+      # merge conflict in EARIN/.vscode/extensions.json, is fixed.)
+      - id: check-json
+        exclude: |
+          (?x)^(
+            .*/tsconfig[^/]*\.json|
+            .*/\.vscode/[^/]*\.json
+          )$
+      - id: check-toml
+      - id: check-yaml
+        args: [--unsafe]
+      # 2 MB. The four 39 MB movies.csv copies are already tracked and stay
+      # (approved decision 6); this stops the NEXT one.
+      - id: check-added-large-files
+        args: [--maxkb=2000]
+
+  - repo: local
+    hooks:
+      # Coursework deliverables are allowed under the two course trees;
+      # compiled output is allowed nowhere. See .binary-allowlist.
+      - id: no-binaries
+        name: block binary files outside the allowlist
+        entry: scripts/check_no_binaries.sh
+        language: script
+        pass_filenames: true
+
+      # Thin shim into ~/utils, which owns the four markdown namespaces.
+      - id: md-naming
+        name: markdown naming convention
+        entry: scripts/check_md_naming.sh
+        language: system
+        files: \.(md|markdown)$
+
+      - id: shellcheck
+        name: shellcheck
+        entry: bash -c 'printf "%s\0" "$@" | xargs -0 -n 40 shellcheck' --
+        language: system
+        types: [shell]
+        exclude_types: [zsh]

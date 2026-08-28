@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#
+# Scaffold an Angular component per data model.
+set -euo pipefail
 # Define the project name
 PROJECT_NAME="frontend"
 
@@ -17,7 +20,7 @@ generate_module_and_service() {
 
   # nx g @nrwl/nest:controller ${MODULE_NAME} --directory=apps/${PROJECT_NAME}/src/app/${MODULE_NAME}
 
-  nx g @nx/angular:component ${MODULE_NAME} --directory=apps/${PROJECT_NAME}/src/app/${MODULE_NAME}
+  nx g @nx/angular:component "${MODULE_NAME}" --directory="apps/${PROJECT_NAME}/src/app/${MODULE_NAME}"
 }
 
 # List of all models for which we need to generate modules and services
@@ -25,7 +28,7 @@ MODELS=("restauracja" "recenzja" "uzytkownik" "historia-zamowien" "danie" "zamow
 
 # Loop through the models and generate modules and services
 for MODEL in "${MODELS[@]}"; do
-  generate_module_and_service ${MODEL}
+  generate_module_and_service "${MODEL}"
 done
 
 echo "All modules and services have been generated successfully."

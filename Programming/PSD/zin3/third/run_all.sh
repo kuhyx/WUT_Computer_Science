@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set working directory to script location
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 1
 
 # Check if Docker daemon is running
 if ! docker info &>/dev/null; then
@@ -33,24 +33,18 @@ echo "Starting all applications..."
 
 # Start temperature anomaly detector - submit to Flink
 echo "Starting Temperature Anomaly Detector..."
-cd temperature-anomaly-detector
-java -jar target/temperature-anomaly-detector-1.0-SNAPSHOT.jar &
+( cd temperature-anomaly-detector && exec java -jar target/temperature-anomaly-detector-1.0-SNAPSHOT.jar ) &
 ANOMALY_PID=$!
-cd ..
 
 # Start Alert Visualizer
 echo "Starting Temperature Alert Visualizer..."
-cd temperature-alert-visualizer
-java -jar target/temperature-alert-visualizer-1.0-SNAPSHOT.jar &
+( cd temperature-alert-visualizer && exec java -jar target/temperature-alert-visualizer-1.0-SNAPSHOT.jar ) &
 VISUALIZER_PID=$!
-cd ..
 
 # Start Temperature Generator last
 echo "Starting Temperature Generator..."
-cd temperature-generator
-java -jar target/temperature-generator-1.0-SNAPSHOT.jar &
+( cd temperature-generator && exec java -jar target/temperature-generator-1.0-SNAPSHOT.jar ) &
 GENERATOR_PID=$!
-cd ..
 
 echo "All applications are running!"
 echo "Press Ctrl+C to stop all applications"
