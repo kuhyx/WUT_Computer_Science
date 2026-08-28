@@ -218,8 +218,20 @@ _run() {
             local dir base
             dir="$(dirname "$tex")"
             base="$(basename "$tex")"
+            # A document that declares \bibliography but never cites anything
+            # makes bibtex exit 2 ("I found no \citation commands"), and
+            # latexmk turns that into exit 12 even though the PDF is fine.
+            # --no-bibtex says "this one was handed in without a bibliography",
+            # which is a fact about the deliverable, not a suppression.
+            # An `x && y=1` one-liner would be a set -e landmine here: when x
+            # is false the list returns 1 and the whole runner exits.
+            local bibflag=()
+            if [[ -n "${COURSE_TEX_NO_BIBTEX:-}" ]]; then
+                bibflag=(-bibtex-)
+            fi
             if [[ $tool == latexmk ]]; then
-                ( cd "$dir" && latexmk -pdf -interaction=nonstopmode -outdir=build "$base" )
+                ( cd "$dir" && latexmk -pdf "${bibflag[@]}" \
+                    -interaction=nonstopmode -outdir=build "$base" )
             else
                 ( cd "$dir" && mkdir -p build \
                     && "$tool" -interaction=nonstopmode -output-directory=build "$base" )
@@ -320,12 +332,14 @@ course_main() {
     COURSE_ENTRY=""
     COURSE_NOTE=""
     COURSE_TEST_DIR=""
+    COURSE_TEX_NO_BIBTEX=""
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --kind)  COURSE_KIND="$2"; shift 2 ;;
             --entry) COURSE_ENTRY="$2"; shift 2 ;;
             --note)  COURSE_NOTE="$2"; shift 2 ;;
             --test-dir) COURSE_TEST_DIR="$2"; shift 2 ;;
+            --no-bibtex) COURSE_TEX_NO_BIBTEX=1; shift ;;
             --) shift; break ;;
             *) break ;;
         esac
