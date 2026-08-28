@@ -1,0 +1,48 @@
+name: pre-commit
+
+# The local hooks can be skipped -- a fresh clone that never ran ./install.sh
+# has no hooks at all -- so the gate needs a second home that nobody can
+# forget to install.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    env:
+      # scripts/check_md_naming.sh is a thin shim that execs the shared gate
+      # out of the utils repo. A runner has no ~/utils, so without this the
+      # hook fails with "shared gate not found".
+      UTILS_ROOT: ${{ github.workspace }}/.utils
+    steps:
+      # fetch-depth 1: the history here is ~494 MB and no gate reads it.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check out the shared gates
+        uses: actions/checkout@v4
+        with:
+          repository: kuhyx/utils
+          path: .utils
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install shellcheck
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Install pre-commit
+        run: python -m pip install --quiet pre-commit
+
+      - name: Run the hooks
+        run: pre-commit run --all-files --show-diff-on-failure
