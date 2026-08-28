@@ -1,8 +1,16 @@
+#!/usr/bin/env python3
+"""Turn the raw GPT alignment replies into the SemEval .wa format."""
+
+import ast
 import copy
+import logging
 import re
+from pathlib import Path
 
 import pandas as pd
 import processing
+
+logger = logging.getLogger(__name__)
 
 # input file name
 file_path = "alignments_unformatted_headlines.txt"
@@ -16,26 +24,32 @@ chunked_path2 = "test_goldStandard/headlines/STSint.testinput.headlines.sent1.ch
 alignment_path = "test_goldStandard/headlines/STSint.testinput.headlines.wa"
 
 # paths to students andsewrs database
-# chunked_path1 = "test_goldStandard/student/STSint.testinput.answers-students.sent1.chunk.txt"
-# chunked_path2 = "test_goldStandard/student/STSint.testinput.answers-students.sent2.chunk.txt"
-# alignment_path = "test_goldStandard/student/STSint.testinput.answers-students.wa"
 
 # load data
 goldstandard_chunked = processing.load_chunked(chunked_path1, chunked_path2)
 goldstandard_alignment = processing.load_alignment(alignment_path)
 
+# ASCII letters mark a chunk the numbering pass failed to replace, and a
+# formatted alignment always has at least the four //-separated fields.
+ASCII_MAX = 128
+FULL_FIELDS = 4
+SHORT_FIELDS = 3
+
 # get a nice  table
-data = pd.merge(
+data = pd.DataFrame.merge(
     goldstandard_chunked, goldstandard_alignment, left_index=True, right_index=True
 )
 
 # open generated alignments
-with open(file_path) as file:
-    responses = [eval(line.strip()) for line in file]
+# The file holds one repr()'d string per line (see create_alignments.py),
+# so literal_eval is enough -- eval() here would execute whatever GPT
+# happened to return.
+with Path(file_path).open() as file:
+    responses = [ast.literal_eval(line.strip()) for line in file]
 
 for i, r in enumerate(responses):
-    print("\nresponse number " + str(i))
-    print(r)
+    logger.info("%s", "\nresponse number " + str(i))
+    logger.info("%s", r)
 
 unformatted = copy.deepcopy(responses)
 
@@ -82,41 +96,41 @@ for i, response in enumerate(responses):
 
         chunk1arr = data.iloc[i]["chunked_sentance1"]
         q = 1
-        numberList = []
-        for chunk in chunk1arr:
-            chunk = re.sub(r"(?<!\n)  +(?!\n)", " ", chunk)
+        number_list = []
+        for raw_chunk in chunk1arr:
+            chunk = re.sub(r"(?<!\n)  +(?!\n)", " ", raw_chunk)
             n_of_words = len(chunk.strip().split(" "))
             index_str = ""
             for qq in range(q, q + n_of_words):
                 index_str = index_str + str(qq) + " "
-            numberList.append(index_str)
+            number_list.append(index_str)
             q = q + n_of_words
 
         for j, chunk in enumerate(data.iloc[i]["chunked_sentance1"]):
             pattern = re.compile(chunk, re.IGNORECASE)
-            temp[k][0] = pattern.sub(numberList[j], temp[k][0])
+            temp[k][0] = pattern.sub(number_list[j], temp[k][0])
 
         chunk1arr = data.iloc[i]["chunked_sentance2"]
         q = 1
-        numberList = []
-        for chunk in chunk1arr:
-            chunk = re.sub(r"(?<!\n)  +(?!\n)", " ", chunk)
+        number_list = []
+        for raw_chunk in chunk1arr:
+            chunk = re.sub(r"(?<!\n)  +(?!\n)", " ", raw_chunk)
             n_of_words = len(chunk.strip().split(" "))
             index_str = ""
             for qq in range(q, q + n_of_words):
                 index_str = index_str + str(qq) + " "
-            numberList.append(index_str)
+            number_list.append(index_str)
             q = q + n_of_words
 
         for j, chunk in enumerate(data.iloc[i]["chunked_sentance2"]):
             pattern = re.compile(chunk, re.IGNORECASE)
-            temp[k][1] = pattern.sub(numberList[j], temp[k][1])
+            temp[k][1] = pattern.sub(number_list[j], temp[k][1])
 
-        if any(char.isalpha() and ord(char) < 128 for char in temp[k][0]) or any(
-            char.isalpha() and ord(char) < 128 for char in temp[k][1]
+        if any(char.isalpha() and ord(char) < ASCII_MAX for char in temp[k][0]) or any(
+            char.isalpha() and ord(char) < ASCII_MAX for char in temp[k][1]
         ):
             temp[k] = ""
-        if len(temp[k]) >= 4:
+        if len(temp[k]) >= FULL_FIELDS:
             temp[k][3] = temp[k][3].replace("NOALI", "0")
             if temp[k][3] == "":
                 temp[k][3] = " 0 "
@@ -131,7 +145,7 @@ for i, response in enumerate(responses):
                 + " // "
                 + temp[k][3]
             )
-        elif len(temp[k]) == 3:
+        elif len(temp[k]) == SHORT_FIELDS:
             temp[k] = temp[k][0] + " <==> " + temp[k][1] + " // " + temp[k][2] + " // 0"
 
         temp[k] = re.sub(r"\s{2,}", " ", temp[k])  # remove double space
@@ -152,11 +166,11 @@ for n, r in enumerate(responses):
     indexes.append(n + 1)
     responses_final.append(r)
 
-print("rejected indexes:")
-print(rejected_indexes)
+logger.info("rejected indexes:")
+logger.info("%s", rejected_indexes)
 
-with open(output_file_path, "w") as file:
-    for i, r in zip(indexes, responses_final):
+with Path(output_file_path).open("w") as file:
+    for i, r in zip(indexes, responses_final, strict=False):
         file.write('<sentence id="' + str(i + 1) + '" status="">\n')
         file.write("<alignment>\n")
         file.write(r)

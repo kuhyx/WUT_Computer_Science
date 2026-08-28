@@ -1,35 +1,47 @@
+#!/usr/bin/env python3
+"""Format the few-shot alignment replies, and score them against gold."""
+
 import copy
+import logging
 import re
+from pathlib import Path
 
 import pandas as pd
 import processing
 
+logger = logging.getLogger(__name__)
+
 # paths to students andsewrs database
-studentAnswers1_path = (
+student_answers1_path = (
     "test_goldStandard/student/STSint.testinput.answers-students.sent1.txt"
 )
-studentAnswers2_path = (
+student_answers2_path = (
     "test_goldStandard/student/STSint.testinput.answers-students.sent2.txt"
 )
-studentAnsewrs_chunked_path1 = (
+student_answers_chunked_path1 = (
     "test_goldStandard/student/STSint.testinput.answers-students.sent1.chunk.txt"
 )
-studentAnsewrs_chunked_path2 = (
+student_answers_chunked_path2 = (
     "test_goldStandard/student/STSint.testinput.answers-students.sent2.chunk.txt"
 )
-studentsAnsewrs_alignment_path = (
+student_answers_alignment_path = (
     "test_goldStandard/student/STSint.testinput.answers-students.wa"
 )
 
 # load data
-studentAnserws = processing.load_sentences(studentAnswers1_path, studentAnswers1_path)
-goldstandard_chunked = processing.load_chunked(
-    studentAnsewrs_chunked_path1, studentAnsewrs_chunked_path2
+student_answers = processing.load_sentences(
+    student_answers1_path, student_answers1_path
 )
-goldstandard_alignment = processing.load_alignment(studentsAnsewrs_alignment_path)
+goldstandard_chunked = processing.load_chunked(
+    student_answers_chunked_path1, student_answers_chunked_path2
+)
+goldstandard_alignment = processing.load_alignment(student_answers_alignment_path)
+
+SHORT_FIELDS = 3
+MIN_FIELDS = 2
 
 # get a nice anwser-student table
-data = pd.merge(
+data = pd.DataFrame.merge(
     goldstandard_chunked, goldstandard_alignment, left_index=True, right_index=True
 )
 
@@ -41,8 +53,8 @@ responses = responses["alignment_text"].to_list()
 
 
 for i, r in enumerate(responses):
-    print("\nresponse number " + str(i))
-    print(r)
+    logger.info("%s", "\nresponse number " + str(i))
+    logger.info("%s", r)
 
 unformatted = copy.deepcopy(responses)
 
@@ -71,28 +83,21 @@ for i, response in enumerate(responses):
     temp = re.sub(r"(?<!\n)  +(?!\n)", " ", temp)  # remove double space
 
     temp = temp.split("\n")
-    for k, t in enumerate(temp):
+    for k in range(len(temp)):
         temp[k] = temp[k].split("<==>")
         temp[k][1] = temp[k][1].split("//")
 
-        # for j, chunk in enumerate(data.iloc[i]["chunked_sentance1"].sorted(key=len, reverse=True)):
         for j, chunk in enumerate(
-            sorted(
-                data.iloc[i]["chunked_sentance1"], key=lambda x: len(x), reverse=True
-            )
+            sorted(data.iloc[i]["chunked_sentance1"], key=len, reverse=True)
         ):
             pattern = re.compile(chunk, re.IGNORECASE)
             temp[k][0] = pattern.sub(str(j + 1), temp[k][0])
-            # temp[k][0] = temp[k][0].replace(chunk, str(j+1))
         for j, chunk in enumerate(
-            sorted(
-                data.iloc[i]["chunked_sentance2"], key=lambda x: len(x), reverse=True
-            )
+            sorted(data.iloc[i]["chunked_sentance2"], key=len, reverse=True)
         ):
             pattern = re.compile(chunk, re.IGNORECASE)
             temp[k][1][0] = pattern.sub(str(j + 1), temp[k][1][0])
-            # temp[k][1][0] = temp[k][1][0].replace(chunk, str(j+1))
-        if len(temp[k][1]) >= 3:
+        if len(temp[k][1]) >= SHORT_FIELDS:
             temp[k] = (
                 temp[k][0]
                 + " <==> "
@@ -102,7 +107,7 @@ for i, response in enumerate(responses):
                 + " // "
                 + temp[k][1][2]
             )
-        elif len(temp[k][1]) == 2:
+        elif len(temp[k][1]) == MIN_FIELDS:
             temp[k] = (
                 temp[k][0] + " <==> " + temp[k][1][0] + " // " + temp[k][1][1] + " // 0"
             )
@@ -111,19 +116,19 @@ for i, response in enumerate(responses):
     responses[i] = "\n".join(temp)
 
 
-print("\nafter formatting\n")
+logger.info("\nafter formatting\n")
 for i, r in enumerate(responses):
-    print("\nresponse number " + str(i))
-    print("FORMATTED\n")
-    print(r)
-    print("\nUNFORMATTED\n")
-    print(unformatted[i])
+    logger.info("%s", "\nresponse number " + str(i))
+    logger.info("FORMATTED\n")
+    logger.info("%s", r)
+    logger.info("\nUNFORMATTED\n")
+    logger.info("%s", unformatted[i])
 
 
 # write to file
 file_path = "student_fixed_format_with_training.txt"
 
-with open(file_path, "w") as file:
+with Path(file_path).open("w") as file:
     for i, r in enumerate(responses):
         file.write('<sentence id="' + str(i + 1) + '" status="">\n')
         file.write("<alignment>\n")

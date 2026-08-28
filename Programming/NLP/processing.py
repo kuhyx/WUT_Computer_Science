@@ -1,24 +1,30 @@
+#!/usr/bin/env python3
+"""Load the SemEval corpus: sentences, chunkings and gold alignments."""
+
+import logging
 import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from lxml import etree
 
+logger = logging.getLogger(__name__)
+
 
 def load_sentences(senteance1_path: str, sentance2_path: str) -> pd.DataFrame:
-    """Loads the sentences from the given paths and outputs in a 2 columns dataframe."""
+    """Load the sentences from the given paths and outputs in a 2 columns dataframe."""
     sentance1 = pd.read_csv(senteance1_path, dtype=str, delimiter="}", header=None)
     sentance1.columns = ["sentance1"]
 
     sentance2 = pd.read_csv(sentance2_path, dtype=str, delimiter="}", header=None)
     sentance2.columns = ["sentance2"]
 
-    sentances = pd.concat([sentance1, sentance2], axis=1)
-    return sentances
+    return pd.concat([sentance1, sentance2], axis=1)
 
 
 def chunk2list(chunks: str) -> list:
-    """Takes str that is all chunks from a chunked sentance and returns a list of all the chunks as seperate items."""
+    """Split one chunked sentence into its chunks."""
     chunks = chunks.replace("[", "")
     chunks = chunks.replace("]", "")
     chunks = chunks.replace("   ", "|")
@@ -27,12 +33,14 @@ def chunk2list(chunks: str) -> list:
     split = [
         re.sub(r"^\s+|\s+$", "", s) for s in split
     ]  # remove spaces at the beggining and end of chunks
-    split = [re.sub(r"[^\w\s]", "", s) for s in split]  # remove punctuation
-    return split
+    return [re.sub(r"[^\w\s]", "", s) for s in split]  # remove punctuation
 
 
 def load_chunked(chunked_path1: str, chunked_path2: str) -> pd.DataFrame:
-    """Loads chunked sentances in [ chunk1 ] [ chunk2 ] format into dataframe with lists of chunks."""
+    """Load two chunk files into a dataframe of chunk lists.
+
+    The on-disk format is ``[ chunk1 ] [ chunk2 ] ...`` per line.
+    """
     chunked_sentance1 = pd.read_csv(
         chunked_path1, dtype=str, delimiter="}", header=None
     )
@@ -57,15 +65,18 @@ def load_chunked(chunked_path1: str, chunked_path2: str) -> pd.DataFrame:
 
 
 def return_characteers(cell: str) -> str:
-    """Converts the alignment data to restore the <==> and & tokens."""
+    """Convert the alignment data to restore the <==> and & tokens."""
     cell = cell.replace("ARROWS_PLACEHOLDER", "<==>")
-    cell = cell.replace("AMPERSAND_PLACEHOLDER", "&")
-    return cell
+    return cell.replace("AMPERSAND_PLACEHOLDER", "&")
 
 
 def load_alignment(alignment_path: str) -> pd.DataFrame:
-    """Loads the alignment file. Parses only the <alignment> tag and puts the data into a dataframe."""
-    with open(alignment_path) as file:
+    """Load the gold alignment file into a dataframe.
+
+    Only the ``<alignment>`` tag is parsed; the rest of the .wa XML is
+    metadata this project does not use.
+    """
+    with Path(alignment_path).open() as file:
         file_content = file.read()
 
     # <==> and & break xml loaders so it needs to be replaces with something else
@@ -76,7 +87,7 @@ def load_alignment(alignment_path: str) -> pd.DataFrame:
     modified_content = f"<root>{modified_content}</root>"
 
     modified_file_path = "temp.wa"
-    with open(modified_file_path, "w") as modified_file:
+    with Path(modified_file_path).open("w") as modified_file:
         modified_file.write(modified_content)
 
     # Parse the modified file using ElementTree
@@ -100,19 +111,29 @@ def load_alignment(alignment_path: str) -> pd.DataFrame:
     return y
 
 
-def prettyprint(element, **kwargs):
+def prettyprint(element: etree._Element, **kwargs: object) -> None:
+    """Log an XML element with lxml's pretty printer."""
     xml = etree.tostring(element, pretty_print=True, **kwargs)
-    print(xml.decode(), end="")
+    logger.info("%s", xml.decode())
 
 
-def test_XML():
-    # test out the format
-    print(alignments_data[0]["alignment_text"])
+def log_first_alignment(alignments_data: list[dict[str, str]]) -> None:
+    """Log the first parsed alignment, to eyeball the .wa parsing.
+
+    This was `test_XML()` and read a module-level `alignments_data` that does
+    not exist at module scope -- it only ever worked when pasted into a
+    session where load_alignment had already run. It takes the data as an
+    argument now, and is no longer named test_* so pytest does not collect it.
+    """
+    logger.info("%s", alignments_data[0]["alignment_text"])
 
 
-def generate_train_test_split(xy: pd.DataFrame):
-    """Generates a train, validate, test split of the given dataframes in a 60% 20% 20% ratio."""
-    # data = pd.merge(x, y, left_index=True, right_index=True)
+def generate_train_test_split(xy: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Split the dataframe into a train and a test half.
+
+    The docstring said 60/20/20 when it was written; the code splits at 3%,
+    which is what the experiments actually used.
+    """
     data = xy
     train, test = np.split(
         data.sample(frac=1, random_state=42), [int(0.03 * len(data))]
@@ -121,21 +142,23 @@ def generate_train_test_split(xy: pd.DataFrame):
     return train, test
 
 
-def generate_alignment_format(dataFrame: pd.DataFrame, id: int) -> str:
+def generate_alignment_format(data_frame: pd.DataFrame, row_id: int) -> str:
+    """Render one row's two chunkings as the numbered text GPT is shown."""
     output = "seq1:\n"
-    chunks1 = dataFrame["chunked_sentance1"][id]
+    chunks1 = data_frame["chunked_sentance1"][row_id]
     for i, chunk in enumerate(chunks1):
         output = output + str(i + 1) + ") " + str(chunk) + "\n"
     output = output + "\nseq2:\n"
-    chunks2 = dataFrame["chunked_sentance2"][id]
+    chunks2 = data_frame["chunked_sentance2"][row_id]
     for i, chunk in enumerate(chunks2):
         output = output + str(i + 1) + ") " + str(chunk) + "\n"
     return output
 
 
-def get_chunks_as_text(data: pd.DataFrame) -> str:
+def get_chunks_as_text(data: pd.DataFrame) -> tuple[list[str], pd.Index]:
+    """Render every row's chunk pair as bracketed text, with its index."""
     output = []
-    for index, row in data.iterrows():
+    for _index, row in data.iterrows():
         chunks = ""
         for chunk in row["chunked_sentance1"]:
             chunks = chunks + "[ " + chunk + " ] "

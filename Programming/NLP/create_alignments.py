@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""Ask GPT to align the headline chunks, and save the raw replies."""
+
+from pathlib import Path
+
 import gpt_alignment
 import pandas as pd
 import processing
@@ -6,9 +11,6 @@ import processing
 file_path = "alignments_unformatted_headlines.txt"
 
 # paths to students answers database
-# chunked_path1 = "test_goldStandard/student/STSint.testinput.answers-students.sent1.chunk.txt"
-# chunked_path2 = "test_goldStandard/student/STSint.testinput.answers-students.sent2.chunk.txt"
-# alignment_path = "test_goldStandard/student/STSint.testinput.answers-students.wa"
 
 # paths to headlines
 chunked_path1 = "test_goldStandard/headlines/STSint.testinput.headlines.sent1.chunk.txt"
@@ -16,23 +18,19 @@ chunked_path2 = "test_goldStandard/headlines/STSint.testinput.headlines.sent1.ch
 alignment_path = "test_goldStandard/headlines/STSint.testinput.headlines.wa"
 
 # load data
-# studentAnserws = processing.load_sentences(studentAnswers1_path, studentAnswers1_path)
 goldstandard_chunked = processing.load_chunked(chunked_path1, chunked_path2)
 goldstandard_alignment = processing.load_alignment(alignment_path)
 
 # get a nice anwser-student table
-data = pd.merge(
+data = pd.DataFrame.merge(
     goldstandard_chunked, goldstandard_alignment, left_index=True, right_index=True
 )
-# print(data)
 
 data_for_chat, indexes = processing.get_chunks_as_text(data)
 
-client = gpt_alignment.createGPT()
-responses = []
-for i in range(len(data_for_chat)):
-    responses.append(gpt_alignment.callApi(client, data_for_chat[i]))
+client = gpt_alignment.create_gpt()
+responses = [gpt_alignment.call_api(client, chunks) for chunks in data_for_chat]
 
 # Writing to the file with repr() to preserve "\n" characters
-with open(file_path, "w") as file:
+with Path(file_path).open("w") as file:
     file.writelines(repr(string) + "\n" for string in responses)
