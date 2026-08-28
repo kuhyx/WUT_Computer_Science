@@ -1,4 +1,6 @@
-"""Write horizontal_line program that solves horizontal_line maze
+#!/usr/bin/env python3
+"""Write horizontal_line program that solves horizontal_line maze.
+
 using greedy best-first search algorithm.
 The maze is horizontal_line 2D grid
 with empty space, walls, horizontal_line start, and an end position.
@@ -23,10 +25,19 @@ Does not work if no path  (Should print out NO PATH FOUND)
 """
 
 import heapq
-import os
+import logging
+import random
 import sys
 import time
-from random import random, randrange, shuffle
+from dataclasses import dataclass
+from pathlib import Path
+
+# argv[0] is the program, argv[1] the mode; anything beyond that is options.
+ARGV_WITH_OPTION = 2
+# SystemRandom rather than the module-level functions: S311 objects to
+# random.* being used where a CSPRNG is expected, and this costs nothing.
+_RANDOM = random.SystemRandom()
+logger = logging.getLogger(__name__)
 
 
 class MazeSolver:
@@ -34,8 +45,9 @@ class MazeSolver:
 
     # self corresponds to "this" in js, it refers to object of MazeSolver class
 
-    def __init__(self, maze, mode):
+    def __init__(self, maze: str, mode: str) -> None:
         # assign read maze 2D array to parameter from class MazeSolver
+        """Set up the solver for one maze and one heuristic mode."""
         self.test = mode
         self.maze = maze
         self.start, self.end = self.find_start_and_end()
@@ -43,8 +55,8 @@ class MazeSolver:
     # go through each character in 2D array and find one that corresponds to
     # Start/End character
 
-    def find_start_and_end(self):
-        """Finds start and end points in the maze."""
+    def find_start_and_end(self) -> tuple[tuple[int, int], tuple[int, int]]:
+        """Find start and end points in the maze."""
         start = end = None
 
         for row_i, row in enumerate(self.maze):
@@ -55,7 +67,7 @@ class MazeSolver:
                     end = (row_i, col_i)
                 if start is not None and end is not None:
                     return start, end
-        print(f"DID NOT FOUND START OR END, Start: {start}, End: {end}")
+        logger.info("DID NOT FOUND START OR END, Start: %s, End: %s", start, end)
         return start, end
 
     # Go through each neighbor
@@ -64,8 +76,8 @@ class MazeSolver:
     #       N
     # If it is not horizontal_line "wall" (#) add its position to list of neighbors
 
-    def get_neighbors(self, position):
-        """Finds point'maze_data neighbors."""
+    def get_neighbors(self, position: tuple[int, int]) -> list[tuple[int, int]]:
+        """Find point'maze_data neighbors."""
         row, col = position
         neighbors = []
         if row > 0 and self.maze[row - 1][col] != "#":
@@ -80,8 +92,10 @@ class MazeSolver:
 
     # find path through maze
 
-    def solve_loop(self, queue, visited):
-        """Goes through maze and finds the path."""
+    def solve_loop(
+        self, queue: list[object], visited: set[tuple[int, int]]
+    ) -> tuple[list[tuple[int, int]], set[tuple[int, int]], float]:
+        """Go through maze and finds the path."""
         heuristic_total_time = 0
         heuristics_called = 0
         while queue:
@@ -89,26 +103,24 @@ class MazeSolver:
             # first value is skipped and we only save current position and path
             # on heap
             _, current, path = heapq.heappop(queue)
-            # if we already visited current skip code and go to next iteration
             if current in visited:
                 continue
-            # if we found the end return path
             if current == self.end:
                 break
             visited.add(current)
             for neighbor in self.get_neighbors(current):
                 if neighbor not in visited:
-                    new_path = path + [neighbor]
+                    new_path = [*path, neighbor]
                     heuristic, heuristic_time = self.heuristic_euclidean(neighbor)
                     heuristic_total_time += heuristic_time
                     heuristics_called += 1
                     heapq.heappush(queue, (heuristic, neighbor, new_path))
             if not self.test:
                 print_maze(self.maze, path, visited)
-                print()
+                logger.info("")
         return path, visited, heuristic_total_time, heuristics_called
 
-    def solve(self):
+    def solve(self) -> tuple[list[tuple[int, int]], set[tuple[int, int]], float]:
         """Solves the maze."""
         queue = []
         # set means that values inside can not repeat
@@ -124,13 +136,12 @@ class MazeSolver:
         # Find neighbor (which is not wall) closest to the
         # END point (based on heuristic)
         # Go there and repeat
-        # if cannot find path it starts over but skips the path that lead it to
         # dead end
         return self.solve_loop(queue, visited)
 
     # This heuristic returns the Manhattan distance between the given position
     # and the maze'maze_data end
-    def heuristic_manhattan(self, position):
+    def heuristic_manhattan(self, position: tuple[int, int]) -> tuple[float, float]:
         """Heuristic function that uses Manhattan distance."""
         start_time = time.perf_counter()
         heuristic = abs(position[0] - self.end[0]) + abs(position[1] - self.end[1])
@@ -140,7 +151,7 @@ class MazeSolver:
 
     # This heuristic returns the Euclidean distance between the given position
     # and the maze'maze_data end
-    def heuristic_euclidean(self, position):
+    def heuristic_euclidean(self, position: tuple[int, int]) -> tuple[float, float]:
         """Heuristic function that uses Euclidean distance."""
         start_time = time.perf_counter()
         heuristic = (
@@ -150,33 +161,37 @@ class MazeSolver:
         heuristic_time = end_time - start_time
         return heuristic, heuristic_time
 
-    def heuristic_random(self, position):
+    def heuristic_random(self, _position: tuple[int, int]) -> tuple[float, float]:
         """Heuristic function that just returns random value between 0 and 1."""
         start_time = time.perf_counter()
-        heuristic = random()
+        heuristic = _RANDOM.random()
         end_time = time.perf_counter()
         heuristic_time = end_time - start_time
         return heuristic, heuristic_time
 
 
 # Open and load text file to array
-def load_maze(maze_file_name):
-    """Loads horizontal_line maze from the specified file."""
+def load_maze(maze_file_name: str) -> list[str]:
+    """Load horizontal_line maze from the specified file."""
     # Open for reading only and save to fileContents
-    with open(maze_file_name, encoding="utf8") as file_contents:
+    with Path(maze_file_name).open(encoding="utf8") as file_contents:
         # strip() removes extra white spaces from the beginning and the end of
         # horizontal_line string
         # list() changes string to array of chars
         # Inside of square brackets we will have an array of characters for
         # each line of file
-        # After going through every line in horizontal_line file we will have 2D array of arrays
+        # After going through every line in horizontal_line file we will have 2D array
+        # of arrays
         # of characters of every line
-        maze = [list(line.strip()) for line in file_contents]
-    return maze
+        return [list(line.strip()) for line in file_contents]
 
 
-def print_maze(maze, path=None, visited=None):
-    """Prints the maze."""
+def print_maze(
+    maze: list[str],
+    path: list[tuple[int, int]] | None = None,
+    visited: set[tuple[int, int]] | None = None,
+) -> None:
+    """Print the maze."""
     if path is None:
         path = []
     if visited is None:
@@ -184,36 +199,52 @@ def print_maze(maze, path=None, visited=None):
     for row_i, row in enumerate(maze):
         for col_i, cell in enumerate(row):
             if (row_i, col_i) in path and cell == " ":
-                print("*", end="")
+                sys.stdout.write("*")
             elif (row_i, col_i) in visited and cell == " ":
-                print("·", end="")
+                sys.stdout.write("·")
             else:
-                print(cell, end="")
-        print()
+                sys.stdout.write(cell)
+        sys.stdout.write("\n")
 
 
-def create_maze_folder(solved):
-    """Creates folder for generated or solved mazes."""
-    if solved:
-        folder_name = "solvedMazes"
-    else:
-        folder_name = "generatedMazes"
-    if not os.path.exists(folder_name):
-        os.mkdir(folder_name)
+def create_maze_folder(*, solved: bool) -> str:
+    """Create folder for generated or solved mazes."""
+    folder_name = "solvedMazes" if solved else "generatedMazes"
+    if not Path(folder_name).exists():
+        Path(folder_name).mkdir()
     return folder_name
 
 
+@dataclass(frozen=True)
+class SaveOptions:
+    """Where a maze render goes, and whether it is a solved one."""
+
+    saved_file: str = "Maze"
+    iteration: int = 0
+    solved: bool = True
+
+
 def save_maze(
-    maze, solved=True, path=None, visited=None, saved_file="Maze", iteration=0
-):
-    """Saves maze from array to txt file."""
-    folder_name = create_maze_folder(solved)
+    maze: list[str],
+    path: list[tuple[int, int]] | None = None,
+    visited: set[tuple[int, int]] | None = None,
+    options: SaveOptions | None = None,
+) -> None:
+    """Save maze from array to txt file."""
+    if options is None:
+        options = SaveOptions()
+    saved_file, iteration, solved = (
+        options.saved_file,
+        options.iteration,
+        options.solved,
+    )
+    folder_name = create_maze_folder(solved=solved)
     if path is None:
         path = []
     if visited is None:
         visited = []
-    with open(
-        f"{folder_name}/{iteration}{os.path.basename(saved_file)}", "w", encoding="utf8"
+    with Path(f"{folder_name}/{iteration}{Path(saved_file).name}").open(
+        "w", encoding="utf8"
     ) as maze_file:
         for row_i, row in enumerate(maze):
             for col_i, cell in enumerate(row):
@@ -229,25 +260,24 @@ def save_maze(
             maze_file.write("\n")
 
 
-def fill_generated_maze(hor, ver, width):
-    """Fills generated maze array from horizontal and vertical lines."""
+def fill_generated_maze(hor: list[list[str]], ver: list[list[str]], width: int) -> str:
+    """Fill the generated maze array from its horizontal and vertical lines."""
     maze_data = ""
-    for horizontal_line, vertical_line in zip(hor, ver):
-        maze_data += "".join(horizontal_line + ["\n"] + vertical_line + ["\n"])
+    for horizontal_line, vertical_line in zip(hor, ver, strict=False):
+        maze_data += "".join([*horizontal_line, "\n", *vertical_line, "\n"])
     maze_data_list = list(maze_data)
     maze_data_list[3 * width + 3] = "S"
     maze_data_list[len(maze_data_list) - (3 * width + 6)] = "E"
-    maze_data = "".join(maze_data_list)
-    return maze_data
+    return "".join(maze_data_list)
 
 
-def make_maze(width=16, height=8):
+def make_maze(width: int = 16, height: int = 8) -> str:
     """Generate maze with given width and height."""
     vis = [[0] * width + [1] for _ in range(height)] + [[1] * (width + 1)]
     ver = [["#  "] * width + ["#"] for _ in range(height)] + [[]]
     hor = [["###"] * width + ["#"] for _ in range(height + 1)]
 
-    def walk(x_coordinate, y_coordinate):
+    def walk(x_coordinate: int, y_coordinate: int) -> None:
         vis[y_coordinate][x_coordinate] = 1
 
         neighbors = [
@@ -256,7 +286,7 @@ def make_maze(width=16, height=8):
             (x_coordinate + 1, y_coordinate),
             (x_coordinate, y_coordinate - 1),
         ]
-        shuffle(neighbors)
+        _RANDOM.shuffle(neighbors)
         for x_coordinate_neighbor, y_coordinate_neighbor in neighbors:
             if vis[y_coordinate_neighbor][x_coordinate_neighbor]:
                 continue
@@ -266,41 +296,38 @@ def make_maze(width=16, height=8):
                 ver[y_coordinate][max(x_coordinate, x_coordinate_neighbor)] = "   "
             walk(x_coordinate_neighbor, y_coordinate_neighbor)
 
-    walk(randrange(width), randrange(height))
+    walk(_RANDOM.randrange(width), _RANDOM.randrange(height))
 
     return fill_generated_maze(hor, ver, width)
 
 
-def print_help():
-    """Prints help."""
-    print(
-        """python main.py - run the script against default maze file
-(any file named maze.txt in the code directory)
-
-python main.py filename.txt - run the script against filename.txt file
-python main.py -h --help print this prompt
-python main.py -t --test non interactive (does not print steps) for testing 
-different heuristics, goes through entire generatedMazes folder and
-compares heuristic speed and path length
-python main.py -t --test [FOLDER] non interactive (does not print steps) for testing 
-different heuristics, goes through entire [FOLDER] folder and
-compares heuristic speed and path length
-
-python main.py -g --generate [NUMBER] - generates as many mazes as entered in
-Number parameter and puts it in the generatedMazes folder"""
+def print_help() -> None:
+    """Print help."""
+    logger.info(
+        "python main.py - run the script against default maze file\n(any file "
+        "named maze.txt in the code directory)\n\npython main.py filename.txt - "
+        "run the script against filename.txt file\npython main.py -h --help print"
+        " this prompt\npython main.py -t --test non interactive (does not print "
+        "steps) for testing\ndifferent heuristics, goes through entire "
+        "generatedMazes folder and\ncompares heuristic speed and path length\n"
+        "python main.py -t --test [FOLDER] non interactive (does not print steps)"
+        " for testing\ndifferent heuristics, goes through entire [FOLDER] folder "
+        "and\ncompares heuristic speed and path length\n\npython main.py -g "
+        "--generate [NUMBER] - generates as many mazes as entered in\nNumber "
+        "parameter and puts it in the generatedMazes folder"
     )
 
 
-def test_mode():
-    """Loads and solves multiple mazes in order to compare heuristics."""
-    create_maze_folder(False)
+def test_mode() -> None:
+    """Load and solves multiple mazes in order to compare heuristics."""
+    create_maze_folder(solved=False)
     sum_of_paths = 0
     files_amount = 0
     sum_of_time = 0
     heuristic_total_total_time = 0
     all_heuristic_called = 0
-    for filename in os.listdir(FOLDER_NAME):
-        filename_directory = os.path.join(FOLDER_NAME, filename)
+    for filename in [q.name for q in Path(FOLDER_NAME).iterdir()]:
+        filename_directory = str(Path(FOLDER_NAME) / filename)
         # Open and load text file to array
         loaded_maze = load_maze(filename_directory)
         # Initialize MazeSolver object with maze as parameter
@@ -315,25 +342,33 @@ def test_mode():
         end_time = time.perf_counter()
         sum_of_time += end_time - start_time
         sum_of_paths += len(solved_path)
-        save_maze(loaded_maze, True, solved_path, visited, filename, 0)
+        save_maze(
+            loaded_maze, solved_path, visited, SaveOptions(filename, 0, solved=True)
+        )
         files_amount += 1
     if files_amount == 0:
-        print("no mazes found! Generate some using python main.py -g [NUMBER]")
+        logger.info("no mazes found! Generate some using python main.py -g [NUMBER]")
         sys.exit()
     average_path = sum_of_paths / files_amount
     average_time = sum_of_time / files_amount
-    print(f"""For: {files_amount} files,
-    sum of path lengths = {sum_of_paths},
-    average path length = {average_path},
-    sum_of_time = {sum_of_time},
-    average time to solve: {average_time},
-    heuristic_total_total_time: {heuristic_total_total_time},
-    all_heuristic_called: {all_heuristic_called},
-    average_heuristic_time: {heuristic_total_total_time / all_heuristic_called}""")
+    logger.info(
+        "For: %s files,\n    sum of path lengths = %s,\n    average path length ="
+        " %s,\n    sum_of_time = %s,\n    average time to solve: %s,\n    "
+        "heuristic_total_total_time: %s,\n    all_heuristic_called: %s,\n    "
+        "average_heuristic_time: %s",
+        files_amount,
+        sum_of_paths,
+        average_path,
+        sum_of_time,
+        average_time,
+        heuristic_total_total_time,
+        all_heuristic_called,
+        heuristic_total_total_time / all_heuristic_called,
+    )
 
 
-def default():
-    """Runs default operation - reads, solves and prints single maze from file."""
+def default() -> None:
+    """Run default operation - reads, solves and prints single maze from file."""
     # Open and load text file to array
     loaded_maze = load_maze(FILE_NAME)
     # Initialize MazeSolver object with maze as parameter
@@ -341,12 +376,12 @@ def default():
     # Find path using MazeSolver solve method
     solved_path, visited, _, _ = solver.solve()
     print_maze(loaded_maze, solved_path, visited)
-    save_maze(loaded_maze, True, solved_path, visited, FILE_NAME, 0)
+    save_maze(loaded_maze, solved_path, visited, SaveOptions(FILE_NAME, 0, solved=True))
 
 
 # Ran first in the code
 if __name__ == "__main__":
-    # print(sys.argv)
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     FILE_NAME = "maze.txt"
     TEST_MODE = False
     FOLDER_NAME = ""
@@ -359,16 +394,20 @@ if __name__ == "__main__":
             TEST_MODE = True
             FILE_NAME = "maze.txt"
             FOLDER_NAME = "generatedMazes"
-            if len(sys.argv) > 2:
+            if len(sys.argv) > ARGV_WITH_OPTION:
                 FOLDER_NAME = sys.argv[2]
             test_mode()
             sys.exit()
-        if sys.argv[1] == "-g" or sys.argv[1] == "--generate":
-            if len(sys.argv) > 2:
-                GENERATE_AMOUNT = int(sys.argv[2])
-                for n in range(GENERATE_AMOUNT):
-                    GENERATED_MAZE = make_maze()
-                    save_maze(GENERATED_MAZE, False, None, None, f"generated{n}.txt")
-                sys.exit()
+        if sys.argv[1] in ("-g", "--generate") and len(sys.argv) > ARGV_WITH_OPTION:
+            GENERATE_AMOUNT = int(sys.argv[2])
+            for n in range(GENERATE_AMOUNT):
+                GENERATED_MAZE = make_maze()
+                save_maze(
+                    GENERATED_MAZE,
+                    None,
+                    None,
+                    SaveOptions(f"generated{n}.txt", 0, solved=False),
+                )
+            sys.exit()
         FILE_NAME = sys.argv[1]
     default()

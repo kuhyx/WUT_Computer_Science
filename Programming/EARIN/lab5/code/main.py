@@ -1,15 +1,20 @@
+#!/usr/bin/env python3
 """Implementation of a network analyzing MNIST dataset."""
 
+import logging
 import time
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import torch
 from torch import nn, optim
 from torchvision import datasets, transforms
 
+logger = logging.getLogger(__name__)
 
-def set_hyperparameters():
-    """Sets hyperparameters used throughout the network."""
+
+def set_hyperparameters() -> dict[str, int]:
+    """Set hyperparameters used throughout the network."""
     return {
         "num_epochs": 5,
         "init_input_size": 28 * 28,  # MNIST images are 28x28 pixels
@@ -17,8 +22,8 @@ def set_hyperparameters():
     }
 
 
-def load_datasets():
-    """Loads train and test dataset from MNIST."""
+def load_datasets() -> tuple[object, object]:
+    """Load train and test dataset from MNIST."""
     train_dataset = datasets.MNIST(
         root="./data", train=True, transform=transforms.ToTensor(), download=True
     )
@@ -28,7 +33,9 @@ def load_datasets():
     return train_dataset, test_dataset
 
 
-def create_data_loaders(train_dataset, test_dataset):
+def create_data_loaders(
+    train_dataset: object, test_dataset: object
+) -> tuple[object, object]:
     """Create train and test data loaders."""
     train_loader = torch.utils.data.DataLoader(
         dataset=train_dataset, batch_size=BATCH_SIZE, shuffle=True
@@ -45,7 +52,7 @@ train_acc_values = []
 val_acc_values = []
 
 
-def define_model(hyperparameters):
+def define_model(hyperparameters: dict[str, int]) -> object:
     """Define the multilayer perceptron training_parameters['model']."""
     # Define the multilayer perceptron model
     model = nn.Sequential()
@@ -59,7 +66,7 @@ def define_model(hyperparameters):
     return model
 
 
-def get_optimizer(model):
+def get_optimizer(model: object) -> object:
     """Return optimizer function."""
     if OPTIMIZER_TYPE == "SGD":
         return optim.SGD(model.parameters(), lr=LEARNING_RATE)
@@ -67,10 +74,11 @@ def get_optimizer(model):
         return optim.SGD(model.parameters(), lr=LEARNING_RATE, momentum=0.9)
     if OPTIMIZER_TYPE == "Adam":
         return optim.Adam(model.parameters(), lr=LEARNING_RATE)
-    raise ValueError("Unsupported optimizer type!")
+    msg = f"Unsupported optimizer type: {OPTIMIZER_TYPE}"
+    raise ValueError(msg)
 
 
-def initial_configuration():
+def initial_configuration() -> tuple[dict[str, int], object, object, object]:
     """Perform all operations needed for training network."""
     # Set random seed for reproducibility
     torch.manual_seed(42)
@@ -81,15 +89,20 @@ def initial_configuration():
     model = define_model(hyperparameters)
     # Loss function
     criterion = nn.CrossEntropyLoss()
-    # training_parameters['optimizer']
     optimizer = get_optimizer(model)
     return hyperparameters, train_loader, test_loader, model, criterion, optimizer
 
 
-def single_train_iteration(data, training_parameters, targets, batch_idx, epoch):
+def single_train_iteration(
+    data: object,
+    training_parameters: dict[str, object],
+    targets: object,
+    batch_idx: int,
+    epoch: int,
+) -> tuple[object, object]:
     """Train network for single batch."""
     # Reshape the input data
-    data = data.view(data.size(0), -1)
+    _ = data.view(data.size(0), -1)
     # Forward pass
     outputs = training_parameters["model"](data)
     loss = training_parameters["criterion"](outputs, targets)
@@ -99,24 +112,32 @@ def single_train_iteration(data, training_parameters, targets, batch_idx, epoch)
     training_parameters["optimizer"].step()
     # Print loss value for every learning step
     if (batch_idx + 1) % 100 == 0:
-        print(
-            f"""
-            Epoch [{epoch + 1}/{training_parameters["hyperparameters"]["num_epochs"]}],
-            Step [{batch_idx + 1}/{len(training_parameters["loaders"]["train_loader"])}],
-            Loss: {loss.item():.4f}
-            """
+        logger.info(
+            "\n            Epoch [%s/%s],\n            Step [%s/%s],\n           "
+            " Loss: %s\n            ",
+            epoch + 1,
+            training_parameters["hyperparameters"]["num_epochs"],
+            batch_idx + 1,
+            len(training_parameters["loaders"]["train_loader"]),
+            loss.item(),
         )
     # Append loss value for every learning step
     loss_values.append(loss.item())
     return data, training_parameters["optimizer"]
 
 
-def set_loaders(train_loader, test_loader):
+def set_loaders(train_loader: object, test_loader: object) -> dict[str, object]:
     """Put train and test loaders into one object."""
     return {"train_loader": train_loader, "test_loader": test_loader}
 
 
-def set_training_parameters(hyperparameters, loaders, model, criterion, optimizer):
+def set_training_parameters(
+    hyperparameters: dict[str, int],
+    loaders: dict[str, object],
+    model: object,
+    criterion: object,
+    optimizer: object,
+) -> dict[str, object]:
     """Put all training parameters into one object."""
     return {
         "hyperparameters": hyperparameters,
@@ -130,7 +151,9 @@ def set_training_parameters(hyperparameters, loaders, model, criterion, optimize
     }
 
 
-def training_loop(training_parameters, print_info=True):
+def training_loop(
+    training_parameters: dict[str, object], *, print_info: bool = True
+) -> tuple[int, object]:
     """Train network for all epochs."""
     epochs_num = training_parameters["hyperparameters"]["num_epochs"]
     # Training loop
@@ -138,7 +161,7 @@ def training_loop(training_parameters, print_info=True):
         for batch_idx, (data, targets) in enumerate(
             training_parameters["loaders"]["train_loader"]
         ):
-            data, training_parameters["optimizer"] = single_train_iteration(
+            _, training_parameters["optimizer"] = single_train_iteration(
                 data, training_parameters, targets, batch_idx, epoch
             )
         calculate_accuracy_epoch(training_parameters, epoch, print_info)
@@ -146,28 +169,34 @@ def training_loop(training_parameters, print_info=True):
     return epoch, training_parameters["loaders"]["train_loader"]
 
 
-def calculate_accuracy_epoch(training_parameters, epoch, print_info=True):
+def calculate_accuracy_epoch(
+    training_parameters: dict[str, object], epoch: int, *, print_info: bool = True
+) -> None:
     """Calculate accuracy on train set after each epoch."""
     correct = 0
     total = 0
     for data, targets in training_parameters["loaders"]["train_loader"]:
-        data = data.view(data.size(0), -1)
+        _ = data.view(data.size(0), -1)
         outputs = training_parameters["model"](data)
         _, predicted = torch.max(outputs.data, 1)
         total += targets.size(0)
         correct += (predicted == targets).sum().item()
     train_accuracy = 100 * correct / total
     if print_info:
-        print(f"Accuracy on Train Set after Epoch {epoch + 1}: {train_accuracy:.2f}%")
+        logger.info(
+            "Accuracy on Train Set after Epoch %s: %s%%", epoch + 1, train_accuracy
+        )
     train_acc_values.append(train_accuracy)
 
 
-def calculate_validation_set_accuracy(training_parameters, epoch, print_info=True):
+def calculate_validation_set_accuracy(
+    training_parameters: dict[str, object], epoch: int, *, print_info: bool = True
+) -> None:
     """Calculate accuracy on validation set after each epoch."""
     correct = 0
     total = 0
     for data, targets in training_parameters["loaders"]["test_loader"]:
-        data = data.view(data.size(0), -1)
+        _ = data.view(data.size(0), -1)
         outputs = training_parameters["model"](data)
         _, predicted = torch.max(outputs.data, 1)
         total += targets.size(0)
@@ -175,45 +204,46 @@ def calculate_validation_set_accuracy(training_parameters, epoch, print_info=Tru
 
     validation_accuracy = 100 * correct / total
     if print_info:
-        print(
-            f"Accuracy on Validation Set after Epoch {epoch + 1}: {validation_accuracy:.2f}%"
+        logger.info(
+            "Accuracy on Validation Set after Epoch %s: %s%%",
+            epoch + 1,
+            validation_accuracy,
         )
-        print("---")
+        logger.info("---")
     val_acc_values.append(validation_accuracy)
 
 
-def main_part(show_plot=True):
+def main_part(*, show_plot: bool = True) -> None:
+    """Train the model, evaluate it, and optionally plot the losses."""
     (
-        HYPERPARAMETERS,
-        TRAIN_LOADER,
-        TEST_LOADER,
-        MODEL,
-        CRITERION,
-        OPTIMIZER,
+        hyperparameters,
+        train_loader,
+        test_loader,
+        model,
+        criterion,
+        optimizer,
     ) = initial_configuration()
     start_time = time.time()
-    LOADERS = set_loaders(TRAIN_LOADER, TEST_LOADER)
-    TRAINING_PARAMETERS = set_training_parameters(
-        HYPERPARAMETERS, LOADERS, MODEL, CRITERION, OPTIMIZER
+    loaders = set_loaders(train_loader, test_loader)
+    training_parameters = set_training_parameters(
+        hyperparameters, loaders, model, criterion, optimizer
     )
-    training_loop(TRAINING_PARAMETERS, show_plot)
-    file = open("results.txt", "a")
-    file.write(
-        "-------------------------------------------------------------------------------------"
-        "\n"
-    )
-    file.write(
-        f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}"
-        "\n"
-    )
-    file.write(f"Execution time: {(time.time() - start_time)}" + "\n")
-    file.write(
-        "-------------------------------------------------------------------------------------"
-        "\n"
-    )
+    training_loop(training_parameters, show_plot)
+    with Path("results.txt").open("a") as file:
+        rule = "-" * 85 + "\n"
+        file.write(rule)
+        file.write(
+            f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}"
+            f"-w{WIDTH}-{OPTIMIZER_TYPE}\n"
+        )
+        file.write(f"Execution time: {time.time() - start_time}\n")
+        file.write(rule)
 
     # Plot the loss value for every learning step
-    learning_step_title = f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png"
+    learning_step_title = (
+        f"loss-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}"
+        f"-w{WIDTH}-{OPTIMIZER_TYPE}.png"
+    )
     plt.plot(loss_values)
     plt.xlabel("Learning Step")
     plt.ylabel("Loss")
@@ -224,7 +254,10 @@ def main_part(show_plot=True):
     plt.close()
 
     # Plot the accuracy on train set after each epoch
-    train_accuracy_title = f"trainAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png"
+    train_accuracy_title = (
+        f"trainAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl"
+        f"{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png"
+    )
     plt.plot(train_acc_values)
     plt.xlabel("Epoch")
     plt.ylabel("Train Accuracy")
@@ -235,7 +268,10 @@ def main_part(show_plot=True):
     plt.close()
 
     # Plot the accuracy on validation set after each epoch
-    validation_accuracy_title = f"validationAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png"
+    validation_accuracy_title = (
+        f"validationAccuracy-lr{LEARNING_RATE}-bs{BATCH_SIZE}"
+        f"-hl{NUM_HIDDEN_LAYERS}-w{WIDTH}-{OPTIMIZER_TYPE}.png"
+    )
     plt.plot(val_acc_values)
     plt.xlabel("Epoch")
     plt.ylabel("Validation Accuracy")
@@ -247,12 +283,13 @@ def main_part(show_plot=True):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     LEARNING_RATE = 0.001
     BATCH_SIZE = 64
     NUM_HIDDEN_LAYERS = 2
     WIDTH = 128
     OPTIMIZER_TYPE = "Adam"
-    main_part(True)
+    main_part(show_plot=True)
     """
     learning_rate_values = [0.1, 0.01, 0.001]
     i = 0

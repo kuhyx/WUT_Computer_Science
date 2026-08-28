@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 
 
 def reformat_sentence(sentence: str) -> str:

@@ -1,24 +1,38 @@
-import os
+#!/usr/bin/env python3
+"""Matplotlib scatter demo the lab-3 plotting is modelled on."""
+
+import logging
+import sys
 import tempfile
+from pathlib import Path
 
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
+logger = logging.getLogger(__name__)
 
-def main():
+# cv2.waitKey returns the ASCII code of the key pressed; 'q' quits.
+KEY_Q = ord("q")
+# NumPy's legacy np.random.* functions share one global state; Generator is
+# the modern API and is what NPY002 asks for.
+RNG = np.random.default_rng()
+
+
+def main() -> None:
     # define number of data points
-    N = 10
+    """Draw the scatter demo this lab's plotting is based on."""
+    point_count = 10
 
     # define the visualization params
-    colors = np.random.rand(N)
+    colors = RNG.random(point_count)
 
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
         # iterate over the optimization steps
-        for i in range(10):
+        for _i in range(10):
             # generate random 2D data - replace it with the results from your algorithm
-            x = np.random.rand(N)
-            y = np.random.rand(N)
+            x = RNG.random(point_count)
+            y = RNG.random(point_count)
 
             # plot the data
             plt.cla()
@@ -34,17 +48,18 @@ def main():
             # show the image, provide window name first
             cv2.imshow("visualization", image)
 
-            # add wait key. window waits until user presses a key and quits if the key is 'q'
-            if cv2.waitKey(0) == 113:
+            # add wait key. window waits until user presses a key and quits if the key
+            # is 'q'
+            if cv2.waitKey(0) == KEY_Q:
                 # and finally destroy/close all open windows
                 cv2.destroyAllWindows()
-                exit()
+                sys.exit()
 
         try:
             f.close()
-            os.unlink(f.name)
-        except:
-            pass
+            Path(f.name).unlink()
+        except Exception:
+            logger.exception("could not close the preview window")
 
     cv2.destroyAllWindows()
 

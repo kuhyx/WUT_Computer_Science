@@ -10,6 +10,7 @@ import pandas as pd
 import processing
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 
 # paths to students andsewrs database
 student_answers1_path = (

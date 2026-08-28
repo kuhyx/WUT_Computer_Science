@@ -11,6 +11,7 @@ from openai import OpenAI
 from openai.types.chat import ChatCompletion
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 
 
 def sentence_loop(sentences: list[str]) -> list[str]:

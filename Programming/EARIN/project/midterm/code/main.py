@@ -1,17 +1,24 @@
-"""Code for preprocessing data and creating model that predicts and
+#!/usr/bin/env python3
+"""Code for preprocessing data and creating model that predicts and.
+
 recomends anime based on another anime entered by user.
 """
 
 import argparse
+import logging
 
 import numpy as np
 import pandas as pd
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 
+logger = logging.getLogger(__name__)
 
-def get_data(limit_data=-1, data_folder_path="database"):
-    """Reads anime from csv database."""
+
+def get_data(
+    limit_data: int = -1, data_folder_path: str = "database"
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Read anime from csv database."""
     if limit_data > -1:
         # User can limit number of data taken into consideration,
         # model seems to work with limit_data value as low as 500,000
@@ -26,7 +33,9 @@ def get_data(limit_data=-1, data_folder_path="database"):
     return rating_data, anime_contact_data
 
 
-def merge_rating_anime_data(rating_data, anime_contact_data, debug=False):
+def merge_rating_anime_data(
+    rating_data: pd.DataFrame, anime_contact_data: pd.DataFrame, *, debug: bool = False
+) -> pd.DataFrame:
     """Preprocesses the data used for rating."""
     rating_data = rating_data.merge(
         anime_contact_data, left_on="anime_id", right_on="anime_id", how="left"
@@ -36,15 +45,21 @@ def merge_rating_anime_data(rating_data, anime_contact_data, debug=False):
     ]
     rating_head = rating_data.head()
     if debug:
-        print(rating_head)
+        logger.info("%s", rating_head)
     rating_shape_complete = rating_data.shape
     if debug:
-        print(rating_shape_complete)
+        logger.info("%s", rating_shape_complete)
     return rating_data
 
 
-def split_data_below_thresholds(rating_data, data_name, threshold=-1, debug=False):
-    """Removes data with data_name which is below given threshold."""
+def split_data_below_thresholds(
+    rating_data: pd.DataFrame,
+    data_name: str,
+    threshold: int = -1,
+    *,
+    debug: bool = False,
+) -> pd.DataFrame:
+    """Remove data with data_name which is below given threshold."""
     if threshold != -1:
         count = rating_data[data_name].value_counts()
         rating_data = rating_data[
@@ -52,12 +67,15 @@ def split_data_below_thresholds(rating_data, data_name, threshold=-1, debug=Fals
         ].copy()
         rating_shape_cut = rating_data.shape
         if debug:
-            print(rating_shape_cut)
+            logger.info("%s", rating_shape_cut)
     return rating_data
 
 
-def combine_name_and_ratings(rating_data, debug=False):
-    """Create table which holds name of the anime and number of its reviews
+def combine_name_and_ratings(
+    rating_data: pd.DataFrame, *, debug: bool = False
+) -> pd.DataFrame:
+    """Create table which holds name of the anime and number of its reviews.
+
     then we merge this with rating_data.
     """
     combine_movie_rating = rating_data.dropna(axis=0, subset=["Name"])
@@ -68,24 +86,27 @@ def combine_name_and_ratings(rating_data, debug=False):
     )
     rating_head = movie_rating_count.head()
     if debug:
-        print(rating_head)
-    rating_data = combine_movie_rating.merge(
+        logger.info("%s", rating_head)
+    return combine_movie_rating.merge(
         movie_rating_count, left_on="Name", right_on="Name", how="left"
     )
-    return rating_data
 
 
-def get_length_of_data(rating_data, data_name):
+def get_length_of_data(rating_data: pd.DataFrame, data_name: str) -> int:
     """We get amount of data in the database with a given column data_name."""
     # Encoding categorical data
     column_ids = rating_data[data_name + "_id"].unique().tolist()
     column_to_column = {x: i for i, x in enumerate(column_ids)}
     rating_data[data_name] = rating_data[data_name + "_id"].map(column_to_column)
-    users_number = len(column_to_column)
-    return users_number
+    return len(column_to_column)
 
 
-def get_top_ranked(rating_data, data_name, join_table=None, top_data_taken=20):
+def get_top_ranked(
+    rating_data: pd.DataFrame,
+    data_name: str,
+    join_table: pd.DataFrame | None = None,
+    top_data_taken: float = 20,
+) -> pd.DataFrame:
     """Get anime with highest ranking."""
     if join_table is None:
         join_table = rating_data
@@ -93,13 +114,10 @@ def get_top_ranked(rating_data, data_name, join_table=None, top_data_taken=20):
     top_users = group_data_by_rating.dropna().sort_values(ascending=False)[
         :top_data_taken
     ]
-    top_rated = join_table.join(
-        top_users, rsuffix="_r", how="inner", on=data_name + "_id"
-    )
-    return top_rated
+    return join_table.join(top_users, rsuffix="_r", how="inner", on=data_name + "_id")
 
 
-def get_data_info(rating_data, debug=False):
+def get_data_info(rating_data: pd.DataFrame, *, debug: bool = False) -> None:
     """Get some informations about data."""
     users_number = get_length_of_data(rating_data, "user")
     animes_number = get_length_of_data(rating_data, "anime")
@@ -111,25 +129,28 @@ def get_data_info(rating_data, debug=False):
         top_rated.user_id, top_rated.anime_id, top_rated.rating, aggfunc=np.sum
     )
 
-    pivot.fillna(0, inplace=True)
+    pivot = pivot.fillna(0)
     smallest_rating = min(rating_data["rating"])
     highest_rating = max(rating_data["rating"])
     if debug:
-        print(pivot)
+        logger.info("%s", pivot)
     if debug:
-        print(f"Num of users: {users_number}, Num of animes: {animes_number}")
-        print(
-            f"Min total rating: {smallest_rating}, Max total rating: {highest_rating}"
+        logger.info("Num of users: %s, Num of animes: %s", users_number, animes_number)
+        logger.info(
+            "Min total rating: %s, Max total rating: %s",
+            smallest_rating,
+            highest_rating,
         )
 
 
 def preprocessing(
-    rating_data,
-    anime_contact_data,
-    debug=False,
-    user_threshold=500,
-    anime_threshold=200,
-):
+    rating_data: pd.DataFrame,
+    anime_contact_data: pd.DataFrame,
+    *,
+    debug: bool = False,
+    user_threshold: int = 500,
+    anime_threshold: int = 200,
+) -> pd.DataFrame:
     """Preprocesses data for making model more accurate and/or faster."""
     rating_data = merge_rating_anime_data(rating_data, anime_contact_data)
     rating_data = split_data_below_thresholds(rating_data, "user_id", user_threshold)
@@ -139,29 +160,35 @@ def preprocessing(
     rating_data = rating_data.drop(columns="rating_x")
     rating_data = rating_data.rename(columns={"rating_y": "rating"})
     if debug:
-        print(rating_data)
+        logger.info("%s", rating_data)
         get_data_info(rating_data)
 
     pivot_table = rating_data.pivot_table(
         index="Name", columns="user_id", values="rating"
     ).fillna(0)
     if debug:
-        print(pivot_table)
+        logger.info("%s", pivot_table)
     return pivot_table
 
 
 def predict(
-    prediction_model, pivot_table, seed=42, anime="RANDOM", recommendation_number=6
-):
-    """This will choose a random anime name and our prediction_model will predict similar anime."""
-    np.random.seed(seed)
-    print(pivot_table)
+    prediction_model: object,
+    pivot_table: pd.DataFrame,
+    seed: int = 42,
+    anime: str = "RANDOM",
+    recommendation_number: int = 6,
+) -> None:
+    """Pick a random anime and recommend the ones most like it."""
+    # default_rng(seed) replaces np.random.seed: the legacy global state is
+    # what NPY002 flags, and a local generator is reproducible per call.
+    rng = np.random.default_rng(seed)
+    logger.info("%s", pivot_table)
     if anime == "RANDOM":
-        chosen_anime = np.random.choice(pivot_table.shape[0])
-        query = pivot_table.iloc[chosen_anime, :].values.reshape(1, -1)
+        chosen_anime = rng.choice(pivot_table.shape[0])
+        query = pivot_table.iloc[chosen_anime, :].to_numpy().reshape(1, -1)
         chosen_anime_name = pivot_table.index[chosen_anime]
     else:
-        query = pivot_table.loc[anime].values.reshape(1, -1)
+        query = pivot_table.loc[anime].to_numpy().reshape(1, -1)
         chosen_anime_name = anime
 
     distance, suggestions = prediction_model.kneighbors(
@@ -169,22 +196,31 @@ def predict(
     )
     for i in range(len(distance.flatten())):
         if i == 0:
-            print(f"Recommendations for {chosen_anime_name}:\n")
+            logger.info("Recommendations for %s:\n", chosen_anime_name)
         else:
-            print(
-                f"{i}: {pivot_table.index[suggestions.flatten()[i]]}, with distance of {distance.flatten()[i]}:"
+            logger.info(
+                "%s: %s, with distance of %s:",
+                i,
+                pivot_table.index[suggestions.flatten()[i]],
+                distance.flatten()[i],
             )
 
 
-def create_model(pivot_table, metric="cosine", algorithm="brute", neighbors=5):
-    """Creates model based on neaarest neighbor for anime prediction."""
-    pivot_table_matrix = csr_matrix(pivot_table.values)
+def create_model(
+    pivot_table: pd.DataFrame,
+    metric: str = "cosine",
+    algorithm: str = "brute",
+    neighbors: int = 5,
+) -> object:
+    """Create model based on neaarest neighbor for anime prediction."""
+    pivot_table_matrix = csr_matrix(pivot_table.to_numpy())
     model = NearestNeighbors(n_neighbors=neighbors, metric=metric, algorithm=algorithm)
     model.fit(pivot_table_matrix)
     return model
 
 
-def handle_arguments():
+def handle_arguments() -> tuple[object, ...]:
+    """Parse the command line into the recommender's settings."""
     parser = argparse.ArgumentParser(description="Example script with pyargs")
     parser.add_argument(
         "--data_limit",
@@ -248,7 +284,10 @@ def handle_arguments():
     parser.add_argument(
         "--user_threshold",
         "-ut",
-        help="Specify minimal number of votes required for user to be included in the data, set to -1 for no threshold",
+        help=(
+            "Specify minimal number of votes required for user to be included "
+            "in the data, set to -1 for no threshold"
+        ),
         required=False,
         type=int,
         default=500,
@@ -256,7 +295,10 @@ def handle_arguments():
     parser.add_argument(
         "--anime_threshold",
         "-at",
-        help="Specify minimal number of votes required for anime to be included in the data, set to -1 for no threshold",
+        help=(
+            "Specify minimal number of votes required for anime to be included "
+            "in the data, set to -1 for no threshold"
+        ),
         required=False,
         type=int,
         default=200,
@@ -290,6 +332,7 @@ def handle_arguments():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     (
         seed,
         debug,

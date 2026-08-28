@@ -11,6 +11,7 @@ import pandas as pd
 import processing
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 
 # input file name
 file_path = "alignments_unformatted_headlines.txt"

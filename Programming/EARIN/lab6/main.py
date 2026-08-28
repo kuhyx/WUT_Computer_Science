@@ -1,63 +1,66 @@
+#!/usr/bin/env python3
 """Code used to solve MountainCar-v0 gymnasium problem using Q-Learning algorithm."""
 
-from datetime import datetime
+import logging
+from datetime import UTC, datetime
 
 import gymnasium as gym
 import numpy as np
 
+# Only record video once the agent has had time to learn something.
+VIDEO_FROM_EPISODE = 600
+# NumPy's legacy np.random.* functions share one global state; Generator is
+# the modern API and is what NPY002 asks for.
+RNG = np.random.default_rng()
+logger = logging.getLogger(__name__)
+
 # Helper function to discretize the state
 
 
-def discretize_state(state, env, first_time):
-    # print(
-    #      f"state: {state}, state[0]: {state[0]}, env.observation_space.low: {env.observation_space.low}")
-    # print(f"state[0] - env {state[0] - env.observation_space.low}")
-    # print(f"state - env {state - env.observation_space.low}")
+def discretize_state(state: object, env: object, *, first_time: bool = False) -> object:
+    # f"state: {state}, state[0]: {state[0]}, env.observation_space.low:
+    # {env.observation_space.low}")
+    """Bucket a continuous observation into the Q-table's grid."""
     if first_time:
         substract_from_state = state[0] - env.observation_space.low
     else:
         substract_from_state = state - env.observation_space.low
     discretized_state = (substract_from_state) * np.array([10, 100])
-    discretized_state = np.round(discretized_state, 0).astype(int)
-    return discretized_state
+    return np.round(discretized_state, 0).astype(int)
 
 
-def initialize_environment(hyperparameters):
+def initialize_environment() -> object:
     """Initialize environment and video recording."""
     # Initialize environment
     env = gym.make("MountainCar-v0", render_mode="rgb_array")
     # Save video
-    now = datetime.now()
+    now = datetime.now(tz=UTC)
     time_string = now.strftime("%H:%M:%S")
-    env = gym.wrappers.RecordVideo(
+    return gym.wrappers.RecordVideo(
         env,
         video_folder="vid",
         disable_logger=True,
         name_prefix=time_string,
-        episode_trigger=lambda x: x > 600 and x % 2 == 0,
+        episode_trigger=lambda x: x > VIDEO_FROM_EPISODE and x % 2 == 0,
     )
-    return env
 
 
-def initialize_q_table(env):
+def initialize_q_table(env: object) -> object:
     """Initialize "empty" Q-table."""
     # Initialize Q-table
-    # n_actions = env.action_space.n  # Number of possible actions, should be 3
     # 0 accelerate left
     # 1 dont accelerate
     # 2 accelerate to the right
-    # q_table = np.zeros((n_actions,))
     num_states = (env.observation_space.high - env.observation_space.low) * np.array(
         [10, 100]
     )
     num_states = np.round(num_states, 0).astype(int) + 1
-    q_table = np.zeros((num_states[0], num_states[1], env.action_space.n))
-    return q_table
+    return np.zeros((num_states[0], num_states[1], env.action_space.n))
 
 
-def initialize_hyperparameters():
+def initialize_hyperparameters() -> dict[str, object]:
     """Initialize hyperparameters used by algorithm."""
-    hyperparameters = {
+    return {
         "learning_rate": 0.1,
         "discount_factor": 0.99,
         "epsilon": 0.2,
@@ -68,13 +71,17 @@ def initialize_hyperparameters():
         "goal_x": 0.5,
         "truncation": 200,
     }
-    return hyperparameters
 
 
-def choose_action(hyperparameters, env, q_table, discretized_state):
+def choose_action(
+    hyperparameters: dict[str, object],
+    env: object,
+    q_table: object,
+    discretized_state: object,
+) -> int:
     """Choose one of 3 actions possible for the algorithm."""
     # hyperparameters["epsilon"]-greedy exploration-exploitation tradeoff
-    if np.random.uniform(0, 1) < hyperparameters["epsilon"]:
+    if RNG.uniform(0, 1) < hyperparameters["epsilon"]:
         action = env.action_space.sample()  # Choose a random action
     else:
         # Choose the action with the highest Q-value
@@ -82,7 +89,9 @@ def choose_action(hyperparameters, env, q_table, discretized_state):
     return action
 
 
-def update_q_table(q_table, action, hyperparameters, reward):
+def update_q_table(
+    q_table: object, action: int, hyperparameters: dict[str, object], reward: float
+) -> object:
     """Update q_table with newest reward."""
     # Q-table update
     q_value = q_table[action]
@@ -95,14 +104,22 @@ def update_q_table(q_table, action, hyperparameters, reward):
 
 
 def movement(
-    hyperparameters, env, q_table, discretized_state, total_reward=0, episode_number=0
-):
-    """Choose action and observe consequences."""
+    hyperparameters: dict[str, object],
+    env: object,
+    q_table: object,
+    discretized_state: object,
+    progress: tuple[float, int] = (0.0, 0),
+) -> tuple[dict[str, object], object, object, float]:
+    """Choose action and observe consequences.
+
+    ``progress`` is (total_reward, episode_number); they travel together
+    through the whole training loop, so they are passed together.
+    """
+    total_reward, episode_number = progress
     action = choose_action(hyperparameters, env, q_table, discretized_state)
     # Take the action and observe the next state
     next_state, reward, terminated, truncated, _ = env.step(action)
-    discretized_next_state = discretize_state(next_state, env, False)
-    # print(discretized_next_state[0], discretized_next_state[1])
+    discretized_next_state = discretize_state(next_state, env, first_time=False)
     q_table[discretized_state[0], discretized_state[1], action] += hyperparameters[
         "learning_rate"
     ] * (
@@ -116,25 +133,30 @@ def movement(
     discretized_state = discretized_next_state
     done = terminated or truncated
     if terminated:
-        print("Destination reached on episode: ", episode_number)
+        logger.info("Destination reached on episode:  %s", episode_number)
     return hyperparameters, env, q_table, done, discretized_state, total_reward
 
 
-def episode_step(env, hyperparameters, q_table, episode_rewards, episode_number):
+def episode_step(
+    env: object,
+    hyperparameters: dict[str, object],
+    q_table: object,
+    episode_rewards: list[float],
+    episode_number: int,
+) -> tuple[object, dict[str, object], object, list[float]]:
     """Actions done with every episode."""
     state = env.reset()  # Reset the environment to an initial state
-    discretized_state = discretize_state(state, env, True)
+    discretized_state = discretize_state(state, env, first_time=True)
     done = False  # Boolean to indicate episode completion
     total_reward = 0  # Accumulate rewards for the episode
 
-    for step in range(hyperparameters["max_steps"]):
+    for _step in range(hyperparameters["max_steps"]):
         hyperparameters, env, q_table, done, discretized_state, total_reward = movement(
             hyperparameters,
             env,
             q_table,
             discretized_state,
-            total_reward,
-            episode_number,
+            (total_reward, episode_number),
         )
         if done:
             break
@@ -143,7 +165,9 @@ def episode_step(env, hyperparameters, q_table, episode_rewards, episode_number)
     return env, hyperparameters, q_table, episode_rewards
 
 
-def training_loop(hyperparameters, env, q_table):
+def training_loop(
+    hyperparameters: dict[str, object], env: object, q_table: object
+) -> tuple[object, object]:
     """Actual training for MountainCar."""
     episode_rewards = []  # List to store episode rewards
 
@@ -155,7 +179,7 @@ def training_loop(hyperparameters, env, q_table):
     return env, q_table
 
 
-def inference(env, q_table):
+def inference(env: object, q_table: object) -> None:
     """Inference using the updated Q-table."""
     env.reset()
     done = False
@@ -169,6 +193,7 @@ def inference(env, q_table):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     HYPERPARAMETERS = initialize_hyperparameters()
     ENV = initialize_environment(HYPERPARAMETERS)
     Q_TABLE = initialize_q_table(ENV)

@@ -9,6 +9,7 @@ import pandas as pd
 import processing
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 
 # Specify the output file path
 file_path = "alignments_with_training_headlines2.wa"

@@ -165,6 +165,4 @@ for alpha, beta in scemariusze:
 for idx, (alpha, beta, koszt, zadowolenie) in enumerate(wyniki):
     logger.info("Krok %d:", idx + 1)
     logger.info("  koszt: %s, zadowolenie: %s", alpha, beta)
-    logger.info(
-        "  Calkowity koszt: %s, zadowolenie klienta: %s\n", koszt, zadowolenie
-    )
+    logger.info("  Calkowity koszt: %s, zadowolenie klienta: %s\n", koszt, zadowolenie)

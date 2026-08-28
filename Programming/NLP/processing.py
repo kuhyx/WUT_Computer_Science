@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Load the SemEval corpus: sentences, chunkings and gold alignments."""
 
+import sys
 import logging
 import re
 from pathlib import Path
@@ -10,6 +11,7 @@ import pandas as pd
 from lxml import etree
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
 
 
 def load_sentences(senteance1_path: str, sentance2_path: str) -> pd.DataFrame:
@@ -114,7 +116,7 @@ def load_alignment(alignment_path: str) -> pd.DataFrame:
 def prettyprint(element: etree._Element, **kwargs: object) -> None:
     """Log an XML element with lxml's pretty printer."""
     xml = etree.tostring(element, pretty_print=True, **kwargs)
-    logger.info("%s", xml.decode())
+    sys.stdout.write(xml.decode())
 
 
 def log_first_alignment(alignments_data: list[dict[str, str]]) -> None:

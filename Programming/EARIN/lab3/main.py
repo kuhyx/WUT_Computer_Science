@@ -1,19 +1,30 @@
-"""Program that optimizes Rastrigin function: file_ (x_point_value, y_point_value) =
+#!/usr/bin/env python3
+"""Program that optimizes Rastrigin function: file_ (x_point_value, y_point_value) =.
+
 20 + (x_point_value^2 - 10cos(2πx)) + (y_point_value^2 - 10 cos(2πy)).
 Using Evolutionary Strategy (μ, λ).
 """
 
-import os
+import logging
 import sys
 import tempfile
 import time
+from collections.abc import Callable
+from pathlib import Path
 
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
+# cv2.waitKey returns the ASCII code of the key pressed; 'q' quits.
+KEY_Q = ord("q")
+# NumPy's legacy np.random.* functions share one global state; Generator is
+# the modern API and is what NPY002 asks for.
+RNG = np.random.default_rng()
+logger = logging.getLogger(__name__)
 
-def rastrigin(x_argument, y_argument):
+
+def rastrigin(x_argument: float, y_argument: float) -> float:
     """Define the Rastrigin function."""
     return (
         20
@@ -24,7 +35,7 @@ def rastrigin(x_argument, y_argument):
     )
 
 
-def generate(population, arguments):
+def generate(population: object, arguments: dict[str, float]) -> tuple[object, object]:
     """Run single generation."""
     # Evaluate the fitness of each individual
     fitness = np.array(
@@ -40,7 +51,7 @@ def generate(population, arguments):
     # Generate the next generation of lambda individuals by recombination
     children = np.concatenate(
         [
-            np.random.permutation(parents)
+            RNG.permutation(parents)
             for i in range(
                 (arguments["size_of_population"] // arguments["number_of_parents"]) + 1
             )
@@ -49,7 +60,7 @@ def generate(population, arguments):
     children = children[: arguments["size_of_population"]]
 
     # Add mutation to the children
-    mutation = np.random.normal(
+    mutation = RNG.normal(
         loc=0,
         scale=arguments["mutation_strength"],
         size=(arguments["size_of_population"], 2),
@@ -59,13 +70,12 @@ def generate(population, arguments):
 
 
 def evolution_strategy(
-    arguments,
-    no_display=False,
-):
+    arguments: dict[str, float], *, no_display: bool = False
+) -> tuple[object, object]:
     """Define the Evolutionary Strategy (μ, λ) algorithm."""
     # Initialize the population
     print_info = []
-    population = np.random.uniform(
+    population = RNG.uniform(
         low=arguments["min"],
         high=arguments["max"],
         size=(arguments["size_of_population"], 2),
@@ -79,7 +89,8 @@ def evolution_strategy(
                 0,
                 f"""0:nop-{arguments["number_of_parents"]}:sop-{arguments["size_of_population"]}:
              ms-{arguments["mutation_strength"]}:nog-{arguments["number_of_generations"]}:
-             min-max-{arguments["min"], arguments["max"]}:noo-{arguments["number_of_outputs"]}""",
+             min-max-{arguments["min"], arguments["max"]}:
+             noo-{arguments["number_of_outputs"]}""",
             )
         )
     arguments["number_of_outputs"] = min(
@@ -129,46 +140,37 @@ def evolution_strategy(
     )
 
 
-def print_help():
+def print_help() -> None:
     """Print program functionality and how to access it."""
-    print(
-        """
-    python main.py - Default functionality optimizing
-    Rastrigin function file_ (x_point_value, y_point_value) =
-    20 + (x_point_value^2 - 10cos(2πx)) + (y_point_value^2 - 10 cos(2πy))
-    using Evolutionary Strategy (μ, λ), using only default values
-    Default values:
-    arguments["number_of_parents"]=5,
-    arguments["size_of_population"]=20,
-    arguments["mutation_strength"]=0.1,
-    arguments["number_of_generations"]=100,
-    min_value=-5.12,
-    max_value=5.12
-    arguments["number_of_outputs"] = 100
-
-    python main.py -h --help print this prompt
-    Any of the default values an be changed using arguments:
-    -nop --arguments["number_of_parents"] [number]
-    -sop --arguments["size_of_population"] [number]
-    -ms --arguments["mutation_strength"] [number]
-    -nog --arguments["number_of_generations"] [number]
-    -min --min_value [number]
-    -max --max_value [number]
-    -noo, --arguments["number_of_outputs"] [number]
-    Those arguments can be given in any order and any argument
-    which was not entered will be replaced with default value,
-    Additional flags:
-    -nd, --no-display (does not show the plots)
-    -s, --save (if issued WILL save the files)
-    exemplary use:
-    python main.py -nop 5 -sop 20 -ms 0.1 -nog 100 -min -5.12 -max 5.12 -noo 100
-    """
+    logger.info(
+        "\n    python main.py - Default functionality optimizing\n    Rastrigin "
+        "function file_ (x_point_value, y_point_value) =\n    20 + "
+        "(x_point_value^2 - 10cos(2πx)) + (y_point_value^2 - 10 cos(2πy))\n    "
+        "using Evolutionary Strategy (μ, λ), using only default values\n    "
+        'Default values:\n    arguments["number_of_parents"]=5,\n    '
+        'arguments["size_of_population"]=20,\n    '
+        'arguments["mutation_strength"]=0.1,\n    '
+        'arguments["number_of_generations"]=100,\n    min_value=-5.12,\n    '
+        'max_value=5.12\n    arguments["number_of_outputs"] = 100\n\n    python '
+        "main.py -h --help print this prompt\n    Any of the default values an be"
+        ' changed using arguments:\n    -nop --arguments["number_of_parents"] '
+        '[number]\n    -sop --arguments["size_of_population"] [number]\n    -ms '
+        '--arguments["mutation_strength"] [number]\n    -nog '
+        '--arguments["number_of_generations"] [number]\n    -min --min_value '
+        "[number]\n    -max --max_value [number]\n    -noo, "
+        '--arguments["number_of_outputs"] [number]\n    Those arguments can be '
+        "given in any order and any argument\n    which was not entered will be "
+        "replaced with default value,\n    Additional flags:\n    -nd, "
+        "--no-display (does not show the plots)\n    -s, --save (if issued WILL "
+        "save the files)\n    exemplary use:\n    python main.py -nop 5 -sop 20 "
+        "-ms 0.1 -nog 100 -min -5.12 -max 5.12 -noo 100\n    "
     )
 
 
-def get_output_bounds(x_data, y_data):
+def get_output_bounds(
+    x_data: object, y_data: object
+) -> tuple[tuple[float, float], tuple[float, float]]:
     """Get x and y output limits for pyplot."""
-    # min_size = 0.2
     min_output_size = ARGUMENTS["mutation_strength"] * 10
 
     xmin = min(x_data)
@@ -194,10 +196,16 @@ def get_output_bounds(x_data, y_data):
     return x_bounds, y_bounds
 
 
-def output(population_output, generation_number, file_name="temp", save_results=False):
+def output(
+    population_output: object,
+    generation_number: int,
+    file_name: str = "temp",
+    *,
+    save_results: bool = False,
+) -> None:
     """Draw result of our function."""
     # define the visualization params
-    colors = np.random.rand(len(population_output))
+    colors = RNG.random(len(population_output))
 
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
         # iterate over the optimization steps
@@ -226,17 +234,19 @@ def output(population_output, generation_number, file_name="temp", save_results=
             cv2.imwrite(file_name + ".jpg", image)
         # add wait key. window waits until user presses a key and quits if
         # the key is 'q'
-        if cv2.waitKey(0) == 113:
+        if cv2.waitKey(0) == KEY_Q:
             # and finally destroy/close all open windows
             sys.exit()
 
     cv2.destroyAllWindows()
 
     file_.close()
-    os.unlink(file_.name)
+    Path(file_.name).unlink()
 
 
-def print_summary(populations, file_name="temp_summary", save_results=False):
+def print_summary(
+    populations: object, file_name: str = "temp_summary", *, save_results: bool = False
+) -> None:
     """Draw result of our function for chosen generations."""
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
         # iterate over the optimization steps
@@ -272,19 +282,35 @@ def print_summary(populations, file_name="temp_summary", save_results=False):
 
         # add wait key. window waits until user presses a key and quits if
         # the key is 'q'
-        if cv2.waitKey(0) == 113:
+        if cv2.waitKey(0) == KEY_Q:
             # and finally destroy/close all open windows
             sys.exit()
 
     cv2.destroyAllWindows()
 
     file_.close()
-    os.unlink(file_.name)
+    Path(file_.name).unlink()
 
 
-def user_input():
+# Long option, short option, and how to read the value that follows. A table
+# rather than an if-ladder: the ladder was C901 12, and one row per flag makes
+# adding one a data change.
+_OPTIONS: dict[tuple[str, str], tuple[str, Callable[[str], float] | None]] = {
+    ("-nop", "--number_of_parents"): ("number_of_parents", int),
+    ("-sop", "--size_of_population"): ("size_of_population", int),
+    ("-ms", "--mutation_strength"): ("mutation_strength", float),
+    ("-nog", "--number_of_generations"): ("number_of_generations", int),
+    ("-min", "--min_value"): ("min", float),
+    ("-max", "--max_value"): ("max", float),
+    ("-noo", "--number_of_outputs"): ("number_of_outputs", int),
+    ("-nd", "--no_display"): ("no_display", None),
+    ("-s", "--save"): ("save", None),
+}
+
+
+def user_input() -> dict[str, float]:
     """Handle user terminal arguments."""
-    arguments = {
+    arguments: dict[str, float] = {
         "number_of_parents": 5,
         "size_of_population": 20,
         "mutation_strength": 0.1,
@@ -299,30 +325,15 @@ def user_input():
         if argument in ("-h", "--help"):
             print_help()
             sys.exit()
-        if argument in ("-nop", "--number_of_parents"):
-            arguments["number_of_parents"] = int(sys.argv[index + 1])
-        if argument in ("-sop", "--size_of_population"):
-            arguments["size_of_population"] = int(sys.argv[index + 1])
-        if argument in ("-ms", "--mutation_strength"):
-            arguments["mutation_strength"] = float(sys.argv[index + 1])
-        if argument in ("-nog", "--number_of_generations"):
-            arguments["number_of_generations"] = int(sys.argv[index + 1])
-        if argument in ("-min", "--min_value"):
-            arguments["min"] = float(sys.argv[index + 1])
-        if argument in ("-max", "--max_value"):
-            arguments["max"] = float(sys.argv[index + 1])
-        if argument in ("-noo", "--number_of_outputs"):
-            arguments["number_of_outputs"] = int(sys.argv[index + 1])
-        if argument in ("-nd", "--no_display"):
-            arguments["no_display"] = True
-        if argument in ("-s", "--save"):
-            arguments["save"] = True
+        for flags, (key, parse) in _OPTIONS.items():
+            if argument in flags:
+                arguments[key] = True if parse is None else parse(sys.argv[index + 1])
 
     return arguments
 
 
-def print_output(print_info, save_results, summary):
-    """Prints out population and summary plots."""
+def print_output(print_info: object, save_results: object, summary: object) -> None:
+    """Print out population and summary plots."""
     for population, generation_number, file_name in print_info:
         output(population, generation_number, file_name, save_results)
         summary_file_name = file_name
@@ -332,6 +343,7 @@ def print_output(print_info, save_results, summary):
 # Ran first in the code
 if __name__ == "__main__":
     # Run the Evolutionary Strategy algorithm
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     ARGUMENTS = user_input()
     TOTAL_TIME = 0
     start_time = time.perf_counter()
@@ -351,7 +363,7 @@ if __name__ == "__main__":
     TOTAL_TIME = end_time - start_time
     time_per_generation = TOTAL_TIME / ARGUMENTS["number_of_generations"]
 
-    print("Best individual found:", best_individual)
-    print("Best fitness found:", best_fitness)
-    print("total_generation_time: ", TOTAL_TIME)
-    print("time_per_generation: ", time_per_generation)
+    logger.info("Best individual found: %s", best_individual)
+    logger.info("Best fitness found: %s", best_fitness)
+    logger.info("total_generation_time:  %s", TOTAL_TIME)
+    logger.info("time_per_generation:  %s", time_per_generation)
