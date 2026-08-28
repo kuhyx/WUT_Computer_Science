@@ -31,17 +31,17 @@ cleanup() {
     echo -e "${YELLOW}Shutting down the temperature monitoring system...${NC}"
     
     # Kill all background processes
-    if [[ ! -z $GENERATOR_PID ]]; then
+    if [[ -n "${GENERATOR_PID}" ]]; then
         echo "Stopping temperature generator..."
         kill $GENERATOR_PID 2>/dev/null || true
     fi
     
-    if [[ ! -z $DETECTOR_PID ]]; then
+    if [[ -n "${DETECTOR_PID}" ]]; then
         echo "Stopping anomaly detector..."
         kill $DETECTOR_PID 2>/dev/null || true
     fi
     
-    if [[ ! -z $VISUALIZER_PID ]]; then
+    if [[ -n "${VISUALIZER_PID}" ]]; then
         echo "Stopping alarm visualizer..."
         kill $VISUALIZER_PID 2>/dev/null || true
     fi

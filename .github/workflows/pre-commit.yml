@@ -33,8 +33,23 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install shellcheck
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+      # Pinned, not apt-installed. `language: system` hooks run whatever is on
+      # PATH, so an unpinned shellcheck makes CI disagree with every developer
+      # machine: Ubuntu's package flagged SC2236 in a file that 0.11.0 locally
+      # does not, and the build went red for a difference in tool version
+      # rather than in the code.
+      - name: Install shellcheck (pinned)
+        env:
+          SHELLCHECK_VERSION: v0.11.0
+          SHELLCHECK_SHA256: 8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198
+        run: |
+          set -euo pipefail
+          url="https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          curl -fsSL "$url" -o /tmp/sc.tar.xz
+          echo "${SHELLCHECK_SHA256}  /tmp/sc.tar.xz" | sha256sum -c -
+          tar -xJf /tmp/sc.tar.xz -C /tmp
+          sudo install -m 0755 "/tmp/shellcheck-${SHELLCHECK_VERSION}/shellcheck" /usr/local/bin/shellcheck
+          shellcheck --version
 
       - uses: actions/cache@v4
         with:
