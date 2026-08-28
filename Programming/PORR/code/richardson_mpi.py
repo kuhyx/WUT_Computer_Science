@@ -1,6 +1,11 @@
-from mpi4py import MPI
-import numpy as np
+import logging
 import time
+
+import numpy as np
+from mpi4py import MPI
+
+logger = logging.getLogger(__name__)
+
 
 def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
     comm = MPI.COMM_WORLD
@@ -12,9 +17,6 @@ def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
 
     # Obliczanie wartości własnych tylko na jednym procesie
     if rank == 0:
-        # eigenvalues = np.linalg.eigvals(A)
-        # lambda_min = np.min(eigenvalues)
-        # lambda_max = np.max(eigenvalues)
         omega = 2 / (lambda_min + lambda_max)
     else:
         omega = None
@@ -67,21 +69,25 @@ def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
     return x, execution_time
 
 
-
 def check_solution(A, b, x_approx, tolerance=8e-3):
     x_true = np.linalg.solve(A, b)
     error = np.linalg.norm(x_true - x_approx)
     return error < tolerance, error
 
+
 if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
 
     from matrix_generator import MatrixGenerator
+
     sizes = [2, 5, 10, 50, 80, 100, 300, 500, 750, 1000, 5000, 10000]
     for i in sizes:
         if rank == 0:
-            A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector('spd', size=i)
+            A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
+                "spd", size=i
+            )
         else:
             A = None
             b = None
@@ -96,14 +102,18 @@ if __name__ == "__main__":
 
         # Sprawdzanie poprawności rozwiązania (na procesie 0)
         if rank == 0:
-            print(f"Spd matrix with size {i}")
+            logger.info("Spd matrix with size %s", i)
             is_correct, error = check_solution(A, b, x)
-            print("Czas wykonania [s]:", time_taken)
-            print("Czy rozwiązanie jest poprawne:", "Tak" if is_correct else "Nie")
-            print("Błąd rozwiązania:", error)
+            logger.info("Czas wykonania [s]: %s", time_taken)
+            logger.info(
+                "Czy rozwiązanie jest poprawne: %s", "Tak" if is_correct else "Nie"
+            )
+            logger.info("Błąd rozwiązania: %s", error)
 
     if rank == 0:
-        A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector('nemeth12')
+        A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
+            "nemeth12"
+        )
     else:
         A = None
         b = None
@@ -118,14 +128,16 @@ if __name__ == "__main__":
 
     # Sprawdzanie poprawności rozwiązania (na procesie 0)
     if rank == 0:
-        print(f"Nemeth12 matrix")
+        logger.info("Nemeth12 matrix")
         is_correct, error = check_solution(A, b, x)
-        print("Czas wykonania [s]:", time_taken)
-        print("Czy rozwiązanie jest poprawne:", "Tak" if is_correct else "Nie")
-        print("Błąd rozwiązania:", error)
+        logger.info("Czas wykonania [s]: %s", time_taken)
+        logger.info("Czy rozwiązanie jest poprawne: %s", "Tak" if is_correct else "Nie")
+        logger.info("Błąd rozwiązania: %s", error)
 
     if rank == 0:
-        A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector('poli3')
+        A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
+            "poli3"
+        )
     else:
         A = None
         b = None
@@ -140,8 +152,8 @@ if __name__ == "__main__":
 
     # Sprawdzanie poprawności rozwiązania (na procesie 0)
     if rank == 0:
-        print(f"Poli3 matrix")
+        logger.info("Poli3 matrix")
         is_correct, error = check_solution(A, b, x)
-        print("Czas wykonania [s]:", time_taken)
-        print("Czy rozwiązanie jest poprawne:", "Tak" if is_correct else "Nie")
-        print("Błąd rozwiązania:", error)
+        logger.info("Czas wykonania [s]: %s", time_taken)
+        logger.info("Czy rozwiązanie jest poprawne: %s", "Tak" if is_correct else "Nie")
+        logger.info("Błąd rozwiązania: %s", error)

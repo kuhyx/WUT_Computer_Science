@@ -335,9 +335,9 @@ def user_input() -> dict[str, float]:
 def print_output(print_info: object, save_results: object, summary: object) -> None:
     """Print out population and summary plots."""
     for population, generation_number, file_name in print_info:
-        output(population, generation_number, file_name, save_results)
+        output(population, generation_number, file_name, save_results=save_results)
         summary_file_name = file_name
-    print_summary(summary, summary_file_name, save_results)
+    print_summary(summary, summary_file_name, save_results=save_results)
 
 
 # Ran first in the code
@@ -355,7 +355,7 @@ if __name__ == "__main__":
         SUMMARY,
     ) = evolution_strategy(
         ARGUMENTS,
-        ARGUMENTS["no_display"],
+        no_display=bool(ARGUMENTS["no_display"]),
     )
     end_time = time.perf_counter()
     if not ARGUMENTS["no_display"]:

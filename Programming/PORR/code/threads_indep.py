@@ -1,55 +1,71 @@
 import gc
+import logging
 import time
-import numpy as np
-from numba import njit, prange
-from time_measurement import time_measurement_longest, longest_threads_time_accumulator, tests_time
+
 import linear_algebra_utils as linAlg
+from numba import njit, prange
+from time_measurement import (
+    longest_threads_time_accumulator,
+    tests_time,
+    time_measurement_longest,
+)
+
+logger = logging.getLogger(__name__)
 
 
 @njit(parallel=True)
-def numba_matrix_vector_multiply(A, input_x, Ax):
+def numba_matrix_vector_multiply(A, input_x, Ax) -> None:
     for i in prange(len(A)):
         acc = 0.0
         for j in range(len(input_x)):
             acc += A[i][j] * input_x[j]
         Ax[i] = acc
 
+
 @njit(parallel=True)
-def numba_vector_vector_subtraction(b, Ax, residual):
+def numba_vector_vector_subtraction(b, Ax, residual) -> None:
     for i in prange(len(b)):
         residual[i] = b[i] - Ax[i]
 
+
 @njit(nopython=True)
-def numba_scalar_vector_multiply(omega, vector, result):
-    omega_real = omega.real 
+def numba_scalar_vector_multiply(omega, vector, result) -> None:
+    omega_real = omega.real
     for i in range(len(vector)):
         result[i] = omega_real * vector[i]
 
+
 @njit(parallel=True)
-def numba_vector_vector_addition(input_x, vector, output_x):
+def numba_vector_vector_addition(input_x, vector, output_x) -> None:
     for i in prange(len(input_x)):
         output_x[i] = input_x[i] + vector[i]
 
 
 # Funkcje z dekoratorem
 @time_measurement_longest(longest_threads_time_accumulator)
-def matrix_vector_multiply(A, input_x, Ax):
+def matrix_vector_multiply(A, input_x, Ax) -> None:
     numba_matrix_vector_multiply(A, input_x, Ax)
 
+
 @time_measurement_longest(longest_threads_time_accumulator)
-def vector_vector_subtraction(b, Ax, residual):
+def vector_vector_subtraction(b, Ax, residual) -> None:
     numba_vector_vector_subtraction(b, Ax, residual)
 
+
 @time_measurement_longest(longest_threads_time_accumulator)
-def scalar_vector_multiply(omega, vector, result):
+def scalar_vector_multiply(omega, vector, result) -> None:
     numba_scalar_vector_multiply(omega, vector, result)
 
+
 @time_measurement_longest(longest_threads_time_accumulator)
-def vector_vector_addition(input_x, vector, output_x):
+def vector_vector_addition(input_x, vector, output_x) -> None:
     numba_vector_vector_addition(input_x, vector, output_x)
 
+
 # Metoda Richardson z obsługą wątków
-def RichardsonMethodThreads(A, b, lambda_min, lambda_max, max_iterations, x0=None, tol=1e-5):
+def RichardsonMethodThreads(
+    A, b, lambda_min, lambda_max, max_iterations, x0=None, tol=1e-5
+):
     longest_threads_time_accumulator.hard_reset()
 
     gc.disable()
@@ -88,6 +104,12 @@ def RichardsonMethodThreads(A, b, lambda_min, lambda_max, max_iterations, x0=Non
     total_time = end_time - start_time
     sequential_time = total_time - longest_threads_time_accumulator.total_time
 
-    print(f"Total: {total_time:.3e}s, Seq: {sequential_time:.3e}s, Parallel (threads): {longest_threads_time_accumulator.total_time:.3e}s, Tests time: {tests_time.total_time:.3e}s")
+    logger.info(
+        "Total: %ss, Seq: %ss, Parallel (threads): %ss, Tests time: %ss",
+        total_time,
+        sequential_time,
+        longest_threads_time_accumulator.total_time,
+        tests_time.total_time,
+    )
 
     return x, 0

@@ -164,8 +164,10 @@ def training_loop(
             _, training_parameters["optimizer"] = single_train_iteration(
                 data, training_parameters, targets, batch_idx, epoch
             )
-        calculate_accuracy_epoch(training_parameters, epoch, print_info)
-        calculate_validation_set_accuracy(training_parameters, epoch, print_info)
+        calculate_accuracy_epoch(training_parameters, epoch, print_info=print_info)
+        calculate_validation_set_accuracy(
+            training_parameters, epoch, print_info=print_info
+        )
     return epoch, training_parameters["loaders"]["train_loader"]
 
 
@@ -228,7 +230,7 @@ def main_part(*, show_plot: bool = True) -> None:
     training_parameters = set_training_parameters(
         hyperparameters, loaders, model, criterion, optimizer
     )
-    training_loop(training_parameters, show_plot)
+    training_loop(training_parameters, print_info=show_plot)
     with Path("results.txt").open("a") as file:
         rule = "-" * 85 + "\n"
         file.write(rule)

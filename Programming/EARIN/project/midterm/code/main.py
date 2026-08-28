@@ -349,7 +349,11 @@ if __name__ == "__main__":
 
     RATING_DATA, ANIME_CONTACT_DATA = get_data(data_limit, db)
     PIVOT_TABLE = preprocessing(
-        RATING_DATA, ANIME_CONTACT_DATA, debug, user_threshold, anime_threshold
+        RATING_DATA,
+        ANIME_CONTACT_DATA,
+        debug=debug,
+        user_threshold=user_threshold,
+        anime_threshold=anime_threshold,
     )
     MODEL = create_model(PIVOT_TABLE, metric, algorithm, neighbors)
     predict(MODEL, PIVOT_TABLE, seed, anime, recommendation_amount)

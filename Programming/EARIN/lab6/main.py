@@ -195,7 +195,7 @@ def inference(env: object, q_table: object) -> None:
 if __name__ == "__main__":
     logging.basicConfig(format="%(message)s", level=logging.INFO)
     HYPERPARAMETERS = initialize_hyperparameters()
-    ENV = initialize_environment(HYPERPARAMETERS)
+    ENV = initialize_environment()
     Q_TABLE = initialize_q_table(ENV)
     ENV, Q_TABLE = training_loop(HYPERPARAMETERS, ENV, Q_TABLE)
     inference(ENV, Q_TABLE)

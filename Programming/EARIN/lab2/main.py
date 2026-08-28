@@ -448,7 +448,7 @@ class Game:
                 continue
 
             has_moved = self.make_move(from_coordinates, to_coordinates, color)
-        self.print_board(color == "white")
+        self.print_board(rotate=color == "white")
 
     def start_game(self, player_color: str = "black", algorithm_depth: int = 5) -> None:
         """Start the main loop of the game."""
@@ -457,7 +457,7 @@ class Game:
             return
         ai_color = "black" if player_color == "white" else "white"
 
-        game.print_board(player_color == "white")
+        game.print_board(rotate=player_color == "white")
         if player_color == "white":
             game.handle_player_move("white")
         while True:
@@ -468,7 +468,10 @@ class Game:
                     logger.info("Game over, %s wins", player_color)
                     return
                 _, ai_move = game.alpha_beta(algorithm_depth, (5, 10), ai_color)
-                game.make_move(*ai_move, ai_color)
+                if ai_move is None:
+                    logger.info("Game over, %s wins", player_color)
+                    return
+                game.make_move(ai_move[0], ai_move[1], ai_color)
                 logger.info(
                     "AI's move: %s%s %s%s",
                     chr(ord("a") + ai_move[0][0]),
@@ -476,7 +479,7 @@ class Game:
                     chr(ord("a") + ai_move[1][0]),
                     ai_move[1][1],
                 )
-                game.print_board(player_color == "white")
+                game.print_board(rotate=player_color == "white")
                 ai_turn = game.get_possible_moves(ai_color)[1] and possible_moves_ai[1]
             player_turn = True
             while player_turn:
@@ -506,7 +509,7 @@ class Game:
         _, ai_move = game.alpha_beta(algorithm_depth, (5, 10), ai_color)
         if ai_move is None:
             ai_move = possible_moves_ai[0]
-        game.make_move(*ai_move, ai_color)
+        game.make_move(ai_move[0], ai_move[1], ai_color)
         if print_info:
             logger.info(
                 "AI's move: %s%s %s%s",

@@ -407,3 +407,14 @@ TSWLatexianTemp*
 spd_10000.npz
 nemeth12.npz 
 poli3.npz
+
+# Generated SPD test matrices. MatrixGenerator.save_to_file() writes these as a
+# cache and regenerates any that is missing, so none of them is a deliverable.
+#
+# spd_5000.npz was tracked as a Git LFS pointer whose 200 MB object is NOT on
+# the server -- `git lfs pull` returns "[404] Object does not exist". numpy
+# then read the 134-byte pointer text as a .npz and raised ValueError instead
+# of FileNotFoundError, so the regeneration path never ran and every n=5000
+# test failed. The pointer is untracked and .gitattributes (its only content
+# was three LFS filter rules, two for files that never existed here) deleted.
+spd_5000.npz
