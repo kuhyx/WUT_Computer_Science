@@ -2,6 +2,9 @@
 \usepackage[polish]{babel}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+% T1 is required for Polish ogonek characters; without it pdflatex
+% fails with "Command \k unavailable in encoding OT1".
+\usepackage[T1]{fontenc}
 \author{Krzysztof Rudnicki, 307585}
 \title{ZBOP esej \\ Organizacja systemów produkcyjnych}
 \subtitle{ze względu na sposób spłenienia zapotrzebowania}

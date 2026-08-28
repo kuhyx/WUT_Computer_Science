@@ -39,7 +39,7 @@ run cannot clobber the local column.
 | `Programming/ECOAR` | runnable | - | make |
 | `Programming/ECOTE` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/ECOTE/program/translator/main.py |
 | `Programming/ECRYPT` | no-code | - | test1.py is a 0-byte stub; this course produced no submitted code |
-| `Programming/ECRYPT_PROJECT` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/ECRYPT_PROJECT/code |
+| `Programming/ECRYPT_PROJECT` | runnable | - | python3 the entry script |
 | `Programming/EGUI` | runnable | - | dotnet build |
 | `Programming/EOOP` | runnable | - | compiles each standalone .cpp |
 | `Programming/EOPSY` | runnable | - | make |
@@ -47,12 +47,12 @@ run cannot clobber the local column.
 | `Programming/E-PSYOPS` | runnable | - | opens in the Unity editor |
 | `Programming/ERSMS-project` | runnable | - | docker compose up |
 | `Programming/NLP` | runnable | - | python3 the entry script |
-| `Programming/PBAD` | runnable | - | jupyter nbconvert --execute |
-| `Programming/PORR` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/PORR/code |
+| `Programming/PBAD` | blocked | - | jupyter is on PATH but broken (bad interpreter) |
+| `Programming/PORR` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/PORR/code/main.py |
 | `Programming/PSD` | runnable | - | starts the Kafka/Flink stack (installs packages with sudo) |
 | `Programming/psd_project` | runnable | - | mvn package |
 | `Programming/TRAK` | runnable | - | python3 the entry script |
-| `Programming/twm_4` | runnable | - | jupyter nbconvert --execute |
+| `Programming/twm_4` | blocked | - | jupyter is on PATH but broken (bad interpreter) |
 | `Programming/USD` | no-code | - | README describes a MetaDrive RL assignment; no implementation was submitted |
 | `Programming/WDWR` | runnable | - | python3 the entry script |
 | `Programming/ZPOB` | runnable | - | builds the report with latexmk |

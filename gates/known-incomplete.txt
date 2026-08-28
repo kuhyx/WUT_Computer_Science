@@ -1,0 +1,15 @@
+# Source files that cannot build because something they need was never
+# submitted. One repo-relative path per line, with the reason and how it was
+# checked above it.
+#
+# This is NOT a lint allowlist. Nothing here is a style exception; each entry
+# is a factual statement that a dependency is absent from the archive, and the
+# check is `git log --all -- <missing file>` coming back empty. Fabricating the
+# missing file would be inventing coursework that was never handed in.
+#
+# Read by scripts/course_lib.sh, which skips these and says why.
+
+# Includes "set.hpp", which does not exist here and never has:
+#   git log --all --name-only -- '*set.hpp'  ->  no results
+# The header was supplied by the course and only the .cpp was submitted.
+Programming/EOOP/Various/set/set.cpp

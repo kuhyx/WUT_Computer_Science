@@ -15,7 +15,7 @@
    g++ -Wall -Wextra -Werror -pedantic lab_2.cpp currency.hpp
  */
 
-#include "currency2.hpp"
+#include "currency.hpp"
 #include <iostream>
 
 int main() {

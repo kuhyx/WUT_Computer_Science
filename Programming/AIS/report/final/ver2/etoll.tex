@@ -2,6 +2,9 @@
 \usepackage[left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 \usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
+% T1 is required for Polish ogonek characters; without it pdflatex
+% fails with "Command \k unavailable in encoding OT1".
+\usepackage[T1]{fontenc}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{enumitem}

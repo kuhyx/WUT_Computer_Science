@@ -1,5 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+% T1 is required for Polish ogonek characters; without it pdflatex
+% fails with "Command \k unavailable in encoding OT1".
+\usepackage[T1]{fontenc}
 \usepackage{polski}
 \usepackage{amsmath}
 \usepackage{relsize,amsfonts}

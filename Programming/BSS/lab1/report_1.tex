@@ -1,4 +1,10 @@
-\documentclass{article}[12pt]
+% Options belong BEFORE the class name; this read
+% \documentclass{article}[12pt], where [12pt] is not a class option at all.
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+% T1 is required for Polish ogonek characters; without it pdflatex
+% fails with "Command \k unavailable in encoding OT1".
+\usepackage[T1]{fontenc}
 \usepackage{graphicx}
 
 \title{[BSS]-Lab1-śr16-KrzysztofRudnicki}

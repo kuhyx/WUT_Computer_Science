@@ -8,5 +8,5 @@ set -euo pipefail
 . "$(dirname "$(readlink -f "$0")")/../../scripts/course_lib.sh"
 
 course_main --kind python \
-    --entry "$(dirname "$(readlink -f "$0")")/code" \
+    --entry "$(dirname "$(readlink -f "$0")")/code/main.py" \
     -- "$@"

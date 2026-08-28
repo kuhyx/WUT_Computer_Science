@@ -7,6 +7,8 @@ set -euo pipefail
 # shellcheck source=../../scripts/course_lib.sh
 . "$(dirname "$(readlink -f "$0")")/../../scripts/course_lib.sh"
 
+# No --entry on purpose: code/project.py prompts on stdin, so it cannot be run
+# headlessly. This course ships a real pytest suite, and that is the check.
 course_main --kind python \
-    --entry "$(dirname "$(readlink -f "$0")")/code" \
+    --test-dir "$(dirname "$(readlink -f "$0")")/sieve" \
     -- "$@"

@@ -20,6 +20,9 @@ readonly COURSE_EXIT_NO_CODE=79
 
 COURSE_ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[1]}")")" && pwd)"
 readonly COURSE_ROOT
+# Repo root is two levels up: every course dir is <repo>/<area>/<course>.
+COURSE_GATES="$(cd "${COURSE_ROOT}/../.." && pwd)/gates"
+readonly COURSE_GATES
 
 # --- helpers -----------------------------------------------------------------
 
@@ -63,6 +66,14 @@ _probe_any() {
         _have "$tool" && return 0
     done
     _blocked "needs $label (none of: $*)"
+}
+
+# True if the path is recorded in gates/known-incomplete.txt.
+_is_known_incomplete() {
+    local manifest="${COURSE_GATES:-}/known-incomplete.txt"
+    [[ -f "$manifest" ]] || return 1
+    local rel="$1"
+    grep -vE '^\s*#|^\s*$' "$manifest" | grep -qxF "$rel"
 }
 
 _first_file() {
@@ -118,6 +129,10 @@ _probe() {
             ;;
         notebook)
             _have jupyter || _blocked "needs jupyter"
+            # Being on PATH is not the same as working: this machine has a
+            # jupyter shim whose pipx venv interpreter is gone, so it fails
+            # with "bad interpreter". Probe by actually invoking it.
+            jupyter --version > /dev/null 2>&1 || _blocked "jupyter is on PATH but broken (bad interpreter)"
             _runnable "jupyter nbconvert --execute"
             ;;
         compose)
@@ -127,6 +142,63 @@ _probe() {
             ;;
         *) _blocked "unknown COURSE_KIND '${COURSE_KIND:-unset}'" ;;
     esac
+}
+
+# Use the course venv when one exists, otherwise the system interpreter.
+_python_bin() {
+    if [[ -x "$COURSE_ROOT/.venv/bin/python" ]]; then
+        printf '%s' "$COURSE_ROOT/.venv/bin/python"
+    else
+        printf 'python3'
+    fi
+}
+
+# Dependencies are the runner's job, not the reader's. Without this, EARIN
+# dies on ModuleNotFoundError for gymnasium and the "runnable" status is a lie.
+_python_install_requirements() {
+    local reqs=()
+    while IFS= read -r r; do reqs+=("$r"); done < <(
+        find "$COURSE_ROOT" -name 'requirements*.txt' -not -path '*/.venv/*' | sort)
+    [[ ${#reqs[@]} -gt 0 ]] || return 0
+
+    if [[ ! -x "$COURSE_ROOT/.venv/bin/python" ]]; then
+        printf 'creating .venv\n'
+        python3 -m venv "$COURSE_ROOT/.venv"
+    fi
+    "$COURSE_ROOT/.venv/bin/python" -m pip install --quiet --upgrade pip
+
+    # EVERY requirements file, not just the first: EARIN is six independent
+    # labs plus a project, and installing only one of them left the lab it
+    # then tried to run missing gymnasium.
+    local req
+    for req in "${reqs[@]}"; do
+        printf 'installing %s\n' "${req#"$COURSE_ROOT"/}"
+        "$COURSE_ROOT/.venv/bin/python" -m pip install --quiet -r "$req" || {
+            printf 'warning: some requirements in %s failed\n' "${req#"$COURSE_ROOT"/}" >&2
+        }
+    done
+}
+
+# Where a course ships real tests, running them is a stronger check than
+# running the program -- and for an interactive program (ECRYPT_PROJECT prompts
+# on stdin) it is the ONLY check that works without a person at a keyboard.
+_python_run_tests() {
+    local suite
+    suite="$(find "$COURSE_ROOT" -name 'test_*.py' -not -path '*/.venv/*' -print -quit 2>/dev/null)"
+    [[ -n "$suite" ]] || return 0
+    local py
+    py="$(_python_bin)"
+    "$py" -c 'import pytest' 2> /dev/null || {
+        printf 'tests present but pytest is not installed; skipping\n'
+        return 0
+    }
+    # Which directory pytest runs FROM is course-specific and cannot be
+    # guessed: ECOTE needs program/ so `from translator.main import` resolves,
+    # ECRYPT_PROJECT needs sieve/ because its fixtures open P-100000.csv by a
+    # relative path. So the stub says, and COURSE_ROOT is only the default.
+    local from_dir="${COURSE_TEST_DIR:-$COURSE_ROOT}"
+    printf 'running the test suite in %s\n' "${from_dir#"$COURSE_ROOT"/}"
+    ( cd "$from_dir" && "$py" -m pytest -q )
 }
 
 # --- runners -----------------------------------------------------------------
@@ -156,9 +228,41 @@ _run() {
             ;;
         python)
             local entry="${COURSE_ENTRY:-}"
-            [[ -n "$entry" ]] || entry="$(_first_file 'main.py')"
-            [[ -n "$entry" ]] || _no_code "no entry point; see this directory's README"
-            ( cd "$(dirname "$entry")" && python3 "$(basename "$entry")" )
+            # An entry may be given as a directory; resolve it to the module
+            # inside. Passing the directory itself makes python look for
+            # __main__.py and fail with a message about the wrong thing.
+            if [[ -d "$entry" ]]; then
+                local cand
+                for cand in main.py project.py __main__.py; do
+                    if [[ -f "$entry/$cand" ]]; then
+                        entry="$entry/$cand"
+                        break
+                    fi
+                done
+            fi
+            # Only auto-pick a main.py when there is exactly ONE. A course
+            # with six labs has six, and choosing whichever find returns first
+            # is not "running the project", it is running an arbitrary lab.
+            if [[ ! -f "$entry" ]]; then
+                local mains
+                mains="$(find "$COURSE_ROOT" -name 'main.py' -not -path '*/.venv/*' | wc -l)"
+                [[ "$mains" -eq 1 ]] && entry="$(_first_file 'main.py')"
+            fi
+
+            _python_install_requirements
+
+            if [[ -f "$entry" ]]; then
+                ( cd "$(dirname "$entry")" && "$(_python_bin)" "$(basename "$entry")" )
+            else
+                # A pile of one-shot scripts with no entry contract (NLP is
+                # the case here). Syntax-check them all rather than picking one
+                # arbitrarily and calling that "running the project".
+                printf 'no single entry point; syntax-checking every module instead\n'
+                find "$COURSE_ROOT" -name '*.py' -not -path '*/.venv/*' -print0 \
+                    | xargs -0 -r "$(_python_bin)" -m py_compile
+                printf 'all modules compile\n'
+            fi
+            _python_run_tests
             ;;
         node)    ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && npm install && npm start ) ;;
         maven)   ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && mvn -q package ) ;;
@@ -177,6 +281,10 @@ _run() {
             mkdir -p "$COURSE_ROOT/build"
             while IFS= read -r src; do
                 rel="${src#"$COURSE_ROOT"/}"
+                if _is_known_incomplete "${src#"${COURSE_GATES%/gates}"/}"; then
+                    printf 'skipping  %s (see gates/known-incomplete.txt)\n' "$rel"
+                    continue
+                fi
                 out="$COURSE_ROOT/build/$(basename "${rel%.cpp}")"
                 # Some files here are exam-answer fragments with no main(), so
                 # they cannot be linked. Compile those to an object instead --
@@ -211,11 +319,13 @@ course_main() {
     COURSE_KIND=""
     COURSE_ENTRY=""
     COURSE_NOTE=""
+    COURSE_TEST_DIR=""
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --kind)  COURSE_KIND="$2"; shift 2 ;;
             --entry) COURSE_ENTRY="$2"; shift 2 ;;
             --note)  COURSE_NOTE="$2"; shift 2 ;;
+            --test-dir) COURSE_TEST_DIR="$2"; shift 2 ;;
             --) shift; break ;;
             *) break ;;
         esac

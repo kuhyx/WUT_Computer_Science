@@ -9,4 +9,5 @@ set -euo pipefail
 
 course_main --kind python \
     --entry "$(dirname "$(readlink -f "$0")")/program/translator/main.py" \
+    --test-dir "$(dirname "$(readlink -f "$0")")/program" \
     -- "$@"

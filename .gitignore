@@ -486,3 +486,6 @@ build/
 # Generated fresh by the runner on each CI run. Committing a local copy
 # would label this machine capabilities as the runner is, which is a lie.
 gates/runnability-ci.tsv
+
+# Per-course virtualenvs created by ./run.sh run.
+.venv/
