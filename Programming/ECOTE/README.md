@@ -1,9 +1,17 @@
-# WUT_Computer_Science
-This repository aims to consolidate every single project I did solo during my Computer Science course on Warsaw University of Technology </br>
-It does not contain multiple projects that I did in a group like: </br>
-https://github.com/PolishPigeon/E-PSYOPS - Unity Game used to pass last 3 laboratories of EOPSY course </br>
-https://github.com/BartDrown/polygon-21z - Unity Game for my third Polygon Project </br>
-https://gitlab.com/Maciekxdabu/polygon-22l-samochdzik - Unity Game for my fourth Polygon Project </br>
-https://github.com/kuchyx/ECRYPT_PROJECT - ECRYPT project done in 2 persons group, creating and testing sieve of erastothenes python program </br>
-https://github.com/kuchyx/EDABA-LAB - EDABA project where a database concept, design and implementation was created in two persons group </br>
-And tens of reports from laboratories done either solo or in group.
+# ECOTE — Compilation Techniques
+
+A translator that converts LaTeX `tabular` environments into HTML tables,
+written for the ECOTE (Compilation Techniques) course.
+
+| Path | What it is |
+|---|---|
+| `program/code/` | The translator. Entry point is `main.py`. |
+| `program/unit_tests/test_code/` | 17 pytest modules covering the lexer, parser and emitter. |
+| `preliminaryReport/` | The design document submitted before implementation. |
+| `finalReport/` | The final report. |
+
+See `program/README.md` for how to run it and the test suite.
+
+> This file previously held a stale copy of the repository root README,
+> describing the group projects as *not* included. They have been merged in
+> since (see the root `README.md`), and this directory is about ECOTE.
