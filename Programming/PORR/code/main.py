@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Entry point for the PORR benchmark suite.
 
 Runs ``tests.py``, which compares this project's Richardson implementations

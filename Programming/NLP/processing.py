@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Load the SemEval corpus: sentences, chunkings and gold alignments."""
 
-import sys
 import logging
 import re
+import sys
 from pathlib import Path
 
 import numpy as np

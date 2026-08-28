@@ -1,25 +1,42 @@
+#!/usr/bin/env python3
+"""Richardson iteration split across MPI ranks."""
+
 import logging
 import time
 
 import numpy as np
 from mpi4py import MPI
+from richardson_problem import Problem, Settings
 
+# These helpers are called with numpy arrays in some backends and plain
+# Python lists in others, which is the point of the comparison this course
+# is about, so the aliases name both.
+Matrix = np.ndarray | list[list[float]]
+Vector = np.ndarray | list[float]
 logger = logging.getLogger(__name__)
 
 
-def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
+def richardson_parallel(
+    problem: Problem, settings: Settings | None = None
+) -> tuple[Vector, float]:
+    """Run Richardson across MPI ranks."""
+    if settings is None:
+        settings = Settings(max_iterations=1000)
+    matrix = problem.matrix
+    b = problem.rhs
+    lambda_min = problem.lambda_min
+    lambda_max = problem.lambda_max
+    tol = settings.tol
+    max_iter = settings.max_iterations
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
     size = comm.Get_size()
 
     # Rozmiar macierzy A
-    n = A.shape[0]
+    n = matrix.shape[0]
 
     # Obliczanie wartości własnych tylko na jednym procesie
-    if rank == 0:
-        omega = 2 / (lambda_min + lambda_max)
-    else:
-        omega = None
+    omega = 2 / (lambda_min + lambda_max) if rank == 0 else None
 
     # Rozgłoszenie omega do wszystkich procesów
     omega = comm.bcast(omega, root=0)
@@ -33,7 +50,7 @@ def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
     end_row = start_row + local_rows if rank != size - 1 else n
 
     # Przydzielenie lokalnych porcji A i b
-    local_A = A[start_row:end_row, :]
+    local_matrix = matrix[start_row:end_row, :]
     local_b = b[start_row:end_row]
 
     # Lokalny wektor residuum
@@ -44,9 +61,9 @@ def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
 
     start_time = time.time()
 
-    for i in range(max_iter):
+    for _i in range(max_iter):
         # Oblicz lokalny residuum r = b - A @ x
-        local_r[:] = local_b - np.dot(local_A, x)
+        local_r[:] = local_b - np.dot(local_matrix, x)
 
         # Tworzymy tymczasowy wektor o pełnym rozmiarze i kopiujemy lokalne dane
         temp_r = np.zeros_like(b, dtype=np.float64)
@@ -69,8 +86,11 @@ def richardson_parallel(A, b, lambda_min, lambda_max, tol=1e-5, max_iter=10000):
     return x, execution_time
 
 
-def check_solution(A, b, x_approx, tolerance=8e-3):
-    x_true = np.linalg.solve(A, b)
+def check_solution(
+    matrix: Matrix, b: Vector, x_approx: Vector, tolerance: float = 0.008
+) -> tuple[bool, float]:
+    """Report whether an approximate solution is within tolerance."""
+    x_true = np.linalg.solve(matrix, b)
     error = np.linalg.norm(x_true - x_approx)
     return error < tolerance, error
 
@@ -85,25 +105,25 @@ if __name__ == "__main__":
     sizes = [2, 5, 10, 50, 80, 100, 300, 500, 750, 1000, 5000, 10000]
     for i in sizes:
         if rank == 0:
-            A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
-                "spd", size=i
+            matrix, b, lambda_min, lambda_max = (
+                MatrixGenerator.generate_matrix_and_vector("spd", size=i)
             )
         else:
-            A = None
+            matrix = None
             b = None
             lambda_min = None
             lambda_max = None
 
-        A = comm.bcast(A, root=0)
+        matrix = comm.bcast(matrix, root=0)
         b = comm.bcast(b, root=0)
 
         # Rozwiązanie przy użyciu zrównoleglonej metody Richardsona
-        x, time_taken = richardson_parallel(A, b, lambda_min, lambda_max)
+        x, time_taken = richardson_parallel(Problem(matrix, b, lambda_min, lambda_max))
 
         # Sprawdzanie poprawności rozwiązania (na procesie 0)
         if rank == 0:
             logger.info("Spd matrix with size %s", i)
-            is_correct, error = check_solution(A, b, x)
+            is_correct, error = check_solution(matrix, b, x)
             logger.info("Czas wykonania [s]: %s", time_taken)
             logger.info(
                 "Czy rozwiązanie jest poprawne: %s", "Tak" if is_correct else "Nie"
@@ -111,49 +131,49 @@ if __name__ == "__main__":
             logger.info("Błąd rozwiązania: %s", error)
 
     if rank == 0:
-        A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
+        matrix, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
             "nemeth12"
         )
     else:
-        A = None
+        matrix = None
         b = None
         lambda_min = None
         lambda_max = None
 
-    A = comm.bcast(A, root=0)
+    matrix = comm.bcast(matrix, root=0)
     b = comm.bcast(b, root=0)
 
     # Rozwiązanie przy użyciu zrównoleglonej metody Richardsona
-    x, time_taken = richardson_parallel(A, b, lambda_min, lambda_max)
+    x, time_taken = richardson_parallel(Problem(matrix, b, lambda_min, lambda_max))
 
     # Sprawdzanie poprawności rozwiązania (na procesie 0)
     if rank == 0:
         logger.info("Nemeth12 matrix")
-        is_correct, error = check_solution(A, b, x)
+        is_correct, error = check_solution(matrix, b, x)
         logger.info("Czas wykonania [s]: %s", time_taken)
         logger.info("Czy rozwiązanie jest poprawne: %s", "Tak" if is_correct else "Nie")
         logger.info("Błąd rozwiązania: %s", error)
 
     if rank == 0:
-        A, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
+        matrix, b, lambda_min, lambda_max = MatrixGenerator.generate_matrix_and_vector(
             "poli3"
         )
     else:
-        A = None
+        matrix = None
         b = None
         lambda_min = None
         lambda_max = None
 
-    A = comm.bcast(A, root=0)
+    matrix = comm.bcast(matrix, root=0)
     b = comm.bcast(b, root=0)
 
     # Rozwiązanie przy użyciu zrównoleglonej metody Richardsona
-    x, time_taken = richardson_parallel(A, b, lambda_min, lambda_max)
+    x, time_taken = richardson_parallel(Problem(matrix, b, lambda_min, lambda_max))
 
     # Sprawdzanie poprawności rozwiązania (na procesie 0)
     if rank == 0:
         logger.info("Poli3 matrix")
-        is_correct, error = check_solution(A, b, x)
+        is_correct, error = check_solution(matrix, b, x)
         logger.info("Czas wykonania [s]: %s", time_taken)
         logger.info("Czy rozwiązanie jest poprawne: %s", "Tak" if is_correct else "Nie")
         logger.info("Błąd rozwiązania: %s", error)
