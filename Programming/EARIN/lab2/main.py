@@ -1,14 +1,13 @@
-"""
-Program that plays draughts (checkers) with user on 8x8 board using min-max with alpha-beta pruning
-"""
-import re
+"""Program that plays draughts (checkers) with user on 8x8 board using min-max with alpha-beta pruning."""
+
 import copy
 import math
+import re
 import sys
 
 
 class Game:
-    """Game"""
+    """Game."""
 
     def __init__(self, size):
         self.board_size = size
@@ -16,20 +15,19 @@ class Game:
         self.black_positions = self.initialize_black()
 
     def initialize_white(self):
-        """Initialize white pieces"""
+        """Initialize white pieces."""
         white_positions = []
         for y_coordinate in range(math.floor((self.board_size - 2) / 2)):
             for x_coordinate in range(self.board_size):
                 if y_coordinate % 2 == 0:
                     if x_coordinate % 2 == 1:
                         white_positions.append((x_coordinate, y_coordinate, False))
-                else:
-                    if x_coordinate % 2 == 0:
-                        white_positions.append((x_coordinate, y_coordinate, False))
+                elif x_coordinate % 2 == 0:
+                    white_positions.append((x_coordinate, y_coordinate, False))
         return white_positions
 
     def initialize_black(self):
-        """Initialize black pieces"""
+        """Initialize black pieces."""
         black_positions = []
         for y_coordinate in range(
             self.board_size - math.floor((self.board_size - 2) / 2), self.board_size
@@ -38,13 +36,12 @@ class Game:
                 if y_coordinate % 2 == 0:
                     if x_coordinate % 2 == 1:
                         black_positions.append((x_coordinate, y_coordinate, False))
-                else:
-                    if x_coordinate % 2 == 0:
-                        black_positions.append((x_coordinate, y_coordinate, False))
+                elif x_coordinate % 2 == 0:
+                    black_positions.append((x_coordinate, y_coordinate, False))
         return black_positions
 
     def check_move_out_of_bounds(self, to_):
-        """Check if the move destination is out of the bounds of the board"""
+        """Check if the move destination is out of the bounds of the board."""
         if to_[0] < 0 or to_[0] > self.board_size - 1:
             # print(f"Illegal move! Final x coordinate must be between 0 and {self.board_size-1}!")
             return True
@@ -54,24 +51,24 @@ class Game:
         return False
 
     def check_piece_exists(self, coords, color):
-        """Check if a piece of given color exists at a given spot"""
+        """Check if a piece of given color exists at a given spot."""
         if color == "white":
             if any(
                 piece in self.white_positions
                 for piece in ((*coords, False), (*coords, True))
             ):
                 return True
-        else:
-            if any(
-                piece in self.black_positions
-                for piece in ((*coords, False), (*coords, True))
-            ):
-                return True
+        elif any(
+            piece in self.black_positions
+            for piece in ((*coords, False), (*coords, True))
+        ):
+            return True
         return False
 
     def check_piece_king(self, coords, color):
         """Check if a piece of in a given spot and of a given color is a king.
-        Return false if no piece is found"""
+        Return false if no piece is found.
+        """
         if color == "white":
             return (*coords, True) in self.white_positions
         if color == "black":
@@ -80,7 +77,7 @@ class Game:
 
     # https://stackoverflow.com/a/2191707
     def check_move_piece_capable(self, from_, to_, color):
-        """Check if the move is exactly one square diagonally"""
+        """Check if the move is exactly one square diagonally."""
         if abs(to_[0] - from_[0]) == 1:
             if self.check_piece_king(from_, color):
                 return True
@@ -92,7 +89,8 @@ class Game:
 
     def check_capture(self, from_, to_, color):
         """Check if a piece was captured for a given move.
-        Return captured piece coordinates or None"""
+        Return captured piece coordinates or None.
+        """
         # captures can only happen if the player moved twice-diagonally
 
         if abs(to_[0] - from_[0]) != 2 or abs(to_[1] - from_[1]) != 2:
@@ -107,7 +105,7 @@ class Game:
         return None
 
     def check_move_legal(self, from_, to_, color, give_feedback=False):
-        """Check if a move is legal. Return a boolean or coordinates of captured piece"""
+        """Check if a move is legal. Return a boolean or coordinates of captured piece."""
         if self.check_move_out_of_bounds(to_):
             if give_feedback:
                 print("Illegal move! Final position is out of the bounds of the board")
@@ -135,7 +133,7 @@ class Game:
         return capture
 
     def make_move(self, from_, to_, color):
-        """Move a piece on the board and remove any captured pieces"""
+        """Move a piece on the board and remove any captured pieces."""
         move_legal = self.check_move_legal(from_, to_, color)
         if move_legal is False:
             return False
@@ -165,19 +163,19 @@ class Game:
         return True
 
     def print_board(self, rotate=False):
-        """Print the board in the console"""
+        """Print the board in the console."""
 
         def print_letters():
-            """Print the letters above or under the board"""
+            """Print the letters above or under the board."""
             print("   ", end="")
             for col in range(self.board_size):
                 if rotate:
-                    print(f"  {chr(ord('a')+self.board_size-1-col)}", end=" ")
+                    print(f"  {chr(ord('a') + self.board_size - 1 - col)}", end=" ")
                 else:
-                    print(f"  {chr(ord('a')+col)}", end=" ")
+                    print(f"  {chr(ord('a') + col)}", end=" ")
 
         def get_square_code(pos, background):
-            """Return the code of a given square on the board"""
+            """Return the code of a given square on the board."""
             if (*pos, False) in self.white_positions:
                 return "w"
             if (*pos, True) in self.white_positions:
@@ -210,7 +208,7 @@ class Game:
 
                 if col == 0:
                     if line % 4 == 2:
-                        print(f"{row//4:3d}", end="")
+                        print(f"{row // 4:3d}", end="")
                     else:
                         print("   ", end="")
 
@@ -218,13 +216,13 @@ class Game:
                     case 0:
                         print("+---", end="")
                     case 1 | 3:
-                        print(f"|{3*background}", end="")
+                        print(f"|{3 * background}", end="")
                     case 2:
                         print(f"|{background}{checker}{background}", end="")
             if line % 4 == 0:
                 print("+")
             else:
-                print(f"|{row//4}" if line % 4 == 2 else "|")
+                print(f"|{row // 4}" if line % 4 == 2 else "|")
             line += 1
         print("   ", end="")
         for col in range(self.board_size):
@@ -235,7 +233,7 @@ class Game:
 
     # Ran first in the code
     def get_possible_moves_capture(self, from_, color):
-        """Return all possible captures for a piece"""
+        """Return all possible captures for a piece."""
         # all capturing moves:
         legal_moves = []
         move_down_left_two = (from_[0] + 2, from_[1] - 2)
@@ -253,7 +251,7 @@ class Game:
         return legal_moves
 
     def get_possible_moves_non_capture(self, from_, color):
-        """Return all possible moves that are not captures for a piece"""
+        """Return all possible moves that are not captures for a piece."""
         # all non-capturing moves
         legal_moves = []
         move_down_left_one = (from_[0] + 1, from_[1] - 1)
@@ -271,7 +269,7 @@ class Game:
         return legal_moves
 
     def get_possible_moves(self, color):
-        """Return all possible moves for a given piece color"""
+        """Return all possible moves for a given piece color."""
         legal_moves = []
         captures = []
         if color == "white":
@@ -298,7 +296,8 @@ class Game:
 
     def alpha_beta(self, depth, alpha_beta, color, current_color=None):
         """Do alpha beta pruning for given parameters
-        and return the best move and its evaluated points"""
+        and return the best move and its evaluated points.
+        """
         if current_color is None:
             current_color = color
 
@@ -353,7 +352,7 @@ class Game:
         return None
 
     def evaluate(self, color):
-        """Evaluates the state of the board for a given color"""
+        """Evaluates the state of the board for a given color."""
         white_score = 0
         black_score = 0
 
@@ -374,13 +373,13 @@ class Game:
         )
 
     def input_to_coordinates(self, user_input):
-        """Change input from a1 form to tuple form"""
+        """Change input from a1 form to tuple form."""
         pos_x = ord(user_input[0]) - ord("a")
         pos_y = int(user_input[1::])
         return pos_x, pos_y
 
     def handle_player_move(self, color):
-        """Prompt player to move, validate their input and make move"""
+        """Prompt player to move, validate their input and make move."""
         has_moved = False
         possible_moves = self.get_possible_moves(color)[0]
         while not has_moved:
@@ -396,7 +395,7 @@ class Game:
             from_coordinates = self.input_to_coordinates(move_from)
             to_coordinates = self.input_to_coordinates(move_to)
 
-            if not (from_coordinates, to_coordinates) in possible_moves:
+            if (from_coordinates, to_coordinates) not in possible_moves:
                 legal_no_captures = self.check_move_legal(
                     from_coordinates, to_coordinates, color, True
                 )
@@ -408,7 +407,7 @@ class Game:
         self.print_board(color == "white")
 
     def start_game(self, player_color="black", algorithm_depth=5):
-        """Start the main loop of the game"""
+        """Start the main loop of the game."""
         if player_color not in ("black", "white"):
             print("Invalid color! Color can be black or white")
             return
@@ -428,8 +427,8 @@ class Game:
                 game.make_move(*ai_move, ai_color)
                 print(
                     "AI's move: "
-                    f"{chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} "
-                    f"{chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}"
+                    f"{chr(ord('a') + ai_move[0][0])}{ai_move[0][1]} "
+                    f"{chr(ord('a') + ai_move[1][0])}{ai_move[1][1]}"
                 )
                 game.print_board(player_color == "white")
                 ai_turn = game.get_possible_moves(ai_color)[1] and possible_moves_ai[1]
@@ -446,7 +445,7 @@ class Game:
                 )
 
     def ai_turn(self, ai_color, algorithm_depth, possible_moves_ai, print_info):
-        """ Calculates ai move and makes it """
+        """Calculates ai move and makes it."""
         if len(possible_moves_ai) == 0:
             if print_info:
                 print(f"Game over, {ai_color} loses")
@@ -458,14 +457,14 @@ class Game:
         if print_info:
             print(
                 "AI's move: "
-                f"{chr(ord('a')+ai_move[0][0])}{ai_move[0][1]} "
-                f"{chr(ord('a')+ai_move[1][0])}{ai_move[1][1]}"
+                f"{chr(ord('a') + ai_move[0][0])}{ai_move[0][1]} "
+                f"{chr(ord('a') + ai_move[1][0])}{ai_move[1][1]}"
             )
             game.print_board(True)
         return False
 
     def auto_game(self, white_depth, black_depth):
-        """Auto game mode between two bots"""
+        """Auto game mode between two bots."""
         game_turn = 0
         max_turns = 250
         while game_turn < max_turns:
@@ -491,8 +490,9 @@ class Game:
             return ""
         return ""
 
+
 def auto_simulation(white_depth, black_depth, iterations):
-    """Runs iterations amount of simulations"""
+    """Runs iterations amount of simulations."""
     print(
         f"""Running {iterations} simulations with
         white depth = {white_depth},black depth = {black_depth}"""
@@ -522,7 +522,7 @@ def auto_simulation(white_depth, black_depth, iterations):
 
 
 def print_help():
-    """prints help"""
+    """Prints help."""
     print(
         """python main.py [algorithm_depth] - play the game against the bot as black,
         if no algorithm depth is specified the default (5) will be set
@@ -541,7 +541,7 @@ if no algorithm depth is specified the default (5) will be set
 
 
 def default(color="black", algorithm_depth=5):
-    """default program function -> allows to play a game against bot (by default as black)"""
+    """Default program function -> allows to play a game against bot (by default as black)."""
     game.start_game(color, algorithm_depth)
 
 

@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+"""Plot the SPD lab-5 measurement series."""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -23,18 +26,20 @@ y_pure_tone_line = 9 * log_delta_t_line - 19
 plt.figure(figsize=(10, 6))
 
 # Plot the experimental data
-plt.semilogx(delta_t, ton_60_db_minus, 'o', label='Ton eksperymentalny 60 dB')
-plt.semilogx(delta_t, szum_20_db_per_hz_minus, 's', label='Szum eksperymentalny 20 dB/Hz')
+plt.semilogx(delta_t, ton_60_db_minus, "o", label="Ton eksperymentalny 60 dB")
+plt.semilogx(
+    delta_t, szum_20_db_per_hz_minus, "s", label="Szum eksperymentalny 20 dB/Hz"
+)
 
 # Plot the theoretical lines
-plt.semilogx(delta_t_line, y_pure_tone_line, label='Ton - krzywa teoretyczna')
-plt.semilogx(delta_t_line, y_broadband_line, label='Szum - krzywa teoereyczna')
+plt.semilogx(delta_t_line, y_pure_tone_line, label="Ton - krzywa teoretyczna")
+plt.semilogx(delta_t_line, y_broadband_line, label="Szum - krzywa teoereyczna")
 
-plt.xlabel('Czas trwania sygnału [ms]', fontsize=40)
-plt.ylabel('Poziom względny głośności [dB]', fontsize=40)
-plt.title('Głośnośc vs czas', fontsize=48)
+plt.xlabel("Czas trwania sygnału [ms]", fontsize=40)
+plt.ylabel("Poziom względny głośności [dB]", fontsize=40)
+plt.title("Głośnośc vs czas", fontsize=48)
 plt.legend(fontsize=32)
-plt.grid(True, which="both", ls="--")
+plt.grid(visible=True, which="both", ls="--")
 
 plt.xticks(fontsize=32)
 plt.yticks(fontsize=32)

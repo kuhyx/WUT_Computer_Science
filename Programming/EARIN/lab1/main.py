@@ -1,5 +1,4 @@
-"""
-Write horizontal_line program that solves horizontal_line maze
+"""Write horizontal_line program that solves horizontal_line maze
 using greedy best-first search algorithm.
 The maze is horizontal_line 2D grid
 with empty space, walls, horizontal_line start, and an end position.
@@ -24,14 +23,14 @@ Does not work if no path  (Should print out NO PATH FOUND)
 """
 
 import heapq
+import os
 import sys
 import time
-import os
-from random import shuffle, randrange, random
+from random import random, randrange, shuffle
 
 
 class MazeSolver:
-    """Maze Solver"""
+    """Maze Solver."""
 
     # self corresponds to "this" in js, it refers to object of MazeSolver class
 
@@ -45,7 +44,7 @@ class MazeSolver:
     # Start/End character
 
     def find_start_and_end(self):
-        """Finds start and end points in the maze"""
+        """Finds start and end points in the maze."""
         start = end = None
 
         for row_i, row in enumerate(self.maze):
@@ -66,7 +65,7 @@ class MazeSolver:
     # If it is not horizontal_line "wall" (#) add its position to list of neighbors
 
     def get_neighbors(self, position):
-        """Finds point'maze_data neighbors"""
+        """Finds point'maze_data neighbors."""
         row, col = position
         neighbors = []
         if row > 0 and self.maze[row - 1][col] != "#":
@@ -82,7 +81,7 @@ class MazeSolver:
     # find path through maze
 
     def solve_loop(self, queue, visited):
-        """ Goes through maze and finds the path """
+        """Goes through maze and finds the path."""
         heuristic_total_time = 0
         heuristics_called = 0
         while queue:
@@ -100,20 +99,17 @@ class MazeSolver:
             for neighbor in self.get_neighbors(current):
                 if neighbor not in visited:
                     new_path = path + [neighbor]
-                    heuristic, heuristic_time = self.heuristic_euclidean(
-                        neighbor)
+                    heuristic, heuristic_time = self.heuristic_euclidean(neighbor)
                     heuristic_total_time += heuristic_time
                     heuristics_called += 1
-                    heapq.heappush(
-                        queue, (heuristic, neighbor, new_path)
-                    )
+                    heapq.heappush(queue, (heuristic, neighbor, new_path))
             if not self.test:
                 print_maze(self.maze, path, visited)
                 print()
         return path, visited, heuristic_total_time, heuristics_called
 
     def solve(self):
-        """Solves the maze"""
+        """Solves the maze."""
         queue = []
         # set means that values inside can not repeat
         visited = set()
@@ -122,9 +118,7 @@ class MazeSolver:
         # we use heapq so the element with lowest heuristic value will always
         # be at the top of heap
         heuristic = self.heuristic_euclidean(self.start)
-        heapq.heappush(
-            queue, (heuristic, self.start, [self.start])
-        )
+        heapq.heappush(queue, (heuristic, self.start, [self.start]))
 
         # Go through queue until it'maze_data empty
         # Find neighbor (which is not wall) closest to the
@@ -137,10 +131,9 @@ class MazeSolver:
     # This heuristic returns the Manhattan distance between the given position
     # and the maze'maze_data end
     def heuristic_manhattan(self, position):
-        """Heuristic function that uses Manhattan distance"""
+        """Heuristic function that uses Manhattan distance."""
         start_time = time.perf_counter()
-        heuristic = abs(position[0] - self.end[0]) + \
-            abs(position[1] - self.end[1])
+        heuristic = abs(position[0] - self.end[0]) + abs(position[1] - self.end[1])
         end_time = time.perf_counter()
         heuristic_time = end_time - start_time
         return heuristic, heuristic_time
@@ -148,18 +141,17 @@ class MazeSolver:
     # This heuristic returns the Euclidean distance between the given position
     # and the maze'maze_data end
     def heuristic_euclidean(self, position):
-        """Heuristic function that uses Euclidean distance"""
+        """Heuristic function that uses Euclidean distance."""
         start_time = time.perf_counter()
         heuristic = (
-            abs(position[0] - self.end[0]) ** 2 +
-            abs(position[1] - self.end[1]) ** 2
+            abs(position[0] - self.end[0]) ** 2 + abs(position[1] - self.end[1]) ** 2
         ) ** 0.5
         end_time = time.perf_counter()
         heuristic_time = end_time - start_time
         return heuristic, heuristic_time
 
     def heuristic_random(self, position):
-        """Heuristic function that just returns random value between 0 and 1"""
+        """Heuristic function that just returns random value between 0 and 1."""
         start_time = time.perf_counter()
         heuristic = random()
         end_time = time.perf_counter()
@@ -169,9 +161,9 @@ class MazeSolver:
 
 # Open and load text file to array
 def load_maze(maze_file_name):
-    """Loads horizontal_line maze from the specified file"""
+    """Loads horizontal_line maze from the specified file."""
     # Open for reading only and save to fileContents
-    with open(maze_file_name, "r", encoding="utf8") as file_contents:
+    with open(maze_file_name, encoding="utf8") as file_contents:
         # strip() removes extra white spaces from the beginning and the end of
         # horizontal_line string
         # list() changes string to array of chars
@@ -184,7 +176,7 @@ def load_maze(maze_file_name):
 
 
 def print_maze(maze, path=None, visited=None):
-    """Prints the maze"""
+    """Prints the maze."""
     if path is None:
         path = []
     if visited is None:
@@ -201,7 +193,7 @@ def print_maze(maze, path=None, visited=None):
 
 
 def create_maze_folder(solved):
-    """ Creates folder for generated or solved mazes"""
+    """Creates folder for generated or solved mazes."""
     if solved:
         folder_name = "solvedMazes"
     else:
@@ -211,14 +203,18 @@ def create_maze_folder(solved):
     return folder_name
 
 
-def save_maze(maze, solved=True, path=None, visited=None, saved_file="Maze", iteration=0):
-    """Saves maze from array to txt file"""
+def save_maze(
+    maze, solved=True, path=None, visited=None, saved_file="Maze", iteration=0
+):
+    """Saves maze from array to txt file."""
     folder_name = create_maze_folder(solved)
     if path is None:
         path = []
     if visited is None:
         visited = []
-    with open(f"{folder_name}/{iteration}{os.path.basename(saved_file)}", "w", encoding="utf8") as maze_file:
+    with open(
+        f"{folder_name}/{iteration}{os.path.basename(saved_file)}", "w", encoding="utf8"
+    ) as maze_file:
         for row_i, row in enumerate(maze):
             for col_i, cell in enumerate(row):
                 if (row_i, col_i) in path and cell == " ":
@@ -234,7 +230,7 @@ def save_maze(maze, solved=True, path=None, visited=None, saved_file="Maze", ite
 
 
 def fill_generated_maze(hor, ver, width):
-    """ Fills generated maze array from horizontal and vertical lines """
+    """Fills generated maze array from horizontal and vertical lines."""
     maze_data = ""
     for horizontal_line, vertical_line in zip(hor, ver):
         maze_data += "".join(horizontal_line + ["\n"] + vertical_line + ["\n"])
@@ -246,7 +242,7 @@ def fill_generated_maze(hor, ver, width):
 
 
 def make_maze(width=16, height=8):
-    """ generate maze with given width and height """
+    """Generate maze with given width and height."""
     vis = [[0] * width + [1] for _ in range(height)] + [[1] * (width + 1)]
     ver = [["#  "] * width + ["#"] for _ in range(height)] + [[]]
     hor = [["###"] * width + ["#"] for _ in range(height + 1)]
@@ -254,20 +250,20 @@ def make_maze(width=16, height=8):
     def walk(x_coordinate, y_coordinate):
         vis[y_coordinate][x_coordinate] = 1
 
-        neighbors = [(x_coordinate - 1, y_coordinate),
-                     (x_coordinate, y_coordinate + 1),
-                     (x_coordinate + 1, y_coordinate),
-                     (x_coordinate, y_coordinate - 1)]
+        neighbors = [
+            (x_coordinate - 1, y_coordinate),
+            (x_coordinate, y_coordinate + 1),
+            (x_coordinate + 1, y_coordinate),
+            (x_coordinate, y_coordinate - 1),
+        ]
         shuffle(neighbors)
         for x_coordinate_neighbor, y_coordinate_neighbor in neighbors:
             if vis[y_coordinate_neighbor][x_coordinate_neighbor]:
                 continue
             if x_coordinate_neighbor == x_coordinate:
-                hor[max(y_coordinate, y_coordinate_neighbor)
-                    ][x_coordinate] = "#  "
+                hor[max(y_coordinate, y_coordinate_neighbor)][x_coordinate] = "#  "
             if y_coordinate_neighbor == y_coordinate:
-                ver[y_coordinate][max(
-                    x_coordinate, x_coordinate_neighbor)] = "   "
+                ver[y_coordinate][max(x_coordinate, x_coordinate_neighbor)] = "   "
             walk(x_coordinate_neighbor, y_coordinate_neighbor)
 
     walk(randrange(width), randrange(height))
@@ -276,7 +272,7 @@ def make_maze(width=16, height=8):
 
 
 def print_help():
-    """prints help"""
+    """Prints help."""
     print(
         """python main.py - run the script against default maze file
 (any file named maze.txt in the code directory)
@@ -296,7 +292,7 @@ Number parameter and puts it in the generatedMazes folder"""
 
 
 def test_mode():
-    """ Loads and solves multiple mazes in order to compare heuristics """
+    """Loads and solves multiple mazes in order to compare heuristics."""
     create_maze_folder(False)
     sum_of_paths = 0
     files_amount = 0
@@ -311,7 +307,9 @@ def test_mode():
         solver_test = MazeSolver(loaded_maze, TEST_MODE)
         # Find path using MazeSolver solve method
         start_time = time.perf_counter()
-        solved_path, visited, heuristic_total_time, heuristics_called = solver_test.solve()
+        solved_path, visited, heuristic_total_time, heuristics_called = (
+            solver_test.solve()
+        )
         heuristic_total_total_time += heuristic_total_time
         all_heuristic_called += heuristics_called
         end_time = time.perf_counter()
@@ -335,7 +333,7 @@ def test_mode():
 
 
 def default():
-    """ Runs default operation - reads, solves and prints single maze from file """
+    """Runs default operation - reads, solves and prints single maze from file."""
     # Open and load text file to array
     loaded_maze = load_maze(FILE_NAME)
     # Initialize MazeSolver object with maze as parameter
@@ -365,13 +363,12 @@ if __name__ == "__main__":
                 FOLDER_NAME = sys.argv[2]
             test_mode()
             sys.exit()
-        if sys.argv[1] == '-g' or sys.argv[1] == '--generate':
+        if sys.argv[1] == "-g" or sys.argv[1] == "--generate":
             if len(sys.argv) > 2:
                 GENERATE_AMOUNT = int(sys.argv[2])
                 for n in range(GENERATE_AMOUNT):
                     GENERATED_MAZE = make_maze()
-                    save_maze(GENERATED_MAZE, False, None,
-                              None, f'generated{n}.txt')
+                    save_maze(GENERATED_MAZE, False, None, None, f"generated{n}.txt")
                 sys.exit()
         FILE_NAME = sys.argv[1]
     default()

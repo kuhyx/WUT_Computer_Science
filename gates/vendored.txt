@@ -62,3 +62,22 @@ NotProgramming/EMISY/schematic
 # ControlPanel.java (1852 lines) and Kernel.java (511) are not split.
 Programming/EOPSY/lab3/task3/work
 Programming/EOPSY/lab4/task4/work
+
+# --- Third-party ray tracer ------------------------------------------------
+# sightpy, the rendering engine from rafael-fuente/Python-Raytracer (BSD
+# 3-Clause, (c) 2021 Rafael de la Fuente). TRAK's assignment was photon
+# mapping ON TOP of it; the engine itself was not written here.
+#
+# Verified 2026-08-28 against a fresh clone of the upstream repository, after
+# normalising line endings (the copy here is LF, upstream ships CRLF):
+#   30 of 32 .py files BYTE-IDENTICAL
+#   sightpy/ray.py    +12 lines: RAYS / PRIMARY_RAYS counters and get_rays()
+#   sightpy/scene.py  +13 lines: prints those counters in the render summary
+# Both patches are kuhy's instrumentation for the report's ray statistics and
+# are the only authored lines inside this tree.
+#
+# NOT covered by this entry, and still fully gated: TRAK's own main.py,
+# photon_mapping.py, rendering.py, lab6.py, utils.py, code/ and scenes/.
+# scenes/ is adapted from the upstream examples rather than copied -- the
+# closest example differs by more lines than the scene file has.
+Programming/TRAK/sightpy

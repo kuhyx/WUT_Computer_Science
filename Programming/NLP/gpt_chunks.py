@@ -1,25 +1,27 @@
-"""
-Orders gpt to chunkify files from task
-"""
-import re
+"""Orders gpt to chunkify files from task."""
+
 import os
+import re
+
 from openai import OpenAI
 
 
 def sentence_loop(sentences):
-    """
-    Processes a list of sentences, applying chunking and formatting to each.
+    """Processes a list of sentences, applying chunking and formatting to each.
 
     This function iterates through a list of sentences, processing each one
     using the `process_sentence` function. It collects the results into a list.
     If processing fails for any sentence, the function halts and returns None.
 
-    Parameters:
+    Parameters
+    ----------
     sentences (list of str): A list of sentences to be processed.
 
-    Returns:
+    Returns
+    -------
     list of str: A list of processed and formatted sentences, or None if processing
                  of any sentence fails.
+
     """
     # Process each sentence
     chunked_sentences = []
@@ -31,26 +33,27 @@ def sentence_loop(sentences):
 
 
 def remove_leading_numbering(input_string):
-    """
-    Removes any leading numbering from the string.
+    """Removes any leading numbering from the string.
 
     This function is designed to strip off numbering
     that typically appears at the beginning of a string,
     such as '1. ', '2. ', etc. It's useful for processing strings where such numbering is irrelevant
     or should be omitted for formatting purposes.
 
-    Parameters:
+    Parameters
+    ----------
     string (str): The string from which leading numbering should be removed.
 
-    Returns:
+    Returns
+    -------
     str: The string with leading numbering removed.
+
     """
     return re.sub(r"^\d+\.\s*", "", input_string)
 
 
 def process_brackets(input_string):
-    """
-    Processes a string to extract and adjust parts enclosed in square brackets.
+    """Processes a string to extract and adjust parts enclosed in square brackets.
 
     This function identifies and extracts all segments within square brackets from the input string.
     It also adjusts the last part by handling any trailing punctuation,
@@ -58,11 +61,14 @@ def process_brackets(input_string):
     This is particularly useful for strings
     that contain multiple bracketed segments that need individual processing.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The string to be processed for bracketed segments.
 
-    Returns:
+    Returns
+    -------
     list of str: A list containing the extracted and adjusted bracketed segments from the string.
+
     """
     parts = re.findall(r"\[[^\]]*\]", input_string)
     if parts:
@@ -71,20 +77,22 @@ def process_brackets(input_string):
 
 
 def handle_trailing_punctuation(input_string, last_part):
-    """
-    Handles and appends trailing punctuation to the last part of a bracketed segment.
+    """Handles and appends trailing punctuation to the last part of a bracketed segment.
 
     This function checks the given string for any punctuation (like '.', '!', or '?')
     immediately following the last bracketed segment. If found, it appends this punctuation
     to the end of the last part inside the brackets. This is used to maintain sentence
     punctuation integrity after processing bracketed segments.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The original string containing the bracketed segments.
     last_part (str): The last bracketed segment extracted from the string.
 
-    Returns:
+    Returns
+    -------
     str: The last part with any trailing punctuation correctly appended.
+
     """
     trailing_punctuation = re.search(r"\]\s*([.!?])\s*$", input_string)
     if trailing_punctuation:
@@ -93,32 +101,36 @@ def handle_trailing_punctuation(input_string, last_part):
 
 
 def process_non_bracketed_parts(input_string):
-    """
-    Split the input string by hyphens surrounded by optional whitespace and return
+    """Split the input string by hyphens surrounded by optional whitespace and return
     a list of non-empty parts enclosed in square brackets.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be processed.
 
-    Returns:
+    Returns
+    -------
     list of str: A list of non-empty parts from the input string, enclosed in square brackets.
+
     """
     parts = re.split(r"\s*-\s*", input_string)
     return [f"[ {part.strip()} ]" for part in parts if part.strip()]
 
 
 def reformat_list(strings):
-    """
-    Reformat a list of strings by processing each string element. For strings containing
+    """Reformat a list of strings by processing each string element. For strings containing
     square brackets, it calls 'process_brackets' to handle the content within the brackets,
     and for other strings, it calls 'process_non_bracketed_parts' to handle them. The
     resulting parts are joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     strings (list of str): A list of strings to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of input strings.
+
     """
     result = []
     for string in strings:
@@ -131,18 +143,20 @@ def reformat_list(strings):
 
 
 def reformat_square_not_full(input_string):
-    """
-    Reformat the input string by splitting it into parts that are either enclosed in
+    """Reformat the input string by splitting it into parts that are either enclosed in
     square brackets or not. For parts not in brackets, it removes trailing periods,
     trims spaces, and encloses them in square brackets. For parts already in brackets,
     it adds spaces inside the brackets. The formatted parts are then joined into a
     single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Split the string into parts that are either in brackets or not
     parts = re.split(r"(\[[^\]]*\])", input_string)
@@ -163,16 +177,18 @@ def reformat_square_not_full(input_string):
 
 
 def reformat_slash(input_string):
-    """
-    Reformat the input string by splitting it on slashes, trimming spaces from each
+    """Reformat the input string by splitting it on slashes, trimming spaces from each
     part, and enclosing each part in square brackets. The formatted parts are then
     joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Split the string on slashes and strip spaces
     parts = [part.strip() for part in input_string.split("/")]
@@ -182,16 +198,18 @@ def reformat_slash(input_string):
 
 
 def reformat_pipe(input_string):
-    """
-    Reformat the input string by splitting it on ' | ' (pipe symbol with spaces),
+    """Reformat the input string by splitting it on ' | ' (pipe symbol with spaces),
     trimming spaces from each part, and enclosing each part in square brackets. The
     formatted parts are then joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Split the string on ' | ' and strip spaces
     parts = [part.strip() for part in input_string.split("|")]
@@ -201,14 +219,16 @@ def reformat_pipe(input_string):
 
 
 def is_pipe_format(input_string):
-    """
-    Check if the input string follows the ' | ' (pipe symbol with spaces) pattern.
+    """Check if the input string follows the ' | ' (pipe symbol with spaces) pattern.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Regular expression to check for ' | ' pattern
     pattern = r"^(?:[^|]+\|)+[^|]+$"
@@ -216,20 +236,22 @@ def is_pipe_format(input_string):
 
 
 def is_numbered_line_format(input_string):
-    """
-    Check if the input string(input_string) follows the pattern of lines starting with
+    """Check if the input string(input_string) follows the pattern of lines starting with
     'number. word/phrase \n'.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str or list of str): The input string(input_string) to be checked.
     It can be a single string or a list of strings.
 
-    Returns:
-    bool or list of bool: 
+    Returns
+    -------
+    bool or list of bool:
       If the input is a single string, it returns True
       if it matches the pattern, otherwise False.
       If the input is a list of strings
       it returns a list of booleans indicating if each string matches the pattern.
+
     """
     # Regular expression to match lines starting with 'number. word/phrase \n'
     pattern = r"^(?:\d+\.\s+.+\n?)+$"
@@ -243,17 +265,19 @@ def is_numbered_line_format(input_string):
 
 
 def reformat_ists(input_string):
-    """
-    Reformat the input string by finding all occurrences of the (iSTS n) pattern
+    """Reformat the input string by finding all occurrences of the (iSTS n) pattern
     (where 'n' is a number), extracting the text inside the parentheses, and
     enclosing each extracted part in square brackets. The formatted parts are
     then joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Use regular expression to find all occurrences of the iSTS pattern and
     # extract the text
@@ -264,15 +288,17 @@ def reformat_ists(input_string):
 
 
 def is_ists_format(input_string):
-    """
-    Check if the input string follows the pattern of (iSTS n) followed by text, with
+    """Check if the input string follows the pattern of (iSTS n) followed by text, with
     multiple occurrences allowed, where 'n' is a number.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Regular expression to check for the iSTS pattern
     pattern = r"^(?:\(iSTS \d+\)\s*[^)]+\s*)+$"
@@ -280,17 +306,19 @@ def is_ists_format(input_string):
 
 
 def reformat_with_sections(input_string):
-    """
-    Reformat the input string by using regular expressions to split it into parts
+    """Reformat the input string by using regular expressions to split it into parts
     following section labels (e.g., [S1], [S2], etc.), removing empty strings,
     and enclosing each part in square brackets. The formatted parts are then
     joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Use regular expression to extract text following the section labels
     parts = re.split(r"\s*\[\s*S\d+\s*\]\s*", input_string)
@@ -300,15 +328,17 @@ def reformat_with_sections(input_string):
 
 
 def is_section_format(input_string):
-    """
-    Check if the input string follows the pattern of section labels (e.g., [S1], [S2], etc.)
+    """Check if the input string follows the pattern of section labels (e.g., [S1], [S2], etc.)
     followed by text, with multiple occurrences allowed.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Regular expression to check for the section label pattern
     pattern = r"^(?:\s*\[\s*S\d+\s*\]\s*.+)+$"
@@ -316,34 +346,37 @@ def is_section_format(input_string):
 
 
 def is_chunk_format(input_string):
-    """
-    Check if the input string follows the pattern of 'Chunk X: text' or '[Chunk X] text'
+    """Check if the input string follows the pattern of 'Chunk X: text' or '[Chunk X] text'
     patterns, where 'X' is a number, with multiple occurrences allowed.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Further optimized regular expression
     pattern = r"^(Chunk \d+:|\[\s*Chunk \d+\s*\]).*?(?:\s+(?:Chunk \d+:|\[\s*Chunk \d+\s*\]).*?)*$"
     return bool(re.match(pattern, input_string))
 
 
-
 def reformat_chunks(input_string):
-    """
-    Reformat the input string by finding all occurrences of both
+    """Reformat the input string by finding all occurrences of both
     'Chunk X: text' and '[Chunk X] text'
     patterns, extracting the text within them, and enclosing each extracted part in square brackets.
     The formatted parts are then joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Find all occurrences of both chunk patterns and extract the text
     parts = re.findall(
@@ -360,16 +393,18 @@ def reformat_chunks(input_string):
 
 
 def reformat_ists_markers(input_string):
-    """
-    Reformat the input string by splitting it at '[ iSTS ]' markers, removing empty strings,
+    """Reformat the input string by splitting it at '[ iSTS ]' markers, removing empty strings,
     and enclosing each part in square brackets. The formatted parts are then joined into
     a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Split the string at '[ iSTS ]', remove empty strings, and enclose each
     # part in square brackets
@@ -383,15 +418,17 @@ def reformat_ists_markers(input_string):
 
 
 def is_ists_marker_format(input_string):
-    """
-    Check if the input string follows the pattern with '[ iSTS ]' markers followed by text,
+    """Check if the input string follows the pattern with '[ iSTS ]' markers followed by text,
     with multiple occurrences allowed.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Regular expression to check for the pattern with '[ iSTS ]'
     pattern = r"^(?:\[\s*iSTS\s*\].+)+$"
@@ -399,16 +436,18 @@ def is_ists_marker_format(input_string):
 
 
 def reformat_with_dashes(input_string):
-    """
-    Reformat the input string by splitting it on ' - ' (dash with spaces),
+    """Reformat the input string by splitting it on ' - ' (dash with spaces),
     removing empty strings, and enclosing each part in square brackets.
     The formatted parts are then joined into a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Split the string on ' - ', remove empty strings, and enclose each part
     # in square brackets
@@ -418,15 +457,17 @@ def reformat_with_dashes(input_string):
 
 
 def is_dash_format(input_string):
-    """
-    Check if the input string follows the pattern with ' - ' (dash with spaces)
+    """Check if the input string follows the pattern with ' - ' (dash with spaces)
     separating non-empty parts.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Regular expression to check for the pattern with ' - '
     pattern = r"^[^-]+(?:\s*-\s*[^-]+)+$"
@@ -434,19 +475,21 @@ def is_dash_format(input_string):
 
 
 def preliminary_reformat(input_string):
-    """
-    Remove common prefixes like
+    """Remove common prefixes like
     'iSTS chunks:'
     and
     'Here are the iSTS chunks for the given sentence:'
     from the input string.
     This function is intended as a preliminary step before further reformatting.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: The input string with common prefixes stripped.
+
     """
     input_string = input_string.strip("iSTS chunks:")
     input_string = input_string.strip(
@@ -456,17 +499,19 @@ def preliminary_reformat(input_string):
 
 
 def reformat_brackets_and_text(input_string):
-    """
-    Reformat the input string by removing trailing dots, splitting it into parts that are either
+    """Reformat the input string by removing trailing dots, splitting it into parts that are either
     enclosed in square brackets or not, removing commas and trimming spaces for non-bracket parts,
     and enclosing non-bracket parts in square brackets. The formatted parts are then joined into
     a single string with spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string containing the processed parts of the input string.
+
     """
     # Remove the trailing dot if present
     input_string = re.sub(r"\.$", "", input_string)
@@ -490,16 +535,18 @@ def reformat_brackets_and_text(input_string):
 
 
 def is_brackets_and_text_format(input_string):
-    """
-    Check if the input string follows the pattern of parts
+    """Check if the input string follows the pattern of parts
     that are either enclosed in square brackets
     or not, with optional commas and spaces between the parts.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be checked.
 
-    Returns:
+    Returns
+    -------
     bool: True if the input string matches the pattern, otherwise False.
+
     """
     # Regular expression to check the pattern
     pattern = r"^(\[[^\]]*\]|\s*[^[\]]+\s*)(,\s*|\s+|$)+$"
@@ -507,18 +554,20 @@ def is_brackets_and_text_format(input_string):
 
 
 def is_correct_format(input_string):
-    """
-    Checks if a given string matches a specific format of sequences enclosed in square brackets.
+    """Checks if a given string matches a specific format of sequences enclosed in square brackets.
 
     This function uses a regular expression to determine if the input string adheres to a format
     where sequences of text are enclosed within square brackets. Each sequence must be separated
     by spaces, and the entire string must only consist of these bracketed sequences.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The string to be checked against the format.
 
-    Returns:
+    Returns
+    -------
     bool: True if the string matches the format, False otherwise.
+
     """
     # Regular expression to match sequences of '[ some words ]'
     pattern = r"^(\[\s*[^]]+\s*\]\s*)+$"
@@ -528,8 +577,7 @@ def is_correct_format(input_string):
 
 
 def check_format(input_data):
-    """
-    Checks if the input data (input_data or list of strings) matches a specific format.
+    """Checks if the input data (input_data or list of strings) matches a specific format.
 
     This function determines if the input data,
     which can be either a single string or a list of strings,
@@ -537,16 +585,19 @@ def check_format(input_data):
     The format check is performed by the 'is_correct_format' function.
     For a list, the check is applied to each string in the list.
 
-    Parameters:
-    input_data (str or list of str): 
-      The input data to be checked. 
+    Parameters
+    ----------
+    input_data (str or list of str):
+      The input data to be checked.
       Can be a single string or a list of strings.
 
-    Returns:
+    Returns
+    -------
     bool or list of bool: If input_data is a string,
     returns True if it matches the format, False otherwise.
     If input_data is a list, returns a list of booleans corresponding to each string.
     Returns None if input_data is neither a string nor a list.
+
     """
     # Check if the input is a string, and if so, process it directly
     if isinstance(input_data, str):
@@ -559,27 +610,29 @@ def check_format(input_data):
     # Return None or raise an error if the input is neither a string nor a list
     return None
 
+
 def check_and_reformat(input_string, check_func, format_func):
-    """
-    Checks what type of string got inputed and formats it accordingly
-    """
+    """Checks what type of string got inputed and formats it accordingly."""
     if check_func(input_string):
         print(f"formatted by {format_func.__name__}", input_string)
         return format_func(input_string)
     return None
 
+
 def reformat(input_string):
-    """
-    Reformat the input string by applying a series of format checks and corresponding
+    """Reformat the input string by applying a series of format checks and corresponding
     reformatting functions. This function attempts to identify the format of the input
     string and apply the appropriate reformatting.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str or bool: The reformatted string if a suitable format is recognized, or False if the format
                  is not recognized and cannot be reformatted.
+
     """
     input_string = preliminary_reformat(input_string)
     if check_format(input_string):
@@ -608,15 +661,17 @@ def reformat(input_string):
 
 
 def remove_empty_brackets(input_string):
-    """
-    Remove empty brackets (with or without spaces) from the input string and
+    """Remove empty brackets (with or without spaces) from the input string and
     eliminate any extra spaces that might be left after removing brackets.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string from which empty brackets should be removed.
 
-    Returns:
+    Returns
+    -------
     str: The input string with empty brackets removed and extra spaces eliminated.
+
     """
     # Regular expression to match empty brackets (with any number of spaces)
     pattern = r"\[\s*\]"
@@ -631,30 +686,34 @@ def remove_empty_brackets(input_string):
 
 
 def reformat_brackets(input_string):
-    """
-    Reformat the input string by enclosing text inside square brackets.
+    """Reformat the input string by enclosing text inside square brackets.
     This function searches for text enclosed in square brackets (with or without spaces)
     and ensures that the text inside the brackets is surrounded by spaces.
 
-    Parameters:
+    Parameters
+    ----------
     input_string (str): The input string to be reformatted.
 
-    Returns:
+    Returns
+    -------
     str: A reformatted string with text inside square brackets and spaces around it.
+
     """
     formatted_string = re.sub(r"\[\s*(.*?)\s*\]", r"[ \1 ]", input_string)
     return formatted_string
 
 
 def generate_instruction(sentence):
-    """
-    Generate an instruction for dividing a given sentence into iSTS chunks.
+    """Generate an instruction for dividing a given sentence into iSTS chunks.
 
-    Parameters:
+    Parameters
+    ----------
     sentence (str): The sentence to be divided into chunks.
 
-    Returns:
+    Returns
+    -------
     str: A formatted instruction with the provided sentence.
+
     """
     return (
         "Please divide the following sentence into iSTS chunks."
@@ -665,15 +724,17 @@ def generate_instruction(sentence):
 
 
 def call_api(instruction):
-    """
-    Call the API using the provided instruction to generate a response.
+    """Call the API using the provided instruction to generate a response.
 
-    Parameters:
+    Parameters
+    ----------
     client (OpenAI.Client): An OpenAI API client object.
     instruction (str): The instruction to provide to the API.
 
-    Returns:
+    Returns
+    -------
     dict: The response generated by the API.
+
     """
     return client.chat.completions.create(
         messages=[
@@ -687,29 +748,33 @@ def call_api(instruction):
 
 
 def process_response(response):
-    """
-    Process the response received from the API and extract the chunked sentence.
+    """Process the response received from the API and extract the chunked sentence.
 
-    Parameters:
+    Parameters
+    ----------
     response (dict): The response generated by the API.
 
-    Returns:
+    Returns
+    -------
     str: The chunked sentence extracted from the response.
+
     """
     chunked_sentence = response.choices[0].message.content.strip()
     return chunked_sentence
 
 
 def check_and_format_sentence(chunked_sentence):
-    """
-    Check and format a chunked sentence by applying a series of checks and reformatting.
+    """Check and format a chunked sentence by applying a series of checks and reformatting.
 
-    Parameters:
+    Parameters
+    ----------
     chunked_sentence (str): The chunked sentence to be checked and formatted.
 
-    Returns:
+    Returns
+    -------
     str or bool: The formatted chunked sentence if it passes all checks,
     or False if there are errors.
+
     """
     reformated = reformat(chunked_sentence)
     if not reformated:
@@ -723,15 +788,17 @@ def check_and_format_sentence(chunked_sentence):
 
 
 def finalize_formatting(reformatted):
-    """
-    Finalize the formatting of a reformatted string by removing empty brackets and ensuring
+    """Finalize the formatting of a reformatted string by removing empty brackets and ensuring
     that text inside brackets is surrounded by spaces.
 
-    Parameters:
+    Parameters
+    ----------
     reformatted (str): The reformatted string to be finalized.
 
-    Returns:
+    Returns
+    -------
     str: The finalized and formatted string.
+
     """
     reformatted = remove_empty_brackets(reformatted)
     reformatted = reformat_brackets(reformatted)
@@ -739,18 +806,20 @@ def finalize_formatting(reformatted):
 
 
 def process_sentence(sentence, chunked_sentences):
-    """
-    Process a sentence by generating iSTS chunks and
+    """Process a sentence by generating iSTS chunks and
     adding them to the provided list of chunked sentences.
 
-    Parameters:
+    Parameters
+    ----------
     sentence (str): The input sentence to be processed.
     chunked_sentences (list): A list of previously chunked sentences to which the processed sentence
                               will be appended.
     client (OpenAI.Client): An OpenAI API client object for calling the API.
 
-    Returns:
+    Returns
+    -------
     list or bool: The updated list of chunked sentences if successful, or False if there are errors.
+
     """
     instruction = generate_instruction(sentence)
     response = call_api(instruction)
@@ -764,19 +833,21 @@ def process_sentence(sentence, chunked_sentences):
 
 
 def chunk_sentences(input_file, output):
-    """
-    Read sentences from a file, process each sentence to generate iSTS chunks,
+    """Read sentences from a file, process each sentence to generate iSTS chunks,
     and write the chunked sentences to an output file.
 
-    Parameters:
+    Parameters
+    ----------
     file_path (str): The path to the input file containing sentences to be processed.
     output_path (str): The path to the output file where chunked sentences will be written.
 
-    Returns:
+    Returns
+    -------
     None
+
     """
     # Read the sentences from the file
-    with open(input_file, "r", encoding="utf-8") as file:
+    with open(input_file, encoding="utf-8") as file:
         sentences = file.readlines()
 
     # Process each sentence
@@ -785,8 +856,7 @@ def chunk_sentences(input_file, output):
 
     # Write the chunked sentences to a new file
     with open(output, "w", encoding="utf-8") as output_file:
-        for sentence in chunked_sentences:
-            output_file.write(sentence + "\n")
+        output_file.writelines(sentence + "\n" for sentence in chunked_sentences)
 
 
 # Usage
@@ -797,7 +867,7 @@ input_files = [
     "test_goldStandard/images/STSint.testinput.images.sent1.txt",
     "test_goldStandard/images/STSint.testinput.images.sent2.txt",
     "test_goldStandard/headlines/STSint.testinput.headlines.sent1.txt",
-    "test_goldStandard/headlines/STSint.testinput.headlines.sent2.txt"
+    "test_goldStandard/headlines/STSint.testinput.headlines.sent2.txt",
 ]
 
 output_files = [
@@ -806,11 +876,11 @@ output_files = [
     "test_goldStandard/images/images-chunks-gpt-one.txt",
     "test_goldStandard/images/images-chunks-gpt-two.txt",
     "test_goldStandard/headlines/headlines-chunks-gpt-one.txt",
-    "test_goldStandard/headlines/headlines-chunks-gpt-two.txt"
+    "test_goldStandard/headlines/headlines-chunks-gpt-two.txt",
 ]
 
 # Change me to os.environ['API_KEY']
-client = OpenAI(api_key=os.environ['API_KEY'])
+client = OpenAI(api_key=os.environ["API_KEY"])
 
 for input_path, output_path in zip(input_files, output_files):
     chunk_sentences(input_path, output_path)

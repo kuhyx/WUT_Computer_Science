@@ -1,24 +1,25 @@
-from flask import Flask, request, jsonify
+import os
+
+import firebase_admin
+import requests
+from dotenv import load_dotenv
+from firebase_admin import auth, credentials
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-import firebase_admin
-from firebase_admin import credentials, auth
-from dotenv import load_dotenv
-import os
-import requests
 
 load_dotenv()
-TMDB_BEARER_TOKEN = os.getenv('TMDB_BEARER_TOKEN')
+TMDB_BEARER_TOKEN = os.getenv("TMDB_BEARER_TOKEN")
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.sqlite3'
-app.config['SQLALCHEY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.sqlite3"
+app.config["SQLALCHEY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
 CORS(app)
 
-cred = credentials.Certificate('movie-recommendation-firebase-adminsdk.json')
+cred = credentials.Certificate("movie-recommendation-firebase-adminsdk.json")
 firebase_admin.initialize_app(cred)
 
 
@@ -31,7 +32,7 @@ class User(db.Model):
 
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.uid"), nullable=False)
     movie_id = db.Column(db.Integer, nullable=False)
     value = db.Column(db.Integer, nullable=False)
 
@@ -40,14 +41,14 @@ with app.app_context():
     db.create_all()
 
 
-@app.route('/login', methods=['POST'])
+@app.route("/login", methods=["POST"])
 def login():
-    token = request.json.get('token')
+    token = request.json.get("token")
     try:
         decoded_token = auth.verify_id_token(token)
-        uid = decoded_token['uid']
+        uid = decoded_token["uid"]
         print(uid)
-        email = decoded_token.get('email')
+        email = decoded_token.get("email")
 
         user = User.query.filter_by(uid=uid).first()
         if user is None:
@@ -56,36 +57,39 @@ def login():
             db.session.add(user)
             db.session.commit()
 
-        return jsonify({'message': 'Login successful!', 'email': email, 'is_admin': user.is_admin}), 200
+        return jsonify(
+            {"message": "Login successful!", "email": email, "is_admin": user.is_admin}
+        ), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': 'Login failed'}), 401
+        return jsonify({"message": "Login failed"}), 401
 
 
-@app.route('/count_user_ratings', methods=['POST'])
+@app.route("/count_user_ratings", methods=["POST"])
 def count_user_ratings():
-    token = request.json.get('token')
+    token = request.json.get("token")
     try:
         decoded_token = auth.verify_id_token(token)
-        user_id = decoded_token['uid']
+        user_id = decoded_token["uid"]
 
         user = User.query.filter_by(uid=user_id).first()
         if user is None:
-            return jsonify({'message': 'Error'}), 500
+            return jsonify({"message": "Error"}), 500
 
         rating_count = Rating.query.filter_by(user_id=user_id).count()
-        return jsonify({'message': 'Ratings counted!', 'rating_count': rating_count}), 200
+        return jsonify(
+            {"message": "Ratings counted!", "rating_count": rating_count}
+        ), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': str(e)}), 500
+        return jsonify({"message": str(e)}), 500
 
 
-@app.route('/movie/<int:movie_id>', methods=['GET'])
+@app.route("/movie/<int:movie_id>", methods=["GET"])
 def get_tmdb_data_movie_id(movie_id):
-    url = f'https://api.themoviedb.org/3/movie/{movie_id}'
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}"
 
-    headers = {
-        'Authorization': f'Bearer {TMDB_BEARER_TOKEN}'}
+    headers = {"Authorization": f"Bearer {TMDB_BEARER_TOKEN}"}
 
     try:
         response = requests.get(url, headers=headers)
@@ -93,20 +97,19 @@ def get_tmdb_data_movie_id(movie_id):
         return jsonify(response.json()), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': str(e)}), 500
+        return jsonify({"message": str(e)}), 500
 
 
-@app.route('/movie', methods=['GET'])
+@app.route("/movie", methods=["GET"])
 def get_tmdb_data_query():
-    query = request.args.get('query')
+    query = request.args.get("query")
 
     if query:
-        url = f'https://api.themoviedb.org/3/search/movie?query={query}'
+        url = f"https://api.themoviedb.org/3/search/movie?query={query}"
     else:
-        url = 'https://api.themoviedb.org/3/trending/movie/day'
+        url = "https://api.themoviedb.org/3/trending/movie/day"
 
-    headers = {
-        'Authorization': f'Bearer {TMDB_BEARER_TOKEN}'}
+    headers = {"Authorization": f"Bearer {TMDB_BEARER_TOKEN}"}
 
     try:
         response = requests.get(url, headers=headers)
@@ -114,88 +117,90 @@ def get_tmdb_data_query():
         return jsonify(response.json()), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': str(e)}), 500
+        return jsonify({"message": str(e)}), 500
 
 
-@app.route('/rating', methods=['POST'])
+@app.route("/rating", methods=["POST"])
 def add_rating():
-    token = request.json.get('token')
-    movie = request.json.get('movie')
-    value = request.json.get('value')
+    token = request.json.get("token")
+    movie = request.json.get("movie")
+    value = request.json.get("value")
     try:
         decoded_token = auth.verify_id_token(token)
-        user_id = decoded_token['uid']
+        user_id = decoded_token["uid"]
 
         # user = User.query.filter_by(uid=user_id).first()
         # if user is None:
         #     return jsonify({'message': 'Error'}), 500
 
-        rating = Rating.query.filter_by(
-            user_id=user_id, movie_id=movie).first()
+        rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
         if rating is None:
             rating = Rating(user_id=user_id, movie_id=movie, value=value)
 
             db.session.add(rating)
             db.session.commit()
 
-            return jsonify({'message': 'Rating added successfully!'}), 201
-        else:
-            rating.value = value
+            return jsonify({"message": "Rating added successfully!"}), 201
+        rating.value = value
 
-            db.session.commit()
+        db.session.commit()
 
-            return jsonify({'message': 'Rating updated successfully!'}), 200
+        return jsonify({"message": "Rating updated successfully!"}), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': str(e)}), 500
+        return jsonify({"message": str(e)}), 500
 
 
-@app.route('/rating', methods=['DELETE'])
+@app.route("/rating", methods=["DELETE"])
 def remove_rating():
-    token = request.json.get('token')
-    movie = request.json.get('movie')
+    token = request.json.get("token")
+    movie = request.json.get("movie")
     try:
         decoded_token = auth.verify_id_token(token)
-        user_id = decoded_token['uid']
+        user_id = decoded_token["uid"]
 
         # user = User.query.filter_by(uid=user_id).first()
         # if user is None:
         #     return jsonify({'message': 'Error'}), 500
 
-        rating = Rating.query.filter_by(
-            user_id=user_id, movie_id=movie).first()
+        rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
         if rating is None:
-            return jsonify({'message': 'Error'}), 500
+            return jsonify({"message": "Error"}), 500
 
         db.session.delete(rating)
         db.session.commit()
 
-        return jsonify({'message': 'Rating removed successfully!'}), 200
+        return jsonify({"message": "Rating removed successfully!"}), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': str(e)}), 500
+        return jsonify({"message": str(e)}), 500
 
 
-@app.route('/get_rating', methods=['POST'])
+@app.route("/get_rating", methods=["POST"])
 def get_rating():
-    token = request.json.get('token')
-    movie = request.json.get('movie')
+    token = request.json.get("token")
+    movie = request.json.get("movie")
     try:
         decoded_token = auth.verify_id_token(token)
-        user_id = decoded_token['uid']
+        user_id = decoded_token["uid"]
 
         # user = User.query.filter_by(uid=user_id).first()
         # if user is None:
         #     return jsonify({'message': 'Error'}), 500
 
-        rating = Rating.query.filter_by(
-            user_id=user_id, movie_id=movie).first()
+        rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
         if rating is None:
-            return jsonify({'message': 'Rating not found!'}), 200
-        else:
-            return jsonify({'message': 'Rating found!', 'movie': rating.movie_id, 'value': rating.value}), 200
+            return jsonify({"message": "Rating not found!"}), 200
+        return jsonify(
+            {
+                "message": "Rating found!",
+                "movie": rating.movie_id,
+                "value": rating.value,
+            }
+        ), 200
     except Exception as e:
         print(e)
-        return jsonify({'message': str(e)}), 500
+        return jsonify({"message": str(e)}), 500
+
 
 app.run(host="0.0.0.0", port=8084)

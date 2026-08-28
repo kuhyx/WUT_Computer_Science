@@ -1,33 +1,38 @@
 #!/usr/bin/env python3
-""" Renders an image using raytracing """
-import numpy as np
-import matplotlib.pyplot as plt
+"""Renders an image using raytracing."""
+
 import time
 
-def ray_trace(num_spheres, environment, image_width=400, image_height=300, output_file="fig.png"):
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def ray_trace(
+    num_spheres, environment, image_width=400, image_height=300, output_file="fig.png"
+):
     IMAGE_WIDTH = image_width
     IMAGE_HEIGHT = image_height
 
-
     def normalize(vector):
-        """
-        Normalize a vector.
+        """Normalize a vector.
 
-        Parameters:
+        Parameters
+        ----------
         vector (numpy.ndarray): The input vector to be normalized.
 
-        Returns:
+        Returns
+        -------
         numpy.ndarray: The normalized vector.
+
         """
         vector /= np.linalg.norm(vector)
         return vector
 
-
     def intersect_plane(ray_origin, ray_direction, plane_point, plane_normal):
-        """
-        Calculate the intersection of a ray with a plane.
+        """Calculate the intersection of a ray with a plane.
 
-        Parameters:
+        Parameters
+        ----------
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
         ray_direction (numpy.ndarray): A normalized 3D vector representing the
         direction of the ray.
@@ -35,11 +40,13 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
         plane_normal (numpy.ndarray): A normalized 3D vector representing
         the normal of the plane.
 
-        Returns:
+        Returns
+        -------
         float: The distance from the origin ray_origin to the intersection
         point with the plane.
                Returns +inf if there is no intersection or if the intersection is
                behind the origin.
+
         """
         denom = np.dot(ray_direction, plane_normal)
         if np.abs(denom) < 1e-6:
@@ -49,12 +56,11 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
             return np.inf
         return d
 
-
     def intersect_sphere(ray_origin, ray_direction, sphere_center, sphere_radius):
-        """
-        Calculate the intersection of a ray with a sphere.
+        """Calculate the intersection of a ray with a sphere.
 
-        Parameters:
+        Parameters
+        ----------
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
         ray_direction (numpy.ndarray): A normalized 3D vector representing the
         direction of the ray.
@@ -62,11 +68,13 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
         the center of the sphere.
         sphere_radius (float): The radius of the sphere.
 
-        Returns:
+        Returns
+        -------
         float: The distance from the origin ray_origin to the intersection
         point with the sphere.
                Returns +inf if there is no intersection or if the intersection is
                behind the origin.
+
         """
         a = np.dot(ray_direction, ray_direction)
         origin_to_center = ray_origin - sphere_center
@@ -76,23 +84,24 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
         disc = b * b - 4 * a * c
         return calculate_sphere_intersection(a, b, c, disc)
 
-
     def calculate_sphere_intersection(a, b, c, disc):
-        """
-        Calculate the
+        """Calculate the
         intersection distance of a ray with a sphere using the quadratic formula.
 
-        Parameters:
+        Parameters
+        ----------
         a (float): Coefficient of t^2 in the quadratic equation.
         b (float): Coefficient of t in the quadratic equation.
         c (float): Constant term in the quadratic equation.
         disc (float): Discriminant of the quadratic equation.
 
-        Returns:
+        Returns
+        -------
         float:
         The distance from the origin to the intersection point with the sphere.
         Returns +inf if there is no intersection
         or if the intersection is behind the origin.
+
         """
         if disc > 0:
             distance_squared = np.sqrt(disc)
@@ -108,112 +117,121 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
                 return t1 if t0 < 0 else t0
         return np.inf
 
-
     def intersect(ray_origin, ray_direction, object_):
-        """
-        Calculate the intersection of a ray with an object.
+        """Calculate the intersection of a ray with an object.
 
-        Parameters:
+        Parameters
+        ----------
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
         ray_direction (numpy.ndarray): A normalized 3D vector representing the
         direction of the ray.
         obj (dict): A dictionary representing the object with keys
         'type', 'position', 'normal' (for planes), and 'radius' (for spheres).
 
-        Returns:
+        Returns
+        -------
         float: The distance from the origin ray_origin to the intersection
         point with the object.
                Returns +inf if there is no intersection or if the intersection is
                behind the origin.
-        """
-        if object_['type'] == 'plane':
-            return intersect_plane(ray_origin, ray_direction,
-                                   object_['position'], object_['normal'])
-        # object_['type'] == 'sphere':
-        return intersect_sphere(ray_origin, ray_direction,
-                                object_['position'], object_['radius'])
 
+        """
+        if object_["type"] == "plane":
+            return intersect_plane(
+                ray_origin, ray_direction, object_["position"], object_["normal"]
+            )
+        # object_['type'] == 'sphere':
+        return intersect_sphere(
+            ray_origin, ray_direction, object_["position"], object_["radius"]
+        )
 
     def get_normal(object_, intersection_point):
-        """
-        Calculate the normal at the intersection point on the object.
+        """Calculate the normal at the intersection point on the object.
 
-        Parameters:
+        Parameters
+        ----------
         obj (dict): A dictionary representing the object with keys
         'type' and 'position'.
         intersection_point (numpy.ndarray): A 3D point representing the
         intersection point on the object.
 
-        Returns:
+        Returns
+        -------
         numpy.ndarray: The normal vector at the intersection point.
+
         """
-        if object_['type'] == 'sphere':
-            normal = normalize(intersection_point - object_['position'])
-        elif object_['type'] == 'plane':
-            normal = object_['normal']
+        if object_["type"] == "sphere":
+            normal = normalize(intersection_point - object_["position"])
+        elif object_["type"] == "plane":
+            normal = object_["normal"]
         else:
             raise ValueError(f"Unknown object type: {object_['type']}")
         return normal
 
-
     def get_color(object_, intersection_point):
-        """
-        Get the color of the object at the intersection point.
+        """Get the color of the object at the intersection point.
 
-        Parameters:
+        Parameters
+        ----------
         object_ (dict): A dictionary representing the object with a key 'color'.
         intersection_point (numpy.ndarray): A 3D point representing the
         intersection point on the object.
 
-        Returns:
+        Returns
+        -------
         numpy.ndarray: The color of the object at the intersection point.
+
         """
-        color = object_['color']
-        if not hasattr(color, '__len__'):
+        color = object_["color"]
+        if not hasattr(color, "__len__"):
             color = color(intersection_point)
         return color
 
-
     def trace_ray(ray_origin, ray_direction):
-        """
-        Trace a ray and find the color at the intersection point.
+        """Trace a ray and find the color at the intersection point.
 
-        Parameters:
+        Parameters
+        ----------
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
         ray_direction (numpy.ndarray):
         A normalized 3D vector representing the direction of the ray.
 
-        Returns:
+        Returns
+        -------
         tuple: A tuple containing the object,
         intersection point, normal at the intersection,
         and the color at the intersection point.
         Returns None if there is no intersection.
+
         """
         t, obj_idx = find_intersection(ray_origin, ray_direction)
         if t == np.inf:
             return None
         object_, intersection_point = get_intersection_details(
-            ray_origin, ray_direction, t, obj_idx)
-        normal, color = get_normal(object_, intersection_point), get_color(
-            object_, intersection_point)
+            ray_origin, ray_direction, t, obj_idx
+        )
+        normal, color = (
+            get_normal(object_, intersection_point),
+            get_color(object_, intersection_point),
+        )
         if is_shadowed(intersection_point, normal, obj_idx):
             return None
-        return compute_color(
-            object_, intersection_point, normal, color, ray_origin)
-
+        return compute_color(object_, intersection_point, normal, color, ray_origin)
 
     def find_intersection(ray_origin, ray_direction):
-        """
-        Find the intersection of a ray with the objects in the scene.
+        """Find the intersection of a ray with the objects in the scene.
 
-        Parameters:
+        Parameters
+        ----------
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
         ray_direction (numpy.ndarray):
         A normalized 3D vector representing the direction of the ray.
 
-        Returns:
+        Returns
+        -------
         tuple: A tuple containing the distance to the intersection point
         and the index of the intersected object.
+
         """
         t = np.inf
         obj_idx = -1
@@ -223,52 +241,55 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
                 t, obj_idx = t_obj, index
         return t, obj_idx
 
-
     def get_intersection_details(ray_origin, ray_direction, t, obj_idx):
-        """
-        Get the details of the intersection point on the object.
+        """Get the details of the intersection point on the object.
 
-        Parameters:
+        Parameters
+        ----------
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
         ray_direction (numpy.ndarray):
         A normalized 3D vector representing the direction of the ray.
         t (float): The distance to the intersection point.
         obj_idx (int): The index of the intersected object in the scene.
 
-        Returns:
+        Returns
+        -------
         tuple: A tuple containing the intersected object
         and the intersection point.
+
         """
         object_ = scene[obj_idx]
         intersection_point = ray_origin + ray_direction * t
         return object_, intersection_point
 
-
     def is_shadowed(intersection_point, normal, obj_idx):
-        """
-        Determine if the intersection point is in shadow.
+        """Determine if the intersection point is in shadow.
 
-        Parameters:
+        Parameters
+        ----------
         intersection_point (numpy.ndarray):
         A 3D point representing the intersection point on the object.
         normal (numpy.ndarray): The normal vector at the intersection point.
         obj_idx (int): The index of the intersected object in the scene.
 
-        Returns:
+        Returns
+        -------
         bool: True if the intersection point is in shadow, False otherwise.
+
         """
         to_light = normalize(L - intersection_point)
-        shadow_intersections = [intersect(
-            intersection_point + normal * .0001, to_light, obj_sh)
-                                for k, obj_sh in enumerate(scene) if k != obj_idx]
+        shadow_intersections = [
+            intersect(intersection_point + normal * 0.0001, to_light, obj_sh)
+            for k, obj_sh in enumerate(scene)
+            if k != obj_idx
+        ]
         return shadow_intersections and min(shadow_intersections) < np.inf
 
-
     def compute_color(object_, intersection_point, normal, color, ray_origin):
-        """
-        Compute the color at the intersection point using shading techniques.
+        """Compute the color at the intersection point using shading techniques.
 
-        Parameters:
+        Parameters
+        ----------
         object_ (dict): A dictionary representing the intersected object.
         intersection_point (numpy.ndarray):
         A 3D point representing the intersection point on the object.
@@ -276,85 +297,94 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
         color (numpy.ndarray): The base color of the object.
         ray_origin (numpy.ndarray): A 3D point representing the origin of the ray.
 
-        Returns:
+        Returns
+        -------
         tuple:
         A tuple containing the intersected object, intersection point, normal,
         and the computed color.
+
         """
         to_light = normalize(L - intersection_point)
         to_origin = normalize(ray_origin - intersection_point)
         color_ray = AMBIENT
-        diffuse_intensity = object_.get('diffuse_c', DIFFUSE_C) * max(
-            np.dot(normal, to_light), 0)
+        diffuse_intensity = object_.get("diffuse_c", DIFFUSE_C) * max(
+            np.dot(normal, to_light), 0
+        )
         color_ray += diffuse_intensity * color
         half_vector = normalize(to_light + to_origin)
-        specular_intensity = object_.get('specular_c', SPECULAR_C) * max(
-            np.dot(normal, half_vector), 0) ** SPECULAR_K
+        specular_intensity = (
+            object_.get("specular_c", SPECULAR_C)
+            * max(np.dot(normal, half_vector), 0) ** SPECULAR_K
+        )
         color_ray += specular_intensity * color_light
         return object_, intersection_point, normal, color_ray
 
-
     def add_sphere(position, radius, color):
-        """
-        Create a dictionary representing a sphere object.
+        """Create a dictionary representing a sphere object.
 
-        Parameters:
+        Parameters
+        ----------
         position (list or numpy.ndarray):
         A 3D point representing the position of the sphere.
         radius (float): The radius of the sphere.
         color (list or numpy.ndarray): The color of the sphere.
 
-        Returns:
+        Returns
+        -------
         dict: A dictionary representing the sphere object.
+
         """
         return {
-            'type': 'sphere',
-            'position': np.array(position),
-            'radius': np.array(radius),
-            'color': np.array(color),
-            'reflection': .5
+            "type": "sphere",
+            "position": np.array(position),
+            "radius": np.array(radius),
+            "color": np.array(color),
+            "reflection": 0.5,
         }
 
-
     def add_plane(position, normal):
-        """
-        Create a dictionary representing a plane object.
+        """Create a dictionary representing a plane object.
 
-        Parameters:
+        Parameters
+        ----------
         position (list or numpy.ndarray):
         A 3D point representing a point on the plane.
         normal (list or numpy.ndarray):
         A normalized 3D vector representing the normal of the plane.
 
-        Returns:
+        Returns
+        -------
         dict: A dictionary representing the plane object.
+
         """
         return {
-            'type': 'plane',
-            'position': np.array(position),
-            'normal': np.array(normal),
-            'color': lambda M: (color_plane0
-                                if (int(M[0] * 2) % 2) == (int(M[2] * 2) % 2)
-                                else color_plane1),
-            'diffuse_c': .75,
-            'specular_c': .5,
-            'reflection': .25
+            "type": "plane",
+            "position": np.array(position),
+            "normal": np.array(normal),
+            "color": lambda M: (
+                color_plane0
+                if (int(M[0] * 2) % 2) == (int(M[2] * 2) % 2)
+                else color_plane1
+            ),
+            "diffuse_c": 0.75,
+            "specular_c": 0.5,
+            "reflection": 0.25,
         }
 
     scene = []
 
     # List of objects.
-    color_plane0 = 1. * np.ones(3)
-    color_plane1 = 0. * np.ones(3)
-    scene.append(add_plane([0., -0.5, 0.], [0., 1., 0.]))
+    color_plane0 = 1.0 * np.ones(3)
+    color_plane1 = 0.0 * np.ones(3)
+    scene.append(add_plane([0.0, -0.5, 0.0], [0.0, 1.0, 0.0]))
     base_radius = 1 / np.sqrt(num_spheres)  # Im więcej kul, tym mniejsze
-    base_distance = 4.5  / num_spheres
+    base_distance = 4.5 / num_spheres
 
     for i in range(num_spheres):
         # Wyliczanie pozycji każdej kuli
         x = (i - num_spheres // 2) * base_distance
         y = 0.1
-        z = 1. + i * 0.5
+        z = 1.0 + i * 0.5
 
         # Dynamiczny kolor (gradient na podstawie indeksu)
         color = np.array([i / num_spheres, (num_spheres - i) / num_spheres, 0.5])
@@ -363,24 +393,24 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
         scene.append(add_sphere([x, y, z], base_radius, color))
 
     # Light position and color.
-    L = np.array([5., 5., -10.])
+    L = np.array([5.0, 5.0, -10.0])
     color_light = np.ones(3)
 
     # Default light and material parameters.
-    AMBIENT = .05
-    DIFFUSE_C = 1.
-    SPECULAR_C = 1.
+    AMBIENT = 0.05
+    DIFFUSE_C = 1.0
+    SPECULAR_C = 1.0
     SPECULAR_K = 50
 
     DEPTH_MAX = 5  # Maximum number of light reflections.
     col = np.zeros(3)  # Current color.
-    camera_origin = np.array([0., 0.35, -1.])  # Camera.
-    Q = np.array([0., 0., 0.])  # Camera pointing to.
+    camera_origin = np.array([0.0, 0.35, -1.0])  # Camera.
+    Q = np.array([0.0, 0.0, 0.0])  # Camera pointing to.
     img = np.zeros((IMAGE_HEIGHT, IMAGE_WIDTH, 3))
 
     r = float(IMAGE_WIDTH) / IMAGE_HEIGHT
     # Screen coordinates: x0, y0, x1, y1.
-    S = (-1., -1. / r + .25, 1., 1. / r + .25)
+    S = (-1.0, -1.0 / r + 0.25, 1.0, 1.0 / r + 0.25)
 
     renderTime = time.time()
     reflections = 0
@@ -396,7 +426,7 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
             D = normalize(Q - camera_origin)
             DEPTH = 0
             rayO, rayD = camera_origin, D
-            REFLECTION = 1.
+            REFLECTION = 1.0
             initialRays += 1
             # Loop through initial and secondary rays.
             while DEPTH < DEPTH_MAX:
@@ -407,19 +437,20 @@ def ray_trace(num_spheres, environment, image_width=400, image_height=300, outpu
                 reflections += 1
                 obj, M, N, col_ray = traced
                 # Reflection: create a new ray.
-                rayO, rayD = M + \
-                    N * .0001, normalize(rayD - 2 * np.dot(rayD, N) * N)
+                rayO, rayD = M + N * 0.0001, normalize(rayD - 2 * np.dot(rayD, N) * N)
                 DEPTH += 1
                 col += REFLECTION * col_ray
-                REFLECTION *= obj.get('reflection', 1.)
+                REFLECTION *= obj.get("reflection", 1.0)
             img[IMAGE_HEIGHT - j - 1, i, :] = np.clip(col, 0, 1)
     renderTime = time.time() - renderTime
 
     plt.imsave(output_file, img)
-    print(f"Image saved as {output_file}\n"
-          f"resolution: {IMAGE_WIDTH}x{IMAGE_HEIGHT}\n"
-          f"render time: {round(renderTime, 2)} s\n"
-          f"reflections: {reflections}\n"
-          f"rays (initial): {initialRays}\n"
-          f"rays (secondary): {rays - initialRays}\n"
-          f"rays (total): {rays}")
+    print(
+        f"Image saved as {output_file}\n"
+        f"resolution: {IMAGE_WIDTH}x{IMAGE_HEIGHT}\n"
+        f"render time: {round(renderTime, 2)} s\n"
+        f"reflections: {reflections}\n"
+        f"rays (initial): {initialRays}\n"
+        f"rays (secondary): {rays - initialRays}\n"
+        f"rays (total): {rays}"
+    )

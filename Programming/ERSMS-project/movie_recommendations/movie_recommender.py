@@ -1,32 +1,32 @@
-import pandas as pd
-import numpy as np
-from ast import literal_eval
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 import hashlib
 import json
+from ast import literal_eval
 from configparser import ConfigParser
-import psycopg2
-from flask import Flask, request, jsonify
-from flask_caching import Cache
 
+import numpy as np
+import pandas as pd
+import psycopg2
+from flask import Flask, jsonify, request
+from flask_caching import Cache
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
-cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 db_connector = None
 conn = None
 
 
 def get_director(x):
     for i in x:
-        if i['job'] == 'Director':
-            return i['name']
+        if i["job"] == "Director":
+            return i["name"]
     return np.nan
 
 
 def get_list(x):
     if isinstance(x, list):
-        names = [i['name'] for i in x]
+        names = [i["name"] for i in x]
         if len(names) > 3:
             names = names[:3]
         return names
@@ -36,15 +36,21 @@ def get_list(x):
 def clean_data(x):
     if isinstance(x, list):
         return [str.lower(i.replace(" ", "")) for i in x]
-    else:
-        if isinstance(x, str):
-            return str.lower(x.replace(" ", ""))
-        else:
-            return ''
+    if isinstance(x, str):
+        return str.lower(x.replace(" ", ""))
+    return ""
 
 
 def create_soup(x):
-    return ' '.join(x['keywords']) + ' ' + ' '.join(x['cast']) + ' ' + x['director'] + ' ' + ' '.join(x['genres'])
+    return (
+        " ".join(x["keywords"])
+        + " "
+        + " ".join(x["cast"])
+        + " "
+        + x["director"]
+        + " "
+        + " ".join(x["genres"])
+    )
 
 
 class MovieRecommender:
@@ -53,61 +59,58 @@ class MovieRecommender:
         self.cosine_sim = None
 
     def fit(self, credits_file, movies_file):
-        """
-        Fittuje AI do przekazanych danych
+        """Fittuje AI do przekazanych danych
         :param credits_file: csv z creditsami
         :param movies_file: csv z filmami
-        :return: Nic
+        :return: Nic.
         """
         df1 = pd.read_csv(credits_file)
         df2 = pd.read_csv(movies_file)
-        df1.columns = ['id', 'tittle', 'cast', 'crew']
-        df2 = df2.merge(df1, on='id')
-        df2['overview'] = df2['overview'].fillna('')
+        df1.columns = ["id", "tittle", "cast", "crew"]
+        df2 = df2.merge(df1, on="id")
+        df2["overview"] = df2["overview"].fillna("")
         self.df = df2
 
-        features = ['cast', 'crew', 'keywords', 'genres']
+        features = ["cast", "crew", "keywords", "genres"]
         for feature in features:
             df2[feature] = df2[feature].apply(literal_eval)
 
-        df2['director'] = df2['crew'].apply(get_director)
+        df2["director"] = df2["crew"].apply(get_director)
 
-        features = ['cast', 'keywords', 'genres']
+        features = ["cast", "keywords", "genres"]
         for feature in features:
             df2[feature] = df2[feature].apply(get_list)
 
-        features = ['cast', 'keywords', 'director', 'genres']
+        features = ["cast", "keywords", "director", "genres"]
         for feature in features:
             df2[feature] = df2[feature].apply(clean_data)
 
-        df2['soup'] = df2.apply(create_soup, axis=1)
+        df2["soup"] = df2.apply(create_soup, axis=1)
 
-        count = CountVectorizer(stop_words='english')
-        count_matrix = count.fit_transform(df2['soup'])
+        count = CountVectorizer(stop_words="english")
+        count_matrix = count.fit_transform(df2["soup"])
         self.cosine_sim = cosine_similarity(count_matrix, count_matrix)
 
         self.df = df2.reset_index()
 
     def _get_recommendations_one_input(self, movie_id):
-        """
-        Tworzy rekomendacje, bazując na jednym filmie
+        """Tworzy rekomendacje, bazując na jednym filmie
         :param movie_id: id filmu, dla którego ma zrobić rekomendację
-        :return: Zwraca listę [movie_ids, similarity_scores] gdzie oba argumenty są np.array
+        :return: Zwraca listę [movie_ids, similarity_scores] gdzie oba argumenty są np.array.
         """
-        indices = pd.Series(self.df.index, index=self.df['id']).drop_duplicates()
+        indices = pd.Series(self.df.index, index=self.df["id"]).drop_duplicates()
         idx = indices[movie_id]
         sim_scores = list(enumerate(self.cosine_sim[idx]))
         sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
         sim_scores = sim_scores[1:101]
         movie_indices = [i[0] for i in sim_scores]
         sim_scores = np.array([t[1] for t in sim_scores])
-        return [self.df['id'].iloc[movie_indices].values, sim_scores]
+        return [self.df["id"].iloc[movie_indices].values, sim_scores]
 
     def get_recommendations(self, movie_ids: list) -> {}:
-        """
-        Tworzy listę rekomendacji bazującą na id podanych filmów
+        """Tworzy listę rekomendacji bazującą na id podanych filmów
         :param movie_ids: id filmów, na podstawie których ma wybrać rekomendowane filmy
-        :return: Zwraca dicta {movie_id: similarity_scores}
+        :return: Zwraca dicta {movie_id: similarity_scores}.
         """
         recommended_movies = {}
         for movie_id in movie_ids:
@@ -117,22 +120,25 @@ class MovieRecommender:
                     continue
 
                 if recommended_movies.get(int(recommended_id)) is None:
-                    recommended_movies[int(recommended_id)] = float(round((sim_score / len(movie_ids)), 4))
+                    recommended_movies[int(recommended_id)] = float(
+                        round((sim_score / len(movie_ids)), 4)
+                    )
                 else:
-                    recommended_movies[int(recommended_id)] += float(round((sim_score / len(movie_ids)), 4))
+                    recommended_movies[int(recommended_id)] += float(
+                        round((sim_score / len(movie_ids)), 4)
+                    )
         return recommended_movies
 
 
 recommender = MovieRecommender()
-recommender.fit('datasets/tmdb_5000_credits.csv',
-                'datasets/tmdb_5000_movies.csv')
+recommender.fit("datasets/tmdb_5000_credits.csv", "datasets/tmdb_5000_movies.csv")
 
 
 def make_cache_key():
     data = request.get_json()
     if isinstance(data, list):
         data = sorted(data)
-    key = hashlib.md5(json.dumps(data).encode('utf-8')).hexdigest()
+    key = hashlib.md5(json.dumps(data).encode("utf-8")).hexdigest()
     return key
 
 
@@ -155,7 +161,7 @@ if __name__ == "__main__":
                 database=config["postgres"]["database"],
                 user=config["postgres"]["user"],
                 password=config["postgres"]["password"],
-                port=int(config["postgres"]["port"])
+                port=int(config["postgres"]["port"]),
             )
 
         except Exception:

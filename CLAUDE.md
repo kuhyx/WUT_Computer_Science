@@ -71,9 +71,18 @@ check.
   shared gate in `~/utils`. There is deliberately no baseline and no
   allowlist: split the file. For a LaTeX report that means `\input{}` per
   section; for a markdown report, sibling `DOCS-*.md` files behind an index.
-- Do not "fix" coursework to be better than it was submitted. Correct what is
-  broken, keep what is merely old-fashioned. The archive should still show
-  what was actually handed in.
+- **Coursework is held to the same bar as the tooling.** It gets the full
+  `select = ["ALL"]` treatment -- annotations, docstrings, naming, the lot --
+  and there are no per-file-ignores carving the two course trees out. The
+  version that was handed in is preserved by git history, which is a better
+  archive than a frozen working tree; this repo's job is code that still
+  builds, runs and reads well. (This reverses an earlier rule that said not to
+  improve coursework beyond what was submitted. kuhy overruled it on
+  2026-08-28: "yes fix it if necessary we can always go back to worse version
+  by going back in git repo.")
+- The one thing that is still off limits is *what was delivered*: do not add
+  content to a submitted `.pdf`/report that was never in it, and do not merge
+  the near-duplicate submission directories listed above.
 
 ### Vendored content
 
@@ -87,8 +96,12 @@ is mirrored into `~/utils/file_length/_tables.py`, `[tool.ruff] exclude` and
 
 - `ruff` runs with `select = ["ALL"]` and mypy with `strict = true`.
 - No `# noqa`, no `# type: ignore`. A pre-commit hook rejects both outright.
-- Notebooks: outputs are stripped on commit, lint via `nbqa`. Real logic
-  belongs in a sibling importable module — a notebook cannot be covered.
+- Notebooks: `ruff` reads and formats `.ipynb` natively (cell-aware, so an
+  import used two cells later is not reported unused), which is why there is
+  no `nbqa` layer. It rewrites `source` only — outputs are left byte-identical.
+  Nothing strips outputs on commit yet; the four notebooks here were committed
+  with theirs. Real logic belongs in a sibling importable module — a notebook
+  cannot be covered.
 
 ### LaTeX
 

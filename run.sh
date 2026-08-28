@@ -153,6 +153,13 @@ cmd_run() {
     local runner="${SCRIPT_DIR}/${target}/run.sh"
     [[ -x "$runner" ]] || { err "no executable run.sh in $target"; return 1; }
     log "running $target (capped at ${RUN_MEMORY_MAX} RAM, ${RUN_CPU_QUOTA} CPU)"
+    # Agg, so plt.show() draws nothing and returns. TRAK's renderer finished
+    # its ray trace in a couple of minutes and then sat there for 45 more:
+    # plt.show() had opened an image viewer and was waiting for a human to
+    # close the window. A run that needs a person at a keyboard is not a run.
+    # export, not an assignment prefix: _run_capped is a shell function, and a
+    # prefixed assignment on one is not put into the child's environment.
+    export MPLBACKEND="${MPLBACKEND:-Agg}"
     _run_capped "$runner"
 }
 

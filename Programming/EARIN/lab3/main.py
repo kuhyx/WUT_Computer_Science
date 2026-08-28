@@ -1,19 +1,20 @@
-"""
-Program that optimizes Rastrigin function: file_ (x_point_value, y_point_value) =
+"""Program that optimizes Rastrigin function: file_ (x_point_value, y_point_value) =
 20 + (x_point_value^2 - 10cos(2πx)) + (y_point_value^2 - 10 cos(2πy)).
 Using Evolutionary Strategy (μ, λ).
 """
-import sys
+
 import os
-import time
+import sys
 import tempfile
+import time
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 def rastrigin(x_argument, y_argument):
-    """Define the Rastrigin function"""
+    """Define the Rastrigin function."""
     return (
         20
         + x_argument**2
@@ -23,11 +24,8 @@ def rastrigin(x_argument, y_argument):
     )
 
 
-def generate(
-    population,
-    arguments
-):
-    """Run single generation"""
+def generate(population, arguments):
+    """Run single generation."""
     # Evaluate the fitness of each individual
     fitness = np.array(
         [
@@ -37,20 +35,24 @@ def generate(
     )
 
     # Select the top arguments["number_of_parents"] individuals
-    parents = population[np.argsort(fitness)[:arguments["number_of_parents"]]]
+    parents = population[np.argsort(fitness)[: arguments["number_of_parents"]]]
 
     # Generate the next generation of lambda individuals by recombination
     children = np.concatenate(
         [
             np.random.permutation(parents)
-            for i in range((arguments["size_of_population"] // arguments["number_of_parents"]) + 1)
+            for i in range(
+                (arguments["size_of_population"] // arguments["number_of_parents"]) + 1
+            )
         ]
     )
-    children = children[:arguments["size_of_population"]]
+    children = children[: arguments["size_of_population"]]
 
     # Add mutation to the children
     mutation = np.random.normal(
-        loc=0, scale=arguments["mutation_strength"], size=(arguments["size_of_population"], 2)
+        loc=0,
+        scale=arguments["mutation_strength"],
+        size=(arguments["size_of_population"], 2),
     )
     population = children + mutation
     return fitness, population
@@ -60,45 +62,52 @@ def evolution_strategy(
     arguments,
     no_display=False,
 ):
-    """Define the Evolutionary Strategy (μ, λ) algorithm"""
+    """Define the Evolutionary Strategy (μ, λ) algorithm."""
     # Initialize the population
     print_info = []
     population = np.random.uniform(
-        low=arguments["min"], high=arguments["max"], size=(arguments["size_of_population"], 2)
+        low=arguments["min"],
+        high=arguments["max"],
+        size=(arguments["size_of_population"], 2),
     )
 
     summary = []
     if not no_display:
         print_info.append(
-            (population,
-             0,
-             f"""0:nop-{arguments["number_of_parents"]}:sop-{arguments["size_of_population"]}:
+            (
+                population,
+                0,
+                f"""0:nop-{arguments["number_of_parents"]}:sop-{arguments["size_of_population"]}:
              ms-{arguments["mutation_strength"]}:nog-{arguments["number_of_generations"]}:
              min-max-{arguments["min"], arguments["max"]}:noo-{arguments["number_of_outputs"]}""",
-             ))
+            )
+        )
     arguments["number_of_outputs"] = min(
-        [arguments["number_of_outputs"] - 1, arguments["number_of_generations"]])
+        [arguments["number_of_outputs"] - 1, arguments["number_of_generations"]]
+    )
 
     # Iterate until we reach max number of generate and terminate
     for generation_number in range(1, arguments["number_of_generations"] + 1):
-        fitness, population = generate(
-            population, arguments)
+        fitness, population = generate(population, arguments)
         step = (
             arguments["number_of_generations"] // arguments["number_of_outputs"]
             if arguments["number_of_generations"] % arguments["number_of_outputs"] == 0
-            else arguments["number_of_generations"] // (arguments["number_of_outputs"] - 1)
+            else arguments["number_of_generations"]
+            // (arguments["number_of_outputs"] - 1)
         )
         offset = arguments["number_of_generations"] % step
         if (generation_number - offset) % step == 0 and not no_display:
             print_info.append(
-                (population,
-                 generation_number,
-                 f"""{generation_number}:nop_{arguments["number_of_parents"]}:
+                (
+                    population,
+                    generation_number,
+                    f"""{generation_number}:nop_{arguments["number_of_parents"]}:
                  sop_{arguments["size_of_population"]}:ms_{arguments["mutation_strength"]}:
                  nog_{arguments["number_of_generations"]}:
                  min_max_{arguments["min"], arguments["max"]}:
                  noo_{arguments["number_of_outputs"]}""",
-                 ))
+                )
+            )
             summary.append(population)
 
     # Evaluate the fitness of the final population
@@ -121,7 +130,7 @@ def evolution_strategy(
 
 
 def print_help():
-    """Print program functionality and how to access it"""
+    """Print program functionality and how to access it."""
     print(
         """
     python main.py - Default functionality optimizing
@@ -158,7 +167,7 @@ def print_help():
 
 
 def get_output_bounds(x_data, y_data):
-    """Get x and y output limits for pyplot"""
+    """Get x and y output limits for pyplot."""
     # min_size = 0.2
     min_output_size = ARGUMENTS["mutation_strength"] * 10
 
@@ -185,13 +194,8 @@ def get_output_bounds(x_data, y_data):
     return x_bounds, y_bounds
 
 
-def output(
-        population_output,
-        generation_number,
-        file_name="temp",
-        save_results=False):
-    """Draw result of our function"""
-
+def output(population_output, generation_number, file_name="temp", save_results=False):
+    """Draw result of our function."""
     # define the visualization params
     colors = np.random.rand(len(population_output))
 
@@ -233,8 +237,7 @@ def output(
 
 
 def print_summary(populations, file_name="temp_summary", save_results=False):
-    """Draw result of our function for chosen generations"""
-
+    """Draw result of our function for chosen generations."""
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as file_:
         # iterate over the optimization steps
         # generate random 2D data - replace it with the results from your
@@ -254,12 +257,7 @@ def print_summary(populations, file_name="temp_summary", save_results=False):
             # plot the data
             transparency = ind / (len(populations) - 1)
             color = [[transparency, 0, 0]] * len(pop)
-            plt.scatter(
-                x_data,
-                y_data,
-                c=color,
-                alpha=transparency,
-                label=f"{ind}")
+            plt.scatter(x_data, y_data, c=color, alpha=transparency, label=f"{ind}")
         plt.xlim(bounds[0])
         plt.ylim(bounds[1])
         plt.savefig(file_.name)
@@ -285,7 +283,7 @@ def print_summary(populations, file_name="temp_summary", save_results=False):
 
 
 def user_input():
-    """Handle user terminal arguments"""
+    """Handle user terminal arguments."""
     arguments = {
         "number_of_parents": 5,
         "size_of_population": 20,
@@ -324,7 +322,7 @@ def user_input():
 
 
 def print_output(print_info, save_results, summary):
-    """ Prints out population and summary plots """
+    """Prints out population and summary plots."""
     for population, generation_number, file_name in print_info:
         output(population, generation_number, file_name, save_results)
         summary_file_name = file_name

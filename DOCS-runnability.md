@@ -51,7 +51,7 @@ run cannot clobber the local column.
 | `Programming/PORR` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/PORR/code/main.py |
 | `Programming/PSD` | runnable | - | starts the Kafka/Flink stack (installs packages with sudo) |
 | `Programming/psd_project` | runnable | - | mvn package |
-| `Programming/TRAK` | runnable | - | python3 the entry script |
+| `Programming/TRAK` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/TRAK/main.py |
 | `Programming/twm_4` | blocked | - | jupyter is on PATH but broken (bad interpreter) |
 | `Programming/USD` | no-code | - | README describes a MetaDrive RL assignment; no implementation was submitted |
 | `Programming/WDWR` | runnable | - | python3 the entry script |

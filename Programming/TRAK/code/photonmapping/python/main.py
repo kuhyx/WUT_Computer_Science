@@ -1,8 +1,10 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import time
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 PHOTONS = 0
+
 
 # Define basic vector operations
 class Vector3:
@@ -10,25 +12,26 @@ class Vector3:
         self.x = x
         self.y = y
         self.z = z
-        
+
     def __add__(self, other):
-        return Vector3(self.x+other.x, self.y+other.y, self.z+other.z)
-    
+        return Vector3(self.x + other.x, self.y + other.y, self.z + other.z)
+
     def __sub__(self, other):
-        return Vector3(self.x-other.x, self.y-other.y, self.z-other.z)
-    
+        return Vector3(self.x - other.x, self.y - other.y, self.z - other.z)
+
     def __mul__(self, scalar):
-        return Vector3(self.x*scalar, self.y*scalar, self.z*scalar)
-    
+        return Vector3(self.x * scalar, self.y * scalar, self.z * scalar)
+
     def dot(self, other):
-        return self.x*other.x + self.y*other.y + self.z*other.z
-    
+        return self.x * other.x + self.y * other.y + self.z * other.z
+
     def norm(self):
         return np.sqrt(self.dot(self))
-    
+
     def normalize(self):
         n = self.norm()
-        return Vector3(self.x/n, self.y/n, self.z/n)
+        return Vector3(self.x / n, self.y / n, self.z / n)
+
 
 # Define the photon
 class Photon:
@@ -36,6 +39,7 @@ class Photon:
         self.position = position
         self.direction = direction
         self.power = power
+
 
 # Define a simple sphere
 class Sphere:
@@ -49,27 +53,27 @@ class Sphere:
         oc = ray_origin - self.center
         a = ray_direction.dot(ray_direction)
         b = 2.0 * oc.dot(ray_direction)
-        c = oc.dot(oc) - self.radius*self.radius
-        discriminant = b*b - 4*a*c
+        c = oc.dot(oc) - self.radius * self.radius
+        discriminant = b * b - 4 * a * c
         if discriminant < 0:
             return None  # No intersection
-        else:
-            t = (-b - np.sqrt(discriminant)) / (2.0*a)
-            if t < 0:
-                t = (-b + np.sqrt(discriminant)) / (2.0*a)
-            if t < 0:
-                return None
-            hit_point = ray_origin + ray_direction * t
-            normal = (hit_point - self.center).normalize()
-            return (t, hit_point, normal)
-        
+        t = (-b - np.sqrt(discriminant)) / (2.0 * a)
+        if t < 0:
+            t = (-b + np.sqrt(discriminant)) / (2.0 * a)
+        if t < 0:
+            return None
+        hit_point = ray_origin + ray_direction * t
+        normal = (hit_point - self.center).normalize()
+        return (t, hit_point, normal)
+
+
 # Define a simple plane
 class Plane:
     def __init__(self, point, normal, color):
         self.point = point
         self.normal = normal.normalize()
         self.color = color
-        
+
     def intersect(self, ray_origin, ray_direction):
         denom = self.normal.dot(ray_direction)
         if abs(denom) > 1e-6:
@@ -79,9 +83,12 @@ class Plane:
                 return (t, hit_point, self.normal)
         return None
 
+
 # Scene setup
 sphere = Sphere(Vector3(0, 0, -5), 1.0, np.array([1, 0, 0]))  # Red sphere
-plane = Plane(Vector3(0, -1, 0), Vector3(0, 1, 0), np.array([0.5, 0.5, 0.5]))  # Gray plane
+plane = Plane(
+    Vector3(0, -1, 0), Vector3(0, 1, 0), np.array([0.5, 0.5, 0.5])
+)  # Gray plane
 
 objects = [sphere, plane]
 
@@ -97,6 +104,7 @@ num_photons = 10000  # Number of photons to emit
 max_depth = 5  # Maximum number of bounces
 gather_radius = 0.5  # Radius for radiance estimation
 
+
 def emit_photons():
     for _ in range(num_photons):
         # Emit photons in random directions from the light source
@@ -104,6 +112,7 @@ def emit_photons():
         power = light_power / num_photons
         photon = Photon(light_position, direction, power)
         trace_photon(photon, 0)
+
 
 def trace_photon(photon, depth):
     global PHOTONS
@@ -131,19 +140,22 @@ def trace_photon(photon, depth):
         photon.direction = new_direction
         # Absorb some power
         photon.power = photon.power * 0.8  # Simple absorption
-        trace_photon(photon, depth+1)
+        trace_photon(photon, depth + 1)
+
 
 def random_unit_vector():
-    theta = np.random.uniform(0, 2*np.pi)
+    theta = np.random.uniform(0, 2 * np.pi)
     z = np.random.uniform(-1, 1)
-    r = np.sqrt(1 - z*z)
+    r = np.sqrt(1 - z * z)
     return Vector3(r * np.cos(theta), r * np.sin(theta), z)
+
 
 def random_hemisphere_direction(normal):
     dir = random_unit_vector()
     if dir.dot(normal) < 0:
         dir = Vector3(-dir.x, -dir.y, -dir.z)
     return dir
+
 
 def render_image(width, height):
     aspect_ratio = width / height
@@ -159,6 +171,7 @@ def render_image(width, height):
             color = trace_ray(ray_origin, ray_direction)
             image[y, x, :] = np.clip(color, 0, 1)
     return image
+
 
 def trace_ray(ray_origin, ray_direction):
     closest_t = np.inf
@@ -178,8 +191,8 @@ def trace_ray(ray_origin, ray_direction):
         direct_light = compute_direct_light(hit_point, normal)
         indirect_light = estimate_radiance(hit_point, normal)
         return color * (direct_light + indirect_light)
-    else:
-        return np.array([0, 0, 0])  # Background color
+    return np.array([0, 0, 0])  # Background color
+
 
 def compute_direct_light(point, normal):
     # Simple Lambertian reflection from light source
@@ -195,9 +208,9 @@ def compute_direct_light(point, normal):
             break
     if in_shadow:
         return np.array([0, 0, 0])
-    else:
-        intensity = max(0, normal.dot(direction_to_light))
-        return intensity * light_power / (4 * np.pi * (light_position - point).norm()**2)
+    intensity = max(0, normal.dot(direction_to_light))
+    return intensity * light_power / (4 * np.pi * (light_position - point).norm() ** 2)
+
 
 def estimate_radiance(point, normal):
     # Gather photons within the gather_radius
@@ -207,29 +220,31 @@ def estimate_radiance(point, normal):
         if distance < gather_radius:
             weight = max(0, normal.dot((photon_pos - point).normalize()))
             accumulated_power += photon_power * weight
-    area = np.pi * gather_radius ** 2
+    area = np.pi * gather_radius**2
     return accumulated_power / (area * num_photons)
 
+
 # Main execution
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Emitting photons...")
     emit_photons()
-    
+
     print("Rendering image...")
     width = 100
     height = 100
     t0 = time.time()
     image = render_image(width, height)
-    
-    print (f"Render Took: {round(time.time() - t0, 2)}s\n"
+
+    print(
+        f"Render Took: {round(time.time() - t0, 2)}s\n"
         f"resolution: {width}x{height}\n"
         f"photons (emitted): {num_photons}\n"
         f"photons (reflected): {PHOTONS - num_photons}\n"
         f"photons (total): {PHOTONS}\n"
-        f"rays: {width*height}"
-        )
-    
+        f"rays: {width * height}"
+    )
+
     # Display the image
     plt.imshow(image)
-    plt.axis('off')
+    plt.axis("off")
     plt.show()

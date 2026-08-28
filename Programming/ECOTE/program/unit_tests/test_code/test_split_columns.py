@@ -2,15 +2,15 @@ from translator.main import split_columns
 
 
 def given_empty_then_correct():
-    assert split_columns("", 0) == ['']
+    assert split_columns("", 0) == [""]
 
 
 def given_no_and_then_correct():
-    assert split_columns("estsegsegtswegseg", 1) == ['estsegsegtswegseg']
+    assert split_columns("estsegsegtswegseg", 1) == ["estsegsegtswegseg"]
 
 
 def given_single_and_then_correct():
-    assert split_columns("&", 2) == ['', '']
+    assert split_columns("&", 2) == ["", ""]
 
 
 def given_too_much_columns_then_error():

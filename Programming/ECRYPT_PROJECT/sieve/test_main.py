@@ -1,6 +1,7 @@
-import pandas as pd
 import pytest
+
 from .project import sieve_of_eratosthenes
+
 
 def test_positives(prime, primes_obtained):
     assert prime in primes_obtained

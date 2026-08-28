@@ -1,0 +1,93 @@
+# Python tooling for the whole archive. There is no package here to build --
+# this file exists so ruff, mypy and coverage read one configuration instead of
+# 25 course directories each guessing.
+#
+# The `exclude` and `omit` lists below are MIRRORS of gates/vendored.txt.
+# Edit that manifest and re-run `./run.sh sync-vendored`; never edit a mirror
+# on its own, or the gates start disagreeing about what is kuhy's code.
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+include = ["*.py", "**/*.py", "*.ipynb", "**/*.ipynb"]
+
+exclude = [
+    # --- machine-generated, never authored ---
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "node_modules",
+    # --- mirrors of gates/vendored.txt ---
+    "Programming/EGUI/lab2/lab2/wwwroot/lib",
+    "Programming/E-PSYOPS/theProject/Assets/TextMesh Pro",
+    "Programming/E-PSYOPS/theProject/Assets/TutorialInfo",
+    "NotProgramming/EMISY/componentSchematic",
+    "NotProgramming/EMISY/schematic",
+    "Programming/EOPSY/lab3/task3/work",
+    "Programming/EOPSY/lab4/task4/work",
+    "Programming/TRAK/sightpy",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+# The only rules turned off, and why. There are no per-file-ignores: the
+# coursework is held to the same bar as the tooling, because git history is
+# what preserves the version that was handed in.
+ignore = [
+    # Pairwise-contradictory docstring rules -- ruff ships both halves of each
+    # pair in ALL and you must pick one. These match the rest of the fleet.
+    "D203",   # ...vs D211, we take D211 (no blank line before class docstring)
+    "D213",   # ...vs D212, we take D212 (summary on the first line)
+    # Disabled on the formatter's own advice: the formatter already decides
+    # both of these, and leaving them on makes the two tools fight.
+    # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+    "COM812", # missing trailing comma
+    "ISC001", # single-line implicit string concatenation
+    # A known false-positive generator: it cannot see that an argument list was
+    # validated upstream. https://github.com/astral-sh/ruff/issues/4045
+    "S603",   # subprocess call without shell=True
+    # Ruff began enforcing this outside preview in 0.16; no repo in this fleet
+    # carries copyright headers, and stamping one onto 137 university
+    # assignments would be asserting a licence that was never claimed.
+    "CPY001", # missing copyright notice
+]
+
+fixable = ["ALL"]
+unfixable = []
+
+[tool.mypy]
+strict = true
+exclude = [
+    "^\\.venv/",
+    "^build/",
+    "^Programming/EGUI/lab2/lab2/wwwroot/lib/",
+    "^Programming/E-PSYOPS/theProject/Assets/TextMesh Pro/",
+    "^Programming/E-PSYOPS/theProject/Assets/TutorialInfo/",
+    "^NotProgramming/EMISY/componentSchematic/",
+    "^NotProgramming/EMISY/schematic/",
+    "^Programming/EOPSY/lab3/task3/work/",
+    "^Programming/EOPSY/lab4/task4/work/",
+    "^Programming/TRAK/sightpy/",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/.venv/*",
+    "*/build/*",
+    "Programming/EGUI/lab2/lab2/wwwroot/lib/*",
+    "Programming/E-PSYOPS/theProject/Assets/TextMesh Pro/*",
+    "Programming/E-PSYOPS/theProject/Assets/TutorialInfo/*",
+    "NotProgramming/EMISY/componentSchematic/*",
+    "NotProgramming/EMISY/schematic/*",
+    "Programming/EOPSY/lab3/task3/work/*",
+    "Programming/EOPSY/lab4/task4/work/*",
+    "Programming/TRAK/sightpy/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

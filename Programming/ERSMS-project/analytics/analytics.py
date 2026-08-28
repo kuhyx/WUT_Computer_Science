@@ -1,14 +1,11 @@
-from flask import Flask, request, jsonify
-from flask_caching import Cache
-import psycopg2
-import pandas
-import json
 from configparser import ConfigParser
-from datetime import datetime
 
+import psycopg2
+from flask import Flask, jsonify
+from flask_caching import Cache
 
 app = Flask(__name__)
-cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 db_connector = None
 conn = None
 
@@ -33,13 +30,16 @@ def get_movie_ratings(movie_id):
     rating_values = [5, 4, 3, 2, 1]
 
     for rating in rating_values:
-        cursor.execute("""
+        cursor.execute(
+            """
                 SELECT COUNT(*) as count 
                 FROM ratings 
                 WHERE rating = %s AND movie_ID = %s;
-            """, (rating, movie_id))
+            """,
+            (rating, movie_id),
+        )
         result = cursor.fetchone()
-        ratings[f'{rating}_star'] = result[0]
+        ratings[f"{rating}_star"] = result[0]
 
     cursor.close()
 
@@ -62,11 +62,14 @@ def get_number_of_users():
 @cache.cached(timeout=50)
 def get_movie_rating_avg(movie_id):
     cursor = conn.cursor()
-    cursor.execute("""
+    cursor.execute(
+        """
             SELECT AVG(rating) as avg_rating 
             FROM ratings 
             WHERE movie_ID = %s;
-        """, (movie_id,))
+        """,
+        (movie_id,),
+    )
     res = cursor.fetchall()
 
     cursor.close()
@@ -78,11 +81,14 @@ def get_movie_rating_avg(movie_id):
 @cache.cached(timeout=50)
 def get_user_ratings(user_id):
     cursor = conn.cursor()
-    cursor.execute("""
+    cursor.execute(
+        """
             SELECT movie_ID, rating 
             FROM ratings 
             WHERE oauth_ID = %s;
-        """, (user_id,))
+        """,
+        (user_id,),
+    )
     res = cursor.fetchall()
 
     cursor.close()
@@ -101,7 +107,7 @@ if __name__ == "__main__":
                 database=config["postgres"]["database"],
                 user=config["postgres"]["user"],
                 password=config["postgres"]["password"],
-                port=int(config["postgres"]["port"])
+                port=int(config["postgres"]["port"]),
             )
 
         except Exception:

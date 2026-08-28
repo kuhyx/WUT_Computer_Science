@@ -2,7 +2,7 @@ from translator.main import split_rows
 
 
 def given_empty_then_correct():
-    assert split_rows("") == ['']
+    assert split_rows("") == [""]
 
 
 def given_no_slash_then_correct():
@@ -10,7 +10,7 @@ def given_no_slash_then_correct():
 
 
 def given_double_slash_then_correct():
-    assert split_rows("\\") == ['', '']
+    assert split_rows("\\") == ["", ""]
 
 
 def given_actual_string_then_correct():

@@ -168,3 +168,6 @@ cython_debug/
 
 # *.exr -- the environment map below is tracked; see root .gitignore
 !*.exr
+# Output of `../../run.sh run`, which must never land on a tracked
+# deliverable in outputs/.
+build/

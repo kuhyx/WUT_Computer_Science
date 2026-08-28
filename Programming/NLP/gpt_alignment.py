@@ -1,9 +1,7 @@
-"""
-Get chunk alignment from chatGPT
-"""
-from openai import OpenAI
+"""Get chunk alignment from chatGPT."""
+
 import pandas as pd
-import processing
+from openai import OpenAI
 
 thePrompt = """You are a machine designed to align chunks from 2 sentences. This means you will be taking each chunk from one sentence and comparing it to every chunk from the other sentence. Choose the chunks with the strongest relation and assign them a score. 
 
@@ -54,28 +52,28 @@ def createGPT() -> OpenAI:
     return client
 
 
-def callApi(client:OpenAI, chunks:str):
+def callApi(client: OpenAI, chunks: str):
     response = client.chat.completions.create(
-            model="gpt-3.5-turbo-1106",
-            messages=[
+        model="gpt-3.5-turbo-1106",
+        messages=[
             {"role": "user", "content": thePrompt},
-            {"role": "user", "content": chunks}
-        ]
+            {"role": "user", "content": chunks},
+        ],
     )
     return response.choices[0].message.content.strip()
 
 
-def callApi_examples(client:OpenAI, examples:pd.DataFrame, alignment:str):
+def callApi_examples(client: OpenAI, examples: pd.DataFrame, alignment: str):
 
     user_input = []
     assistant_output = []
     for index, row in examples.iterrows():
         chunks = ""
         for chunk in row["chunked_sentance1"]:
-            chunks = chunks + "[ " + chunk  + " ] "
+            chunks = chunks + "[ " + chunk + " ] "
         chunks = chunks + "\n"
         for chunk in row["chunked_sentance2"]:
-            chunks = chunks + "[ " + chunk  + " ] "
+            chunks = chunks + "[ " + chunk + " ] "
         user_input.append(chunks)
         assistant_output.append(row["alignment_text"])
 
@@ -84,11 +82,10 @@ def callApi_examples(client:OpenAI, examples:pd.DataFrame, alignment:str):
     for u, a in zip(user_input, assistant_output):
         messages.append({"role": "user", "content": u})
         messages.append({"role": "assistant", "content": a})
-    
+
     messages.append({"role": "user", "content": alignment})
 
     response = client.chat.completions.create(
-            model="gpt-3.5-turbo-1106",
-            messages=messages
+        model="gpt-3.5-turbo-1106", messages=messages
     )
     return response.choices[0].message.content.strip()

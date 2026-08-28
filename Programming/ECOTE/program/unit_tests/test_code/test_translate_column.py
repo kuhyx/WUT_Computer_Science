@@ -14,12 +14,14 @@ def given_just_hline_then_correct():
 
 
 def given_just_newline_then_correct():
-    assert translate_column('\newline') == "<br>"
+    assert translate_column("\newline") == "<br>"
 
 
 def given_all_then_correct():
-    assert translate_column(
-        '\\hline \newline hline newline test') == "<hr> <br> hline newline test"
+    assert (
+        translate_column("\\hline \newline hline newline test")
+        == "<hr> <br> hline newline test"
+    )
 
 
 def test_translate_column():

@@ -1,26 +1,23 @@
-"""
-Program that predicts wine quality based on variant2.csv data
-"""
+"""Program that predicts wine quality based on variant2.csv data."""
+
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, accuracy_score, f1_score
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score, mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 
 class LinearRegression:
-    """Implements Linear regression method"""
+    """Implements Linear regression method."""
 
     def __init__(self):
         self.theta = None
 
     def fit(self, x_values, y_values):
-        """
-        Fit linear regression model to our training data
-        """
+        """Fit linear regression model to our training data."""
         # Add a column of ones to X for the intercept term
         x_values = np.concatenate((np.ones((x_values.shape[0], 1)), y_values), axis=1)
 
@@ -30,9 +27,7 @@ class LinearRegression:
         )
 
     def predict(self, x_values):
-        """
-        Predict target values for our input data using the trained linear regression model.
-        """
+        """Predict target values for our input data using the trained linear regression model."""
         # Add a column of ones to X for the intercept term
         x_values = np.concatenate((np.ones((x_values.shape[0], 1)), x_values), axis=1)
 
@@ -42,9 +37,7 @@ class LinearRegression:
         return y_predicted
 
     def score(self, x_values, y_values):
-        """
-        Compute the R-squared score of the linear regression model on our test data.
-        """
+        """Compute the R-squared score of the linear regression model on our test data."""
         y_predicted = self.predict(x_values)
         ss_res = np.sum((y_values - y_predicted) ** 2)
         ss_tot = np.sum((y_values - np.mean(y_values)) ** 2)

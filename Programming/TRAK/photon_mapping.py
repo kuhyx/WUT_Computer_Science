@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 # Define basic vector operations
 class Vector3:
@@ -49,15 +49,14 @@ class Sphere:
         discriminant = b * b - 4 * a * c
         if discriminant < 0:
             return None
-        else:
-            t = (-b - np.sqrt(discriminant)) / (2.0 * a)
-            if t < 0:
-                t = (-b + np.sqrt(discriminant)) / (2.0 * a)
-            if t < 0:
-                return None
-            hit_point = ray_origin + ray_direction * t
-            normal = (hit_point - self.center).normalize()
-            return (t, hit_point, normal)
+        t = (-b - np.sqrt(discriminant)) / (2.0 * a)
+        if t < 0:
+            t = (-b + np.sqrt(discriminant)) / (2.0 * a)
+        if t < 0:
+            return None
+        hit_point = ray_origin + ray_direction * t
+        normal = (hit_point - self.center).normalize()
+        return (t, hit_point, normal)
 
 
 class Plane:
@@ -80,7 +79,9 @@ def render_photon_mapping(width, height, num_photons, max_depth, gather_radius):
     # Photon mapping logic
     photon_map = []
     sphere = Sphere(Vector3(0, 0, -5), 1.0, np.array([1, 0, 0]))  # Red sphere
-    plane = Plane(Vector3(0, -1, 0), Vector3(0, 1, 0), np.array([0.5, 0.5, 0.5]))  # Gray plane
+    plane = Plane(
+        Vector3(0, -1, 0), Vector3(0, 1, 0), np.array([0.5, 0.5, 0.5])
+    )  # Gray plane
     objects = [sphere, plane]
 
     light_position = Vector3(-5, 5, -5)
@@ -145,8 +146,7 @@ def render_photon_mapping(width, height, num_photons, max_depth, gather_radius):
             direct_light = compute_direct_light(hit_point, normal)
             indirect_light = estimate_radiance(hit_point, normal)
             return color * (direct_light + indirect_light)
-        else:
-            return np.array([0, 0, 0])
+        return np.array([0, 0, 0])
 
     def compute_direct_light(point, normal):
         direction_to_light = (light_position - point).normalize()
@@ -160,9 +160,10 @@ def render_photon_mapping(width, height, num_photons, max_depth, gather_radius):
                 break
         if in_shadow:
             return np.array([0, 0, 0])
-        else:
-            intensity = max(0, normal.dot(direction_to_light))
-            return intensity * light_power / (4 * np.pi * (light_position - point).norm() ** 2)
+        intensity = max(0, normal.dot(direction_to_light))
+        return (
+            intensity * light_power / (4 * np.pi * (light_position - point).norm() ** 2)
+        )
 
     def estimate_radiance(point, normal):
         accumulated_power = np.array([0.0, 0.0, 0.0])
@@ -171,7 +172,7 @@ def render_photon_mapping(width, height, num_photons, max_depth, gather_radius):
             if distance < gather_radius:
                 weight = max(0, normal.dot((photon_pos - point).normalize()))
                 accumulated_power += photon_power * weight
-        area = np.pi * gather_radius ** 2
+        area = np.pi * gather_radius**2
         return accumulated_power / area
 
     emit_photons()

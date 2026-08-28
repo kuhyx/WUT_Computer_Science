@@ -1,5 +1,6 @@
 from sightpy import *
 
+
 # define materials to use
 def setup_scene(width=400, height=300, environment=None):
 

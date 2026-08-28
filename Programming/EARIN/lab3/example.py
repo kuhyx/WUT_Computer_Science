@@ -1,9 +1,9 @@
-import tempfile
 import os
+import tempfile
 
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def main():
@@ -32,7 +32,7 @@ def main():
             image = cv2.imread(f.name)
 
             # show the image, provide window name first
-            cv2.imshow('visualization', image)
+            cv2.imshow("visualization", image)
 
             # add wait key. window waits until user presses a key and quits if the key is 'q'
             if cv2.waitKey(0) == 113:
@@ -49,5 +49,5 @@ def main():
     cv2.destroyAllWindows()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
