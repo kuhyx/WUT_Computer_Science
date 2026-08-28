@@ -63,9 +63,13 @@ repos:
         language: system
         files: \.(md|markdown)$
 
+      # -x so shellcheck FOLLOWS sourced files. The 44 per-course run.sh stubs
+      # source scripts/course_lib.sh; without -x every one of them reports
+      # SC1091 "not following", and the only other way to silence that is a
+      # per-file disable, which is banned here.
       - id: shellcheck
         name: shellcheck
-        entry: bash -c 'printf "%s\0" "$@" | xargs -0 -n 40 shellcheck' --
+        entry: bash -c 'printf "%s\0" "$@" | xargs -0 -n 40 shellcheck -x' --
         language: system
         types: [shell]
         exclude_types: [zsh]

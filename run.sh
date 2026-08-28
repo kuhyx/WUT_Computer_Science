@@ -45,6 +45,13 @@ cmd_check() {
 
 cmd_install() { exec "${SCRIPT_DIR}/install.sh" "$@"; }
 
+# A runner opts in either by handling --probe itself, or by delegating to the
+# shared library (which does). Anything else predates this harness and is left
+# strictly alone.
+_supports_probe() {
+    grep -qF -- '--probe' "$1" || grep -qF 'course_lib.sh' "$1"
+}
+
 # Probe one directory. Prints "<status>\t<detail>"; never executes a project.
 #
 # The guard below is load-bearing. Some course dirs already ship their own
@@ -56,7 +63,7 @@ cmd_install() { exec "${SCRIPT_DIR}/install.sh" "$@"; }
 # blocks on input anyway.
 probe_one() {
     local dir="$1" runner="$1/run.sh"
-    if [[ -x "$runner" ]] && grep -qF -- '--probe' "$runner"; then
+    if [[ -x "$runner" ]] && _supports_probe "$runner"; then
         local out status
         out="$(timeout 20s "$runner" --probe 2> /dev/null)" && status=0 || status=$?
         case "$status" in

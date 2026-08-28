@@ -8,47 +8,47 @@ Unity and no .NET SDK. CI compares only its own column.
 
 | Course | local | Detail |
 |---|---|---|
-| `NotProgramming/DPZ` | unprobed | no run.sh yet |
-| `NotProgramming/ECOGR` | unprobed | no run.sh yet |
-| `NotProgramming/EDABA` | unprobed | no run.sh yet |
-| `NotProgramming/EDABA-LAB` | unprobed | no run.sh yet |
-| `NotProgramming/EDISE` | unprobed | no run.sh yet |
-| `NotProgramming/EDISP` | unprobed | no run.sh yet |
-| `NotProgramming/ELAC` | unprobed | no run.sh yet |
-| `NotProgramming/EMISY` | unprobed | no run.sh yet |
-| `NotProgramming/ENUME` | unprobed | no run.sh yet |
-| `NotProgramming/EPHY2` | unprobed | no run.sh yet |
-| `NotProgramming/EPOGAI` | unprobed | no run.sh yet |
-| `NotProgramming/ERPM` | unprobed | no run.sh yet |
-| `NotProgramming/ESDP1` | unprobed | no run.sh yet |
-| `NotProgramming/ESOEN` | unprobed | no run.sh yet |
-| `NotProgramming/MOM` | unprobed | no run.sh yet |
-| `NotProgramming/SDM` | unprobed | no run.sh yet |
-| `NotProgramming/SDM2` | unprobed | no run.sh yet |
-| `NotProgramming/SPD` | unprobed | no run.sh yet |
-| `NotProgramming/STUP` | unprobed | no run.sh yet |
-| `Programming/AIS` | unprobed | no run.sh yet |
-| `Programming/BD2` | unprobed | no run.sh yet |
-| `Programming/BSS` | unprobed | no run.sh yet |
-| `Programming/EADS` | unprobed | no run.sh yet |
-| `Programming/EARIN` | unprobed | no run.sh yet |
-| `Programming/ECOAR` | unprobed | no run.sh yet |
-| `Programming/ECOTE` | unprobed | no run.sh yet |
-| `Programming/ECRYPT` | unprobed | no run.sh yet |
-| `Programming/ECRYPT_PROJECT` | unprobed | no run.sh yet |
-| `Programming/EGUI` | unprobed | no run.sh yet |
-| `Programming/EOOP` | unprobed | no run.sh yet |
-| `Programming/EOPSY` | unprobed | no run.sh yet |
-| `Programming/EPFU` | unprobed | no run.sh yet |
-| `Programming/E-PSYOPS` | unprobed | no run.sh yet |
-| `Programming/ERSMS-project` | unprobed | no run.sh yet |
-| `Programming/NLP` | unprobed | no run.sh yet |
-| `Programming/PBAD` | unprobed | no run.sh yet |
-| `Programming/PORR` | unprobed | no run.sh yet |
-| `Programming/PSD` | unprobed | pre-existing run.sh, no --probe support |
-| `Programming/psd_project` | unprobed | no run.sh yet |
-| `Programming/TRAK` | unprobed | no run.sh yet |
-| `Programming/twm_4` | unprobed | no run.sh yet |
-| `Programming/USD` | unprobed | no run.sh yet |
-| `Programming/WDWR` | unprobed | no run.sh yet |
-| `Programming/ZPOB` | unprobed | no run.sh yet |
+| `NotProgramming/DPZ` | runnable | builds the report with latexmk |
+| `NotProgramming/ECOGR` | runnable | builds the report with latexmk |
+| `NotProgramming/EDABA` | runnable | builds the report with latexmk |
+| `NotProgramming/EDABA-LAB` | runnable | builds the report with latexmk |
+| `NotProgramming/EDISE` | runnable | builds the report with latexmk |
+| `NotProgramming/EDISP` | no-code | submitted lab reports as PDFs only; no source was produced |
+| `NotProgramming/ELAC` | runnable | builds the report with latexmk |
+| `NotProgramming/EMISY` | runnable | builds the report with latexmk |
+| `NotProgramming/ENUME` | blocked | needs MATLAB or Octave (none of: matlab octave) |
+| `NotProgramming/EPHY2` | no-code | submitted lab reports as PDFs only; no source was produced |
+| `NotProgramming/EPOGAI` | no-code | a presentation only; no source was produced |
+| `NotProgramming/ERPM` | runnable | builds the report with latexmk |
+| `NotProgramming/ESDP1` | runnable | builds the report with latexmk |
+| `NotProgramming/ESOEN` | runnable | builds the report with latexmk |
+| `NotProgramming/MOM` | runnable | builds the report with latexmk |
+| `NotProgramming/SDM` | runnable | builds the report with latexmk |
+| `NotProgramming/SDM2` | runnable | builds the report with latexmk |
+| `NotProgramming/SPD` | runnable | builds the report with latexmk |
+| `NotProgramming/STUP` | runnable | npm install && npm start |
+| `Programming/AIS` | runnable | builds the report with latexmk |
+| `Programming/BD2` | runnable | npm install && npm start |
+| `Programming/BSS` | runnable | builds the report with latexmk |
+| `Programming/EADS` | runnable | compiles each standalone .cpp |
+| `Programming/EARIN` | runnable | python3 the entry script |
+| `Programming/ECOAR` | runnable | make |
+| `Programming/ECOTE` | runnable | python3 /home/kuhy/WUT_Computer_Science/Programming/ECOTE/program/code/main.py |
+| `Programming/ECRYPT` | no-code | test1.py is a 0-byte stub; this course produced no submitted code |
+| `Programming/ECRYPT_PROJECT` | runnable | python3 /home/kuhy/WUT_Computer_Science/Programming/ECRYPT_PROJECT/code |
+| `Programming/EGUI` | runnable | dotnet build |
+| `Programming/EOOP` | runnable | compiles each standalone .cpp |
+| `Programming/EOPSY` | runnable | make |
+| `Programming/EPFU` | runnable | make |
+| `Programming/E-PSYOPS` | runnable | opens in the Unity editor |
+| `Programming/ERSMS-project` | runnable | docker compose up |
+| `Programming/NLP` | runnable | python3 the entry script |
+| `Programming/PBAD` | runnable | jupyter nbconvert --execute |
+| `Programming/PORR` | runnable | python3 /home/kuhy/WUT_Computer_Science/Programming/PORR/code |
+| `Programming/PSD` | runnable | starts the Kafka/Flink stack (installs packages with sudo) |
+| `Programming/psd_project` | runnable | mvn package |
+| `Programming/TRAK` | runnable | python3 the entry script |
+| `Programming/twm_4` | runnable | jupyter nbconvert --execute |
+| `Programming/USD` | no-code | README describes a MetaDrive RL assignment; no implementation was submitted |
+| `Programming/WDWR` | runnable | python3 the entry script |
+| `Programming/ZPOB` | runnable | builds the report with latexmk |

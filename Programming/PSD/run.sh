@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# --probe: report whether this can run here WITHOUT running it, per the
+# contract in ../../run.sh. This script is the original coursework runner and
+# is deliberately left otherwise untouched, so the probe is a early exit
+# rather than a rewrite -- it installs packages with sudo and starts Kafka,
+# which is exactly what a probe must never trigger.
+if [[ "${1:-}" == "--probe" ]]; then
+    for tool in python mvn java; do
+        if ! command -v "$tool" > /dev/null 2>&1; then
+            echo "needs $tool"
+            exit 78
+        fi
+    done
+    echo "starts the Kafka/Flink stack (installs packages with sudo)"
+    exit 0
+fi
+
 # Function to run a script in the background and save its PID
 run_script() {
     python "$1" &

@@ -24,7 +24,7 @@ public:
 	Node<Key, Info>* getRoot() const;
 	void destroy(Node<Key, Info>* &someNode);
 	~Dictionary();
-	void copyDictionary(Dictionary *&copiedDictRoot, Dictionary *otherTreeRoot);
+	void copyDictionary(Node<Key, Info> *&copiedDictRoot, Node<Key, Info> *otherTreeRoot);
 	Dictionary(const Dictionary &other);
 	void insert(const Key &newKey, const Info &newInfo);
 	void remove(const Key &keyToRemove);
@@ -67,13 +67,15 @@ template<typename Key, typename Info>
 Dictionary<Key, Info>::~Dictionary() { destroy(root); }
 
 template<typename Key, typename Info>
-void Dictionary<Key, Info>::copyDictionary(Dictionary* &copiedDictRoot, Dictionary* otherDictRoot)
+void Dictionary<Key, Info>::copyDictionary(Node<Key, Info>* &copiedDictRoot, Node<Key, Info>* otherDictRoot)
 {
 	if(otherDictRoot == nullptr) copiedDictRoot = nullptr;
 	else
 	{
-		copiedDictRoot = new Dictionary;
+		copiedDictRoot = new Node<Key, Info>;
+		copiedDictRoot->key = otherDictRoot -> key;
 		copiedDictRoot->info = otherDictRoot -> info;
+		copiedDictRoot->balanceFactor = otherDictRoot -> balanceFactor;
 		copyDictionary(copiedDictRoot -> left, otherDictRoot -> left);
 		copyDictionary(copiedDictRoot -> right, otherDictRoot -> right);
 	}
@@ -83,7 +85,7 @@ template<typename Key, typename Info>
 Dictionary<Key, Info>::Dictionary(const Dictionary &other)
 {
 	if(other.root == nullptr) root = nullptr;
-	else copyTree(root, other.root);
+	else copyDictionary(root, other.root);
 }
 
 template<typename Key, typename Info>

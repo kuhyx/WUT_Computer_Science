@@ -14,36 +14,41 @@ class Tree{
 	public:
 		bool checkKeys(int givenKey);
 		bool findNode(treeNode*& nodeToFound, int givenKey);
-		int sumNodeSub(treeNode* start);
+		static bool findNodeFrom(treeNode* curr, treeNode*& nodeToFound, int givenKey);
+		int sumNodeSub(const treeNode* start);
 };
 
 int Tree::sumNodeSub(const treeNode* start)
 {
+    // Without this the recursion has no base case and walks off the end of
+    // the tree; the declaration/definition const mismatch meant the body was
+    // never compiled, so it was never reached either.
+    if (start == nullptr) return 0;
     return (sumNodeSub(start->right) 
 	+ sumNodeSub(start->left) 
 	+ start->key);
 }
 
-bool Tree::findNode(treeNode*& nodeToFound, int givenKey);
+// As submitted this did not compile: it called findNode on a treeNode*, which
+// is a Tree method, and its while loop never advanced curr so it could not
+// have terminated either. Same intent -- search the tree for a key -- expressed
+// as the recursion the original was reaching for.
+bool Tree::findNodeFrom(treeNode* curr, treeNode*& nodeToFound, int givenKey)
 {
-	treeNode* curr = root;
-	treeNode* Cleft = curr->left;
-	treeNode* Cright = curr->right;
-	while(curr != nullptr)
+	if(curr == nullptr) return 0;
+	if(curr -> key == givenKey)
 	{
-		if(curr -> key == givenKey)
-		{
-			nodeToFound = curr;
-			return 1;
-		}else
-		{
-			if(Cleft.findNode(nodeToFound, givenKey)) return 1;
-			if(Cright.findNode(nodeToFound, givenKey)) return 1;
-		}
+		nodeToFound = curr;
+		return 1;
 	}
-	return 0;
+	if(findNodeFrom(curr -> left, nodeToFound, givenKey)) return 1;
+	return findNodeFrom(curr -> right, nodeToFound, givenKey);
 }
 
+bool Tree::findNode(treeNode*& nodeToFound, int givenKey)
+{
+	return findNodeFrom(root, nodeToFound, givenKey);
+}
 
 
 bool Tree::checkKeys(int key)
