@@ -1,7 +1,7 @@
 """
     Tests begin document function
 """
-from code.main import length_conversions
+from translator.main import length_conversions
 
 # Write python tests for a function translating LaTeX documentclass to html
 

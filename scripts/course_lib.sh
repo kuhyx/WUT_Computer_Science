@@ -140,11 +140,19 @@ _run() {
             [[ -n "$tex" ]] || _no_code "no .tex found"
             local tool
             tool="$(_require_any 'a LaTeX toolchain' latexmk pdflatex xelatex)"
+            # Build into build/, never beside the source. A submitted report.pdf
+            # is a tracked deliverable, and a rebuild whose output name happens
+            # to match it would silently overwrite what was handed in.
+            local dir base
+            dir="$(dirname "$tex")"
+            base="$(basename "$tex")"
             if [[ $tool == latexmk ]]; then
-                ( cd "$(dirname "$tex")" && latexmk -pdf -interaction=nonstopmode "$(basename "$tex")" )
+                ( cd "$dir" && latexmk -pdf -interaction=nonstopmode -outdir=build "$base" )
             else
-                ( cd "$(dirname "$tex")" && "$tool" -interaction=nonstopmode "$(basename "$tex")" )
+                ( cd "$dir" && mkdir -p build \
+                    && "$tool" -interaction=nonstopmode -output-directory=build "$base" )
             fi
+            printf 'output in %s/build\n' "$dir"
             ;;
         python)
             local entry="${COURSE_ENTRY:-}"

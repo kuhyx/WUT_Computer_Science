@@ -1,4 +1,4 @@
-from code.main import translate_column
+from translator.main import translate_column
 
 
 def given_empty_then_correct():

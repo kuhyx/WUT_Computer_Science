@@ -1,7 +1,7 @@
 """
     Tests document class function
 """
-from code.main import document_class
+from translator.main import document_class
 
 # Write python tests for a function translating LaTeX documentclass to html
 

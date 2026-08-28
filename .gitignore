@@ -482,3 +482,7 @@ Programming/ERSMS-project/nginx/ssl/nginx.crt
 
 # Output of ./run.sh run <dir> for the C++ courses.
 build/
+
+# Generated fresh by the runner on each CI run. Committing a local copy
+# would label this machine capabilities as the runner is, which is a lie.
+gates/runnability-ci.tsv

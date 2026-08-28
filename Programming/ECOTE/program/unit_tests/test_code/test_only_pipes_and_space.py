@@ -1,4 +1,4 @@
-from code.main import only_pipes_and_space
+from translator.main import only_pipes_and_space
 
 
 def given_empty_then_true():

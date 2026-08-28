@@ -1,7 +1,7 @@
 """
     Tests begin document function
 """
-from code.main import begin_document
+from translator.main import begin_document
 
 # Write python tests for a function translating LaTeX documentclass to html
 def given_empty_then_error():

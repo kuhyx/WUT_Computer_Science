@@ -1,4 +1,4 @@
-from code.main import document_class_only_checks
+from translator.main import document_class_only_checks
 
 
 def test_missing_curly_bracket():

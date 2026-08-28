@@ -1,4 +1,4 @@
-from code.main import generic_checks_command
+from translator.main import generic_checks_command
 
 
 def test_empty_string():

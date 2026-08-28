@@ -56,6 +56,15 @@ repos:
         language: script
         pass_filenames: true
 
+      # A tracked file that .gitignore also matches fails silently on
+      # `git add`. 130 of those were fixed by hand; this keeps them fixed.
+      - id: ignore-consistency
+        name: no tracked file is gitignored
+        entry: scripts/check_ignore_consistency.sh
+        language: script
+        pass_filenames: false
+        always_run: true
+
       # Thin shim into ~/utils, which owns the four markdown namespaces.
       - id: md-naming
         name: markdown naming convention

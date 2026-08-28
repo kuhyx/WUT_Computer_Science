@@ -1,4 +1,4 @@
-from code.main import tabular_columns_parameters
+from translator.main import tabular_columns_parameters
 
 
 def given_empty_then_error():

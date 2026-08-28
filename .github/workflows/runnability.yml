@@ -1,0 +1,40 @@
+name: runnability
+
+# Probes every course directory and fails if any RUNNER is broken.
+#
+# Deliberately NOT a diff against a committed baseline. A runner's status is a
+# property of the machine, not of the commit: MATLAB, Unity and the .NET SDK
+# are absent here and present locally, so `runnable` on a laptop and `blocked`
+# on ubuntu-latest is correct rather than drift. Diffing the two would make
+# this workflow red by construction, which is the one outcome the whole
+# exercise is meant to avoid.
+#
+# What IS a defect, and what this catches: a run.sh that crashes, hangs, or
+# reports an unknown kind. Those are `error`, and any `error` fails the job.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  runnability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Probe every course directory
+        run: ./run.sh status
+
+      - name: Fail on any broken runner
+        run: |
+          set -euo pipefail
+          if grep -qP '\terror\t' gates/runnability-ci.tsv; then
+            echo "::error::a course run.sh failed to probe"
+            grep -P '\terror\t' gates/runnability-ci.tsv
+            exit 1
+          fi
+          echo "all runners probed cleanly"
+          cut -f2 gates/runnability-ci.tsv | sort | uniq -c

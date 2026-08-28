@@ -18,9 +18,10 @@
 #   - the repo root, gates/, scripts/ and .github/ have no entry either, so a
 #     binary added there is blocked.
 #
-# Every pattern here must also survive `git ls-files | git check-ignore
-# --stdin --no-index` printing nothing -- an allowlisted file that .gitignore
-# also matches fails silently on `git add` rather than erroring.
+# An allowlisted file that .gitignore ALSO matches fails silently on
+# `git add` rather than erroring. That is enforced, not remembered: the
+# ignore-consistency pre-commit hook (scripts/check_ignore_consistency.sh)
+# fails the commit if any tracked file is gitignored.
 
 # --- Reports and presentations (155 .pdf, 3 .docx, 1 .doc, 1 .pptx) ---------
 Programming/*.pdf

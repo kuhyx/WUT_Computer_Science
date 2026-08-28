@@ -1,4 +1,4 @@
-from code.main import command_name_check
+from translator.main import command_name_check
 
 
 def given_valid_then_empty():

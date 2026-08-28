@@ -1,5 +1,5 @@
-from code.main import translate_inside_to_html
-from code.main import tabular_required_parameters
+from translator.main import translate_inside_to_html
+from translator.main import tabular_required_parameters
 
 
 def given_correct_then_correct():

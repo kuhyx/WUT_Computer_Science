@@ -1,4 +1,4 @@
-from code.main import split_rows
+from translator.main import split_rows
 
 
 def given_empty_then_correct():
