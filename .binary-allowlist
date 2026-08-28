@@ -1,0 +1,72 @@
+# Binary files this repo commits on purpose. One bash glob per line.
+#
+# Read by scripts/check_no_binaries.sh. Note that matching uses bash `case`,
+# where `*` DOES cross `/` -- so `Programming/*.pdf` matches a .pdf at any
+# depth under Programming/.
+#
+# Policy for this repo (approved decision 3). This is an archive of submitted
+# university coursework: the reports, figures, schematics and datasets ARE the
+# deliverable, so they stay, and history is not rewritten. What the gate is
+# actually here to stop is NEW junk -- compiled output, and binaries dropped
+# into the tooling directories.
+#
+# So the allowlist is scoped by PATH, not blanket:
+#   - documents/figures/data are allowed under Programming/ and NotProgramming/
+#   - compiled output (.o .so .a .exe .dll .dylib .class .pyc .pyo) is allowed
+#     NOWHERE, and has no entry below. 189 such files were untracked in
+#     d4075278; .gitignore keeps them out.
+#   - the repo root, gates/, scripts/ and .github/ have no entry either, so a
+#     binary added there is blocked.
+#
+# Every pattern here must also survive `git ls-files | git check-ignore
+# --stdin --no-index` printing nothing -- an allowlisted file that .gitignore
+# also matches fails silently on `git add` rather than erroring.
+
+# --- Reports and presentations (155 .pdf, 3 .docx, 1 .doc, 1 .pptx) ---------
+Programming/*.pdf
+NotProgramming/*.pdf
+Programming/*.doc
+NotProgramming/*.doc
+Programming/*.docx
+NotProgramming/*.docx
+Programming/*.ppt
+NotProgramming/*.ppt
+Programming/*.pptx
+NotProgramming/*.pptx
+
+# --- Figures, screenshots, schematics (275 .png, 68 .jpg, 52 .gif, ...) -----
+Programming/*.png
+NotProgramming/*.png
+Programming/*.jpg
+NotProgramming/*.jpg
+Programming/*.jpeg
+NotProgramming/*.jpeg
+Programming/*.gif
+NotProgramming/*.gif
+Programming/*.bmp
+NotProgramming/*.bmp
+Programming/*.svg
+NotProgramming/*.svg
+Programming/*.webp
+NotProgramming/*.webp
+Programming/*.ico
+NotProgramming/*.ico
+Programming/*.tif
+NotProgramming/*.tif
+Programming/*.tiff
+NotProgramming/*.tiff
+
+# --- Fonts shipped inside a submitted project ------------------------------
+Programming/*.ttf
+NotProgramming/*.ttf
+
+# --- Datasets and course-supplied archives ---------------------------------
+# The .tgz entries matter: EOPSY ships its simulators as ftp/sched.tgz and
+# ftp/memory.tgz, and `make setup` extracts them. Blocking those would break
+# the lab. The .zip files are submitted result bundles and course inputs.
+Programming/*.zip
+NotProgramming/*.zip
+Programming/*.tgz
+NotProgramming/*.tgz
+Programming/*.bin
+NotProgramming/*.bin
