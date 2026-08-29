@@ -32,16 +32,15 @@ own docs and the rest of this fleet carry. A test asserts by raising.
 |---|---|
 | Baseline, before any of this | 9,281 |
 | After the format + safe-fix pass and excluding `TRAK/sightpy` | 3,686 |
-| **Now** | **423** |
+| **Now** | **308** |
 
 Courses at zero: `WDWR`, `SPD`, `MOM`, `ECRYPT`, `ECRYPT_PROJECT`, `ECOTE`,
-`NLP`, `EARIN`, `PORR`, `TRAK`, `twm_4`. What is left, by course:
+`NLP`, `EARIN`, `PORR`, `TRAK`, `twm_4`, `PBAD`. What is left, by course:
 
 | Course | ruff | Can it be verified by running? |
 |---|---|---|
 | `ERSMS-project` | 156 | No: docker-compose course |
 | `PSD` | 152 | No: `run.sh` predates the harness and installs packages with sudo |
-| `PBAD` | 115 | No: same dead jupyter shim |
 
 `course_run.sh`'s notebook branch is fixed: it executes to a temp
 `--output-dir`, probes jupyter by running it rather than by `command -v`, and
@@ -58,10 +57,14 @@ stripped = {k: v for k, v in nb.items() if k != "cells"}
 stripped["cells"] = [{k: v for k, v in c.items() if k != "source"} for c in nb["cells"]]
 ```
 
-That hash was identical across all four passes on `twm_4`. The notebook also
+That hash was identical across all four passes on `twm_4` and all of PBAD's
+three notebooks. The notebook also
 round-trips byte-for-byte through
 `json.dumps(nb, indent=1, ensure_ascii=False) + "\n"`, which is what makes
-editing cells programmatically safe -- check that before touching PBAD's three.
+editing cells programmatically safe -- check it first for any new notebook.
+Where an edit is mechanical, verify it mechanically too: PBAD's 134 long
+Polish column names were re-wrapped by script, and an AST pass proved every
+dict key still spells exactly what it did.
 
 ## mypy has NOT been run against any of this
 
@@ -78,6 +81,7 @@ RUFF findings unless it says otherwise**; only `TRAK` has been type-checked.
 | `EARIN/lab1` alone | 46 |
 | `TRAK` | **0** -- cleared 2026-08-29 |
 | `twm_4` | **0** -- cleared 2026-08-29 |
+| `PBAD` | not run (no venv; notebooks only) |
 | `PSD/zin1` | 5 |
 
 Two structural notes for whoever runs it next:
