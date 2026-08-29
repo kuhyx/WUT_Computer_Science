@@ -39,7 +39,7 @@ own docs and the rest of this fleet carry. A test asserts by raising.
 What that cost, and what it bought, is in the commit messages; the standing
 rules for the next pass are below.
 
-## mypy: run per directory, six deliberate errors left
+## mypy: run per directory; the six deliberate errors are gone
 
 `pyproject.toml` sets `strict = true` and `CLAUDE.md` says the repo runs mypy.
 mypy IS installed now (`~/.local/bin/mypy`) -- the earlier note here saying it
@@ -55,7 +55,8 @@ RUFF findings unless it says otherwise**; only `TRAK` has been type-checked.
 | `TRAK` | **0** -- cleared 2026-08-29 |
 | `twm_4` | **0** -- cleared 2026-08-29 |
 | `PBAD` | not run (no venv; notebooks only) |
-| `PSD` | **2**, both unfixable -- see below |
+| `PSD` | **0** -- cleared 2026-08-29 (scoped override; see below) |
+| `ERSMS-project` | **0** -- cleared 2026-08-29 (typed DeclarativeBase) |
 
 Two structural notes for whoever runs it next:
 
@@ -68,16 +69,25 @@ Two structural notes for whoever runs it next:
   `mypy --strict --python-executable Programming/<course>/.venv/bin/python <dir>`.
   Without that, TRAK reported 4 phantom `matplotlib` import errors on top of
   the real ones.
-- **`ERSMS-project/backend/app.py` keeps four errors on purpose.**
-  flask-sqlalchemy builds `db.Model` dynamically, so mypy sees `Any` and
-  `--strict` refuses to subclass it. Migrating to a typed `DeclarativeBase`
-  would rewrite both models in an app that cannot be run here.
-- **PSD keeps two mypy errors on purpose.** `--strict` implies
-  `disallow_subclassing_any`, and `temperature_anomaly_detector.py` has to
-  subclass pyflink's `MapFunction` and `KeyedProcessFunction`, which ship no
-  types. The only fixes are to weaken strict globally or to add an override
-  for our own module; neither is worth it, so the two are reported rather
-  than hidden. Everything else in PSD is clean under `--strict`.
+- **`ERSMS-project` is at 0** (was 4), fixed 2026-08-29. The old note here
+  claimed a fix "would rewrite both models"; that was wrong. flask-sqlalchemy
+  3.1.1 *does* ship `py.typed`. The actual blocker was that `class
+  User(db.Model)` is attribute access, which mypy cannot resolve in a
+  base-class position. `backend/models.py` now declares a named
+  `DeclarativeBase` with SQLAlchemy 2.0 `Mapped[]` columns, and the six
+  legacy `Model.query` call sites became `db.session` selects, because the
+  `Model` mixin goes away with the base. Verified by driving the real routes
+  through Flask's test client with Firebase stubbed: 16 scenarios and both
+  `CREATE TABLE` statements byte-identical to the submitted version.
+  Two traps worth keeping: `mapped_column(ForeignKey("user.uid"))` silently
+  infers VARCHAR from the referenced column, which changed the submitted
+  `user_id INTEGER` until an explicit `Integer` was put back; and
+  `backend/Dockerfile` copied only `app.py`, so the split needed it too.
+- **PSD is at 0** (was 2), by a scoped `[[tool.mypy.overrides]]` for
+  `temperature_anomaly_detector` with `disallow_subclassing_any = false`.
+  pyflink ships no types AND is not installed in that venv, so a hand-written
+  `.pyi` would assert an API nothing here can check. Recorded in `CLAUDE.md`
+  as well as here, because this file gets deleted and that one does not.
 - Point `MYPYPATH` at `Programming/PSD/zin3/python/code` for that tree: the
   modules import `model.*` via a runtime `sys.path.append`, which mypy
   cannot follow.
@@ -99,8 +109,11 @@ exit 0.
 
 Two things surfaced on the way and are still true:
 
-- **A multi-report course builds one arbitrary report.** MOM has three, ELAC
-  two, AIS several drafts, and which one gets built depends on readdir order.
+- **A multi-report course builds one arbitrary report.** PARTLY FIXED
+  2026-08-29: `run.sh run <dir>` now enumerates every document and either asks
+  which, or builds all of them when not interactive, so nothing depends on
+  readdir order any more. What is still open is that some of those documents
+  are broken -- see below. MOM has three, ELAC two, AIS several drafts.
   Sorting looked like the fix until it swapped ELAC to `projectA` and AIS to
   `report/final/ver1`, **both of which fail with latexmk exit 12** -- so those
   documents are broken and sorting merely surfaced it. Either build every
@@ -109,6 +122,26 @@ Two things surfaced on the way and are still true:
 - `unityhub --version` never returns on this machine, which is why `_works`
   carries a `timeout 5`. Use `_works` only for tools that answer `--version`;
   `_have` is still right for the other ten probe call sites.
+
+## Found by actually running the programs, not yet fixed
+
+`run.sh run` executes what it builds as of 2026-08-29, and the first thing that
+fell out is a course that had never been run by the harness at all:
+
+- **`EPFU/labs/krudnic3_lab1.c` dies with SIGFPE** (exit 136) on
+  `printf("\n%f", i_one / i_two)` -- an integer division by zero. It was
+  invisible before because EPFU's stub pins `--entry` to `penguins/src`, so
+  the lab was never compiled, let alone run. gcc also warns twice about
+  `%d`/`%f` against the wrong argument types on lines 12 and 14. Left alone
+  for now: it is a submitted deliverable and fixing it is a separate decision
+  from making the runner work.
+- **`ECOAR` overwrites a tracked deliverable when it runs.** `C/puzzle.out`
+  writes `C/dest.bmp` beside its source, so the before/after tree guard fails
+  the run -- correctly. It was invisible before for the same reason as EPFU's
+  lab: the runner built `puzzle.out` and never executed it. The fix is to make
+  the program write into `build/`, which means touching a submitted `.c`, so
+  it is recorded rather than done. `git checkout --` restores the file
+  meanwhile; the guard is what makes that recoverable at all.
 
 ## Still open
 

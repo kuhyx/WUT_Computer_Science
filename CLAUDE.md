@@ -33,8 +33,21 @@ Work directly on `main`; commit and push straight there.
 ./install.sh          # deps + pre-commit hooks, then verifies and fails loudly
 ./run.sh check        # the full local gate
 ./run.sh status       # probe every course dir, regenerate DOCS-runnability.md
-./run.sh run <dir>    # build/run one course, capped at 2G RAM and 2 cores
+./run.sh run <dir>    # build AND run one course, capped at 2G RAM and 2 cores
+./run.sh run <dir> --list      # what targets does this course have?
+./run.sh run <dir> 2           # run target 2 (an index, path substring, or "all")
+./run.sh run <dir> --batch     # never prompt; stdin /dev/null, 60s per program
 ```
+
+`run` runs the program, it does not just build it. Twelve courses have more
+than one target (EPFU a game and a lab, EOOP six binaries, MOM three reports);
+with no target named, an interactive `run` prints a numbered menu and asks.
+Not a terminal, or `--batch`, means all targets and no prompt -- a prompt
+nobody can answer is how an unattended run hangs. `--probe`/`status` never
+execute anything and never enumerate targets, so the sweep stays seconds long.
+
+It is interactive by default on purpose: EPFU's penguins and ECOAR's puzzle
+both read stdin, and you typed `run`, so you are at the keyboard.
 
 `run` executes inside a transient systemd scope (`MemoryMax=2G`,
 `MemorySwapMax=0`, `CPUQuota=200%`, `nice -n 19`, `ionice -c 3`), so a course
@@ -96,6 +109,16 @@ is mirrored into `~/utils/file_length/_tables.py`, `[tool.ruff] exclude` and
 
 - `ruff` runs with `select = ["ALL"]` and mypy with `strict = true`.
 - No `# noqa`, no `# type: ignore`. A pre-commit hook rejects both outright.
+- mypy runs **per directory**, never repo-wide: many courses ship a `main.py`
+  and mypy stops at `Duplicate module named "main"`. Point it at the course's
+  own venv or every import is unresolvable:
+  `mypy --strict --python-executable Programming/<course>/.venv/bin/python <dir>`.
+- **One deliberate mypy override exists**, in `pyproject.toml`:
+  `temperature_anomaly_detector` sets `disallow_subclassing_any = false`
+  because it must subclass pyflink's `MapFunction` and `KeyedProcessFunction`,
+  which ship no types and are not installed in `Programming/PSD/.venv`. It is
+  scoped to that one module. Do not widen it, and do not add a second override
+  for our own code without the same kind of reason written beside it.
 - **No per-file-ignores either, including for tests.** `pyproject.toml` has no
   `[tool.ruff.lint.per-file-ignores]` table at all, which is stricter than the
   rest of the fleet. So a test asserts by raising:

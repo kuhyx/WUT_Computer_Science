@@ -7,12 +7,23 @@
 #   ./run.sh install            alias for ./install.sh
 #   ./run.sh status             probe every course dir, rewrite DOCS-runnability.md
 #   ./run.sh run <dir>          actually execute one course project
+#   ./run.sh run <dir> --list   list that course's targets, run nothing
+#   ./run.sh run <dir> <target> run one target: an index, a path substring,
+#                               or "all". Without one, a course with several
+#                               targets asks which; a course with one just runs.
+#   ./run.sh run <dir> --batch  never prompt, stdin is /dev/null, timeout each
+#                               run. This is the unattended/CI form.
 #   ./run.sh sync-vendored      show the mirrors that gates/vendored.txt feeds
 #
 # `status` PROBES: it asks each directory whether its toolchain is present and
 # never executes the project, so it takes seconds and is safe in CI. Use
 # `run <dir>` to actually run something. Those are very different commands and
 # conflating them is how a "status check" turns into 44 builds.
+#
+# `run` BUILDS AND THEN RUNS. Building is not running: this used to print one
+# gcc line and stop, leaving you to find the binary yourself. It is interactive
+# by default because several of these programs read stdin -- use --batch for
+# anything unattended.
 # ============================================================================
 
 set -euo pipefail
@@ -150,6 +161,7 @@ MD
 cmd_run() {
     local target="${1:-}"
     [[ -n "$target" ]] || { err "run needs a directory"; usage 1; }
+    shift
     local runner="${SCRIPT_DIR}/${target}/run.sh"
     [[ -x "$runner" ]] || { err "no executable run.sh in $target"; return 1; }
     log "running $target (capped at ${RUN_MEMORY_MAX} RAM, ${RUN_CPU_QUOTA} CPU)"
@@ -160,7 +172,10 @@ cmd_run() {
     # export, not an assignment prefix: _run_capped is a shell function, and a
     # prefixed assignment on one is not put into the child's environment.
     export MPLBACKEND="${MPLBACKEND:-Agg}"
-    _run_capped "$runner"
+    # Remaining arguments are the course runner's: a target to pick, --batch,
+    # --list. They are forwarded rather than parsed here, because which
+    # targets exist is a question only the course runner can answer.
+    _run_capped "$runner" "$@"
 }
 
 # Run a command under a memory/CPU cap, niced so it yields to anything

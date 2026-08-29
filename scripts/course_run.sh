@@ -146,39 +146,66 @@ _run() {
             _python_run_tests
             ;;
         node)    ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && npm install && npm start ) ;;
-        maven)   ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && mvn -q package ) ;;
-        make)    ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && make ) ;;
-        dotnet)  ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && dotnet build ) ;;
+        maven)
+            ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && mvn -q package )
+            _run_jar "${COURSE_ENTRY:-$COURSE_ROOT}"
+            ;;
+        make)
+            # A target is either a directory with a makefile, or a standalone
+            # .c program that no makefile covers.
+            local mtarget="${COURSE_ENTRY:-$COURSE_ROOT}"
+            if [[ -f "$mtarget" ]]; then
+                _compile_and_run_c "$mtarget"
+            else
+                _make_and_run "$mtarget"
+            fi
+            ;;
+        dotnet)
+            # `dotnet run` builds too, so this is one step, not two.
+            # EGUI is a web app: running it starts Kestrel and stays
+            # up, which is what running it means. --batch caps that.
+            local dir rc=0
+            dir="${COURSE_ENTRY:-$COURSE_ROOT}"
+            if [[ -n "${COURSE_BATCH:-}" ]]; then
+                ( cd "$dir" && timeout "$(_batch_timeout)" \
+                    dotnet run < /dev/null ) || rc=$?
+            else
+                ( cd "$dir" && dotnet run ) || rc=$?
+            fi
+            _exec_note "$rc" "$(_target_label "$dir")"
+            ;;
         compose) ( cd "${COURSE_ENTRY:-$COURSE_ROOT}" && docker compose up ) ;;
         unity)   _blocked "open ${COURSE_ROOT} in the Unity editor; there is no headless path" ;;
         cxx)
-            # Each .cpp here is a self-contained assignment with its own main(),
-            # so they are compiled individually rather than linked together.
+            # One .cpp per invocation: each is a self-contained assignment with
+            # its own main(), and the target list already enumerated them, so
+            # picking one is the caller's job rather than this loop's.
             local cxx src rel out
             cxx="$(_require_any 'a C++ compiler' g++ clang++)"
+            src="${COURSE_ENTRY:-}"
+            [[ -f "$src" ]] || _no_code "no .cpp entry to compile"
+            rel="${src#"$COURSE_ROOT"/}"
             # Binaries go to build/, which is gitignored -- compiling in place
             # drops untracked executables next to the sources, and an
             # extensionless binary is not something .gitignore catches by name.
             mkdir -p "$COURSE_ROOT/build"
-            while IFS= read -r src; do
-                rel="${src#"$COURSE_ROOT"/}"
-                if _is_known_incomplete "${src#"${COURSE_GATES%/gates}"/}"; then
-                    printf 'skipping  %s (see gates/known-incomplete.txt)\n' "$rel"
-                    continue
-                fi
-                out="$COURSE_ROOT/build/$(basename "${rel%.cpp}")"
-                # Some files here are exam-answer fragments with no main(), so
-                # they cannot be linked. Compile those to an object instead --
-                # that still type-checks them, which is the point.
-                if grep -qE '\bint[[:space:]]+main[[:space:]]*\(' "$src"; then
-                    printf 'compiling %s\n' "$rel"
-                    "$cxx" -O2 -o "$out" "$src"
-                else
-                    printf 'checking  %s (no main; -c only)\n' "$rel"
-                    "$cxx" -O2 -c -o "${out}.o" "$src"
-                fi
-            done < <(find "$COURSE_ROOT" -name '*.cpp' -not -path '*/node_modules/*' -not -path '*/build/*' | sort)
-            printf 'binaries in %s/build\n' "$COURSE_ROOT" 
+            if _is_known_incomplete "${src#"${COURSE_GATES%/gates}"/}"; then
+                printf 'skipping  %s (see gates/known-incomplete.txt)\n' "$rel"
+                return 0
+            fi
+            out="$COURSE_ROOT/build/$(basename "${rel%.cpp}")"
+            # Some files here are exam-answer fragments with no main(), so they
+            # cannot be linked. Compile those to an object instead -- that
+            # still type-checks them, which is the point, but there is then
+            # nothing to run.
+            if grep -qE '\bint[[:space:]]+main[[:space:]]*\(' "$src"; then
+                printf 'compiling %s\n' "$rel"
+                "$cxx" -O2 -o "$out" "$src"
+                _exec_built "$out"
+            else
+                printf 'checking  %s (no main; -c only)\n' "$rel"
+                "$cxx" -O2 -c -o "${out}.o" "$src"
+            fi
             ;;
         notebook)
             _require_working jupyter

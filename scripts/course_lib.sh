@@ -144,6 +144,12 @@ _COURSE_LIB_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 # shellcheck source-path=SCRIPTDIR
 # shellcheck source=course_run.sh
 . "${_COURSE_LIB_DIR}/course_run.sh"
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source=course_targets.sh
+. "${_COURSE_LIB_DIR}/course_targets.sh"
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source=course_exec.sh
+. "${_COURSE_LIB_DIR}/course_exec.sh"
 
 course_main() {
     COURSE_KIND=""
@@ -165,23 +171,59 @@ course_main() {
         esac
     done
 
-    case "${1:-}" in
-        --probe) _probe ;;
-        -h | --help)
-            printf 'usage: %s [--probe]\n' "$(basename "$0")"
-            printf '  --probe  report runnable/blocked/no-code without running\n'
+    # Everything after `--` is the user's, not the stub's.
+    COURSE_BATCH=""
+    COURSE_SELECT=""
+    local mode="run"
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --probe) mode="probe"; shift ;;
+            --list)  mode="list"; shift ;;
+            --batch) COURSE_BATCH=1; shift ;;
+            -h | --help) mode="help"; shift ;;
+            -*) printf 'unknown option: %s\n' "$1" >&2; return 1 ;;
+            # A bare word picks a target: an index, a path substring, or "all".
+            *) COURSE_SELECT="$1"; shift ;;
+        esac
+    done
+
+    case "$mode" in
+        # --probe must stay cheap and must never execute anything, so it does
+        # not even enumerate targets.
+        probe) _probe ;;
+        help)
+            printf 'usage: %s [--probe|--list] [--batch] [<target>]\n' "$(basename "$0")"
+            printf '  --probe   report runnable/blocked/no-code without running\n'
+            printf '  --list    list this course'"'"'s targets and stop\n'
+            printf '  --batch   no prompts, stdin is /dev/null, %ss timeout per run\n' \
+                "$(_batch_timeout)"
+            printf '  <target>  an index, a path substring, or "all"\n'
             ;;
-        "")
-            local before after
-            before="$(_tree_state)"
-            _run
-            after="$(_tree_state)"
-            if [[ "$before" != "$after" ]]; then
-                printf 'FAILED: the run changed files under %s\n' "$COURSE_ROOT" >&2
-                diff <(printf '%s\n' "$before") <(printf '%s\n' "$after") >&2 || true
-                return 1
-            fi
-            ;;
-        *) printf 'unknown option: %s\n' "$1" >&2; return 1 ;;
+        list) _collect_targets; _print_menu ;;
+        run) _run_selected ;;
     esac
+}
+
+# Run every chosen target, with the tree guard around the whole thing.
+_run_selected() {
+    _collect_targets
+    _choose_target || return 1
+
+    local before after target
+    before="$(_tree_state)"
+    for target in "${COURSE_CHOSEN[@]}"; do
+        COURSE_ENTRY="$target"
+        _run
+    done
+    after="$(_tree_state)"
+    if [[ "$before" != "$after" ]]; then
+        printf 'FAILED: the run changed files under %s\n' "$COURSE_ROOT" >&2
+        diff <(printf '%s\n' "$before") <(printf '%s\n' "$after") >&2 || true
+        return 1
+    fi
+    if [[ "$COURSE_EXEC_FAILURES" -gt 0 ]]; then
+        printf '\n%s of the programs did not exit cleanly (see above)\n' \
+            "$COURSE_EXEC_FAILURES" >&2
+        return 1
+    fi
 }
