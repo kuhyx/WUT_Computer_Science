@@ -32,23 +32,36 @@ own docs and the rest of this fleet carry. A test asserts by raising.
 |---|---|
 | Baseline, before any of this | 9,281 |
 | After the format + safe-fix pass and excluding `TRAK/sightpy` | 3,686 |
-| **Now** | **651** |
+| **Now** | **423** |
 
 Courses at zero: `WDWR`, `SPD`, `MOM`, `ECRYPT`, `ECRYPT_PROJECT`, `ECOTE`,
-`NLP`, `EARIN`, `PORR`, `TRAK`. What is left, by course:
+`NLP`, `EARIN`, `PORR`, `TRAK`, `twm_4`. What is left, by course:
 
 | Course | ruff | Can it be verified by running? |
 |---|---|---|
-| `twm_4` | 228 | No: `jupyter` on PATH is a dead pipx shim. `pip install jupyter` in a venv would fix that |
 | `ERSMS-project` | 156 | No: docker-compose course |
 | `PSD` | 152 | No: `run.sh` predates the harness and installs packages with sudo |
 | `PBAD` | 115 | No: same dead jupyter shim |
 
-**Before running the notebook courses, fix `scripts/course_run.sh` first.**
-Its notebook branch is `jupyter nbconvert --execute --inplace`, and all four
-notebooks are tracked WITH their outputs -- that would overwrite a committed
-deliverable. This exact bug has already been found twice (TRAK's
-`outputs/output.png`, SPD's `results_*.png`); execute to a temp path instead.
+`course_run.sh`'s notebook branch is fixed: it executes to a temp
+`--output-dir`, probes jupyter by running it rather than by `command -v`, and
+`course_main` now fails if a run changed anything git can see under the course
+root. `PBAD` is still blocked on jupyter itself -- the binary on PATH is a
+pipx shim whose interpreter is gone, so `--probe` reports "needs jupyter".
+
+**A notebook does not need to be executed to be linted.** ruff reads `.ipynb`
+natively and rewrites `source` only, so the check that the deliverable is
+intact is a hash of everything EXCEPT `source`:
+
+```python
+stripped = {k: v for k, v in nb.items() if k != "cells"}
+stripped["cells"] = [{k: v for k, v in c.items() if k != "source"} for c in nb["cells"]]
+```
+
+That hash was identical across all four passes on `twm_4`. The notebook also
+round-trips byte-for-byte through
+`json.dumps(nb, indent=1, ensure_ascii=False) + "\n"`, which is what makes
+editing cells programmatically safe -- check that before touching PBAD's three.
 
 ## mypy has NOT been run against any of this
 
@@ -64,6 +77,7 @@ RUFF findings unless it says otherwise**; only `TRAK` has been type-checked.
 | `NLP` | 29 |
 | `EARIN/lab1` alone | 46 |
 | `TRAK` | **0** -- cleared 2026-08-29 |
+| `twm_4` | **0** -- cleared 2026-08-29 |
 | `PSD/zin1` | 5 |
 
 Two structural notes for whoever runs it next:
@@ -90,7 +104,7 @@ Two structural notes for whoever runs it next:
 | Type | Count | Note |
 |---|---|---|
 | `.txt` | 27 | Blocked -- see `TODO-file-length-250.md` |
-| `.py` | 10 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during. TRAK is already clear: its three over-cap files were split in the same pass that linted them, each verified by a byte-identical render |
+| `.py` | 10 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during. TRAK is already clear: its three over-cap files were split in the same pass that linted them, each verified by a byte-identical render. `twm_4/TWM_KerasIntro.py` joined the list at 407 lines and should NOT be split: it is an nbconvert export, and a partial one |
 | `.cpp` | 9 | |
 | `.c` | 4 | |
 | `.java` | 2 | |

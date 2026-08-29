@@ -77,7 +77,16 @@ exclude = [
 # not a suppression of our own code: without it mypy cannot import them at all
 # and reports nothing else about the file that uses them.
 [[tool.mypy.overrides]]
-module = ["Imath.*", "OpenEXR.*", "OpenGL.*", "matplotlib.*"]
+module = [
+    "Imath.*",
+    "OpenEXR.*",
+    "OpenGL.*",
+    "matplotlib.*",
+    "keras.*",
+    "tensorflow.*",
+    "sklearn.*",
+    "seaborn.*",
+]
 ignore_missing_imports = true
 
 [tool.coverage.run]

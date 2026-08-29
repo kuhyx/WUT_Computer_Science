@@ -1,25 +1,24 @@
-# # CIFAR-10
+#!/usr/bin/env python3
+"""CIFAR-10 half of the lab notebook, exported so the code can be diffed.
 
-# ## Ładowanie zbioru danych
+Four CNN variants are built and only `model_chat` is trained, then evaluated
+with a confusion matrix and sample grids of its right and wrong answers.
 
-# In[ ]:
-import sys
+Needs a GPU: the script exits early without one, exactly as the notebook does.
+`print` is `sys.stdout.write` here so the output is identical to the notebook's
+without a logging handler having to be configured first.
+"""
 
-import tensorflow as tf
-
-# Check if GPU is available
-print(tf.config.list_physical_devices("GPU"))
-if tf.config.list_physical_devices("GPU"):
-    print("GPU is available")
-else:
-    print("GPU is not available")
-    sys.exit()
-
+from __future__ import annotations
 
 import itertools
+import sys
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
+import tensorflow as tf
 from keras.datasets import cifar10
 from keras.layers import (
     Activation,
@@ -36,20 +35,59 @@ from sklearn.metrics import confusion_matrix
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+    from matplotlib.colors import Colormap
+
+# CIFAR-10 has ten classes, and the training split has 40000 images once the
+# generator has held back its 20% for validation.
+NUM_CLASSES = 10
+BATCH_SIZE = 128
+TRAIN_IMAGES = 40000
+VALID_IMAGES = 10000
+EPOCHS = 20
+
+# ## Ładowanie zbioru danych
+
+# Check if GPU is available
+sys.stdout.write(f"{tf.config.list_physical_devices('GPU')}\n")
+if tf.config.list_physical_devices("GPU"):
+    sys.stdout.write("GPU is available\n")
+else:
+    sys.stdout.write("GPU is not available\n")
+    sys.exit()
+
+
+@dataclass(frozen=True)
+class Predictions:
+    """A model's output, with the images and true labels it was produced from."""
+
+    scores: np.ndarray
+    images: np.ndarray
+    labels: np.ndarray
+    names: Sequence[str] | None = None
+
 
 def plot_confusion_matrix(
-    cm, classes, normalize=False, title="Confusion matrix", cmap=plt.cm.Blues
-):
-    """This function prints and plots the confusion matrix.
+    cm: np.ndarray,
+    classes: Sequence[str],
+    *,
+    normalize: bool = False,
+    title: str = "Confusion matrix",
+    cmap: Colormap = plt.cm.Blues,
+) -> None:
+    """Print and plot the confusion matrix.
+
     Normalization can be applied by setting `normalize=True`.
     """
     if normalize:
         cm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
+        sys.stdout.write("Normalized confusion matrix\n")
     else:
-        print("Confusion matrix, without normalization")
+        sys.stdout.write("Confusion matrix, without normalization\n")
 
-    print(cm)
+    sys.stdout.write(f"{cm}\n")
 
     plt.imshow(cm, interpolation="nearest", cmap=cmap)
     plt.title(title)
@@ -87,15 +125,13 @@ X_test /= 255
 y_train = y_train.reshape((1, -1))[0]
 y_test = y_test.reshape((1, -1))[0]
 
-print("Training matrix shape", X_train.shape, y_train.shape)
-print("Testing matrix shape", X_test.shape, y_test.shape)
+sys.stdout.write(f"Training matrix shape {X_train.shape} {y_train.shape}\n")
+sys.stdout.write(f"Testing matrix shape {X_test.shape} {y_test.shape}\n")
 
 # one-hot format classes
 
-nb_classes = 10
-
-Y_train = to_categorical(y_train, nb_classes)
-Y_test = to_categorical(y_test, nb_classes)
+Y_train = to_categorical(y_train, NUM_CLASSES)
+Y_test = to_categorical(y_test, NUM_CLASSES)
 
 cifar_names = [
     "airplane",
@@ -113,23 +149,23 @@ cifar_names = [
 
 # ## Podgląd zbioru treningowego
 
-# In[ ]:
-
-
-for i in range(10):
-    img_batch = X_train[y_train == i][0:10]
-    img_batch = np.reshape(
-        img_batch,
-        (
-            img_batch.shape[0] * img_batch.shape[1],
-            img_batch.shape[2],
-            img_batch.shape[3],
-        ),
+# Ten samples of each class, stacked into one wide strip. Built as a list and
+# concatenated once: growing `img` in place only bound it in the loop's `else`
+# branch, which reads as a use-before-assignment and is what ruff flagged.
+strips = []
+for class_id in range(NUM_CLASSES):
+    img_batch = X_train[y_train == class_id][0:10]
+    strips.append(
+        np.reshape(
+            img_batch,
+            (
+                img_batch.shape[0] * img_batch.shape[1],
+                img_batch.shape[2],
+                img_batch.shape[3],
+            ),
+        )
     )
-    if i > 0:
-        img = np.concatenate([img, img_batch], axis=1)
-    else:
-        img = img_batch
+img = np.concatenate(strips, axis=1)
 plt.figure(figsize=(10, 20))
 plt.axis("off")
 plt.imshow(img, cmap="gray")
@@ -137,10 +173,9 @@ plt.imshow(img, cmap="gray")
 
 # ## Przygotowanie modelu
 
-# In[ ]:
 
-
-def generate_model():
+def generate_model() -> Sequential:
+    """Build the minimal variant: one conv layer straight into the classifier."""
     model = Sequential()  # Linear stacking of layers
 
     # Convolution Layer 1
@@ -154,7 +189,7 @@ def generate_model():
     # ...
 
     # Fully Connected Layer
-    model.add(Dense(10))  # final 10 FC nodes
+    model.add(Dense(NUM_CLASSES))  # final 10 FC nodes
     model.add(Activation("softmax"))  # softmax activation
 
     model.summary()
@@ -165,7 +200,8 @@ def generate_model():
     return model
 
 
-def generate_model_default():
+def generate_model_default() -> Sequential:
+    """Build the same architecture again, kept as the baseline to compare against."""
     model = Sequential()  # Linear stacking of layers
 
     # Convolution Layer 1
@@ -179,7 +215,7 @@ def generate_model_default():
     # ...
 
     # Fully Connected Layer
-    model.add(Dense(10))  # final 10 FC nodes
+    model.add(Dense(NUM_CLASSES))  # final 10 FC nodes
     model.add(Activation("softmax"))  # softmax activation
 
     model.summary()
@@ -190,7 +226,8 @@ def generate_model_default():
     return model
 
 
-def generate_model_gemini():
+def generate_model_gemini() -> Sequential:
+    """Build the variant Gemini proposed: two conv blocks and heavy dropout."""
     model = Sequential()
 
     # Convolutional Layers with Max Pooling
@@ -204,7 +241,7 @@ def generate_model_gemini():
     model.add(Flatten())
     model.add(Dense(128, activation="relu"))
     model.add(Dropout(0.5))  # Regularization
-    model.add(Dense(10, activation="softmax"))
+    model.add(Dense(NUM_CLASSES, activation="softmax"))
 
     # Model Compilation
     model.compile(
@@ -216,7 +253,11 @@ def generate_model_gemini():
     return model
 
 
-def generate_model_chat():
+def generate_model_chat() -> Sequential:
+    """Build the variant ChatGPT proposed: four conv layers with batch norm.
+
+    This is the only one that actually gets trained below.
+    """
     model = Sequential()  # Linear stacking of layers
 
     # Convolution Layer 1
@@ -251,7 +292,7 @@ def generate_model_chat():
     model.add(Dropout(0.6))
 
     # Output Layer
-    model.add(Dense(10))  # final 10 FC nodes
+    model.add(Dense(NUM_CLASSES))  # final 10 FC nodes
     model.add(Activation("softmax"))  # softmax activation
 
     model.summary()
@@ -263,9 +304,6 @@ def generate_model_chat():
     return model
 
 
-# In[ ]:
-
-
 model = generate_model()
 model_default = generate_model_default()
 model_gemini = generate_model_gemini()
@@ -274,9 +312,6 @@ models = [model_chat]
 
 
 # ## Trening
-
-# In[ ]:
-
 
 gen = ImageDataGenerator(
     rotation_range=8,
@@ -287,38 +322,35 @@ gen = ImageDataGenerator(
     validation_split=0.2,
 )
 
-train_generator = gen.flow(X_train, Y_train, batch_size=128, subset="training")
-valid_generator = gen.flow(X_train, Y_train, batch_size=128, subset="validation")
-
-
-# In[ ]:
-
+train_generator = gen.flow(X_train, Y_train, batch_size=BATCH_SIZE, subset="training")
+valid_generator = gen.flow(X_train, Y_train, batch_size=BATCH_SIZE, subset="validation")
 
 # Max 20 epoch
-for model in models:
-    model.fit(
+for trained in models:
+    trained.fit(
         train_generator,
-        steps_per_epoch=40000 // 128,
-        epochs=20,
+        steps_per_epoch=TRAIN_IMAGES // BATCH_SIZE,
+        epochs=EPOCHS,
         verbose=1,
         validation_data=valid_generator,
-        validation_steps=10000 // 128,
+        validation_steps=VALID_IMAGES // BATCH_SIZE,
     )
 
 
 # ## Test
 
-# In[ ]:
-
-for model in models:
-    score = model.evaluate(X_test, Y_test)
-    print("Test score:", score[0])
-    print("Test accuracy:", score[1])
+for evaluated in models:
+    score = evaluated.evaluate(X_test, Y_test)
+    sys.stdout.write(f"Test score: {score[0]}\n")
+    sys.stdout.write(f"Test accuracy: {score[1]}\n")
 
     # The predict_classes function outputs the highest probability class
     # according to the trained classifier for each input example.
-    predicted = model.predict(X_test)
+    predicted = evaluated.predict(X_test)
     predicted_classes = np.argmax(predicted, axis=1)
+    results = Predictions(
+        scores=predicted, images=X_test, labels=y_test, names=cifar_names
+    )
 
     # Check which items we got right / wrong
     correct_indices = np.nonzero(predicted_classes == y_test)[0]
@@ -327,7 +359,7 @@ for model in models:
 
     cnf_matrix = confusion_matrix(y_test, predicted_classes)
 
-    class_names = [str(i) for i in range(10)]
+    class_names = [str(i) for i in range(NUM_CLASSES)]
 
     # Plot non-normalized confusion matrix
     plt.figure()
@@ -338,42 +370,38 @@ for model in models:
     plt.show()
 
 
-# In[ ]:
-
-
-def show_samples_rgb(indices, preds, images, labels, count=3, names=[]):
+def show_samples_rgb(
+    indices: np.ndarray, results: Predictions, *, count: int = 3
+) -> None:
+    """Plot a `count` x `count` grid of samples, titled predicted vs expected."""
     plt.figure()
     for i, sample in enumerate(indices[: count**2]):
-        pred_id = int(np.argmax(preds[sample]))
-        real_id = int(labels[sample])
-        pred_score = preds[sample][pred_id]
-        real_score = preds[sample][real_id]
+        pred_id = int(np.argmax(results.scores[sample]))
+        real_id = int(results.labels[sample])
+        pred_score = results.scores[sample][pred_id]
+        real_score = results.scores[sample][real_id]
         plt.subplot(count, count, i + 1)
-        plt.imshow(images[sample], interpolation="none")
+        plt.imshow(results.images[sample], interpolation="none")
         plt.axis("off")
-        if len(names) > 0:
-            plt.title(
-                f"P: {names[pred_id]} ({pred_score:.2f})\nE: {names[real_id]} ({real_score:.2f})"
-            )
+        if results.names:
+            predicted_label: str | int = results.names[pred_id]
+            real_label: str | int = results.names[real_id]
         else:
-            plt.title(
-                f"P: {pred_id} ({pred_score:.2f})\nE: {real_id} ({real_score:.2f})"
-            )
+            predicted_label = pred_id
+            real_label = real_id
+        plt.title(
+            f"P: {predicted_label} ({pred_score:.2f})\n"
+            f"E: {real_label} ({real_score:.2f})"
+        )
 
     plt.tight_layout()
 
 
 # ## Poprawne klasyfikacje
 
-# In[ ]:
-
-
-show_samples_rgb(correct_indices, predicted, X_test, y_test, 5, cifar_names)
+show_samples_rgb(correct_indices, results, count=5)
 
 
 # ## Błędne klasyfikacje
 
-# In[ ]:
-
-
-show_samples_rgb(incorrect_indices, predicted, X_test, y_test, 5, cifar_names)
+show_samples_rgb(incorrect_indices, results, count=5)
