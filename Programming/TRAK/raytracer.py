@@ -200,9 +200,7 @@ def trace_ray(
     return compute_color(lighting, object_, intersection_point, normal, ray_origin)
 
 
-def make_sphere(
-    position: list[float], radius: float, color: np.ndarray
-) -> SceneObject:
+def make_sphere(position: list[float], radius: float, color: np.ndarray) -> SceneObject:
     """Build a sphere scene object."""
     return {
         "type": "sphere",

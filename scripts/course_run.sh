@@ -69,7 +69,7 @@ _run() {
         none) _no_code "${COURSE_NOTE:-nothing to run}" ;;
         tex)
             local tex="${COURSE_ENTRY:-}"
-            [[ -n "$tex" ]] || tex="$(_first_file '*.tex')"
+            [[ -n "$tex" ]] || tex="$(_first_tex_document)"
             [[ -n "$tex" ]] || _no_code "no .tex found"
             local tool
             tool="$(_require_any 'a LaTeX toolchain' latexmk pdflatex xelatex)"

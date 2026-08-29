@@ -12,6 +12,7 @@ import numpy as np
 # A ray whose direction is this close to parallel with a plane never hits it.
 _PARALLEL_EPSILON = 1e-6
 
+
 class Vector3:
     """A 3D vector, with just the operations this renderer needs."""
 

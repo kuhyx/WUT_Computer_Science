@@ -5,7 +5,8 @@
 # already clean, so `pre-commit run --all-files` is green at every commit.
 # Hooks still to come, each blocked on its own cleanup:
 #   - file-length      blocked on the .tex/code splits and TODO-file-length-250.md
-#   - ruff / mypy      blocked on the root pyproject.toml (Milestone 4)
+#   - mypy             blocked on six errors that are third-party typing
+#                      limits, not our code -- see TODO-refactor-remaining.md
 #   - dependency-freshness  blocked on the upgrade itself; the gate and the
 #                      upgrade must land in the SAME commit or the repo is
 #                      instantly and permanently red
@@ -17,6 +18,20 @@ default_stages: [pre-commit]
 fail_fast: false
 
 repos:
+  # Landed 2026-08-29, the day the archive first reached zero ruff findings
+  # repo-wide. Pinned exactly, per rules/dependency-freshness: 0.16.5 is the
+  # newest stable. These hooks pass --force-exclude themselves, so the
+  # vendored trees excluded in pyproject.toml stay excluded even though
+  # pre-commit hands ruff explicit filenames.
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.5
+    hooks:
+      - id: ruff-check
+        types_or: [python, pyi, jupyter]
+      - id: ruff-format
+        args: [--check]
+        types_or: [python, pyi, jupyter]
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
@@ -71,6 +86,13 @@ repos:
         entry: scripts/check_md_naming.sh
         language: system
         files: \.(md|markdown)$
+
+      # CLAUDE.md has always said a hook rejects these. Now one does.
+      - id: no-suppressions
+        name: no noqa or type-ignore comments
+        entry: scripts/check_no_suppressions.sh
+        language: script
+        types_or: [python, pyi, jupyter]
 
       # -x so shellcheck FOLLOWS sourced files. The 44 per-course run.sh stubs
       # source scripts/course_lib.sh; without -x every one of them reports

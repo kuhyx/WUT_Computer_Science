@@ -33,7 +33,11 @@ _have() { command -v "$1" > /dev/null 2>&1; }
 # and only running it shows that the interpreter it points at is gone. That is
 # what `jupyter` is on this machine, and it turned a clean "blocked: needs
 # jupyter" into a confusing exec failure. Probe by running, not by looking.
-_works() { _have "$1" && "$1" --version > /dev/null 2>&1; }
+#
+# The timeout is not paranoia: `unityhub --version` on this machine never
+# returns, so a probe without one would hang the whole status sweep. Use
+# _works only for tools that answer --version; _have is right for the rest.
+_works() { _have "$1" && timeout 5 "$1" --version > /dev/null 2>&1; }
 
 # Report "blocked" with the reason, which is the whole point of the status
 # table: "needs X" is useful, "failed" is not.
@@ -96,6 +100,27 @@ _is_known_incomplete() {
 
 _first_file() {
     find "$COURSE_ROOT" -name "$1" -not -path '*/node_modules/*' -print -quit 2>/dev/null
+}
+
+# The .tex that is an actual document, not one of the ~100 \input fragments
+# the 2026-08 split created. `_first_file '*.tex'` returns whatever readdir
+# hands back first, which for MOM was report_three/sections/02-*.tex; latexmk
+# then faithfully tried to typeset a bare \section and failed with "Missing
+# \begin{document}".
+#
+# Deliberately NOT sorted: readdir order is what every other tex course has
+# been building all along, and sorting changed ELAC's pick from projectB to
+# projectA and AIS's to report/final/ver1 -- both of which fail to build. The
+# fragments are the bug; which document a multi-report course picks is a
+# separate question, recorded in TODO-refactor-remaining.md.
+_first_tex_document() {
+    local candidate
+    while IFS= read -r candidate; do
+        if grep -q '\\documentclass' "$candidate"; then
+            printf '%s' "$candidate"
+            return 0
+        fi
+    done < <(find "$COURSE_ROOT" -name '*.tex' -not -path '*/build/*')
 }
 
 

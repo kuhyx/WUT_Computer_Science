@@ -21,8 +21,6 @@ _SHADOW_OFFSET = 1e-5
 _BOUNCE_ABSORPTION = 0.8
 
 
-
-
 @dataclass
 class Scene:
     """Everything the two passes share: the geometry, the light, the photons."""
