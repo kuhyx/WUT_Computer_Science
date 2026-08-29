@@ -98,7 +98,10 @@ _match_selection() {
 }
 
 _print_menu() {
-    printf '\n%s has %d targets:\n\n' "${COURSE_ROOT##*/}" "${#COURSE_TARGETS[@]}"
+    local plural="targets"
+    if [[ ${#COURSE_TARGETS[@]} -eq 1 ]]; then plural="target"; fi
+    printf '\n%s has %d %s:\n\n' \
+        "${COURSE_ROOT##*/}" "${#COURSE_TARGETS[@]}" "$plural"
     local i=1 t marker
     for t in "${COURSE_TARGETS[@]}"; do
         marker=""
@@ -116,7 +119,10 @@ _choose_target() {
     COURSE_CHOSEN=()
     local idx
 
-    if [[ ${#COURSE_TARGETS[@]} -eq 1 ]]; then
+    # A selection is validated even when there is only one target: silently
+    # running target 1 because you asked for target 5 is the same species of
+    # confusion as running something and not saying what.
+    if [[ ${#COURSE_TARGETS[@]} -eq 1 && -z "${COURSE_SELECT:-}" ]]; then
         COURSE_CHOSEN=("${COURSE_TARGETS[@]}")
         return 0
     fi

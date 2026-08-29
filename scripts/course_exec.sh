@@ -67,10 +67,19 @@ _exec_new_binaries() {
         new_paths+=("$path")
     done < <(comm -13 <(printf '%s\n' "$before") <(printf '%s\n' "$after"))
 
+    # Nothing new does not mean nothing to run: make says "up to date" on the
+    # second invocation, and running nothing then is the very complaint this
+    # file exists to fix. Fall back to whatever executables are there.
     if [[ ${#new_paths[@]} -eq 0 ]]; then
-        printf 'nothing new to run after %s (already built, or it produces no binary)\n' \
-            "$what"
-        return 0
+        while IFS= read -r line; do
+            [[ -n "$line" ]] || continue
+            new_paths+=("${line%%$'\t'*}")
+        done < <(printf '%s\n' "$after")
+        if [[ ${#new_paths[@]} -eq 0 ]]; then
+            printf 'nothing to run after %s (it produces no binary)\n' "$what"
+            return 0
+        fi
+        printf 'already up to date after %s; running what is there\n' "$what"
     fi
     local exe
     for exe in "${new_paths[@]}"; do

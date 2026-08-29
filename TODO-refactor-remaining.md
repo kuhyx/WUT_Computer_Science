@@ -115,10 +115,15 @@ Two things surfaced on the way and are still true:
   readdir order any more. What is still open is that some of those documents
   are broken -- see below. MOM has three, ELAC two, AIS several drafts.
   Sorting looked like the fix until it swapped ELAC to `projectA` and AIS to
-  `report/final/ver1`, **both of which fail with latexmk exit 12** -- so those
-  documents are broken and sorting merely surfaced it. Either build every
-  document, or name one per course with `--entry`; either way the broken ones
-  need looking at.
+  `report/final/ver1`, both of which then failed with latexmk exit 12.
+  **That claim did not survive re-testing on 2026-08-29.** With the build
+  directories deleted first, `./run.sh run NotProgramming/ELAC --batch` and
+  `./run.sh run Programming/AIS --batch` both build every document and exit 0.
+  The exit 12 reproduced once in this session against pre-existing `build/`
+  state and not once from clean, so the likeliest cause is stale artifacts
+  rather than a broken document -- but the original failing state is gone and
+  that is an inference, not something re-verified. If it comes back, delete
+  `build/` before concluding anything about the document.
 - `unityhub --version` never returns on this machine, which is why `_works`
   carries a `timeout 5`. Use `_works` only for tools that answer `--version`;
   `_have` is still right for the other ten probe call sites.

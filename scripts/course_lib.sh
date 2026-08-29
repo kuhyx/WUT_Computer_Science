@@ -209,16 +209,31 @@ _run_selected() {
     _collect_targets
     _choose_target || return 1
 
-    local before after target
+    local before after target rc
+    local failed=()
     before="$(_tree_state)"
     for target in "${COURSE_CHOSEN[@]}"; do
         COURSE_ENTRY="$target"
-        _run
+        # One broken target must not hide the rest. ELAC and AIS each ship a
+        # document that fails to build, and aborting there meant their working
+        # reports were never attempted -- the old runner only looked fine
+        # because it built whichever one readdir happened to hand back first.
+        rc=0
+        _run || rc=$?
+        if [[ "$rc" -ne 0 ]]; then
+            failed+=("$(_target_label "$target") (exit $rc)")
+        fi
     done
     after="$(_tree_state)"
     if [[ "$before" != "$after" ]]; then
         printf 'FAILED: the run changed files under %s\n' "$COURSE_ROOT" >&2
         diff <(printf '%s\n' "$before") <(printf '%s\n' "$after") >&2 || true
+        return 1
+    fi
+    if [[ ${#failed[@]} -gt 0 ]]; then
+        printf '\n%s of %s targets failed to build:\n' \
+            "${#failed[@]}" "${#COURSE_CHOSEN[@]}" >&2
+        printf '    %s\n' "${failed[@]}" >&2
         return 1
     fi
     if [[ "$COURSE_EXEC_FAILURES" -gt 0 ]]; then
