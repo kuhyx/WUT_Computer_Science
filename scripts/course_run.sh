@@ -181,11 +181,20 @@ _run() {
             printf 'binaries in %s/build\n' "$COURSE_ROOT" 
             ;;
         notebook)
-            _have jupyter || _blocked "needs jupyter"
-            local nb
+            _works jupyter || _blocked "needs jupyter"
+            # NOT --inplace: all four notebooks in this repo are tracked WITH
+            # their outputs, so executing in place rewrites a deliverable.
+            # --output-dir sends the executed copy to a temp dir instead.
+            # It does NOT redirect what the notebook's own code writes -- the
+            # kernel's cwd is still the notebook's directory -- so the
+            # before/after tree check in course_main is what actually catches
+            # a notebook that saves a figure beside itself.
+            local nb nbtmp
+            nbtmp="$(mktemp -d)"
             while IFS= read -r nb; do
-                jupyter nbconvert --to notebook --execute --inplace "$nb"
+                jupyter nbconvert --to notebook --execute --output-dir "$nbtmp" "$nb"
             done < <(find "$COURSE_ROOT" -name '*.ipynb' -not -path '*/.ipynb_checkpoints/*' | sort)
+            rm -rf "$nbtmp"
             ;;
         matlab)
             local tool

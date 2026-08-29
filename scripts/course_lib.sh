@@ -29,6 +29,12 @@ readonly COURSE_GATES
 
 _have() { command -v "$1" > /dev/null 2>&1; }
 
+# `command -v` is true for a dead pipx shim: the file is there and executable,
+# and only running it shows that the interpreter it points at is gone. That is
+# what `jupyter` is on this machine, and it turned a clean "blocked: needs
+# jupyter" into a confusing exec failure. Probe by running, not by looking.
+_works() { _have "$1" && "$1" --version > /dev/null 2>&1; }
+
 # Report "blocked" with the reason, which is the whole point of the status
 # table: "needs X" is useful, "failed" is not.
 _blocked() {
@@ -42,6 +48,17 @@ _no_code() {
 }
 
 _runnable() { printf '%s\n' "$1"; exit 0; }
+
+# What the course tree looks like to git. Compared before and after a run,
+# because executing coursework has twice silently overwritten a submitted
+# deliverable -- TRAK's outputs/output.png and SPD's results_*.png -- and
+# neither was noticed until a much later `git status`. Gitignored build output
+# does not show up here, which is why every runner writes into build/.
+# numstat is included so that re-writing an already-modified file still counts.
+_tree_state() {
+    git -C "$COURSE_ROOT" status --porcelain -- "$COURSE_ROOT" 2>/dev/null || true
+    git -C "$COURSE_ROOT" diff --numstat -- "$COURSE_ROOT" 2>/dev/null || true
+}
 
 # First tool present wins; otherwise blocked naming all the candidates.
 _require_any() {
@@ -120,7 +137,17 @@ course_main() {
             printf 'usage: %s [--probe]\n' "$(basename "$0")"
             printf '  --probe  report runnable/blocked/no-code without running\n'
             ;;
-        "") _run ;;
+        "")
+            local before after
+            before="$(_tree_state)"
+            _run
+            after="$(_tree_state)"
+            if [[ "$before" != "$after" ]]; then
+                printf 'FAILED: the run changed files under %s\n' "$COURSE_ROOT" >&2
+                diff <(printf '%s\n' "$before") <(printf '%s\n' "$after") >&2 || true
+                return 1
+            fi
+            ;;
         *) printf 'unknown option: %s\n' "$1" >&2; return 1 ;;
     esac
 }
