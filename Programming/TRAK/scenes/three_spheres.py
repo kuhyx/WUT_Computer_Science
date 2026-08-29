@@ -1,9 +1,17 @@
-from sightpy import *
+"""Three coloured glass spheres on a checkered floor, over a photo backdrop.
+
+Each sphere filters a different channel, so the floor seen through them shows
+what the refractive material does to each colour separately.
+"""
+
+import numpy as np
+from sightpy import Glossy, Plane, Refractive, Scene, Sphere, image, rgb, vec3
 
 
-# define materials to use
-def setup_scene(width=400, height=300, environment="miramar.jpeg"):
-
+def setup_scene(
+    width: int = 400, height: int = 300, environment: str = "miramar.jpeg"
+) -> Scene:
+    """Build the three-sphere scene at `width` x `height` over `environment`."""
     blue_glass = Refractive(
         n=vec3(1.5 + 4e-8j, 1.5 + 4e-8j, 1.5 + 0.0j)
     )  # n = index of refraction
@@ -20,19 +28,19 @@ def setup_scene(width=400, height=300, environment="miramar.jpeg"):
 
     # Set Scene
 
-    Sc = Scene(ambient_color=rgb(0.05, 0.05, 0.05))
+    scene = Scene(ambient_color=rgb(0.05, 0.05, 0.05))
 
     angle = np.pi / 2 * 0.3
-    Sc.add_Camera(
+    scene.add_Camera(
         look_from=vec3(2.5 * np.sin(angle), 0.25, 2.5 * np.cos(angle) - 1.5),
         look_at=vec3(0.0, 0.25, -1.5),
         screen_width=width,
         screen_height=height,
     )
 
-    Sc.add_DirectionalLight(Ldir=vec3(0.52, 0.45, -0.5), color=rgb(0.15, 0.15, 0.15))
+    scene.add_DirectionalLight(Ldir=vec3(0.52, 0.45, -0.5), color=rgb(0.15, 0.15, 0.15))
 
-    Sc.add(
+    scene.add(
         Sphere(
             material=blue_glass,
             center=vec3(-1.2, 0.0, -1.5),
@@ -41,7 +49,7 @@ def setup_scene(width=400, height=300, environment="miramar.jpeg"):
             max_ray_depth=3,
         )
     )
-    Sc.add(
+    scene.add(
         Sphere(
             material=green_glass,
             center=vec3(0.0, 0.0, -1.5),
@@ -50,7 +58,7 @@ def setup_scene(width=400, height=300, environment="miramar.jpeg"):
             max_ray_depth=3,
         )
     )
-    Sc.add(
+    scene.add(
         Sphere(
             material=red_glass,
             center=vec3(1.2, 0.0, -1.5),
@@ -60,7 +68,7 @@ def setup_scene(width=400, height=300, environment="miramar.jpeg"):
         )
     )
 
-    Sc.add(
+    scene.add(
         Plane(
             material=floor,
             center=vec3(0, -0.5, -3.0),
@@ -73,6 +81,6 @@ def setup_scene(width=400, height=300, environment="miramar.jpeg"):
     )
 
     # see sightpy/backgrounds
-    Sc.add_Background(environment)
+    scene.add_Background(environment)
 
-    return Sc
+    return scene

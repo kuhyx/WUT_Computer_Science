@@ -73,6 +73,13 @@ exclude = [
     "^Programming/TRAK/sightpy/",
 ]
 
+# Third-party packages that ship neither stubs nor a py.typed marker. This is
+# not a suppression of our own code: without it mypy cannot import them at all
+# and reports nothing else about the file that uses them.
+[[tool.mypy.overrides]]
+module = ["Imath.*", "OpenEXR.*", "OpenGL.*", "matplotlib.*"]
+ignore_missing_imports = true
+
 [tool.coverage.run]
 branch = true
 omit = [

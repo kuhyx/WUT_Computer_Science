@@ -1,14 +1,35 @@
-from sightpy import *
+"""The Cornell box: a closed room lit by a ceiling panel.
+
+The reference scene for global illumination -- the colour bleeding from the
+red and green walls onto the white ones is the whole point of it.
+"""
+
+from sightpy import (
+    Cuboid,
+    Diffuse,
+    Emissive,
+    Plane,
+    Refractive,
+    Scene,
+    Sphere,
+    rgb,
+    vec3,
+)
 
 
-# define materials to use
-def setup_scene(width=400, height=300, environment=None):
+def setup_scene(
+    width: int = 400, height: int = 300, environment: str | None = None
+) -> Scene:
+    """Build the Cornell box at `width` x `height`.
 
-    Sc = Scene(ambient_color=rgb(0.00, 0.00, 0.00))
+    `environment` is accepted so every scene has one interface, and ignored:
+    the box is closed, so no background is ever visible.
+    """
+    del environment
 
-    angle = -0
+    scene = Scene(ambient_color=rgb(0.00, 0.00, 0.00))
 
-    Sc.add_Camera(
+    scene.add_Camera(
         screen_width=width,
         screen_height=height,
         look_from=vec3(278, 278, 800),
@@ -23,11 +44,10 @@ def setup_scene(width=400, height=300, environment=None):
     red_diffuse = Diffuse(diff_color=rgb(0.65, 0.05, 0.05))
     white_diffuse = Diffuse(diff_color=rgb(0.73, 0.73, 0.73))
     emissive_white = Emissive(color=rgb(15.0, 15.0, 15.0))
-    emissive_blue = Emissive(color=rgb(2.0, 2.0, 3.5))
     blue_glass = Refractive(n=vec3(1.5 + 0.05e-8j, 1.5 + 0.02e-8j, 1.5 + 0.0j))
 
     # this is the light
-    Sc.add(
+    scene.add(
         Plane(
             material=emissive_white,
             center=vec3(213 + 130 / 2, 554, -227.0 - 105 / 2),
@@ -39,7 +59,7 @@ def setup_scene(width=400, height=300, environment=None):
         importance_sampled=True,
     )
 
-    Sc.add(
+    scene.add(
         Plane(
             material=white_diffuse,
             center=vec3(555 / 2, 555 / 2, -555.0),
@@ -50,7 +70,7 @@ def setup_scene(width=400, height=300, environment=None):
         )
     )
 
-    Sc.add(
+    scene.add(
         Plane(
             material=green_diffuse,
             center=vec3(-0.0, 555 / 2, -555 / 2),
@@ -61,7 +81,7 @@ def setup_scene(width=400, height=300, environment=None):
         )
     )
 
-    Sc.add(
+    scene.add(
         Plane(
             material=red_diffuse,
             center=vec3(555.0, 555 / 2, -555 / 2),
@@ -72,7 +92,7 @@ def setup_scene(width=400, height=300, environment=None):
         )
     )
 
-    Sc.add(
+    scene.add(
         Plane(
             material=white_diffuse,
             center=vec3(555 / 2, 555, -555 / 2),
@@ -83,7 +103,7 @@ def setup_scene(width=400, height=300, environment=None):
         )
     )
 
-    Sc.add(
+    scene.add(
         Plane(
             material=white_diffuse,
             center=vec3(555 / 2, 0.0, -555 / 2),
@@ -103,9 +123,9 @@ def setup_scene(width=400, height=300, environment=None):
         shadow=False,
     )
     cb.rotate(θ=15, u=vec3(0, 1, 0))
-    Sc.add(cb)
+    scene.add(cb)
 
-    Sc.add(
+    scene.add(
         Sphere(
             material=blue_glass,
             center=vec3(370.5, 165 / 2, -65 - 185 / 2),
@@ -116,4 +136,4 @@ def setup_scene(width=400, height=300, environment=None):
         importance_sampled=True,
     )
 
-    return Sc
+    return scene

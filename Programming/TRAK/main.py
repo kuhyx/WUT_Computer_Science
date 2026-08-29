@@ -1,14 +1,25 @@
+#!/usr/bin/env python3
+"""Entry point: render a scene with one of the three algorithms in this course.
+
+The algorithm, scene, resolution and output path all default to `config.ini`
+and are overridable on the command line.
+"""
+
 import argparse
 import importlib
-import os
+import logging
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 from photon_mapping import render_photon_mapping
 from rendering import ray_trace
 from utils import load_config, parse_resolution
 
+logger = logging.getLogger(__name__)
 
-def main():
+
+def main() -> None:
+    """Parse the command line over `config.ini` defaults and run the renderer."""
     # default config
     config = load_config("config.ini")
 
@@ -98,58 +109,64 @@ def main():
 
     # Run the selected algorithm
     if args.algorithm == "ray_tracing0":
-        print("Starting ray tracing zero...")
-        # ray_trace(args.scene, args.environment_map, image_width=width, image_height=height, output_file="output_ray_traced.png")
+        logger.info("Starting ray tracing zero...")
         ray_trace(
             args.num_spheres,
-            args.environment_map,
+            args.environment,
             image_width=width,
-            image_height=height,  # na razie generujemy w kodzie, ale potem trzeba będzie obj wczytywać
-            output_file="output_ray_traced.png",
+            # na razie generujemy w kodzie, ale potem trzeba będzie obj wczytywać
+            image_height=height,
+            output_file=Path("outputs") / args.output,
         )
     elif args.algorithm == "ray_tracing":
-        print("Starting ray tracing...")
+        logger.info("Starting ray tracing...")
         try:
-            print(args.scene)
+            logger.info("%s", args.scene)
             scene_module = importlib.import_module(f"scenes.{args.scene}")
         except ModuleNotFoundError:
-            print(f"Error: Scene '{args.scene}' not found in the 'scenes' directory.")
+            logger.info(
+                "Error: Scene '%s' not found in the 'scenes' directory.", args.scene
+            )
             return
         try:
             scene = scene_module.setup_scene(
                 width=width, height=height, environment=f"{args.environment}"
             )
         except AttributeError:
-            print(
-                f"Error: Scene '{args.scene}' does not define a `setup_scene` function."
+            logger.info(
+                "Error: Scene '%s' does not define a `setup_scene` function.",
+                args.scene,
             )
             return
         # Renderowanie
-        print(
-            f"Rendering scene '{args.scene}' with {args.samples_per_pixel} samples per pixel..."
+        logger.info(
+            "Rendering scene '%s' with %s samples per pixel...",
+            args.scene,
+            args.samples_per_pixel,
         )
         img = scene.render(samples_per_pixel=args.samples_per_pixel)
-        output_path = os.path.join("outputs", args.output)
+        output_path = Path("outputs") / args.output
         img.save(output_path)
-        print(f"Image saved to {output_path}")
+        logger.info("Image saved to %s", output_path)
         if args.show:
             img.show()
     elif args.algorithm == "photon_mapping":
-        print("Starting photon mapping...")
+        logger.info("Starting photon mapping...")
         image = render_photon_mapping(
             width, height, args.num_photons, args.max_depth, args.gather_radius
         )
         plt.imshow(image)
         plt.axis("off")
-        output_path = os.path.join("outputs", args.output)
+        output_path = Path("outputs") / args.output
         plt.savefig(output_path)
-        print(f"Image saved to {output_path}")
+        logger.info("Image saved to %s", output_path)
         if args.show:
             plt.show()
     else:
-        print(f"Unknown algorithm: {args.algorithm}")
+        logger.info("Unknown algorithm: %s", args.algorithm)
         return
 
 
 if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     main()

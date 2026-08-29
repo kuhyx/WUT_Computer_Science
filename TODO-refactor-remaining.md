@@ -32,14 +32,13 @@ own docs and the rest of this fleet carry. A test asserts by raising.
 |---|---|
 | Baseline, before any of this | 9,281 |
 | After the format + safe-fix pass and excluding `TRAK/sightpy` | 3,686 |
-| **Now** | **1,183** |
+| **Now** | **651** |
 
 Courses at zero: `WDWR`, `SPD`, `MOM`, `ECRYPT`, `ECRYPT_PROJECT`, `ECOTE`,
-`NLP`, `EARIN`, `PORR`. What is left, by course:
+`NLP`, `EARIN`, `PORR`, `TRAK`. What is left, by course:
 
 | Course | ruff | Can it be verified by running? |
 |---|---|---|
-| `TRAK` | 531 | **Yes** -- `run` ray-traces cornell_box in 37s. `sightpy/` is vendored and excluded; this is kuhy's own code |
 | `twm_4` | 228 | No: `jupyter` on PATH is a dead pipx shim. `pip install jupyter` in a venv would fix that |
 | `ERSMS-project` | 156 | No: docker-compose course |
 | `PSD` | 152 | No: `run.sh` predates the harness and installs packages with sudo |
@@ -53,10 +52,10 @@ deliverable. This exact bug has already been found twice (TRAK's
 
 ## mypy has NOT been run against any of this
 
-`pyproject.toml` sets `strict = true` and `CLAUDE.md` says the repo runs mypy,
-but mypy is not installed on this machine (pip is externally managed; use a
-venv) and no commit so far has type-checked. **"Zero findings" in the commit
-messages means zero RUFF findings.** Measured after installing it:
+`pyproject.toml` sets `strict = true` and `CLAUDE.md` says the repo runs mypy.
+mypy IS installed now (`~/.local/bin/mypy`) -- the earlier note here saying it
+was not is out of date. **"Zero findings" in a commit message still means zero
+RUFF findings unless it says otherwise**; only `TRAK` has been type-checked.
 
 | Course | mypy --strict errors |
 |---|---|
@@ -64,7 +63,7 @@ messages means zero RUFF findings.** Measured after installing it:
 | `ECOTE` | 14 |
 | `NLP` | 29 |
 | `EARIN/lab1` alone | 46 |
-| `TRAK` | 1 |
+| `TRAK` | **0** -- cleared 2026-08-29 |
 | `PSD/zin1` | 5 |
 
 Two structural notes for whoever runs it next:
@@ -74,15 +73,24 @@ Two structural notes for whoever runs it next:
 - Most errors are `Returning Any` from untyped third-party calls (openai,
   pandas) and genuinely-wrong unions this pass introduced by hand, e.g.
   `str | bool` returns in `gpt_chunks.reformat`. They are real.
+- Point it at the course's own venv or every import is unresolvable:
+  `mypy --strict --python-executable Programming/<course>/.venv/bin/python <dir>`.
+  Without that, TRAK reported 4 phantom `matplotlib` import errors on top of
+  the real ones.
+- `pyproject.toml` now carries a `[[tool.mypy.overrides]]` block with
+  `ignore_missing_imports` for `Imath`, `OpenEXR`, `OpenGL` and `matplotlib`.
+  Those four ship neither stubs nor `py.typed`; without it mypy cannot import
+  them at all and reports nothing else about the file. It is not a suppression
+  of our own code -- do not extend it to anything we wrote.
 
 ## Still open
 
-### 1. The 250-line cap: 51 files
+### 1. The 250-line cap: 50 files
 
 | Type | Count | Note |
 |---|---|---|
 | `.txt` | 27 | Blocked -- see `TODO-file-length-250.md` |
-| `.py` | 11 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during |
+| `.py` | 10 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during. TRAK is already clear: its three over-cap files were split in the same pass that linted them, each verified by a byte-identical render |
 | `.cpp` | 9 | |
 | `.c` | 4 | |
 | `.java` | 2 | |
@@ -119,6 +127,15 @@ cp -r <course> /tmp/before
 And run mypy per directory afterwards: it found 12 latent TypeErrors in EARIN
 that ruff could not see -- call sites still passing positionally to arguments
 the pass had made keyword-only.
+
+Prefer a check the program itself settles. TRAK's `ray_tracing0` path has no
+RNG at all, so `main.py --algorithm ray_tracing0 --output ../build/x.png`
+renders byte-identically every time: refactoring 109 findings out of
+`rendering.py` and splitting it in two was verified by one md5 comparison. The
+cornell_box path is stochastic and cannot be used that way -- its ray count
+drifts by ~20 between runs on its own. Where an RNG is unavoidable, do the
+restructure and the `NPY002` swap as SEPARATE steps: the first must be
+bit-identical under an external seed, only the second may move the pixels.
 
 ### 6. Disk
 
