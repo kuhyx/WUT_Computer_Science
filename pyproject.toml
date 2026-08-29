@@ -94,6 +94,16 @@ module = [
 ]
 ignore_missing_imports = true
 
+# pyflink ships no types AND is not installed in Programming/PSD/.venv, so
+# `MapFunction` and `KeyedProcessFunction` are `Any` and --strict (which
+# implies disallow_subclassing_any) refuses to subclass them. Scoped to the one
+# module that has to subclass them; everything else in PSD is clean under
+# --strict. A hand-written .pyi was the alternative and is worse: it would
+# assert an API that nothing here can check against.
+[[tool.mypy.overrides]]
+module = ["temperature_anomaly_detector"]
+disallow_subclassing_any = false
+
 [tool.coverage.run]
 branch = true
 omit = [

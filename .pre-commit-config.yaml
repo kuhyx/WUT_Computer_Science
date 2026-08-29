@@ -5,8 +5,12 @@
 # already clean, so `pre-commit run --all-files` is green at every commit.
 # Hooks still to come, each blocked on its own cleanup:
 #   - file-length      blocked on the .tex/code splits and TODO-file-length-250.md
-#   - mypy             blocked on six errors that are third-party typing
-#                      limits, not our code -- see TODO-refactor-remaining.md
+#   - mypy             the six third-party-typing errors are GONE (ERSMS moved
+#                      to a typed DeclarativeBase; PSD has a scoped override).
+#                      Still blocked on ECOTE/NLP/EARIN, and on the fact that
+#                      mypy cannot run repo-wide -- many courses ship a main.py
+#                      and it stops at "Duplicate module named". It needs a
+#                      per-directory driver, not just a clean tree.
 #   - dependency-freshness  blocked on the upgrade itself; the gate and the
 #                      upgrade must land in the SAME commit or the repo is
 #                      instantly and permanently red

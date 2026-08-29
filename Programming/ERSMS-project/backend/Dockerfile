@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy the Python script, requirements, and constants.ini file into the container at /app
 COPY ./app.py /app/
+COPY ./models.py /app/
 
 COPY requirements.txt .
 COPY .env .

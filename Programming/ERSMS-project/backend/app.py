@@ -19,6 +19,7 @@ from firebase_admin import auth, credentials, exceptions
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from models import Base, Rating, User
 from sqlalchemy.exc import SQLAlchemyError
 
 if TYPE_CHECKING:
@@ -44,30 +45,12 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.sqlite3"
 app.config["SQLALCHEY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
+db = SQLAlchemy(app, model_class=Base)
 
 CORS(app)
 
 cred = credentials.Certificate("movie-recommendation-firebase-adminsdk.json")
 firebase_admin.initialize_app(cred)
-
-
-class User(db.Model):
-    """One Firebase account, remembered so ratings have an owner."""
-
-    id = db.Column(db.Integer, primary_key=True)
-    uid = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(80), unique=True, nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)
-
-
-class Rating(db.Model):
-    """One user's score for one film."""
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.uid"), nullable=False)
-    movie_id = db.Column(db.Integer, nullable=False)
-    value = db.Column(db.Integer, nullable=False)
 
 
 with app.app_context():
@@ -84,7 +67,7 @@ def login() -> ResponseReturnValue:
         logger.info("login: %s", uid)
         email = decoded_token.get("email")
 
-        user = User.query.filter_by(uid=uid).first()
+        user = db.session.scalars(db.select(User).filter_by(uid=uid)).first()
         if user is None:
             user = User(uid=uid, email=email)
 
@@ -106,11 +89,13 @@ def count_user_ratings() -> ResponseReturnValue:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
 
-        user = User.query.filter_by(uid=user_id).first()
+        user = db.session.scalars(db.select(User).filter_by(uid=user_id)).first()
         if user is None:
             return jsonify({"message": "Error"}), HTTP_INTERNAL_SERVER_ERROR
 
-        rating_count = Rating.query.filter_by(user_id=user_id).count()
+        rating_count = db.session.scalar(
+            db.select(db.func.count()).select_from(Rating).filter_by(user_id=user_id)
+        )
     except (*AUTH_ERRORS, SQLAlchemyError) as exc:
         logger.exception("Could not count ratings")
         return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
@@ -166,7 +151,9 @@ def add_rating() -> ResponseReturnValue:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
 
-        rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
+        rating = db.session.scalars(
+            db.select(Rating).filter_by(user_id=user_id, movie_id=movie)
+        ).first()
         if rating is None:
             rating = Rating(user_id=user_id, movie_id=movie, value=value)
 
@@ -192,7 +179,9 @@ def remove_rating() -> ResponseReturnValue:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
 
-        rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
+        rating = db.session.scalars(
+            db.select(Rating).filter_by(user_id=user_id, movie_id=movie)
+        ).first()
         if rating is None:
             return jsonify({"message": "Error"}), HTTP_INTERNAL_SERVER_ERROR
 
@@ -213,7 +202,9 @@ def get_rating() -> ResponseReturnValue:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
 
-        rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
+        rating = db.session.scalars(
+            db.select(Rating).filter_by(user_id=user_id, movie_id=movie)
+        ).first()
         if rating is None:
             return jsonify({"message": "Rating not found!"}), HTTP_OK
     except (*AUTH_ERRORS, SQLAlchemyError) as exc:
