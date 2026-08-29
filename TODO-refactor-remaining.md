@@ -32,15 +32,14 @@ own docs and the rest of this fleet carry. A test asserts by raising.
 |---|---|
 | Baseline, before any of this | 9,281 |
 | After the format + safe-fix pass and excluding `TRAK/sightpy` | 3,686 |
-| **Now** | **308** |
+| **Now** | **156** |
 
 Courses at zero: `WDWR`, `SPD`, `MOM`, `ECRYPT`, `ECRYPT_PROJECT`, `ECOTE`,
-`NLP`, `EARIN`, `PORR`, `TRAK`, `twm_4`, `PBAD`. What is left, by course:
+`NLP`, `EARIN`, `PORR`, `TRAK`, `twm_4`, `PBAD`, `PSD`. What is left, by course:
 
 | Course | ruff | Can it be verified by running? |
 |---|---|---|
 | `ERSMS-project` | 156 | No: docker-compose course |
-| `PSD` | 152 | No: `run.sh` predates the harness and installs packages with sudo |
 
 `course_run.sh`'s notebook branch is fixed: it executes to a temp
 `--output-dir`, probes jupyter by running it rather than by `command -v`, and
@@ -82,7 +81,7 @@ RUFF findings unless it says otherwise**; only `TRAK` has been type-checked.
 | `TRAK` | **0** -- cleared 2026-08-29 |
 | `twm_4` | **0** -- cleared 2026-08-29 |
 | `PBAD` | not run (no venv; notebooks only) |
-| `PSD/zin1` | 5 |
+| `PSD` | **2**, both unfixable -- see below |
 
 Two structural notes for whoever runs it next:
 
@@ -95,9 +94,19 @@ Two structural notes for whoever runs it next:
   `mypy --strict --python-executable Programming/<course>/.venv/bin/python <dir>`.
   Without that, TRAK reported 4 phantom `matplotlib` import errors on top of
   the real ones.
+- **PSD keeps two mypy errors on purpose.** `--strict` implies
+  `disallow_subclassing_any`, and `temperature_anomaly_detector.py` has to
+  subclass pyflink's `MapFunction` and `KeyedProcessFunction`, which ship no
+  types. The only fixes are to weaken strict globally or to add an override
+  for our own module; neither is worth it, so the two are reported rather
+  than hidden. Everything else in PSD is clean under `--strict`.
+- Point `MYPYPATH` at `Programming/PSD/zin3/python/code` for that tree: the
+  modules import `model.*` via a runtime `sys.path.append`, which mypy
+  cannot follow.
 - `pyproject.toml` now carries a `[[tool.mypy.overrides]]` block with
   `ignore_missing_imports` for `Imath`, `OpenEXR`, `OpenGL` and `matplotlib`.
-  Those four ship neither stubs nor `py.typed`; without it mypy cannot import
+  Those (plus `keras`, `tensorflow`, `sklearn`, `seaborn`, `kafka` and
+  `pyflink`) ship neither stubs nor `py.typed`; without it mypy cannot import
   them at all and reports nothing else about the file. It is not a suppression
   of our own code -- do not extend it to anything we wrote.
 

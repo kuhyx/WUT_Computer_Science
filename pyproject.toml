@@ -86,6 +86,8 @@ module = [
     "tensorflow.*",
     "sklearn.*",
     "seaborn.*",
+    "kafka.*",
+    "pyflink.*",
 ]
 ignore_missing_imports = true
 

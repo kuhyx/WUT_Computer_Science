@@ -1,21 +1,40 @@
+#!/usr/bin/env python3
+"""A Tk window listing the alarms as they arrive on the Alarm topic.
+
+The Kafka consumer runs on a daemon thread and hands each alarm back to the Tk
+main loop with `root.after`, because Tk widgets may only be touched from the
+thread that created them.
+"""
+
+from __future__ import annotations
+
 import json
-import os
+import logging
 import sys
 import threading
 import tkinter as tk
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timezone
+from pathlib import Path
 from tkinter import ttk
 
 from confluent_kafka import Consumer
 
 # Add parent directory to path to import model
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 from model.temperature_alarm import TemperatureAlarm
+
+logger = logging.getLogger(__name__)
+
+# Milliseconds per second, for turning the wire timestamp into a datetime.
+MILLISECONDS = 1000
 
 
 class AlarmVisualizer:
-    def __init__(self, root):
+    """The window: a scrolling list of alarms and a per-thermometer tally."""
+
+    def __init__(self, root: tk.Tk) -> None:
+        """Build the widgets and start consuming."""
         self.root = root
         self.root.title("Temperature Alarm Visualizer")
         self.root.geometry("600x400")
@@ -39,14 +58,15 @@ class AlarmVisualizer:
         self.stats_label.pack(pady=5)
 
         # Stats tracking
-        self.thermometer_alarm_count = Counter()
+        self.thermometer_alarm_count: Counter[str] = Counter()
         self.max_alarms = 100
 
         # Start Kafka consumer in a separate thread
         self.consumer_thread = threading.Thread(target=self.consume_alarms, daemon=True)
         self.consumer_thread.start()
 
-    def consume_alarms(self):
+    def consume_alarms(self) -> None:
+        """Poll the Alarm topic forever, handing each alarm to the Tk thread."""
         # Set up Kafka consumer with confluent-kafka
         consumer_config = {
             "bootstrap.servers": "localhost:9092",
@@ -62,29 +82,39 @@ class AlarmVisualizer:
                 if msg is None:
                     continue
                 if msg.error():
-                    print(f"Consumer error: {msg.error()}")
+                    logger.error("Consumer error: %s", msg.error())
                     continue
 
                 # Parse the alarm message
-                alarm_data = json.loads(msg.value().decode("utf-8"))
+                value = msg.value()
+                if value is None:
+                    continue
+                alarm_data = json.loads(value.decode("utf-8"))
                 alarm = TemperatureAlarm.from_dict(alarm_data)
+                if alarm.timestamp is None or alarm.thermometer_id is None:
+                    logger.warning("Skipping malformed alarm: %s", alarm_data)
+                    continue
 
                 # Format the timestamp
-                timestamp_dt = datetime.fromtimestamp(alarm.timestamp / 1000)
+                timestamp_dt = datetime.fromtimestamp(
+                    alarm.timestamp / MILLISECONDS, tz=timezone.utc
+                ).astimezone()
                 formatted_date = timestamp_dt.strftime("%Y-%m-%d %H:%M:%S")
 
                 # Create alarm message
-                alarm_message = f"⚠️ ALARM: Thermometer {alarm.thermometer_id} reported {alarm.temperature:.2f}°C at {formatted_date}"
+                alarm_message = (
+                    f"⚠️ ALARM: Thermometer {alarm.thermometer_id} "
+                    f"reported {alarm.temperature:.2f}°C at {formatted_date}"
+                )
 
                 # Update the UI
                 self.root.after(0, self.update_ui, alarm_message, alarm.thermometer_id)
 
-        except Exception as e:
-            print(f"Error in Kafka consumer: {e}")
         finally:
             consumer.close()
 
-    def update_ui(self, alarm_message, thermometer_id):
+    def update_ui(self, alarm_message: str, thermometer_id: str) -> None:
+        """Insert one alarm at the top of the list and refresh the tally."""
         # Add new alarm to the top of the list
         self.alarm_list.insert(0, alarm_message)
 
@@ -98,17 +128,20 @@ class AlarmVisualizer:
         # Format stats string
         if self.thermometer_alarm_count:
             stats_parts = [
-                f"{id}={count}" for id, count in self.thermometer_alarm_count.items()
+                f"{name}={count}"
+                for name, count in self.thermometer_alarm_count.items()
             ]
             stats_text = "Alarm Counts: " + ", ".join(stats_parts)
             self.stats_label.config(text=stats_text)
 
 
-def main():
+def main() -> None:
+    """Open the window and run the Tk main loop."""
     root = tk.Tk()
-    app = AlarmVisualizer(root)
+    AlarmVisualizer(root)
     root.mainloop()
 
 
 if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
     main()
