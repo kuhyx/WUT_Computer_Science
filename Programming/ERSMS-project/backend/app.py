@@ -1,15 +1,44 @@
+#!/usr/bin/env python3
+"""The Firebase-authenticated API: log in, rate a movie, look films up on TMDB.
+
+Every route takes a Firebase ID token in the request body, verifies it, and
+uses the uid inside it as the identity. Ratings live in a local SQLite file;
+film metadata is proxied from TMDB.
+"""
+
+from __future__ import annotations
+
+import logging
 import os
+from typing import TYPE_CHECKING
 
 import firebase_admin
 import requests
 from dotenv import load_dotenv
-from firebase_admin import auth, credentials
+from firebase_admin import auth, credentials, exceptions
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import SQLAlchemyError
+
+if TYPE_CHECKING:
+    from flask.typing import ResponseReturnValue
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 TMDB_BEARER_TOKEN = os.getenv("TMDB_BEARER_TOKEN")
+
+# TMDB is a third party over the internet; never wait on it indefinitely.
+TMDB_TIMEOUT_SECONDS = 10
+
+HTTP_OK = 200
+HTTP_CREATED = 201
+HTTP_UNAUTHORIZED = 401
+HTTP_INTERNAL_SERVER_ERROR = 500
+
+# A token that will not verify, and a request the token owner may not make.
+AUTH_ERRORS = (exceptions.FirebaseError, ValueError, KeyError)
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.sqlite3"
@@ -24,6 +53,8 @@ firebase_admin.initialize_app(cred)
 
 
 class User(db.Model):
+    """One Firebase account, remembered so ratings have an owner."""
+
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
@@ -31,6 +62,8 @@ class User(db.Model):
 
 
 class Rating(db.Model):
+    """One user's score for one film."""
+
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.uid"), nullable=False)
     movie_id = db.Column(db.Integer, nullable=False)
@@ -42,12 +75,13 @@ with app.app_context():
 
 
 @app.route("/login", methods=["POST"])
-def login():
+def login() -> ResponseReturnValue:
+    """Verify the token and create the user row if this is their first visit."""
     token = request.json.get("token")
     try:
         decoded_token = auth.verify_id_token(token)
         uid = decoded_token["uid"]
-        print(uid)
+        logger.info("login: %s", uid)
         email = decoded_token.get("email")
 
         user = User.query.filter_by(uid=uid).first()
@@ -56,17 +90,17 @@ def login():
 
             db.session.add(user)
             db.session.commit()
-
-        return jsonify(
-            {"message": "Login successful!", "email": email, "is_admin": user.is_admin}
-        ), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": "Login failed"}), 401
+    except (*AUTH_ERRORS, SQLAlchemyError):
+        logger.exception("Login failed")
+        return jsonify({"message": "Login failed"}), HTTP_UNAUTHORIZED
+    return jsonify(
+        {"message": "Login successful!", "email": email, "is_admin": user.is_admin}
+    ), HTTP_OK
 
 
 @app.route("/count_user_ratings", methods=["POST"])
-def count_user_ratings():
+def count_user_ratings() -> ResponseReturnValue:
+    """Return how many films this user has rated."""
     token = request.json.get("token")
     try:
         decoded_token = auth.verify_id_token(token)
@@ -74,34 +108,36 @@ def count_user_ratings():
 
         user = User.query.filter_by(uid=user_id).first()
         if user is None:
-            return jsonify({"message": "Error"}), 500
+            return jsonify({"message": "Error"}), HTTP_INTERNAL_SERVER_ERROR
 
         rating_count = Rating.query.filter_by(user_id=user_id).count()
-        return jsonify(
-            {"message": "Ratings counted!", "rating_count": rating_count}
-        ), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": str(e)}), 500
+    except (*AUTH_ERRORS, SQLAlchemyError) as exc:
+        logger.exception("Could not count ratings")
+        return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
+    return jsonify(
+        {"message": "Ratings counted!", "rating_count": rating_count}
+    ), HTTP_OK
 
 
 @app.route("/movie/<int:movie_id>", methods=["GET"])
-def get_tmdb_data_movie_id(movie_id):
+def get_tmdb_data_movie_id(movie_id: int) -> ResponseReturnValue:
+    """Proxy one film's TMDB record."""
     url = f"https://api.themoviedb.org/3/movie/{movie_id}"
 
     headers = {"Authorization": f"Bearer {TMDB_BEARER_TOKEN}"}
 
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=TMDB_TIMEOUT_SECONDS)
         response.raise_for_status()
-        return jsonify(response.json()), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": str(e)}), 500
+    except requests.RequestException as exc:
+        logger.exception("TMDB lookup failed for %s", movie_id)
+        return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
+    return jsonify(response.json()), HTTP_OK
 
 
 @app.route("/movie", methods=["GET"])
-def get_tmdb_data_query():
+def get_tmdb_data_query() -> ResponseReturnValue:
+    """Search TMDB, or return what is trending today when there is no query."""
     query = request.args.get("query")
 
     if query:
@@ -112,26 +148,23 @@ def get_tmdb_data_query():
     headers = {"Authorization": f"Bearer {TMDB_BEARER_TOKEN}"}
 
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=TMDB_TIMEOUT_SECONDS)
         response.raise_for_status()
-        return jsonify(response.json()), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": str(e)}), 500
+    except requests.RequestException as exc:
+        logger.exception("TMDB search failed")
+        return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
+    return jsonify(response.json()), HTTP_OK
 
 
 @app.route("/rating", methods=["POST"])
-def add_rating():
+def add_rating() -> ResponseReturnValue:
+    """Record this user's score for a film, or update it if they had one."""
     token = request.json.get("token")
     movie = request.json.get("movie")
     value = request.json.get("value")
     try:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
-
-        # user = User.query.filter_by(uid=user_id).first()
-        # if user is None:
-        #     return jsonify({'message': 'Error'}), 500
 
         rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
         if rating is None:
@@ -140,67 +173,64 @@ def add_rating():
             db.session.add(rating)
             db.session.commit()
 
-            return jsonify({"message": "Rating added successfully!"}), 201
+            return jsonify({"message": "Rating added successfully!"}), HTTP_CREATED
         rating.value = value
 
         db.session.commit()
-
-        return jsonify({"message": "Rating updated successfully!"}), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": str(e)}), 500
+    except (*AUTH_ERRORS, SQLAlchemyError) as exc:
+        logger.exception("Could not add rating")
+        return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
+    return jsonify({"message": "Rating updated successfully!"}), HTTP_OK
 
 
 @app.route("/rating", methods=["DELETE"])
-def remove_rating():
+def remove_rating() -> ResponseReturnValue:
+    """Delete this user's score for a film."""
     token = request.json.get("token")
     movie = request.json.get("movie")
     try:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
 
-        # user = User.query.filter_by(uid=user_id).first()
-        # if user is None:
-        #     return jsonify({'message': 'Error'}), 500
-
         rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
         if rating is None:
-            return jsonify({"message": "Error"}), 500
+            return jsonify({"message": "Error"}), HTTP_INTERNAL_SERVER_ERROR
 
         db.session.delete(rating)
         db.session.commit()
-
-        return jsonify({"message": "Rating removed successfully!"}), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": str(e)}), 500
+    except (*AUTH_ERRORS, SQLAlchemyError) as exc:
+        logger.exception("Could not remove rating")
+        return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
+    return jsonify({"message": "Rating removed successfully!"}), HTTP_OK
 
 
 @app.route("/get_rating", methods=["POST"])
-def get_rating():
+def get_rating() -> ResponseReturnValue:
+    """Return this user's score for a film, if they have given one."""
     token = request.json.get("token")
     movie = request.json.get("movie")
     try:
         decoded_token = auth.verify_id_token(token)
         user_id = decoded_token["uid"]
 
-        # user = User.query.filter_by(uid=user_id).first()
-        # if user is None:
-        #     return jsonify({'message': 'Error'}), 500
-
         rating = Rating.query.filter_by(user_id=user_id, movie_id=movie).first()
         if rating is None:
-            return jsonify({"message": "Rating not found!"}), 200
-        return jsonify(
-            {
-                "message": "Rating found!",
-                "movie": rating.movie_id,
-                "value": rating.value,
-            }
-        ), 200
-    except Exception as e:
-        print(e)
-        return jsonify({"message": str(e)}), 500
+            return jsonify({"message": "Rating not found!"}), HTTP_OK
+    except (*AUTH_ERRORS, SQLAlchemyError) as exc:
+        logger.exception("Could not read rating")
+        return jsonify({"message": str(exc)}), HTTP_INTERNAL_SERVER_ERROR
+    return jsonify(
+        {
+            "message": "Rating found!",
+            "movie": rating.movie_id,
+            "value": rating.value,
+        }
+    ), HTTP_OK
 
 
-app.run(host="0.0.0.0", port=8084)
+if __name__ == "__main__":
+    logging.basicConfig(format="%(message)s", level=logging.INFO)
+    # Inside a container the service must bind every interface or the
+    # published port is unreachable, so docker-compose sets ERSMS_HOST. The
+    # default is loopback, which is the safe thing to do outside Docker.
+    app.run(host=os.environ.get("ERSMS_HOST", "127.0.0.1"), port=8084)

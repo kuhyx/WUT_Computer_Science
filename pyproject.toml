@@ -88,6 +88,9 @@ module = [
     "seaborn.*",
     "kafka.*",
     "pyflink.*",
+    "pandas.*",
+    "psycopg2.*",
+    "firebase_admin.*",
 ]
 ignore_missing_imports = true
 
