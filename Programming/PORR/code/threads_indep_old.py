@@ -5,17 +5,21 @@ import gc
 import logging
 import multiprocessing
 import time
-from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
+from typing import TYPE_CHECKING
 
 import linear_algebra_utils as lin_alg
 import numpy as np
-from richardson_problem import Problem, Settings
 from time_measurement import (
     longest_threads_time_accumulator,
     tests_time,
     time_measurement_longest,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    from richardson_problem import Problem, Settings
 
 logger = logging.getLogger(__name__)
 

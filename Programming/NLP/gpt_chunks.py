@@ -4,11 +4,15 @@
 import logging
 import os
 import re
-from collections.abc import Callable
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from openai import OpenAI
-from openai.types.chat import ChatCompletion
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    from openai.types.chat import ChatCompletion
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(format="%(message)s", level=logging.INFO)

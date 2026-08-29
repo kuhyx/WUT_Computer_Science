@@ -7,14 +7,17 @@ import multiprocessing
 import sys
 import threading
 import time
+from typing import TYPE_CHECKING
 
 import numpy as np
-from richardson_problem import Problem, Settings
 from time_measurement import (
     longest_time_accumulator,
     tests_time,
     time_measurement_longest,
 )
+
+if TYPE_CHECKING:
+    from richardson_problem import Problem, Settings
 
 logger = logging.getLogger(__name__)
 

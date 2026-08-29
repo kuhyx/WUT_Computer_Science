@@ -14,7 +14,7 @@ import os
 import time
 from configparser import ConfigParser
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 import pandas as pd
@@ -89,9 +89,7 @@ MOVIES = Movies()
 @cache.cached(timeout=69)
 def hello() -> ResponseReturnValue:
     """Liveness check."""
-    return jsonify(
-        {"response": "Hello there", "time": datetime.now(tz=timezone.utc)}
-    ), HTTP_OK
+    return jsonify({"response": "Hello there", "time": datetime.now(tz=UTC)}), HTTP_OK
 
 
 # endpoint do wyciągania danych o userze

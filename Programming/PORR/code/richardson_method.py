@@ -4,12 +4,15 @@
 import gc
 import logging
 import time
+from typing import TYPE_CHECKING
 
 import linear_algebra_utils as lin_alg
 import numpy as np
 from processing_type import ProcessingType
-from richardson_problem import Problem, Settings
 from time_measurement import tests_time, time_accumulator, time_measurement
+
+if TYPE_CHECKING:
+    from richardson_problem import Problem, Settings
 
 # These helpers are called with numpy arrays in some backends and plain
 # Python lists in others, which is the point of the comparison this course

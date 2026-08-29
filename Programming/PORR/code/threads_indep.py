@@ -4,16 +4,19 @@
 import gc
 import logging
 import time
+from typing import TYPE_CHECKING
 
 import linear_algebra_utils as lin_alg
 import numpy as np
 from numba import njit, prange
-from richardson_problem import Problem, Settings
 from time_measurement import (
     longest_threads_time_accumulator,
     tests_time,
     time_measurement_longest,
 )
+
+if TYPE_CHECKING:
+    from richardson_problem import Problem, Settings
 
 logger = logging.getLogger(__name__)
 

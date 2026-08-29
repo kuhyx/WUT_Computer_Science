@@ -14,7 +14,7 @@ import sys
 import threading
 import tkinter as tk
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from tkinter import ttk
 
@@ -97,7 +97,7 @@ class AlarmVisualizer:
 
                 # Format the timestamp
                 timestamp_dt = datetime.fromtimestamp(
-                    alarm.timestamp / MILLISECONDS, tz=timezone.utc
+                    alarm.timestamp / MILLISECONDS, tz=UTC
                 ).astimezone()
                 formatted_date = timestamp_dt.strftime("%Y-%m-%d %H:%M:%S")
 

@@ -9,12 +9,15 @@ import logging
 import sys
 import tempfile
 import time
-from collections.abc import Callable
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 # cv2.waitKey returns the ASCII code of the key pressed; 'q' quits.
 KEY_Q = ord("q")

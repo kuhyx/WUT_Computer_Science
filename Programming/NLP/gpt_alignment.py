@@ -8,9 +8,12 @@ them here would put newlines into the middle of the prompt itself.
 
 import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-import pandas as pd
 from openai import OpenAI
+
+if TYPE_CHECKING:
+    import pandas as pd
 
 PROMPTS = Path(__file__).parent / "prompts"
 THE_PROMPT = (PROMPTS / "alignment.txt").read_text(encoding="utf-8")

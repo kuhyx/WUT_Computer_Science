@@ -466,7 +466,7 @@ def write_test_results(title: str, result: object = "") -> None:
         Path("test_results").mkdir(parents=True)
 
     # Generate timestamped filename
-    timestamp = datetime.datetime.now(tz=datetime.timezone.utc).strftime(
+    timestamp = datetime.datetime.now(tz=datetime.UTC).strftime(
         "%Y%m%d%H%M%S"
     )  # e.g., 20230611235959
     filename = f"{title}_{timestamp}.txt"

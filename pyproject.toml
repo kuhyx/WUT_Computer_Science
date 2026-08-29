@@ -7,7 +7,7 @@
 # on its own, or the gates start disagreeing about what is kuhy's code.
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py314"
 line-length = 88
 include = ["*.py", "**/*.py", "*.ipynb", "**/*.ipynb"]
 
