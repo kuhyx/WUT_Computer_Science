@@ -52,7 +52,7 @@ _probe() {
             _runnable "compiles each standalone .cpp"
             ;;
         notebook)
-            _works jupyter || _blocked "needs jupyter"
+            _require_working jupyter
             # Being on PATH is not the same as working: this machine has a
             # jupyter shim whose pipx venv interpreter is gone, so it fails
             # with "bad interpreter". Probe by actually invoking it.

@@ -181,7 +181,7 @@ _run() {
             printf 'binaries in %s/build\n' "$COURSE_ROOT" 
             ;;
         notebook)
-            _works jupyter || _blocked "needs jupyter"
+            _require_working jupyter
             # NOT --inplace: all four notebooks in this repo are tracked WITH
             # their outputs, so executing in place rewrites a deliverable.
             # --output-dir sends the executed copy to a temp dir instead.

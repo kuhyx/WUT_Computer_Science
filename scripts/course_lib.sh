@@ -39,6 +39,15 @@ _have() { command -v "$1" > /dev/null 2>&1; }
 # _works only for tools that answer --version; _have is right for the rest.
 _works() { _have "$1" && timeout 5 "$1" --version > /dev/null 2>&1; }
 
+# Blocked-with-a-reason for a tool that has to actually run. "needs jupyter"
+# and "jupyter is on PATH but does not run" send you to different fixes, and
+# the status table is only worth keeping if it says which.
+_require_working() {
+    local tool="$1"
+    _have "$tool" || _blocked "needs $tool"
+    _works "$tool" || _blocked "$tool is on PATH but does not run (dead shim)"
+}
+
 # Report "blocked" with the reason, which is the whole point of the status
 # table: "needs X" is useful, "failed" is not.
 _blocked() {
