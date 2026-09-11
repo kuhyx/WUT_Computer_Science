@@ -2,7 +2,7 @@
 #
 # THE source of truth for "not kuhy's code". Every gate reads this list:
 #   - the 250-line cap and the md-naming gate, via the "WUT_Computer_Science"
-#     key in VENDORED_SUBPATHS (~/utils/file_length/_tables.py)
+#     key in VENDORED_SUBPATHS (~/src/utils/file_length/_tables.py)
 #   - ruff, via [tool.ruff] exclude in pyproject.toml
 #   - coverage, via [tool.coverage.run] omit
 #   - prettier, via .prettierignore

@@ -12,7 +12,7 @@ finished, and the value is that it still builds, runs and is readable.
 | `Programming/` | 25 course dirs with real code (Python, C/C++, Java, TS/Angular, C#, Unity, MATLAB-adjacent). |
 | `NotProgramming/` | 19 course dirs that are mostly LaTeX reports, PDFs and EDA schematics. Exceptions: `ENUME` (MATLAB), `STUP/makieta` (Angular), `EDABA-LAB` (SQL). |
 | `gates/` | Machine-readable gate inputs. `vendored.txt` is the source of truth for "not my code". |
-| `scripts/` | Repo-local gates. Shims that `exec` into `~/utils` live here too. |
+| `scripts/` | Repo-local gates. Shims that `exec` into `~/src/utils` live here too. |
 
 Two structural facts that surprise people:
 
@@ -81,7 +81,7 @@ check.
 ### Everything
 
 - **Every file is at most 250 lines, source and prose alike**, enforced by the
-  shared gate in `~/utils`. There is deliberately no baseline and no
+  shared gate in `~/src/utils`. There is deliberately no baseline and no
   allowlist: split the file. For a LaTeX report that means `\input{}` per
   section; for a markdown report, sibling `DOCS-*.md` files behind an index.
 - **Coursework is held to the same bar as the tooling.** It gets the full
@@ -102,7 +102,7 @@ check.
 `gates/vendored.txt` is the only place a path becomes exempt from lint,
 coverage and the cap. Every entry carries a reason **and how it was
 verified** — an unverified entry is a suppression wearing a costume. The list
-is mirrored into `~/utils/file_length/_tables.py`, `[tool.ruff] exclude` and
+is mirrored into `~/src/utils/file_length/_tables.py`, `[tool.ruff] exclude` and
 `[tool.coverage.run] omit`; edit the manifest, never a mirror.
 
 ### Python

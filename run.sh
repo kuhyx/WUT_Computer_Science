@@ -196,7 +196,7 @@ cmd_sync_vendored() {
     log "gates/vendored.txt declares:"
     grep -vE '^\s*#|^\s*$' "${SCRIPT_DIR}/gates/vendored.txt" | sed 's/^/    /'
     printf '\nMirrored into:\n'
-    printf '    ~/utils/file_length/_tables.py  VENDORED_SUBPATHS["WUT_Computer_Science"]\n'
+    printf '    ~/src/utils/file_length/_tables.py  VENDORED_SUBPATHS["WUT_Computer_Science"]\n'
     printf '    pyproject.toml                  [tool.ruff] exclude (Milestone 4)\n'
     printf '    pyproject.toml                  [tool.coverage.run] omit (Milestone 4)\n'
 }

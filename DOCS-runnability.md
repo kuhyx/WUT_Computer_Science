@@ -37,7 +37,7 @@ run cannot clobber the local column.
 | `Programming/EADS` | runnable | - | compiles each standalone .cpp |
 | `Programming/EARIN` | runnable | - | python3 the entry script |
 | `Programming/ECOAR` | runnable | - | make |
-| `Programming/ECOTE` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/ECOTE/program/translator/main.py |
+| `Programming/ECOTE` | runnable | - | python3 /home/kuhy/src/WUT_Computer_Science/Programming/ECOTE/program/translator/main.py |
 | `Programming/ECRYPT` | no-code | - | test1.py is a 0-byte stub; this course produced no submitted code |
 | `Programming/ECRYPT_PROJECT` | runnable | - | python3 the entry script |
 | `Programming/EGUI` | runnable | - | dotnet build |
@@ -48,10 +48,10 @@ run cannot clobber the local column.
 | `Programming/ERSMS-project` | runnable | - | docker compose up |
 | `Programming/NLP` | runnable | - | python3 the entry script |
 | `Programming/PBAD` | blocked | - | jupyter is on PATH but does not run (dead shim) |
-| `Programming/PORR` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/PORR/code/main.py |
+| `Programming/PORR` | runnable | - | python3 /home/kuhy/src/WUT_Computer_Science/Programming/PORR/code/main.py |
 | `Programming/PSD` | runnable | - | starts the Kafka/Flink stack (installs packages with sudo) |
 | `Programming/psd_project` | runnable | - | mvn package |
-| `Programming/TRAK` | runnable | - | python3 /home/kuhy/WUT_Computer_Science/Programming/TRAK/main.py |
+| `Programming/TRAK` | runnable | - | python3 /home/kuhy/src/WUT_Computer_Science/Programming/TRAK/main.py |
 | `Programming/twm_4` | blocked | - | jupyter is on PATH but does not run (dead shim) |
 | `Programming/USD` | no-code | - | README describes a MetaDrive RL assignment; no implementation was submitted |
 | `Programming/WDWR` | runnable | - | python3 the entry script |

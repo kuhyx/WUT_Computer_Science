@@ -19,7 +19,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SCRIPT_DIR
-readonly UTILS_ROOT="${UTILS_ROOT:-$HOME/utils}"
+readonly UTILS_ROOT="${UTILS_ROOT:-$HOME/src/utils}"
 
 CHECK_ONLY=0
 

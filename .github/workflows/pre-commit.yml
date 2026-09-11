@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # scripts/check_md_naming.sh is a thin shim that execs the shared gate
-      # out of the utils repo. A runner has no ~/utils, so without this the
+      # out of the utils repo. A runner has no ~/src/utils, so without this the
       # hook fails with "shared gate not found".
       UTILS_ROOT: ${{ github.workspace }}/.utils
     steps:

@@ -84,7 +84,7 @@ repos:
         pass_filenames: false
         always_run: true
 
-      # Thin shim into ~/utils, which owns the four markdown namespaces.
+      # Thin shim into ~/src/utils, which owns the four markdown namespaces.
       - id: md-naming
         name: markdown naming convention
         entry: scripts/check_md_naming.sh

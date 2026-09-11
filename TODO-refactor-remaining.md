@@ -10,7 +10,7 @@ one specific blocking decision.
 
 | Area | State |
 |---|---|
-| Vendored manifest | `gates/vendored.txt`, 8 entries, mirrored into `~/utils` |
+| Vendored manifest | `gates/vendored.txt`, 8 entries, mirrored into `~/src/utils` |
 | Build artifacts | 189 untracked, `.gitignore` closed, 0 tracked-but-ignored files |
 | no-binaries gate | Path-scoped `.binary-allowlist`; verified blocking AND passing |
 | Markdown | 4 namespaces, all under 250 lines, `CLAUDE.md` written |

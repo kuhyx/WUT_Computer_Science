@@ -12,11 +12,11 @@ Nothing here blocks the refactor. It blocks exactly one step — installing the
 `file-length` pre-commit hook and workflow — so it must be settled before that
 lands, and not before.
 
-Run `bash ~/utils/scripts/check_file_length.sh --all` to see the current list.
+Run `bash ~/src/utils/scripts/check_file_length.sh --all` to see the current list.
 
 ## Why the existing mechanism does not cover them
 
-`VENDORED_SUBPATHS` in `~/utils/file_length/_tables.py` matches **directory
+`VENDORED_SUBPATHS` in `~/src/utils/file_length/_tables.py` matches **directory
 prefixes** (`/{repo}/{sub}/`). That is enough for the 7 entries already in
 `gates/vendored.txt`, and it is not enough here:
 
@@ -85,7 +85,7 @@ submission alters what was submitted.
 ## Options
 
 **A. Extend the shared manifest to support file paths.** Teach
-`~/utils/file_length/exemptions.py:is_vendored` to read `gates/vendored.txt` at
+`~/src/utils/file_length/exemptions.py:is_vendored` to read `gates/vendored.txt` at
 the repo root, supporting exact files as well as directories. This is the design
 originally chosen (one root manifest consumed by every gate) and is the only
 option that handles all four categories.
@@ -101,6 +101,6 @@ WDWR submission-copy files. Does not address category 1.
 paths listed here, and treat the list as the record. Honest, but it is an
 allowlist by another name, which the fleet rules reject.
 
-Recommendation: **A**, taken as its own `~/utils` change with its own tests and
+Recommendation: **A**, taken as its own `~/src/utils` change with its own tests and
 CI job, sequenced before Milestone 2 step 4. B as a fallback for categories 2–3
 if A is judged too large, leaving categories 1 and 4 to a narrower version of A.

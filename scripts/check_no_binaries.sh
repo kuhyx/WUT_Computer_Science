@@ -1,9 +1,9 @@
 #!/bin/bash
 # Pre-commit hook: block binary and image files from being committed.
 #
-# Copied from ~/testsAndMisc/meta/scripts/check_no_binaries.sh, which is where
-# this gate lives today (it is NOT in the shared ~/utils gate set). Keep the two
-# in step, and prefer moving it to ~/utils over letting them drift -- a
+# Copied from ~/src/testsAndMisc/meta/scripts/check_no_binaries.sh, which is where
+# this gate lives today (it is NOT in the shared ~/src/utils gate set). Keep the two
+# in step, and prefer moving it to ~/src/utils over letting them drift -- a
 # hand-copied gate is exactly what produced four forks of the 250-line cap.
 #
 # Only the remedy text differs: "move it to a sibling _binaries/ dir" is wrong
