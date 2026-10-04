@@ -489,3 +489,7 @@ gates/runnability-ci.tsv
 
 # Per-course virtualenvs created by ./run.sh run.
 .venv/
+
+# test coverage output
+.coverage
+coverage.xml

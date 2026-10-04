@@ -155,3 +155,12 @@ applies.
 | `.binary-allowlist` | Path-scoped: deliverables allowed under the two course trees, compiled output allowed nowhere. |
 | `DOCS-runnability.md` | Per-course run status, recorded separately for `local` and `ci`. |
 | `TODO-*.md` | Open decisions. Each carries the removal marker and is deleted when the work lands. |
+
+## Commands
+
+- run: n/a: coursework archive; per course use `./run.sh run <dir>`
+- test: `scripts/test_suites.sh`
+- test-changed: `scripts/test_changed.sh`
+- lint: `ruff check .`
+- coverage: `COVERAGE=1 scripts/test_suites.sh`
+- coverage-gaps: `coverage-gaps coverage.xml`
