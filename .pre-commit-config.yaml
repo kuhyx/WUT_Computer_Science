@@ -4,7 +4,7 @@
 # Ordering rule for this repo: a hook lands only once the thing it gates is
 # already clean, so `pre-commit run --all-files` is green at every commit.
 # Hooks still to come, each blocked on its own cleanup:
-#   - file-length      blocked on the .tex/code splits and TODO-file-length-250.md
+#   - file-length      blocked on the .tex/code splits (27 files, TODO-refactor-remaining.md)
 #   - mypy             the six third-party-typing errors are GONE (ERSMS moved
 #                      to a typed DeclarativeBase; PSD has a scoped override).
 #                      Still blocked on ECOTE/NLP/EARIN, and on the fact that

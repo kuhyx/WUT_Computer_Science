@@ -1,0 +1,12 @@
+# Data files the 250-line cap reads as prose. In every one a line is a record,
+# so splitting would corrupt it. Authored code beside them stays gated.
+Programming/NLP/test_goldStandard/*/STSint.testinput.*.txt  # official SemEval 2016 Task 2 iSTS test set, listed in test_goldStandard/00-README.txt
+Programming/NLP/test_goldStandard/*/*-chunks-gpt-*.txt  # recorded output of paid non-deterministic GPT runs (gpt_chunks.py); the experimental record
+Programming/NLP/alignments_unformatted_*.txt  # NLP pipeline stage data, one alignment per line, read by create_alignments.py and format_alignments.py
+Programming/NLP/output.txt  # NLP pipeline stage data, one record per line
+Programming/NLP/reformated.txt  # NLP pipeline stage data, one record per line
+Programming/WDWR/projekt/old_code/data10000.txt  # numeric matrix, 10000 scenario rows, solver input
+Programming/WDWR/projekt/R/scenarios.txt  # generated scenario vectors, one per line
+Programming/WDWR/projekt/wdwr/solutions1.txt  # CPLEX MILP solver log
+Programming/WDWR/projekt/wdwr/KRZYSZTOF_RUDNICKI_307585_WDWR_PROJEKT/scenarios.txt  # submitted copy of scenarios.txt, must stay byte-identical
+Programming/WDWR/projekt/wdwr/KRZYSZTOF_RUDNICKI_307585_WDWR_PROJEKT/solutions1.txt  # submitted copy of the CPLEX solver log, must stay byte-identical

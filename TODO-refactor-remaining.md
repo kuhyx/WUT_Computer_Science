@@ -3,8 +3,8 @@
 REMOVE ME AFTER FINISH
 
 What is done, what is not, and the real numbers, re-measured 2026-08-28 after
-the lint campaign started. Companion to `TODO-file-length-250.md`, which parks
-one specific blocking decision.
+the lint campaign started. The 27 data `.txt` files the cap misread as prose
+are exempted per file in `.file-length-exempt` (reason per entry, 2026-11-01).
 
 ## Done
 
@@ -150,12 +150,11 @@ fell out is a course that had never been run by the harness at all:
 
 ## Still open
 
-### 1. The 250-line cap: 50 files
+### 1. The 250-line cap: 27 files
 
 | Type | Count | Note |
 |---|---|---|
-| `.txt` | 27 | Blocked -- see `TODO-file-length-250.md` |
-| `.py` | 10 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during. TRAK is already clear: its three over-cap files were split in the same pass that linted them, each verified by a byte-identical render. `twm_4/TWM_KerasIntro.py` joined the list at 407 lines and should NOT be split: it is an nbconvert export, and a partial one |
+| `.py` | 11 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during. TRAK is already clear: its three over-cap files were split in the same pass that linted them, each verified by a byte-identical render. `twm_4/TWM_KerasIntro.py` joined the list at 407 lines and should NOT be split: it is an nbconvert export, and a partial one |
 | `.cpp` | 9 | |
 | `.c` | 4 | |
 | `.java` | 2 | |
