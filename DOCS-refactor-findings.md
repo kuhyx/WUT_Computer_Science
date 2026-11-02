@@ -1,26 +1,6 @@
-# TODO: remaining work on the gate refactor
+# Refactor findings
 
-REMOVE ME AFTER FINISH
-
-What is done, what is not, and the real numbers, re-measured 2026-08-28 after
-the lint campaign started. The 27 data `.txt` files the cap misread as prose
-are exempted per file in `.file-length-exempt` (reason per entry, 2026-11-01).
-
-## Done
-
-| Area | State |
-|---|---|
-| Vendored manifest | `gates/vendored.txt`, 8 entries, mirrored into `~/src/utils` |
-| Build artifacts | 189 untracked, `.gitignore` closed, 0 tracked-but-ignored files |
-| no-binaries gate | Path-scoped `.binary-allowlist`; verified blocking AND passing |
-| Markdown | 4 namespaces, all under 250 lines, `CLAUDE.md` written |
-| pre-commit | 15 hooks, green on all files -- `ruff`, `ruff format` and `no-suppressions` landed 2026-08-29 |
-| pre-push | `pre-commit install --hook-type pre-push` via `install.sh` |
-| GitHub CI | `pre-commit` + `md-naming`, both green |
-| run.sh | Root harness + per-course runners over one shared library |
-| `pyproject.toml` | `select = ["ALL"]`, mypy strict, coverage config. **No hook wired up yet** |
-| LaTeX 250-line cap | 19 reports split, every rebuilt PDF verified identical. 1 left |
-| ZPOB | Fixed: builds with `--no-bibtex`, exits 0 |
+Moved verbatim from the retired TODO-refactor-remaining.md (measured 2026-08-28/29).
 
 ## The lint campaign
 
@@ -148,34 +128,8 @@ fell out is a course that had never been run by the harness at all:
   it is recorded rather than done. `git checkout --` restores the file
   meanwhile; the guard is what makes that recoverable at all.
 
-## Still open
 
-### 1. The 250-line cap: 27 files
-
-| Type | Count | Note |
-|---|---|---|
-| `.py` | 11 | Several GREW during the lint pass, because docstrings and annotations are lines: `NLP/gpt_chunks.py` 911 -> 973, `EARIN/lab2/main.py` 581 -> 647, `PORR/.../linear_algebra_utils.py` 422 -> 553. Split them AFTER the lint work, not during. TRAK is already clear: its three over-cap files were split in the same pass that linted them, each verified by a byte-identical render. `twm_4/TWM_KerasIntro.py` joined the list at 407 lines and should NOT be split: it is an nbconvert export, and a partial one |
-| `.cpp` | 9 | |
-| `.c` | 4 | |
-| `.java` | 2 | |
-| `.tex` | 1 | `ELAC/.../03-building-nfa-...tex`, 418 lines of consecutive tikz figures with no subsection to split on |
-
-### 2. Coverage
-
-`gates/coverage.tsv` is designed but not written, and there are 125 tests for
-~28k lines. The largest remaining item by a wide margin.
-
-### 3. Dependency freshness
-
-9 `requirements.txt`, 5 `package.json`, 7 `pom.xml`, 1 `.csproj`, none pinned.
-**The upgrade and the gate must land in the SAME commit.**
-
-### 4. File-rewriting hooks
-
-`trailing-whitespace` and `end-of-file-fixer` are deliberately absent; they
-want their own reviewed commit.
-
-### 5. Three checks that must be run on every future pass
+## Three checks that must be run on every future pass
 
 `scripts/check_refactor_safety.py` exists because ruff and a smoke run BOTH
 missed three regressions this campaign introduced. Run it before and after any
@@ -201,14 +155,3 @@ drifts by ~20 between runs on its own. Where an RNG is unavoidable, do the
 restructure and the `NPY002` swap as SEPARATE steps: the first must be
 bit-identical under an external seed, only the second may move the pixels.
 
-### 6. Disk
-
-`Programming/PORR/code/` holds 3.8 GB of generated .npz caches (poli3 alone is
-2.3 GB). All gitignored, all regenerable, none of it needed unless the full
-benchmark is re-run.
-
-## Standing rule
-
-A gate lands only once the thing it gates is clean, so `pre-commit run
---all-files` is green at every commit. Every hook still missing from
-`.pre-commit-config.yaml` is listed there with what blocks it.
