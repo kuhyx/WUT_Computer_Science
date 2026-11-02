@@ -21,6 +21,7 @@ default_language_version:
 default_stages: [pre-commit]
 fail_fast: false
 
+default_install_hook_types: [pre-commit, pre-push, post-commit, post-merge, post-rewrite]
 repos:
   # Landed 2026-08-29, the day the archive first reached zero ruff findings
   # repo-wide. Pinned exactly, per rules/dependency-freshness: 0.16.5 is the
@@ -96,6 +97,30 @@ repos:
         entry: scripts/check_md_naming.sh
         language: system
         files: \.(md|markdown)$
+
+      - id: todo-closer
+        name: close Todo trailer tasks
+        entry: scripts/todo_hooks.sh closer
+        language: system
+        stages: [post-commit]
+        always_run: true
+        pass_filenames: false
+
+      - id: todo-import-pr-merge
+        name: import PR Todo sections (pull)
+        entry: scripts/todo_hooks.sh import-pr post-merge
+        language: system
+        stages: [post-merge]
+        always_run: true
+        pass_filenames: false
+
+      - id: todo-import-pr-rewrite
+        name: import PR Todo sections (pull --rebase)
+        entry: scripts/todo_hooks.sh import-pr post-rewrite
+        language: system
+        stages: [post-rewrite]
+        always_run: true
+        pass_filenames: false
 
       # CLAUDE.md has always said a hook rejects these. Now one does.
       - id: no-suppressions
